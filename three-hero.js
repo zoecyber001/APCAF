@@ -1,6 +1,7 @@
 /**
  * APCAF Three.js 3D Holographic Security Shield & Orbital Radar
  * High-performance WebGL 3D visualization rendered seamlessly without clipping
+ * Architectural Monochromatic Tones with Subtle Slate Accents
  */
 
 function initThreeHero() {
@@ -23,24 +24,24 @@ function initThreeHero() {
   container.innerHTML = "";
   container.appendChild(renderer.domElement);
 
-  // 2. Core Polyhedral Wireframe Shield (Outer Icosahedron)
+  // 2. Core Polyhedral Wireframe Shield (Outer Icosahedron in Obsidian/Carbon)
   const shieldGeo = new THREE.IcosahedronGeometry(1.85, 2);
   const shieldMat = new THREE.MeshBasicMaterial({
-    color: 0x0284c7,
+    color: 0x18181b,
     wireframe: true,
     transparent: true,
-    opacity: 0.4
+    opacity: 0.35
   });
   const shieldMesh = new THREE.Mesh(shieldGeo, shieldMat);
   scene.add(shieldMesh);
 
-  // 3. Inner Holographic Core (Octahedron)
+  // 3. Inner Holographic Core (Octahedron in Dark Graphite)
   const coreGeo = new THREE.OctahedronGeometry(1.05, 0);
   const coreMat = new THREE.MeshBasicMaterial({
-    color: 0x0ea5e9,
+    color: 0x09090b,
     wireframe: true,
     transparent: true,
-    opacity: 0.7
+    opacity: 0.65
   });
   const coreMesh = new THREE.Mesh(coreGeo, coreMat);
   scene.add(coreMesh);
@@ -48,10 +49,10 @@ function initThreeHero() {
   // 4. Concentric Orbital Scan Rings (Proportionately scaled)
   const ringGeo1 = new THREE.RingGeometry(2.3, 2.34, 64);
   const ringMat1 = new THREE.MeshBasicMaterial({
-    color: 0x38bdf8,
+    color: 0x27272a,
     side: THREE.DoubleSide,
     transparent: true,
-    opacity: 0.45
+    opacity: 0.35
   });
   const ringMesh1 = new THREE.Mesh(ringGeo1, ringMat1);
   ringMesh1.rotation.x = Math.PI / 3;
@@ -62,14 +63,14 @@ function initThreeHero() {
     color: 0x0284c7,
     side: THREE.DoubleSide,
     transparent: true,
-    opacity: 0.35
+    opacity: 0.25
   });
   const ringMesh2 = new THREE.Mesh(ringGeo2, ringMat2);
   ringMesh2.rotation.y = Math.PI / 4;
   ringMesh2.rotation.x = -Math.PI / 6;
   scene.add(ringMesh2);
 
-  // 5. Floating Particle Cloud
+  // 5. Floating Particle Cloud (Carbon / Charcoal)
   const particleCount = 140;
   const particleGeo = new THREE.BufferGeometry();
   const particlePositions = new Float32Array(particleCount * 3);
@@ -86,10 +87,10 @@ function initThreeHero() {
 
   particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
   const particleMat = new THREE.PointsMaterial({
-    color: 0x0284c7,
+    color: 0x09090b,
     size: 0.075,
     transparent: true,
-    opacity: 0.65
+    opacity: 0.55
   });
   const particleSystem = new THREE.Points(particleGeo, particleMat);
   scene.add(particleSystem);

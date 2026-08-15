@@ -1,7 +1,7 @@
 /* ==========================================================================
-   APCAF - High-Precision Executive Light Theme & Responsive Design System
+   APCAF - High-Precision Executive Architectural Light Theme
    Pristine White Surface, Seamless Floating 3D WebGL Shield,
-   High-End Glassmorphic Floating Island Navigation, Zero Emojis (SVG Vector Icons)
+   High-End Glassmorphic Floating Island Navigation, Refined Monochromatic Palette
    Typography: Geist & Clash Display (Headings), Geist / Plus Jakarta Sans (Body), JetBrains Mono (Code/IDs)
    ========================================================================== */
 
@@ -18,8 +18,8 @@
   /* Hairline Precision Borders & Calipers */
   --border-subtle: rgba(0, 0, 0, 0.06);
   --border-card: rgba(0, 0, 0, 0.08);
-  --border-active: rgba(0, 0, 0, 0.20);
-  --border-accent: rgba(2, 132, 199, 0.35);
+  --border-active: rgba(0, 0, 0, 0.22);
+  --border-dark: #09090b;
 
   /* Obsidian & High-Legibility Slate Typography */
   --text-pure: #09090b;
@@ -33,21 +33,22 @@
   --btn-primary-text: #ffffff;
   --btn-primary-hover: #27272a;
 
-  /* Spec Verdicts & Status Badges */
-  --status-hardened: #059669;
-  --status-hardened-bg: rgba(5, 150, 105, 0.08);
-  --status-hardened-border: rgba(5, 150, 105, 0.25);
+  /* Refined Architectural Status Tones (Monochrome & Precision Slate) */
+  --status-hardened: #09090b;
+  --status-hardened-bg: #f4f5f8;
+  --status-hardened-border: rgba(0, 0, 0, 0.12);
 
-  --status-defect: #e11d48;
-  --status-defect-bg: rgba(225, 29, 72, 0.08);
-  --status-defect-border: rgba(225, 29, 72, 0.25);
+  --status-defect: #09090b;
+  --status-defect-bg: #f4f5f8;
+  --status-defect-border: rgba(0, 0, 0, 0.12);
 
-  --status-warning: #d97706;
-  --status-warning-bg: rgba(217, 119, 6, 0.08);
-  --status-warning-border: rgba(217, 119, 6, 0.25);
+  --status-warning: #18181b;
+  --status-warning-bg: #f4f5f8;
+  --status-warning-border: rgba(0, 0, 0, 0.12);
 
-  --accent-sky: #0284c7;
-  --accent-sky-bg: rgba(2, 132, 199, 0.08);
+  --accent-sky: #09090b;
+  --accent-sky-bg: #f4f5f8;
+  --accent-blue-subtle: #0284c7;
 
   /* Typography: Geist & Clash Display (Headings), Geist (Body), JetBrains Mono (Code/IDs) */
   --font-display: 'Geist', 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -110,7 +111,7 @@ body {
   width: 100%;
   max-width: 1400px;
   height: clamp(400px, 50vw, 640px);
-  background: radial-gradient(circle at 50% -15%, rgba(2, 132, 199, 0.08) 0%, rgba(244, 245, 248, 0.6) 45%, transparent 75%);
+  background: radial-gradient(circle at 50% -15%, rgba(0, 0, 0, 0.04) 0%, rgba(244, 245, 248, 0.6) 45%, transparent 75%);
   pointer-events: none;
   z-index: 0;
 }
@@ -136,7 +137,7 @@ a {
 }
 
 a:hover {
-  color: var(--accent-sky);
+  color: var(--text-pure);
 }
 
 code, pre {
@@ -313,7 +314,7 @@ code, pre {
 }
 
 .mobile-nav-drawer a.active {
-  color: var(--accent-sky);
+  color: var(--text-pure);
   font-weight: 700;
 }
 
@@ -341,7 +342,7 @@ code, pre {
 }
 
 .btn-nav-currency:hover {
-  border-color: var(--accent-sky);
+  border-color: var(--border-active);
   background: #ffffff;
 }
 
@@ -391,8 +392,8 @@ code, pre {
 }
 
 .currency-opt-btn.active {
-  background: var(--accent-sky-bg);
-  color: var(--accent-sky);
+  background: #09090b;
+  color: #ffffff;
   font-weight: 700;
 }
 
@@ -712,8 +713,8 @@ code, pre {
 
 .project-card:hover {
   transform: translateY(-3px);
-  border-color: var(--accent-sky);
-  box-shadow: 0 14px 32px -6px rgba(2, 132, 199, 0.12);
+  border-color: var(--border-active);
+  box-shadow: 0 14px 32px -6px rgba(0, 0, 0, 0.08);
 }
 
 .project-badge-top {
@@ -737,12 +738,12 @@ code, pre {
   width: 48px;
   height: 48px;
   border-radius: var(--radius-sm);
-  background: var(--accent-sky-bg);
+  background: var(--bg-subtle);
   border: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent-sky);
+  color: var(--text-pure);
   margin-bottom: 16px;
 }
 
@@ -777,7 +778,7 @@ code, pre {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--accent-sky);
+  color: var(--text-dim);
   display: block;
   margin-bottom: 8px;
 }
@@ -890,9 +891,9 @@ code, pre {
 
 .docs-nav-link.active {
   background: var(--bg-surface-elevated);
-  color: var(--accent-sky);
+  color: var(--text-pure);
   font-weight: 700;
-  border-left: 2px solid var(--accent-sky);
+  border-left: 2px solid #09090b;
 }
 
 .docs-main-content {
@@ -997,8 +998,9 @@ code, pre {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--accent-sky);
-  background: var(--accent-sky-bg);
+  color: var(--text-pure);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-card);
   padding: 2px 6px;
   border-radius: var(--radius-xs);
   white-space: nowrap;
@@ -1022,8 +1024,8 @@ code, pre {
 }
 
 .repo-search-bar:focus-within {
-  border-color: var(--accent-sky);
-  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+  border-color: #09090b;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
 }
 
 .repo-search-input {
@@ -1098,8 +1100,8 @@ code, pre {
 
 .technique-card:hover {
   transform: translateY(-2px);
-  border-color: var(--accent-sky);
-  box-shadow: 0 12px 32px -4px rgba(2, 132, 199, 0.1);
+  border-color: var(--border-active);
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.08);
 }
 
 .technique-card:active {
@@ -1118,7 +1120,7 @@ code, pre {
   font-family: var(--font-mono);
   font-size: 0.78rem;
   font-weight: 700;
-  color: var(--accent-sky);
+  color: var(--text-pure);
 }
 
 .card-meta-tags {
@@ -1129,22 +1131,23 @@ code, pre {
 
 .card-badge-severity {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.66rem;
   font-weight: 700;
-  padding: 2px 6px;
+  padding: 2px 8px;
   border-radius: var(--radius-pill);
+  letter-spacing: 0.02em;
 }
 
 .card-badge-severity.critical {
-  background: var(--status-defect-bg);
-  border: 1px solid var(--status-defect-border);
-  color: var(--status-defect);
+  background: #09090b;
+  color: #ffffff;
+  border: 1px solid #09090b;
 }
 
 .card-badge-severity.high {
-  background: var(--status-warning-bg);
-  border: 1px solid var(--status-warning-border);
-  color: var(--status-warning);
+  background: var(--bg-subtle);
+  color: var(--text-pure);
+  border: 1px solid var(--border-card);
 }
 
 .card-title {
@@ -1175,6 +1178,7 @@ code, pre {
 
 /* ==========================================================================
    Tactile 45s Field Triage Workbench
+   Architectural Monochromatic Switch Deck
    ========================================================================== */
 .workbench-deck {
   display: flex;
@@ -1192,7 +1196,7 @@ code, pre {
   background: var(--bg-surface);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-md);
-  padding: clamp(14px, 3vw, 20px);
+  padding: clamp(16px, 3vw, 22px);
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -1235,17 +1239,18 @@ code, pre {
   padding: 12px 14px;
   border-radius: var(--radius-sm);
   background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border-card);
   cursor: pointer;
   text-align: left;
   transition: all 140ms var(--ease-spring);
   color: var(--text-body);
-  min-height: 48px;
+  min-height: 50px;
 }
 
 .switch-toggle-btn:hover {
   background: var(--bg-subtle);
-  border-color: var(--border-card);
+  border-color: var(--border-active);
+  color: var(--text-pure);
 }
 
 .switch-toggle-btn:active {
@@ -1253,15 +1258,25 @@ code, pre {
 }
 
 .switch-toggle-btn.active-hardened {
-  background: var(--status-hardened-bg);
-  border-color: var(--status-hardened-border);
-  color: var(--status-hardened);
+  background: #ffffff;
+  border: 1.5px solid #09090b;
+  color: var(--text-pure);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.switch-toggle-btn.active-hardened .toggle-title {
+  color: var(--text-pure);
 }
 
 .switch-toggle-btn.active-soft {
-  background: var(--status-defect-bg);
-  border-color: var(--status-defect-border);
-  color: var(--status-defect);
+  background: #ffffff;
+  border: 1.5px solid #09090b;
+  color: var(--text-pure);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.switch-toggle-btn.active-soft .toggle-title {
+  color: var(--text-pure);
 }
 
 .toggle-title {
@@ -1270,12 +1285,13 @@ code, pre {
   display: flex;
   align-items: center;
   gap: 6px;
+  color: var(--text-head);
 }
 
 .toggle-detail {
   font-size: 0.74rem;
   margin-top: 4px;
-  opacity: 0.9;
+  color: var(--text-body);
   line-height: 1.35;
 }
 
@@ -1294,7 +1310,7 @@ code, pre {
 }
 
 .telemetry-input-line:focus {
-  border-color: var(--accent-sky);
+  border-color: #09090b;
   background: var(--bg-surface);
 }
 
@@ -1325,21 +1341,21 @@ code, pre {
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: var(--radius-pill);
   letter-spacing: 0.04em;
 }
 
 .notice-badge-stamp.hold {
-  background: var(--status-defect-bg);
-  border: 1px solid var(--status-defect-border);
-  color: var(--status-defect);
+  background: #09090b;
+  color: #ffffff;
+  border: 1px solid #09090b;
 }
 
 .notice-badge-stamp.cleared {
-  background: var(--status-hardened-bg);
-  border: 1px solid var(--status-hardened-border);
-  color: var(--status-hardened);
+  background: var(--bg-subtle);
+  color: var(--text-pure);
+  border: 1px solid var(--border-card);
 }
 
 .notice-paper-body {
@@ -1375,11 +1391,11 @@ code, pre {
 }
 
 .notice-section-title {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--accent-sky);
+  color: var(--text-pure);
   margin-bottom: 8px;
 }
 
@@ -1467,7 +1483,7 @@ code, pre {
 }
 
 .strategy-box:hover {
-  border-color: var(--accent-sky);
+  border-color: var(--border-active);
   transform: translateY(-2px);
 }
 
@@ -1475,7 +1491,7 @@ code, pre {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--accent-sky);
+  color: var(--text-pure);
   margin-bottom: 10px;
   display: block;
 }

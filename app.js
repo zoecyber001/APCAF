@@ -401,10 +401,10 @@ function renderExecutiveNotice() {
     
     tableBody.innerHTML = softItems.map(item => `
       <tr>
-        <td><strong style="color: var(--accent-sky); font-family: var(--font-mono);">${item.id}</strong></td>
-        <td><span style="color: var(--status-defect);">${item.observed}</span></td>
-        <td>${item.standard}</td>
-        <td><strong style="color: var(--text-head);">${item.remediation}</strong></td>
+        <td><strong style="color: var(--text-pure); font-family: var(--font-mono); font-size: 0.78rem;">${item.id}</strong></td>
+        <td><span style="font-weight: 600; color: var(--text-pure);">${item.observed}</span></td>
+        <td style="color: var(--text-body);">${item.standard}</td>
+        <td><strong style="color: var(--text-pure);">${item.remediation}</strong></td>
       </tr>
     `).join("");
   } else {
@@ -416,7 +416,7 @@ function renderExecutiveNotice() {
     
     tableBody.innerHTML = `
       <tr>
-        <td colspan="4" style="text-align: center; color: var(--status-hardened); padding: 24px; font-size: 0.88rem;">
+        <td colspan="4" style="text-align: center; color: var(--text-pure); padding: 24px; font-size: 0.88rem;">
           <span style="display: inline-flex; align-items: center; gap: 6px;">
             ${SVG_ICONS.check} All 3 physical access vectors verified as Hardened Spec. Zero installation warranty defects identified. Approved for final milestone retainage disbursement.
           </span>
