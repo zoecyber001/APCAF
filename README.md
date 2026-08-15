@@ -84,7 +84,7 @@ APCAF/
 APCAF is developed and maintained by the **APCAF Working Group** as an open, vendor-neutral standard:
 * **Submissions:** Community researchers can propose new `PHY-Txxxx` techniques via GitHub PRs following [`CONTRIBUTING.md`](CONTRIBUTING.md).
 * **Licensing:** The written standard and taxonomy are licensed under **Creative Commons Attribution 4.0 International (CC BY 4.0)**. Assessment tools and code are licensed under **MIT**.
-* **Contact:** `governance@apcaf.org`
+* **Contact & Inquiries:** [GitHub Issues & Discussions](https://github.com/zoecyber001/APCAF/issues)
 
 ---
 

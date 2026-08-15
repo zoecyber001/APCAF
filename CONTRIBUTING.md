@@ -72,5 +72,5 @@ mitigation:
 ## Maintainership & Governance
 
 * **Core Maintainer:** Zoe Cyber & APCAF Working Group Contributors
-* **Contact & Inquiries:** `governance@apcaf.org` / GitHub Issues
+* **Contact & Inquiries:** [GitHub Issues & Discussions](https://github.com/zoecyber001/APCAF/issues)
 * **License:** All documentation and taxonomy text is contributed under **CC BY 4.0**; tooling code is contributed under **MIT**.
