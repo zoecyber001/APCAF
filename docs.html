@@ -103,27 +103,10 @@
     </div>
   </header>
 
-  <!-- Mobile Quick Jump Bar (Sticky on Mobile/Tablet) -->
-  <div class="docs-mobile-jump-bar">
-    <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
-      <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: var(--text-dim);">Jump to Section:</span>
-      <select class="docs-jump-select" onchange="if(this.value) window.location.hash = this.value;">
-        <option value="#intro">01. Architecture & Philosophy</option>
-        <option value="#sow-clause">02. Zero-Liability SOW Clause</option>
-        <option value="#execution-model">03. 45-Second Execution Model</option>
-        <option value="#phy-t1001">04. PHY-T1001: RFID Harvesting</option>
-        <option value="#phy-t1002">05. PHY-T1002: Latch Manipulation</option>
-        <option value="#phy-t1003">06. PHY-T1003: REX Sensor Blind Trip</option>
-        <option value="#phy-t1004">07. PHY-T1004: Network Port Tap</option>
-        <option value="#warranty-hold">08. Contractor Warranty Hold</option>
-      </select>
-    </div>
-  </div>
-
   <!-- Main Docs Layout (Sidebar + Main Content Pane) -->
   <div class="container docs-page-layout">
     
-    <!-- Sticky Desktop Sidebar Navigation -->
+    <!-- Sticky Desktop Sidebar Navigation (Desktop Only) -->
     <aside class="docs-sidebar">
       <div>
         <div class="docs-sidebar-group-title">Getting Started</div>
@@ -163,6 +146,31 @@
         <span>Technical Specification</span>
         <span>/</span>
         <span class="active-crumb">Documentation</span>
+      </div>
+
+      <!-- In-Flow Mobile Table of Contents (Scrolls away naturally) -->
+      <div class="docs-mobile-toc">
+        <div class="docs-mobile-toc-head">
+          <svg class="icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+          <span>Quick Index</span>
+        </div>
+        <div class="docs-mobile-toc-chips">
+          <a href="#intro" class="chip-tag">Overview</a>
+          <a href="#sow-clause" class="chip-tag">SOW Clause</a>
+          <a href="#execution-model" class="chip-tag">45s Model</a>
+          <a href="#phy-t1001" class="chip-tag">PHY-T1001 (RFID)</a>
+          <a href="#phy-t1002" class="chip-tag">PHY-T1002 (Latch)</a>
+          <a href="#phy-t1003" class="chip-tag">PHY-T1003 (REX)</a>
+          <a href="#phy-t1004" class="chip-tag">PHY-T1004 (Port)</a>
+          <a href="#warranty-hold" class="chip-tag">Warranty Hold</a>
+        </div>
       </div>
 
       <!-- Section 1: Introduction -->
