@@ -172,7 +172,7 @@ code, pre {
 .nav-wrap {
   pointer-events: auto;
   width: 100%;
-  max-width: 980px;
+  max-width: 1040px;
   height: 52px;
   background: var(--bg-glass);
   backdrop-filter: blur(28px) saturate(200%);
@@ -183,7 +183,7 @@ code, pre {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 6px 0 clamp(10px, 2vw, 14px);
+  padding: 0 6px 0 clamp(8px, 1.5vw, 14px);
   position: relative;
   transition: transform 200ms var(--ease-spring), box-shadow 200ms ease;
 }
@@ -225,10 +225,10 @@ code, pre {
 }
 
 .nav-menu a {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-body);
-  padding: 6px 12px;
+  padding: 5px 9px;
   border-radius: var(--radius-pill);
   transition: color 140ms var(--ease-out), background 140ms var(--ease-out);
   display: inline-block;
@@ -448,14 +448,26 @@ code, pre {
 }
 
 /* Responsive Navigation Breakpoints */
-@media (max-width: 920px) {
+@media (max-width: 980px) {
   .nav-menu { display: none; }
   .btn-mobile-menu-toggle { display: inline-flex; }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .btn-nav-sow { display: none; }
-  .btn-nav-primary { padding: 6px 11px; font-size: 0.75rem; }
+}
+
+@media (max-width: 480px) {
+  .nav-wrap { height: 48px; padding: 0 4px 0 8px; }
+  .brand-icon-box { width: 26px; height: 26px; }
+  .brand-badge { font-size: 0.88rem; }
+  .btn-nav-currency { padding: 5px 8px; font-size: 0.68rem; gap: 3px; }
+  .btn-nav-primary { padding: 5px 10px; font-size: 0.74rem; }
+  .btn-mobile-menu-toggle { width: 32px; height: 32px; }
+}
+
+@media (max-width: 350px) {
+  .brand-badge { display: none; }
 }
 
 /* ==========================================================================

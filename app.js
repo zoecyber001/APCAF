@@ -216,6 +216,10 @@ document.addEventListener("DOMContentLoaded", () => {
 function toggleCurrencyDropdown() {
   const menu = document.getElementById("currencyDropdownMenu");
   if (menu) {
+    const isOpening = !menu.classList.contains("open");
+    if (isOpening) {
+      closeMobileMenu();
+    }
     menu.classList.toggle("open");
   }
 }
@@ -538,6 +542,10 @@ function toggleMobileMenu() {
   const menu = document.getElementById("mobileNavMenu");
   const btn = document.getElementById("mobileMenuToggleBtn");
   if (!menu) return;
+  const isOpening = !menu.classList.contains("open");
+  if (isOpening) {
+    closeCurrencyDropdown();
+  }
   const isOpen = menu.classList.toggle("open");
   if (btn) btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
 }
