@@ -104,7 +104,7 @@ function applyCurrency(currencyCode) {
   // 2. Update Toolkit section title
   const toolkitTitle = document.getElementById("toolkitMainTitle");
   if (toolkitTitle) {
-    toolkitTitle.textContent = `The ${config.kitTotal} Zero-Liability Field Kit`;
+    toolkitTitle.textContent = `The ${config.kitTotal} Non-Invasive Field Kit`;
   }
 
   // 3. Update individual toolkit price tags

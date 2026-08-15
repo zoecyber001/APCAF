@@ -24,7 +24,7 @@ APCAF adapts the MITRE ATT&CK structure to physical security:
 ├────────────────────────────────────────────────────────────────────────────────────────┤
 │ 1. TACTICS (PHY-TAC-XX)    --> The Adversary's Physical Objective (The "Why")           │
 │ 2. TECHNIQUES (PHY-TXXXX)  --> The Hardware/Spatial Mechanism (The "How")              │
-│ 3. PASSIVE QA SPEC (PQ-XX) --> Non-Invasive 45s Inspection Standard (Zero-Liability)  │
+│ 3. PASSIVE QA SPEC (PQ-XX) --> Non-Invasive 45s Inspection Standard (Passive QA)       │
 │ 4. MITIGATIONS (PHY-MXXXX) --> Hardened Engineering Remediation Spec (Vendor Warranty) │
 │ 5. COMPLIANCE MAPPINGS     --> Cross-Walk to ISO 27001, PCI DSS v4, SOC 2, NDPA       │
 └────────────────────────────────────────────────────────────────────────────────────────┘

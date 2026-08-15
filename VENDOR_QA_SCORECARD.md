@@ -34,7 +34,7 @@ Traditional compliance audits (ISO 27001, PCI DSS, SOC 2, NDPA) verify the *pres
 * **Inspection Objective:** Identify whether badge architecture relies on unauthenticated, cloneable UID/Facility Code transmission.
 * **Tooling:** Pocket Multi-Frequency RFID/NFC Reader / Pocket Badge Interrogator.
 * **Field Time:** $\le 5\text{ seconds}$.
-* **Zero Liability Boundary:** Passive read only. No credential duplication, no replay attack, no reader brute-forcing.
+* **Non-Invasive Safety Boundary:** Passive read only. No credential duplication, no replay attack, no reader brute-forcing.
 
 ```
                                 [PASSIVE RF BADGE READ]
@@ -61,7 +61,7 @@ Traditional compliance audits (ISO 27001, PCI DSS, SOC 2, NDPA) verify the *pres
 * **Inspection Objective:** Verify door perimeter construction prevents mechanical latch slips, under-door manipulation, or REX PIR sensor tripping through gaps.
 * **Tooling:** Visual line-of-sight check & metric gap gauge / feeler blade.
 * **Field Time:** $\le 30\text{ seconds}$.
-* **Zero Liability Boundary:** External inspection only. Do not depress crash bars, do not touch fire alarm hardware, zero tool insertion.
+* **Non-Invasive Safety Boundary:** External inspection only. Do not depress crash bars, do not touch fire alarm hardware, zero tool insertion.
 
 ```
                            [DOOR PERIMETER INSPECTION]
@@ -88,7 +88,7 @@ Traditional compliance audits (ISO 27001, PCI DSS, SOC 2, NDPA) verify the *pres
 * **Inspection Objective:** Determine whether accessible Ethernet jacks in unmonitored zones provide active network link states without authentication.
 * **Tooling:** Passive LED Ethernet Continuity / Link-State Dongle (Zero-packet physical tester).
 * **Field Time:** $\le 10\text{ seconds}$.
-* **Zero Liability Boundary:** Non-packet-transmitting LED load test only. No DHCP requests, no ARP requests, no IP packet capture or traffic sniffing.
+* **Non-Invasive Safety Boundary:** Non-packet-transmitting LED load test only. No DHCP requests, no ARP requests, no IP packet capture or traffic sniffing.
 
 ```
                             [EXPOSED RJ-45 WALL DROP]

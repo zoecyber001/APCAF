@@ -12,7 +12,7 @@
 
 ## 1. Architectural Foundation: Learning from MITRE ATT&CK
 
-MITRE ATT&CK transformed cybersecurity by creating a **standardized, vendor-agnostic language** for cyber adversary behavior. APCAF brings that exact structural rigor to physical security:
+MITRE ATT&CK transformed cybersecurity by creating a **standardized, vendor-agnostic language** for cyber adversary behavior. APCAF applies similar structural principles to physical security, establishing a standardized language for adversarial physical-control assessment:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
@@ -46,7 +46,7 @@ Detailed architectural specifications and taxonomy mapping are in [`docs/TAXONOM
 
 The core MVP implements the 3 highest-leverage techniques across the physical kill-chain:
 
-| APCAF ID | Technique | Passive QA Inspection Method (Zero Liability) | Hardened Standard | Building / Fire Code Citation |
+| APCAF ID | Technique | Passive Non-Invasive Inspection Method | Hardened Standard | Building / Fire Code Citation |
 | :--- | :--- | :--- | :--- | :--- |
 | **`APCAF-01`** | **`PHY-T1001`** | **5s:** Contactless pocket RFID reader read | AES-128 / DESFire EV3 / Seos | ISO/IEC 14443-4, NIST SP 800-116 |
 | **`APCAF-02`** | **`PHY-T1002 / T1003`** | **30s:** Visual & feeler gap measurement | Continuous Astragal + Shrouded REX PIR | **NFPA 80 §6.3.1.7.1 (Max 3.2mm)**, ANSI/SDI A250.8 |
