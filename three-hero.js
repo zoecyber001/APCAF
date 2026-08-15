@@ -101,6 +101,7 @@ function initThreeHero() {
   let targetY = 0;
 
   const heroSection = document.querySelector(".hero-section") || container;
+  
   heroSection.addEventListener("mousemove", (e) => {
     const rect = heroSection.getBoundingClientRect();
     mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
@@ -108,6 +109,21 @@ function initThreeHero() {
   });
 
   heroSection.addEventListener("mouseleave", () => {
+    mouseX = 0;
+    mouseY = 0;
+  });
+
+  // Touch tracking for mobile devices
+  heroSection.addEventListener("touchmove", (e) => {
+    if (e.touches.length > 0) {
+      const touch = e.touches[0];
+      const rect = heroSection.getBoundingClientRect();
+      mouseX = ((touch.clientX - rect.left) / rect.width) * 2 - 1;
+      mouseY = -(((touch.clientY - rect.top) / rect.height) * 2 - 1);
+    }
+  }, { passive: true });
+
+  heroSection.addEventListener("touchend", () => {
     mouseX = 0;
     mouseY = 0;
   });

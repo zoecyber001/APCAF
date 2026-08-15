@@ -81,6 +81,24 @@
         <a href="index.html#workbench" class="btn-nav-primary">
           Run 45s QA
         </a>
+        <!-- Mobile Menu Toggle Button -->
+        <button type="button" class="btn-mobile-menu-toggle" id="mobileMenuToggleBtn" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation Drawer -->
+      <div class="mobile-nav-drawer" id="mobileNavMenu">
+        <a href="index.html" onclick="closeMobileMenu()">Overview</a>
+        <a href="repository.html" onclick="closeMobileMenu()">Rule Repository</a>
+        <a href="docs.html" class="active" onclick="closeMobileMenu()">Documentation</a>
+        <a href="index.html#workbench" onclick="closeMobileMenu()">Field Triage</a>
+        <a href="index.html#strategy" onclick="closeMobileMenu()">CISO Playbook</a>
+        <a href="index.html#crosswalk" onclick="closeMobileMenu()">Compliance Mapping</a>
       </div>
     </div>
   </header>
