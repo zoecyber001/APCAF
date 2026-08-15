@@ -111,7 +111,8 @@
       <div>
         <div class="docs-sidebar-group-title">Getting Started</div>
         <ul class="docs-nav-list">
-          <li><a href="#intro" class="docs-nav-link active">Introduction & Philosophy</a></li>
+          <li><a href="#learn-primer" class="docs-nav-link">Learn APCAF (Mental Model)</a></li>
+          <li><a href="#intro" class="docs-nav-link active">Introduction &amp; Philosophy</a></li>
           <li><a href="#sow-clause" class="docs-nav-link">Non-Invasive SOW Scope</a></li>
           <li><a href="#execution-model" class="docs-nav-link">45-Second Execution Model</a></li>
         </ul>
@@ -162,6 +163,7 @@
           <span>Quick Index</span>
         </div>
         <div class="docs-mobile-toc-chips">
+          <a href="#learn-primer" class="chip-tag">Learn APCAF</a>
           <a href="#intro" class="chip-tag">Overview</a>
           <a href="#sow-clause" class="chip-tag">SOW Clause</a>
           <a href="#execution-model" class="chip-tag">45s Model</a>
@@ -172,6 +174,51 @@
           <a href="#warranty-hold" class="chip-tag">Warranty Hold</a>
         </div>
       </div>
+
+      <!-- Primer: Learn APCAF in 60 Seconds -->
+      <article class="doc-article" id="learn-primer">
+        <div class="doc-article-head">
+          <span class="section-eyebrow">Mental Model</span>
+          <h2>Learn APCAF in 60 Seconds</h2>
+        </div>
+
+        <div class="plain-english-card" style="margin-bottom: 20px;">
+          <div style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--text-pure); margin-bottom: 4px;">
+            What is APCAF in Plain English?
+          </div>
+          <p class="plain-english-text">
+            APCAF is a way to check whether physical security controls actually resist common attacker bypasses. Instead of asking only <em>"Is there a lock?"</em>, APCAF asks <strong>"How could someone bypass this lock, and does the current physical setup resist that?"</strong>
+          </p>
+        </div>
+
+        <div class="mental-pipeline-grid">
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">01. TACTIC</div>
+            <div class="pipeline-step-title">The Attacker's Goal</div>
+            <div class="pipeline-step-example"><strong>Portal Ingress:</strong> The adversary wants to get through the door.</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">02. TECHNIQUE</div>
+            <div class="pipeline-step-title">The Bypass Path</div>
+            <div class="pipeline-step-example"><strong>Latch Slip (PHY-T1002):</strong> Manipulate the latch bolt through an exposed frame gap.</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">03. OBSERVATION</div>
+            <div class="pipeline-step-title">The Physical Check</div>
+            <div class="pipeline-step-example"><strong>Feeler Gauge:</strong> Assessor checks if gap > 3.2mm per NFPA 80 without an astragal.</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">04. ASSESSMENT</div>
+            <div class="pipeline-step-title">The Classification</div>
+            <div class="pipeline-step-example"><strong>Legacy / Soft:</strong> Control presents observable conditions enabling bypass.</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">05. REMEDIATION</div>
+            <div class="pipeline-step-title">The Warranty Fix</div>
+            <div class="pipeline-step-example"><strong>PHY-M1002:</strong> GC mounts continuous steel astragal under contract warranty ($0 capex).</div>
+          </div>
+        </div>
+      </article>
 
       <!-- Section 1: Introduction -->
       <article class="doc-article" id="intro">
@@ -249,6 +296,19 @@ hardware installation specifications."</code></pre>
           <span class="card-badge-severity critical">CRITICAL SEVERITY</span>
         </div>
 
+        <!-- Layer 1: Plain English Concept -->
+        <div class="plain-english-card">
+          <span class="layer-tag plain-english">Layer 1 • Plain English Concept</span>
+          <p class="plain-english-text" style="margin-top: 6px;">
+            An attacker can wirelessly copy someone's employee badge in under 3 seconds from pocket distance without touching them, then write that stolen ID to a blank card and walk straight through the door.
+          </p>
+        </div>
+
+        <!-- Layer 2: Technical Specification -->
+        <div style="margin-bottom: 8px;">
+          <span class="layer-tag technical-spec">Layer 2 • Technical Specification</span>
+        </div>
+
         <p>
           Adversaries interrogate unencrypted legacy proximity credentials (125 kHz HID Prox, EM4100) or static high-frequency CSNs (MIFARE Classic 1K/4K) using portable interrogators to harvest badge IDs in under 5 seconds from up to 1 meter away.
         </p>
@@ -260,6 +320,9 @@ hardware installation specifications."</code></pre>
             <button class="doc-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('yaml1001').innerText); showToast('Copied YAML Spec');">Copy Spec</button>
 <pre id="yaml1001"><code>attack_technique: PHY-T1001
 display_name: "Unencrypted RFID Harvesting (125 kHz / MIFARE CSN)"
+citations:
+  - "ISO/IEC 14443-4 (Contactless Smartcards)"
+  - "NIST SP 800-116 Rev 1"
 atomic_tests:
   - name: "Passive Badge Interrogation"
     auto_generated_guid: "apcaf-t1001-test-01"
@@ -316,6 +379,19 @@ atomic_tests:
           <span class="card-badge-severity critical">CRITICAL SEVERITY</span>
         </div>
 
+        <!-- Layer 1: Plain English Concept -->
+        <div class="plain-english-card">
+          <span class="layer-tag plain-english">Layer 1 • Plain English Concept</span>
+          <p class="plain-english-text" style="margin-top: 6px;">
+            An attacker can slide a thin piece of plastic, a shove knife, or an under-door wire through an exposed gap between the door and the frame to pop the latch open without a badge or key.
+          </p>
+        </div>
+
+        <!-- Layer 2: Technical Specification -->
+        <div style="margin-bottom: 8px;">
+          <span class="layer-tag technical-spec">Layer 2 • Technical Specification</span>
+        </div>
+
         <p>
           Adversaries retract latch bolts on outward-opening doors using flexible shove knives, under-door tools, or latch slips when perimeter door frame clearances exceed standard building/fire code tolerances (> 3.2mm / 1/8 in.).
         </p>
@@ -369,6 +445,19 @@ atomic_tests:
           <span class="card-badge-severity high">HIGH SEVERITY</span>
         </div>
 
+        <!-- Layer 1: Plain English Concept -->
+        <div class="plain-english-card">
+          <span class="layer-tag plain-english">Layer 1 • Plain English Concept</span>
+          <p class="plain-english-text" style="margin-top: 6px;">
+            An attacker can spray compressed cold air or poke a wire under the door to trigger the exit sensor inside, causing the electronic lock to automatically release from the outside.
+          </p>
+        </div>
+
+        <!-- Layer 2: Technical Specification -->
+        <div style="margin-bottom: 8px;">
+          <span class="layer-tag technical-spec">Layer 2 • Technical Specification</span>
+        </div>
+
         <p>
           Adversaries trigger interior Request-to-Exit PIR motion sensors through door threshold gaps using thermal aerosol plumes or reaching rods, forcing electronic mag-locks to unlock instantly.
         </p>
@@ -389,6 +478,19 @@ atomic_tests:
             <h2 style="margin-top: 6px;">PHY-T1004: Unauthenticated Network Drop</h2>
           </div>
           <span class="card-badge-severity high">HIGH SEVERITY</span>
+        </div>
+
+        <!-- Layer 1: Plain English Concept -->
+        <div class="plain-english-card">
+          <span class="layer-tag plain-english">Layer 1 • Plain English Concept</span>
+          <p class="plain-english-text" style="margin-top: 6px;">
+            An attacker can plug an unauthorized device or laptop into an active wall jack in a lobby or conference room and gain immediate access to the internal network.
+          </p>
+        </div>
+
+        <!-- Layer 2: Technical Specification -->
+        <div style="margin-bottom: 8px;">
+          <span class="layer-tag technical-spec">Layer 2 • Technical Specification</span>
         </div>
 
         <p>

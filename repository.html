@@ -189,9 +189,21 @@
         </button>
       </div>
       <div class="modal-sheet-main">
+        <!-- Layer 1: Plain English Concept -->
+        <div class="plain-english-card" style="margin-bottom: 14px;">
+          <span class="layer-tag plain-english">Layer 1 • Plain English Concept</span>
+          <p id="modalPlainEnglish" class="plain-english-text" style="font-size: 0.88rem; margin-top: 6px;"></p>
+        </div>
+
+        <!-- Layer 2: Technical Specification -->
+        <div style="margin-bottom: 8px;">
+          <span class="layer-tag technical-spec">Layer 2 • Technical Specification</span>
+        </div>
+
         <div class="spec-sheet-block">
-          <div class="block-title">Adversarial Mechanics</div>
+          <div class="block-title">Adversarial Mechanics &amp; Citations</div>
           <p id="modalMechanics"></p>
+          <div id="modalCitations" style="margin-top: 6px; font-size: 0.78rem; color: var(--text-dim);"></div>
         </div>
         <div class="spec-sheet-block">
           <div class="block-title" style="color: var(--accent-sky);">Passive QA Testing Specification (<span id="modalTime"></span>)</div>

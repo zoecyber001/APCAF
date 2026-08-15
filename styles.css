@@ -1815,7 +1815,7 @@ code, pre {
     background: #ffffff;
     color: #000000;
   }
-  .site-header, .resend-btn-cluster, .tactic-tab-bar, .switch-opt-pair, .telemetry-input-line, .site-footer, .toast-container, .repo-search-bar, .atomic-doc-nav, .projects-grid, .trust-bar, .hero-3d-stage, .docs-sidebar, .docs-mobile-toc {
+  .site-header, .resend-btn-cluster, .tactic-tab-bar, .switch-opt-pair, .telemetry-input-line, .site-footer, .toast-container, .repo-search-bar, .atomic-doc-nav, .projects-grid, .trust-bar, .hero-3d-stage, .docs-sidebar, .docs-mobile-toc, .walkthrough-scenario-box {
     display: none !important;
   }
   .executive-notice-deck {
@@ -1823,3 +1823,171 @@ code, pre {
     box-shadow: none;
   }
 }
+
+/* ==========================================================================
+   Learn APCAF & 60-Second Mental Model Styles
+   ========================================================================== */
+.mental-pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+  .mental-pipeline-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .mental-pipeline-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pipeline-step {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  transition: transform 140ms var(--ease-out), border-color 140ms var(--ease-out);
+}
+
+.pipeline-step:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-active);
+}
+
+.pipeline-step-num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.pipeline-step-title {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-pure);
+  margin-bottom: 8px;
+}
+
+.pipeline-step-example {
+  font-size: 0.78rem;
+  color: var(--text-body);
+  line-height: 1.5;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.walkthrough-scenario-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: clamp(18px, 3.5vw, 28px);
+  box-shadow: var(--shadow-card);
+}
+
+.walkthrough-head {
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.walkthrough-qa-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.walkthrough-qa-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 10px 14px;
+  background: var(--bg-subtle);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 680px) {
+  .walkthrough-qa-item {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+.qa-q {
+  font-weight: 600;
+  color: var(--text-head);
+  flex-shrink: 0;
+}
+
+.qa-a {
+  color: var(--text-body);
+  text-align: right;
+}
+
+@media (max-width: 680px) {
+  .qa-a {
+    text-align: left;
+  }
+}
+
+/* Dual-Layer Technique Card Enhancements */
+.dual-layer-block {
+  margin-bottom: 16px;
+}
+
+.layer-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 6px;
+}
+
+.layer-tag.plain-english {
+  background: #f4f5f8;
+  color: var(--text-pure);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.layer-tag.technical-spec {
+  background: #09090b;
+  color: #ffffff;
+}
+
+.plain-english-card {
+  background: var(--bg-surface-elevated);
+  border-left: 3px solid var(--border-dark);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+
+.plain-english-text {
+  font-size: 0.92rem;
+  color: var(--text-pure);
+  line-height: 1.55;
+  font-weight: 500;
+}
+

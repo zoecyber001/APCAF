@@ -26,6 +26,7 @@ const TECHNIQUES = [
     inspectionTime: "5 Seconds",
     tool: "Pocket Multi-Frequency RFID Reader",
     citations: ["ISO/IEC 14443-4", "NIST SP 800-116 Rev 1"],
+    plainEnglish: "An attacker can wirelessly copy someone's badge ID from pocket distance in under 3 seconds without them knowing, then use a cloned card to walk straight through the door.",
     mechanics: "Unencrypted 125 kHz or MIFARE Classic cards transmit static UIDs that can be cloned in under 5 seconds using handheld copiers.",
     passiveQA: "Contactless read of badge credential. If card emits unencrypted 125 kHz carrier (HID Prox, EM4100) or static MIFARE CSN, classify as Legacy / Soft.",
     mitigationId: "PHY-M1001",
@@ -59,6 +60,7 @@ const TECHNIQUES = [
     inspectionTime: "15 Seconds",
     tool: "Metric Feeler Gauge / Visual Margin Check",
     citations: ["NFPA 80 (2022) §6.3.1.7.1", "ANSI/SDI A250.8 / SDI-122", "IBC §716"],
+    plainEnglish: "An attacker can slide a thin shove tool or reaching wire through an exposed gap between the door and the frame to pop the latch open without needing a badge or key.",
     mechanics: "Exposed latch bolts on outward-opening doors can be retracted with shove knives or reached via under-door tools due to excessive frame clearance (> 3.2mm / 1/8 in.).",
     passiveQA: "Measure door frame clearance with feeler gauge. Under NFPA 80 §6.3.1.7.1 & ANSI/SDI A250.8, allowable margin is <= 3.2mm (1/8\"). If gap > 3.2mm and lacks a continuous overlapping steel astragal plate, classify as Legacy / Soft.",
     mitigationId: "PHY-M1002",
@@ -91,6 +93,8 @@ const TECHNIQUES = [
     severity: "high",
     inspectionTime: "15 Seconds",
     tool: "Line-of-Sight Check",
+    citations: ["NFPA 101 §7.2.1.6.2", "UL 294 Standard"],
+    plainEnglish: "An attacker can spray compressed cold air or slide a tool under the door to trigger the exit sensor inside, causing the electronic door to automatically unlock itself from the outside.",
     mechanics: "Interior Request-to-Exit (REX) PIR sensors unlock doors when tripped from outside using compressed air canisters or reaching tools through gaps.",
     passiveQA: "Inspect optical line-of-sight to the interior REX sensor through door threshold/transom. If the sensor PIR lens is visible without a directional deflector hood, classify as Legacy / Soft.",
     mitigationId: "PHY-M1003",
@@ -123,6 +127,8 @@ const TECHNIQUES = [
     severity: "high",
     inspectionTime: "10 Seconds",
     tool: "Passive LED Link Tester",
+    citations: ["IEEE 802.1X-2020", "NIST SP 800-53 PE-3"],
+    plainEnglish: "An attacker can plug an unauthorized device or rogue laptop into an active wall jack in a lobby or meeting room and gain immediate access to the internal network.",
     mechanics: "Accessible wall drops in public or common areas provide immediate physical layer link pulses without port isolation or 802.1X authentication.",
     passiveQA: "Insert zero-packet passive LED link tester into drop. If Layer 1 link LED illuminates continuously on an unmonitored drop, classify as Legacy / Soft.",
     mitigationId: "PHY-M1004",
@@ -296,7 +302,19 @@ function openTechniqueModal(techId) {
 
   document.getElementById("modalTacticTag").textContent = `${tech.tacticId}: ${tech.tacticName}`;
   document.getElementById("modalTitle").textContent = `${tech.id} - ${tech.title}`;
+  
+  const plainEl = document.getElementById("modalPlainEnglish");
+  if (plainEl) plainEl.textContent = tech.plainEnglish || tech.mechanics;
+
   document.getElementById("modalMechanics").textContent = tech.mechanics;
+  
+  const citeEl = document.getElementById("modalCitations");
+  if (citeEl && tech.citations) {
+    citeEl.innerHTML = `<strong>Standards / Citations:</strong> ${tech.citations.join(" • ")}`;
+  } else if (citeEl) {
+    citeEl.innerHTML = "";
+  }
+
   document.getElementById("modalTime").textContent = tech.inspectionTime;
   document.getElementById("modalPassiveQA").textContent = tech.passiveQA;
   document.getElementById("modalTool").textContent = tech.tool;

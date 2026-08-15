@@ -39,6 +39,7 @@
       <nav>
         <ul class="nav-menu">
           <li><a href="index.html" class="active">Overview</a></li>
+          <li><a href="#learn">Learn APCAF</a></li>
           <li><a href="repository.html">Rule Repository</a></li>
           <li><a href="docs.html">Documentation</a></li>
           <li><a href="#workbench">Field Triage</a></li>
@@ -98,6 +99,7 @@
       <!-- Mobile Navigation Drawer -->
       <div class="mobile-nav-drawer" id="mobileNavMenu">
         <a href="index.html" class="active" onclick="closeMobileMenu()">Overview</a>
+        <a href="#learn" onclick="closeMobileMenu()">Learn APCAF</a>
         <a href="repository.html" onclick="closeMobileMenu()">Rule Repository</a>
         <a href="docs.html" onclick="closeMobileMenu()">Documentation</a>
         <a href="#workbench" onclick="closeMobileMenu()">Field Triage</a>
@@ -170,6 +172,97 @@
       </div>
     </div>
   </div>
+
+  <!-- Learn APCAF: The 60-Second Mental Model -->
+  <section class="section" id="learn">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Learn APCAF</span>
+        <h2>Physical Security in 60 Seconds</h2>
+        <p>How APCAF replaces passive compliance checklists with adversarial physical assurance.</p>
+      </div>
+
+      <!-- Core Plain English Thesis Card -->
+      <div class="plain-english-card" style="margin-bottom: 24px;">
+        <div style="font-family: var(--font-display); font-size: 1.12rem; font-weight: 700; color: var(--text-pure); margin-bottom: 6px;">
+          What is APCAF?
+        </div>
+        <p class="plain-english-text">
+          APCAF is a way to check whether physical security controls can actually resist common attacker bypasses. Instead of asking only <em>"Is there a lock on the door?"</em>, APCAF asks <strong>"How could an attacker bypass this lock, and does the current physical installation resist that?"</strong>
+        </p>
+      </div>
+
+      <!-- 5-Step Visual Pipeline -->
+      <div class="mental-pipeline-grid">
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">01. TACTIC</div>
+          <div class="pipeline-step-title">The Attacker's Goal</div>
+          <div class="pipeline-step-example"><strong>Portal Ingress:</strong> The adversary wants to get through the door.</div>
+        </div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">02. TECHNIQUE</div>
+          <div class="pipeline-step-title">The Bypass Mechanism</div>
+          <div class="pipeline-step-example"><strong>Latch Slip (PHY-T1002):</strong> Manipulate the latch bolt through an exposed frame gap.</div>
+        </div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">03. OBSERVATION</div>
+          <div class="pipeline-step-title">The Physical Check</div>
+          <div class="pipeline-step-example"><strong>Feeler Gauge:</strong> Assessor checks if gap > 3.2mm per NFPA 80 without an astragal.</div>
+        </div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">04. ASSESSMENT</div>
+          <div class="pipeline-step-title">The Classification</div>
+          <div class="pipeline-step-example"><strong>Legacy / Soft:</strong> Control presents observable conditions enabling bypass.</div>
+        </div>
+
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">05. REMEDIATION</div>
+          <div class="pipeline-step-title">The Warranty Fix</div>
+          <div class="pipeline-step-example"><strong>PHY-M1002:</strong> GC mounts continuous steel astragal under contract warranty ($0 capex).</div>
+        </div>
+      </div>
+
+      <!-- APCAF in 60 Seconds Walkthrough Card -->
+      <div class="walkthrough-scenario-box">
+        <div class="walkthrough-head">
+          <span class="chip-tag">Walkthrough Example</span>
+          <h3 style="margin-top: 6px; font-size: 1.15rem;">Scenario: You See a Secured Server Room Door</h3>
+          <p style="font-size: 0.86rem; color: var(--text-body); margin-top: 3px;">The security team says: <em>"This door is protected."</em> APCAF doesn't stop at the statement:</p>
+        </div>
+
+        <div class="walkthrough-qa-grid">
+          <div class="walkthrough-qa-item">
+            <span class="qa-q">1. What is the attacker trying to achieve?</span>
+            <span class="qa-a">Get through the perimeter portal into the server suite.</span>
+          </div>
+
+          <div class="walkthrough-qa-item">
+            <span class="qa-q">2. What technique could they use?</span>
+            <span class="qa-a">Mechanical latch slip or under-door tool (<span class="chip-tag" style="font-size: 0.7rem;">PHY-T1002</span>).</span>
+          </div>
+
+          <div class="walkthrough-qa-item">
+            <span class="qa-q">3. What do you inspect?</span>
+            <span class="qa-a">The physical gap between door and frame using a pocket feeler gauge (&le; 3.2mm NFPA limit).</span>
+          </div>
+
+          <div class="walkthrough-qa-item">
+            <span class="qa-q">4. Do you actually break into the door?</span>
+            <span class="qa-a"><strong>No.</strong> APCAF uses non-invasive passive verification (zero picks, zero destructive tools).</span>
+          </div>
+
+          <div class="walkthrough-qa-item">
+            <span class="qa-q">5. What happens if you find a weakness?</span>
+            <span class="qa-a">Record finding, generate CISO Warranty Notice, and hold retainage until fixed at zero client cost.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <!-- Atomic Red Team-Inspired Ecosystem / Projects Grid -->
   <section class="section" id="projects-area">

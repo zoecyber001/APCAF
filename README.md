@@ -10,6 +10,27 @@
 
 ---
 
+## ⚡ What is APCAF in Plain English? (The 60-Second Mental Model)
+
+APCAF is a way to check whether physical security controls can actually resist common attacker bypasses. 
+
+Instead of asking only *"Is there a lock on the door?"*, APCAF asks **"How could someone bypass this lock, and does the current setup resist that?"**
+
+### The 5-Step Evaluation Pipeline
+```
+[01. TACTIC]      --> The Goal: What is the attacker trying to achieve? (e.g. Portal Ingress: get through the door)
+      │
+[02. TECHNIQUE]   --> The Mechanism: What bypass path could they use? (e.g. Latch Slip: manipulate latch via gap)
+      │
+[03. OBSERVATION] --> The Check: What physical condition enables this? (e.g. Feeler gauge gap > 3.2mm, no astragal)
+      │
+[04. ASSESSMENT]  --> The Status: Is the hardware hardened or susceptible? (e.g. Legacy / Soft Defect)
+      │
+[05. REMEDIATION] --> The Fix: How is it closed at $0 client capex? (e.g. GC installs steel astragal under warranty)
+```
+
+---
+
 ## 1. Architectural Foundation: Learning from MITRE ATT&CK
 
 MITRE ATT&CK transformed cybersecurity by creating a **standardized, vendor-agnostic language** for cyber adversary behavior. APCAF applies similar structural principles to physical security, establishing a standardized language for adversarial physical-control assessment:
