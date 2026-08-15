@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APCAF Documentation - Comprehensive Physical Security Standard</title>
+  <meta name="description" content="Comprehensive Atomic Red Team-style documentation for APCAF. Standardized physical security test execution procedures, YAML schemas, prerequisites, and warranty remediation clauses.">
+  
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Precision Technical Typography: Geist, Clash Display, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Floating Frosted Glass Navbar with Currency Selector -->
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a href="index.html" class="brand-link" aria-label="APCAF Home">
+        <!-- Bespoke APCAF Vector Logo Mark -->
+        <div class="brand-icon-box">
+          <svg width="18" height="18" viewBox="0 0 64 64" fill="none">
+            <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" />
+            <path d="M32 19 V35 M26 25 H38 M28 31 H36" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+            <circle cx="32" cy="42" r="2.5" fill="#ffffff" />
+          </svg>
+        </div>
+        <span class="brand-badge">APCAF</span>
+      </a>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="repository.html">Rule Repository</a></li>
+          <li><a href="docs.html" class="active">Documentation</a></li>
+          <li><a href="index.html#workbench">Field Triage</a></li>
+          <li><a href="index.html#strategy">CISO Playbook</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Currency Selector -->
+        <div class="currency-selector-wrap">
+          <button type="button" class="btn-nav-currency" onclick="toggleCurrencyDropdown()" title="Switch detected country/currency">
+            <svg class="icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span id="currentCurrencyLabel">USD ($)</span>
+          </button>
+          
+          <div class="currency-dropdown-menu" id="currencyDropdownMenu">
+            <button type="button" class="currency-opt-btn active" data-currency="USD" onclick="selectCurrency('USD')"><span>USD ($)</span> <span>United States</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="GBP" onclick="selectCurrency('GBP')"><span>GBP (£)</span> <span>United Kingdom</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="EUR" onclick="selectCurrency('EUR')"><span>EUR (€)</span> <span>European Union</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="CAD" onclick="selectCurrency('CAD')"><span>CAD (CA$)</span> <span>Canada</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="AUD" onclick="selectCurrency('AUD')"><span>AUD (A$)</span> <span>Australia</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="NGN" onclick="selectCurrency('NGN')"><span>NGN (₦)</span> <span>Nigeria</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="JPY" onclick="selectCurrency('JPY')"><span>JPY (¥)</span> <span>Japan</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="INR" onclick="selectCurrency('INR')"><span>INR (₹)</span> <span>India</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="ZAR" onclick="selectCurrency('ZAR')"><span>ZAR (R)</span> <span>South Africa</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="SGD" onclick="selectCurrency('SGD')"><span>SGD (S$)</span> <span>Singapore</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="CHF" onclick="selectCurrency('CHF')"><span>CHF (CHF)</span> <span>Switzerland</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="AED" onclick="selectCurrency('AED')"><span>AED (AED)</span> <span>UAE</span></button>
+          </div>
+        </div>
+
+        <button type="button" class="btn-nav-sow" onclick="openSowModal()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          SOW
+        </button>
+        <a href="index.html#workbench" class="btn-nav-primary">
+          Run 45s QA
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Docs Layout (Sidebar + Main Content Pane) -->
+  <div class="container docs-page-layout">
+    
+    <!-- Sticky Sidebar Navigation -->
+    <aside class="docs-sidebar">
+      <div>
+        <div class="docs-sidebar-group-title">Getting Started</div>
+        <ul class="docs-nav-list">
+          <li><a href="#intro" class="docs-nav-link active">Introduction & Philosophy</a></li>
+          <li><a href="#execution-model" class="docs-nav-link">45-Second Execution Model</a></li>
+          <li><a href="#sow-clause" class="docs-nav-link">Zero-Liability SOW Consent</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="docs-sidebar-group-title">Atomic Physical Tests</div>
+        <ul class="docs-nav-list">
+          <li><a href="#phy-t1001" class="docs-nav-link">PHY-T1001: RFID Credential</a></li>
+          <li><a href="#phy-t1002" class="docs-nav-link">PHY-T1002: Latch Manipulation</a></li>
+          <li><a href="#phy-t1003" class="docs-nav-link">PHY-T1003: REX Sensor Blind Trip</a></li>
+          <li><a href="#phy-t1004" class="docs-nav-link">PHY-T1004: Network Port Tap</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="docs-sidebar-group-title">CISO Governance</div>
+        <ul class="docs-nav-list">
+          <li><a href="#warranty-hold" class="docs-nav-link">Contractor Warranty Hold</a></li>
+          <li><a href="#compliance-crosswalk" class="docs-nav-link">Regulatory Cross-Walk</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="docs-main-content">
+      
+      <!-- Section 1: Introduction -->
+      <article class="doc-article" id="intro">
+        <div>
+          <span class="section-eyebrow">Architecture Overview</span>
+          <h1 style="font-size: 2.2rem; margin-top: 4px;">APCAF Specification & Philosophy</h1>
+        </div>
+        <p>
+          The <strong>Adversarial Physical Control Assessment Framework (APCAF)</strong> is an open-source technical standard mapped to <strong>MITRE ATT&CK</strong> for physical security. Unlike traditional checklist-based compliance audits (e.g. ISO 27001 or PCI DSS) which verify that security controls exist on paper, APCAF measures whether installed physical controls resist deterministic 45-second adversarial bypasses.
+        </p>
+        
+        <div class="spec-sheet-block" style="border-left: 3px solid var(--accent-sky);">
+          <div class="block-title" style="color: var(--accent-sky);">The Core Thesis: Zero Operational Budget Remediation</div>
+          <p style="font-size: 0.88rem;">
+            Physical security hardware deficiencies (such as unencrypted 125 kHz Prox badges or excessive door gaps) are latent contractor installation defects. By conducting a non-destructive 45-second QA inspection during new facility commissioning or annual reviews, security leaders can legally hold contractor retainage payments and force zero-cost warranty repairs.
+          </p>
+        </div>
+      </article>
+
+      <!-- Section 2: Zero-Liability SOW Clause -->
+      <article class="doc-article" id="sow-clause">
+        <div>
+          <span class="section-eyebrow">Legal Authorization</span>
+          <h2>Zero-Liability SOW Fast-Path Clause</h2>
+        </div>
+        <p>
+          APCAF inspections require zero destructive tools, zero lockpicks, and zero bypass of life-safety hardware. To authorize passive physical testing in professional service agreements, insert the following standard clause into engagement letters:
+        </p>
+
+        <div class="doc-code-block">
+          <button class="doc-copy-btn" onclick="copyConsentClause()">Copy Clause</button>
+<pre><code>"Client explicitly authorizes the assessment team to perform non-invasive,
+passive radio frequency (RF) credential reads and non-intrusive passive
+physical network port link detection during the inspection to verify vendor
+hardware installation specifications."</code></pre>
+        </div>
+      </article>
+
+      <!-- Section 3: PHY-T1001 Atomic Documentation -->
+      <article class="doc-article" id="phy-t1001">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <span class="chip-tag" style="color: var(--accent-sky);">PHY-TAC-02: Credential Access</span>
+            <h2 style="margin-top: 6px;">PHY-T1001: Unencrypted RFID Harvesting</h2>
+          </div>
+          <span class="card-badge-severity critical">CRITICAL SEVERITY</span>
+        </div>
+
+        <p>
+          Adversaries interrogate unencrypted legacy proximity credentials (125 kHz HID Prox, EM4100) or static high-frequency CSNs (MIFARE Classic 1K/4K) using portable interrogators to harvest badge IDs in under 5 seconds from up to 1 meter away.
+        </p>
+
+        <!-- YAML Atomic Red Team Definition -->
+        <div>
+          <div class="block-title">Atomic Red Team Test Definition (YAML)</div>
+          <div class="doc-code-block">
+            <button class="doc-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('yaml1001').innerText); showToast('Copied YAML Spec');">Copy Spec</button>
+<pre id="yaml1001"><code>attack_technique: PHY-T1001
+display_name: "Unencrypted RFID Harvesting (125 kHz / MIFARE CSN)"
+atomic_tests:
+  - name: "Passive Badge Interrogation"
+    auto_generated_guid: "apcaf-t1001-test-01"
+    description: "Verify if credential emits unencrypted static UID or AES-128 crypto challenge."
+    supported_platforms: ["physical"]
+    input_arguments:
+      interrogator_type:
+        description: "Pocket dual-frequency RFID reader"
+        default: "Proxmark3 / Keysy"
+    executor:
+      name: "passive_rf_read"
+      command: "rfid lf search && hf 14a info"
+      cleanup_command: "rfid off"
+    pass_criteria: "Card initiates ISO/IEC 14443-4 AES-128 handshake (DESFire EV2/EV3/Seos)."
+    fail_criteria: "Card returns plaintext 26-bit facility code on 125 kHz carrier in under 3 seconds."</code></pre>
+          </div>
+        </div>
+
+        <!-- 45s Execution Procedure -->
+        <div>
+          <div class="block-title" style="color: var(--accent-sky);">45-Second Step-by-Step Test Procedure</div>
+          <div class="atomic-step-list">
+            <div class="atomic-step-item">
+              <span class="atomic-step-num">Step 01</span>
+              <span>Power on pocket interrogator in passive read mode. Hold credential within 5 cm.</span>
+            </div>
+            <div class="atomic-step-item">
+              <span class="atomic-step-num">Step 02</span>
+              <span>Observe demodulated signal: Check carrier frequency (125 kHz vs 13.56 MHz).</span>
+            </div>
+            <div class="atomic-step-item">
+              <span class="atomic-step-num">Step 03</span>
+              <span>If unencrypted facility code broadcasts plaintext, flag as <strong>DEFECT (Legacy/Soft)</strong>.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Warranty Hold Terms -->
+        <div class="spec-sheet-block" style="border-left: 3px solid var(--status-hardened);">
+          <div class="block-title" style="color: var(--status-hardened);">Contractor Warranty Mitigation Specification (PHY-M1001)</div>
+          <p style="font-size: 0.85rem;">
+            Systems Integrator must replace unencrypted 125 kHz credentials with AES-128 mutual-authenticating smartcards (DESFire EV3 / Seos) and activate cryptographic SAM profiles on readers under standard contract warranty at zero additional cost to client.
+          </p>
+        </div>
+      </article>
+
+      <!-- Section 4: PHY-T1002 Atomic Documentation -->
+      <article class="doc-article" id="phy-t1002">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <span class="chip-tag" style="color: var(--accent-sky);">PHY-TAC-03: Portal Ingress</span>
+            <h2 style="margin-top: 6px;">PHY-T1002: Mechanical Latch Manipulation</h2>
+          </div>
+          <span class="card-badge-severity critical">CRITICAL SEVERITY</span>
+        </div>
+
+        <p>
+          Adversaries retract latch bolts on outward-opening doors using flexible shove knives, under-door tools, or latch slips when perimeter door frame clearances exceed standard IBC tolerances (> 3.2mm).
+        </p>
+
+        <div class="doc-code-block">
+          <button class="doc-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('yaml1002').innerText); showToast('Copied YAML Spec');">Copy Spec</button>
+<pre id="yaml1002"><code>attack_technique: PHY-T1002
+display_name: "Mechanical Latch Manipulation (Slip & Under-Door Tool)"
+atomic_tests:
+  - name: "Door Frame Clearance & Astragal Inspection"
+    auto_generated_guid: "apcaf-t1002-test-01"
+    supported_platforms: ["physical"]
+    input_arguments:
+      max_clearance_mm:
+        description: "Maximum allowable perimeter frame gap"
+        default: 3.2
+    executor:
+      name: "feeler_gauge_check"
+      command: "measure_door_gap --target=strike_jamb --max=3.2mm"
+    pass_criteria: "Jamb margin <= 3.2mm OR overlapping continuous stainless steel astragal installed."
+    fail_criteria: "Margin > 3.2mm with direct line-of-sight to latch bolt bevel without protective plate."</code></pre>
+        </div>
+
+        <div class="spec-sheet-block" style="border-left: 3px solid var(--status-hardened);">
+          <div class="block-title" style="color: var(--status-hardened);">Contractor Warranty Mitigation Specification (PHY-M1002)</div>
+          <p style="font-size: 0.85rem;">
+            Integrator must furnish and mount continuous full-height stainless steel security astragals and adjust door closer latching speed to ensure positive deadlatching under contract warranty.
+          </p>
+        </div>
+      </article>
+
+      <!-- Section 5: PHY-T1003 Atomic Documentation -->
+      <article class="doc-article" id="phy-t1003">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <span class="chip-tag" style="color: var(--accent-sky);">PHY-TAC-03: Portal Ingress</span>
+            <h2 style="margin-top: 6px;">PHY-T1003: Request-to-Exit (REX) Blind Activation</h2>
+          </div>
+          <span class="card-badge-severity high">HIGH SEVERITY</span>
+        </div>
+
+        <p>
+          Adversaries trigger interior Request-to-Exit PIR motion sensors through door threshold gaps using thermal aerosol plumes or reaching rods, forcing electronic mag-locks to unlock instantly.
+        </p>
+
+        <div class="spec-sheet-block" style="border-left: 3px solid var(--status-hardened);">
+          <div class="block-title" style="color: var(--status-hardened);">Contractor Warranty Mitigation Specification (PHY-M1003)</div>
+          <p style="font-size: 0.85rem;">
+            Integrator must mount UL-listed directional deflector hoods over all REX motion detectors and install heavy-duty perimeter brush sweeps under warranty.
+          </p>
+        </div>
+      </article>
+
+      <!-- Section 6: PHY-T1004 Atomic Documentation -->
+      <article class="doc-article" id="phy-t1004">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <span class="chip-tag" style="color: var(--accent-sky);">PHY-TAC-05: Interface & Tap</span>
+            <h2 style="margin-top: 6px;">PHY-T1004: Unauthenticated Network Drop</h2>
+          </div>
+          <span class="card-badge-severity high">HIGH SEVERITY</span>
+        </div>
+
+        <p>
+          Publicly accessible wall jacks in lobbies and meeting rooms broadcast active Layer 1 PHY carrier signaling without port security, MAC filtering, or 802.1X Network Access Control.
+        </p>
+
+        <div class="spec-sheet-block" style="border-left: 3px solid var(--status-hardened);">
+          <div class="block-title" style="color: var(--status-hardened);">Contractor Warranty Mitigation Specification (PHY-M1004)</div>
+          <p style="font-size: 0.85rem;">
+            Network integrator must administratively shut down unused switch ports at the patch panel and enforce 802.1X port isolation across all common area drops under warranty.
+          </p>
+        </div>
+      </article>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong style="color: var(--text-pure); font-family: var(--font-display);">APCAF Standard</strong>
+        <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 2px;">
+          Adversarial Physical Control Assessment Framework • Open MIT License
+        </div>
+      </div>
+      <div style="display: flex; gap: 16px;">
+        <a href="index.html" style="font-size: 0.82rem; color: var(--text-body);">Overview</a>
+        <a href="repository.html" style="font-size: 0.82rem; color: var(--text-body);">Rule Repository</a>
+        <a href="docs.html" style="font-size: 0.82rem; color: var(--text-body);">Documentation</a>
+        <a href="index.html#workbench" style="font-size: 0.82rem; color: var(--text-body);">Field Triage</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SOW Legal Clause Modal -->
+  <div class="modal-overlay" id="sowModalOverlay">
+    <div class="modal-sheet">
+      <div class="modal-sheet-head">
+        <div>
+          <span class="chip-tag">Engagement Addendum</span>
+          <h3 style="margin-top: 6px; font-size: 1.15rem;">Audit Scope & Consent Clause</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeSowModal()" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-sheet-main">
+        <div class="spec-sheet-block" style="border-left: 3px solid var(--accent-sky);">
+          <div class="block-title" style="color: var(--accent-sky);">Single-Sentence Fast-Path Clause</div>
+          <p id="sowClauseText" style="font-size: 0.9rem; color: var(--text-head); font-style: italic;">
+            "Client explicitly authorizes the assessment team to perform non-invasive, passive radio frequency (RF) credential reads and non-intrusive passive physical network port link detection during the inspection to verify vendor hardware installation specifications."
+          </p>
+        </div>
+
+        <div class="spec-sheet-block">
+          <div class="block-title">Scope & Life-Safety Protection Guarantees</div>
+          <p style="font-size: 0.82rem; color: var(--text-body); line-height: 1.5;">
+            • <strong>Zero Operational Impact:</strong> Strictly non-intrusive reads only. No packet injection or sniffing.<br>
+            • <strong>Life-Safety Non-Interference:</strong> Zero manipulation of fire alarm, emergency egress, or crash bar hardware.<br>
+            • <strong>Contractual Purpose:</strong> Generates a quality assurance scorecard to assist client in validating contractor warranty deliverables.
+          </p>
+        </div>
+
+        <button type="button" class="btn-nav-primary" style="width: 100%; justify-content: center; padding: 12px; border-radius: var(--radius-pill);" onclick="copySowClauseAndClose()">
+          Copy SOW Clause to Clipboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="currency.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

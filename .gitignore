@@ -1,0 +1,12 @@
+# Dependencies & caches
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+
+# Editor & Agent caches
+.vscode/
+.idea/
+.agents/
+.system_generated/
+scratch/

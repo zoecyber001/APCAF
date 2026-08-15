@@ -1,0 +1,39 @@
+case_id: "APCAF-CASE-001"
+timestamp: "2026-08-15T10:30:00Z"
+assessor_id: "APCAF-LEAD-01"
+
+facility_metadata:
+  facility_type: "datacenter"
+  regulatory_scope:
+    - "ISO_27001"
+    - "SOC_2"
+    - "PCI_DSS_v4"
+  target_facility_hash: "anon-facility-001-eu"
+
+findings:
+  - control_id: "APCAF-01"
+    classification: "Legacy/Soft"
+    observed_spec: "HID 125kHz H10301 (26-bit unencrypted Prox)"
+    inspection_time_seconds: 4
+    remediation_action: "Replace credential stock with MIFARE DESFire EV3 (AES-128) and update reader firmware keys."
+    vendor_warranty_applicable: true
+
+  - control_id: "APCAF-02"
+    classification: "Legacy/Soft"
+    observed_spec: "Server Suite A double door outward swing, 4.5mm perimeter gap, no astragal latch guard, Bosch DS160 REX sensor unhooded."
+    inspection_time_seconds: 28
+    remediation_action: "Install full-length continuous interlocking astragal plate and install REX sensor beam deflector collar."
+    vendor_warranty_applicable: true
+
+  - control_id: "APCAF-03"
+    classification: "Hardened"
+    observed_spec: "Reception lobby wall RJ-45 drops show zero Layer 1 link pulse (passive LED unilluminated)."
+    inspection_time_seconds: 8
+    remediation_action: "No action required. Port shutdown verified at patch panel."
+    vendor_warranty_applicable: false
+
+remediation_status:
+  ciso_punchlist_issued: true
+  vendor_invoice_hold: true
+  vendor_resolution: "REMEDIATED_NO_COST"
+  notes: "Integrator installed continuous astragal latch guards and supplied DESFire EV3 smartcards under 1-year installation warranty prior to final payment milestone release."

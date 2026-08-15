@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "APCAF_Case_Log",
+  "description": "Schema for logging non-invasive APCAF physical security inspection findings and remediation tracking.",
+  "type": "object",
+  "required": [
+    "case_id",
+    "timestamp",
+    "facility_metadata",
+    "assessor_id",
+    "findings",
+    "remediation_status"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "pattern": "^APCAF-CASE-[0-9]{3,}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "facility_metadata": {
+      "type": "object",
+      "required": ["facility_type", "regulatory_scope"],
+      "properties": {
+        "facility_type": {
+          "type": "string",
+          "enum": ["datacenter", "corporate_hq", "bank_branch", "critical_infrastructure", "warehouse", "healthcare"]
+        },
+        "regulatory_scope": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["ISO_27001", "PCI_DSS_v4", "SOC_2", "NDPA", "HIPAA", "NIST_SP_800_53", "OTHER"]
+          }
+        },
+        "target_facility_hash": {
+          "type": "string",
+          "description": "Anonymized SHA-256 or pseudo-identifier for client data confidentiality"
+        }
+      }
+    },
+    "assessor_id": {
+      "type": "string"
+    },
+    "findings": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["control_id", "classification", "observed_spec", "remediation_action"],
+        "properties": {
+          "control_id": {
+            "type": "string",
+            "enum": ["APCAF-01", "APCAF-02", "APCAF-03"]
+          },
+          "classification": {
+            "type": "string",
+            "enum": ["Hardened", "Legacy/Soft"]
+          },
+          "observed_spec": {
+            "type": "string"
+          },
+          "inspection_time_seconds": {
+            "type": "integer"
+          },
+          "remediation_action": {
+            "type": "string"
+          },
+          "vendor_warranty_applicable": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "remediation_status": {
+      "type": "object",
+      "required": ["ciso_punchlist_issued", "vendor_invoice_hold"],
+      "properties": {
+        "ciso_punchlist_issued": {
+          "type": "boolean"
+        },
+        "vendor_invoice_hold": {
+          "type": "boolean"
+        },
+        "vendor_resolution": {
+          "type": "string",
+          "enum": ["PENDING", "REMEDIATED_NO_COST", "DISPUTED", "ACCEPTED_RISK", "UNKNOWN"]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
