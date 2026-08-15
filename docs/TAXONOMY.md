@@ -122,20 +122,42 @@ Below is the foundational technique mapping, featuring our 3 core MVP field cont
 
 ---
 
-## 4. The ATT&CK Lesson: How APCAF Evolves Without Losing Focus
+---
+
+## 4. Methodological Distinction: Observable Susceptibility vs. Exploitability
+
+A fundamental tenet of APCAF is maintaining a strict, legally sound boundary between **non-invasive passive assessment** and **destructive exploitation**:
+
+| Assessment Layer | What APCAF Measures | What APCAF Does NOT Do |
+| :--- | :--- | :--- |
+| **Passive QA Specification** | Verifies whether the installed hardware presents **observable conditions associated with known bypasses** (e.g. frame margin $> 3.2\text{mm}$, plaintext UID transmission, live carrier signaling). | Does **not** insert destructive tools, pick cylinder pins, force latch mechanisms, or inject rogue network packets into client subnets. |
+| **Finding Interpretation** | Classifies whether a physical barrier satisfies the contractor's hardened installation specification. | Does **not** claim a facility has suffered a demonstrated physical breach. |
+
+---
+
+## 5. Architectural Roadmap: From 3-Control MVP to Multi-Variable Scoring
 
 ```
-PHASE 1 (CURRENT SHIP MONTH)       PHASE 2 (POST-10 REAL AUDITS)      PHASE 3 (INDUSTRY STANDARD)
+PHASE 1 (MVP SHIP MONTH)           PHASE 2 (POST-10 FIELD CASES)      PHASE 3 (INDUSTRY STANDARD)
 ┌───────────────────────────────┐  ┌───────────────────────────────┐  ┌───────────────────────────────┐
-│ The 3-Control MVP             │  │ Empirical Data Integration    │  │ Full Open MITRE Matrix        │
-│ • APCAF-01 (PHY-T1001)        │  │ • 10+ Validated Case Logs     │  │ • Complete PHY-TAC-01 to 05   │
-│ • APCAF-02 (PHY-T1002/1003)   │─>│ • Quantified Vendor Defects   │─>│ • STIX 2.1 / TAXII Export     │
-│ • APCAF-03 (PHY-T1004)        │  │ • Standardized Score Weights  │  │ • Open CISO Punch List Engine │
-│ • 45s Field Triage Generator  │  │ • Community Case Submissions  │  │ • Full Vendor Defect Database │
+│ The 3-Control Core MVP        │  │ Empirical Data Integration    │  │ Full Open Behavioral Matrix   │
+│ • PHY-T1001 (RFID Harvest)    │  │ • 10+ Validated Field Cases   │  │ • Complete PHY-TAC-01 to 05   │
+│ • PHY-T1002/1003 (Portal/REX) │─>│ • Non-Binary Resistance Scale │─>│ • STIX 2.1 / TAXII Export     │
+│ • PHY-T1004 (Port Tap)        │  │ • Multi-Factor Confidence     │  │ • Automated CISO Punch List   │
+│ • Canonical YAML / Schema     │  │ • Community Case Pipeline     │  │ • Full Vendor Defect Archive  │
 └───────────────────────────────┘  └───────────────────────────────┘  └───────────────────────────────┘
 ```
 
+### Multi-Variable Evaluation Model (Phase 2 Progression)
+While the MVP utilizes a fast-path binary classification (**Hardened** vs. **Legacy/Soft**) to enable rapid 45-second site walks, APCAF is engineered to evolve toward a multi-variable scoring model:
+
+$$\text{Evaluation} = \text{Applicability} \rightarrow \text{Observed Condition} \rightarrow \text{Resistance Level} \rightarrow \text{Confidence} \rightarrow \text{Remediation Priority}$$
+
+* **Hardened:** Control actively resists known attack mechanics with cryptographic or physical barriers (e.g. AES-128 crypto, continuous overlapping steel astragal).
+* **Partially Hardened:** Primary defense is in place but lacks secondary depth (e.g. astragal installed, but door closer speed allows latch hang-up).
+* **Susceptible / Defect:** Observable physical condition permits straightforward bypass with zero resistance.
+
 ### Architectural Guardrails
-1. **Never stall field execution for taxonomy expansion:** All taxonomy IDs (`PHY-TXXXX`) map directly to our 3 field checks today.
+1. **Never stall field execution for taxonomy expansion:** All taxonomy IDs (`PHY-TXXXX`) map directly to executable field checks.
 2. **Every technique must define a Passive QA Spec:** A technique cannot exist in APCAF unless it can be evaluated objectively without destructive testing or liability.
 3. **Every technique must produce Vendor Warranty Leverage:** It must give the CISO contractual leverage to enforce fixes under existing warranty budgets.

@@ -599,36 +599,45 @@ facility_metadata:
     - "SOC_2_CC6"
   target_facility_hash: "${facilityRef}"
 
-adversarial_evaluations:
-  - tactic_id: "PHY-TAC-02"
+findings:
+  - control_id: "APCAF-01"
+    tactic_id: "PHY-TAC-02"
     technique_id: "PHY-T1001"
     technique_name: "Unencrypted RFID Harvesting"
     classification: "${state['01'] === 'Hardened' ? 'Hardened' : 'Legacy/Soft'}"
-    mitigation_ref: "PHY-M1001 (AES-128 Smartcards)"
-    observed_telemetry: "${notes01}"
-    vendor_warranty_defect: ${state['01'] !== 'Hardened'}
+    observed_spec: "${notes01}"
+    inspection_time_seconds: 5
+    mitigation_ref: "PHY-M1001"
+    remediation_action: "Replace credential stock with AES-128 crypto smartcards (DESFire EV3 / Seos) and activate SAM keys on readers."
+    vendor_warranty_applicable: ${state['01'] !== 'Hardened'}
 
-  - tactic_id: "PHY-TAC-03"
+  - control_id: "APCAF-02"
+    tactic_id: "PHY-TAC-03"
     technique_id: "PHY-T1002"
     technique_name: "Mechanical Latch & REX Sensor Manipulation"
     classification: "${state['02'] === 'Hardened' ? 'Hardened' : 'Legacy/Soft'}"
-    mitigation_ref: "PHY-M1002/M1003 (Continuous Astragal & REX Hood)"
-    observed_telemetry: "${notes02}"
-    vendor_warranty_defect: ${state['02'] !== 'Hardened'}
+    observed_spec: "${notes02}"
+    inspection_time_seconds: 30
+    mitigation_ref: "PHY-M1002/M1003"
+    remediation_action: "Install continuous stainless steel astragal plate (NFPA 80 gap <= 3.2mm) and REX sensor directional deflector hood."
+    vendor_warranty_applicable: ${state['02'] !== 'Hardened'}
 
-  - tactic_id: "PHY-TAC-05"
+  - control_id: "APCAF-03"
+    tactic_id: "PHY-TAC-05"
     technique_id: "PHY-T1004"
     technique_name: "Unauthenticated Physical L1/L2 Network Tap"
     classification: "${state['03'] === 'Hardened' ? 'Hardened' : 'Legacy/Soft'}"
-    mitigation_ref: "PHY-M1004 (Port Shutdown / 802.1X)"
-    observed_telemetry: "${notes03}"
-    vendor_warranty_defect: ${state['03'] !== 'Hardened'}
+    observed_spec: "${notes03}"
+    inspection_time_seconds: 10
+    mitigation_ref: "PHY-M1004"
+    remediation_action: "Administratively shutdown unmonitored ports at switch panel and configure 802.1X network access control."
+    vendor_warranty_applicable: ${state['03'] !== 'Hardened'}
 
 remediation_status:
   ciso_punchlist_issued: true
-  vendor_retainage_hold: ${state['01'] !== 'Hardened' || state['02'] !== 'Hardened' || state['03'] !== 'Hardened'}
-  vendor_resolution: "PENDING"
-  notes: "Field evaluation compiled via APCAF ATT&CK Triage Matrix."`;
+  vendor_invoice_hold: ${state['01'] !== 'Hardened' || state['02'] !== 'Hardened' || state['03'] !== 'Hardened'}
+  vendor_resolution: "${state['01'] === 'Hardened' && state['02'] === 'Hardened' && state['03'] === 'Hardened' ? 'REMEDIATED_NO_COST' : 'PENDING'}"
+  notes: "Field evaluation compiled via APCAF Triage Matrix (susceptibility assessment under passive QA)."`;
       outputArea.textContent = yaml;
     } else {
       outputTitle.innerText = "CISO Vendor Non-Conformance Notice (ATT&CK Defect Punch List)";

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "APCAF_Case_Log",
-  "description": "Schema for logging non-invasive APCAF physical security inspection findings and remediation tracking.",
+  "description": "Canonical schema for logging non-invasive APCAF physical security assessment findings, observed conditions, and vendor warranty remediation tracking.",
   "type": "object",
   "required": [
     "case_id",
@@ -20,19 +20,24 @@
       "type": "string",
       "format": "date-time"
     },
+    "framework_standard": {
+      "type": "string"
+    },
+    "assessor_id": {
+      "type": "string"
+    },
     "facility_metadata": {
       "type": "object",
       "required": ["facility_type", "regulatory_scope"],
       "properties": {
         "facility_type": {
           "type": "string",
-          "enum": ["datacenter", "corporate_hq", "bank_branch", "critical_infrastructure", "warehouse", "healthcare"]
+          "enum": ["datacenter", "corporate_hq", "bank_branch", "critical_infrastructure", "warehouse", "healthcare", "card_production", "other"]
         },
         "regulatory_scope": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": ["ISO_27001", "PCI_DSS_v4", "SOC_2", "NDPA", "HIPAA", "NIST_SP_800_53", "OTHER"]
+            "type": "string"
           }
         },
         "target_facility_hash": {
@@ -41,29 +46,42 @@
         }
       }
     },
-    "assessor_id": {
-      "type": "string"
-    },
     "findings": {
       "type": "array",
-      "minItems": 3,
+      "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["control_id", "classification", "observed_spec", "remediation_action"],
+        "required": ["control_id", "technique_id", "classification", "observed_spec", "remediation_action"],
         "properties": {
           "control_id": {
+            "type": "string"
+          },
+          "tactic_id": {
+            "type": "string"
+          },
+          "technique_id": {
             "type": "string",
-            "enum": ["APCAF-01", "APCAF-02", "APCAF-03"]
+            "pattern": "^PHY-T[0-9]{4}(\\.[0-9]{3})?$"
+          },
+          "technique_name": {
+            "type": "string"
           },
           "classification": {
             "type": "string",
-            "enum": ["Hardened", "Legacy/Soft"]
+            "enum": ["Hardened", "Legacy/Soft", "Partially Hardened"]
+          },
+          "susceptibility_assessment": {
+            "type": "string",
+            "description": "Clarifies observable physical vulnerability condition versus executed exploit"
           },
           "observed_spec": {
             "type": "string"
           },
           "inspection_time_seconds": {
             "type": "integer"
+          },
+          "mitigation_ref": {
+            "type": "string"
           },
           "remediation_action": {
             "type": "string"
