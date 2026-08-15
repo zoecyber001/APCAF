@@ -117,6 +117,12 @@ function applyCurrency(currencyCode) {
   const tagLed = document.getElementById("priceTagLed");
   if (tagLed) tagLed.textContent = config.ledRange;
 
+  const caseRetainage = document.getElementById("caseRetainage");
+  if (caseRetainage) caseRetainage.textContent = `${config.symbol}48,000`;
+
+  const caseCapex = document.getElementById("caseCapex");
+  if (caseCapex) caseCapex.textContent = config.zeroBudget;
+
   // 4. Update currency selector button
   const selectorLabel = document.getElementById("currentCurrencyLabel");
   if (selectorLabel) {
