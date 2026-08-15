@@ -476,7 +476,32 @@ code, pre {
 @media (max-width: 960px) {
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .hero-left {
+    align-items: center;
+    text-align: center;
+  }
+
+  .resend-hero-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .resend-btn-cluster {
+    justify-content: center;
+  }
+
+  .hero-stats-row {
+    justify-content: center;
+  }
+
+  .hero-3d-stage {
+    order: 2;
+    height: clamp(240px, 40vw, 360px);
+    margin-top: 8px;
   }
 }
 
@@ -491,7 +516,7 @@ code, pre {
   font-size: clamp(2.3rem, 6.2vw, 4.6rem);
   font-weight: 800;
   letter-spacing: -0.04em;
-  line-height: 1.04;
+  line-height: 1.05;
   color: var(--text-pure);
   margin-bottom: clamp(14px, 2.5vw, 22px);
   word-break: break-word;
@@ -627,7 +652,7 @@ code, pre {
 .hero-3d-stage {
   width: 100%;
   height: clamp(300px, 45vw, 480px);
-  min-height: 280px;
+  min-height: 240px;
   position: relative;
   display: flex;
   align-items: center;
@@ -790,12 +815,38 @@ code, pre {
 }
 
 /* ==========================================================================
-   Comprehensive Documentation Page Layout (docs.html)
+   Atomic Red Team-Inspired Documentation Portal (docs.html)
    ========================================================================== */
+.docs-mobile-jump-bar {
+  display: none;
+  position: sticky;
+  top: 68px;
+  z-index: 50;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 8px 0;
+}
+
+.docs-jump-select {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  color: var(--text-pure);
+  outline: none;
+  cursor: pointer;
+  max-width: 200px;
+}
+
 .docs-page-layout {
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);
-  gap: clamp(20px, 3vw, 36px);
+  gap: clamp(20px, 3vw, 40px);
   padding: clamp(80px, 12vw, 110px) 0 80px;
   align-items: start;
   width: 100%;
@@ -805,47 +856,24 @@ code, pre {
 }
 
 @media (max-width: 900px) {
+  .docs-mobile-jump-bar {
+    display: block;
+  }
+
   .docs-page-layout {
     grid-template-columns: 1fr;
     gap: 24px;
-    padding-top: 80px;
+    padding-top: 24px;
   }
   
   .docs-sidebar {
-    position: sticky;
-    top: 72px;
-    z-index: 40;
-    max-height: none;
-    flex-direction: row;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding: 10px 14px;
-    gap: 12px;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  .docs-sidebar-group-title {
     display: none;
-  }
-  
-  .docs-nav-list {
-    flex-direction: row;
-    gap: 6px;
-  }
-  
-  .docs-nav-link {
-    padding: 6px 12px;
-    border-radius: var(--radius-pill);
-  }
-  
-  .docs-nav-link.active {
-    border-left: none;
-    background: #09090b;
-    color: #ffffff;
   }
 }
 
 .docs-sidebar {
+  position: sticky;
+  top: 84px;
   background: var(--bg-surface);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-md);
@@ -854,6 +882,8 @@ code, pre {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
   box-sizing: border-box;
 }
 
@@ -896,6 +926,22 @@ code, pre {
   border-left: 2px solid #09090b;
 }
 
+.docs-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.docs-breadcrumb .active-crumb {
+  color: var(--text-pure);
+  font-weight: 600;
+}
+
 .docs-main-content {
   min-width: 0;
   width: 100%;
@@ -918,6 +964,16 @@ code, pre {
   gap: 20px;
   box-sizing: border-box;
   overflow: hidden;
+}
+
+.doc-article-head h1 {
+  font-size: clamp(1.8rem, 4vw, 2.3rem);
+  margin-top: 4px;
+}
+
+.doc-article-head h2 {
+  font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+  margin-top: 4px;
 }
 
 .doc-code-block {
@@ -1741,7 +1797,7 @@ code, pre {
     background: #ffffff;
     color: #000000;
   }
-  .site-header, .resend-btn-cluster, .tactic-tab-bar, .switch-opt-pair, .telemetry-input-line, .site-footer, .toast-container, .repo-search-bar, .atomic-doc-nav, .projects-grid, .trust-bar, .hero-3d-stage, .docs-sidebar {
+  .site-header, .resend-btn-cluster, .tactic-tab-bar, .switch-opt-pair, .telemetry-input-line, .site-footer, .toast-container, .repo-search-bar, .atomic-doc-nav, .projects-grid, .trust-bar, .hero-3d-stage, .docs-sidebar, .docs-mobile-jump-bar {
     display: none !important;
   }
   .executive-notice-deck {
