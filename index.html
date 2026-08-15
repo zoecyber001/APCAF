@@ -39,7 +39,7 @@
       <nav>
         <ul class="nav-menu">
           <li><a href="index.html" class="active">Overview</a></li>
-          <li><a href="#learn">Learn</a></li>
+          <li><a href="learn.html">Learn</a></li>
           <li><a href="repository.html">Repository</a></li>
           <li><a href="docs.html">Docs</a></li>
           <li><a href="#workbench">Field Triage</a></li>
@@ -99,7 +99,7 @@
       <!-- Mobile Navigation Drawer -->
       <div class="mobile-nav-drawer" id="mobileNavMenu">
         <a href="index.html" class="active" onclick="closeMobileMenu()">Overview</a>
-        <a href="#learn" onclick="closeMobileMenu()">Learn APCAF (Mental Model)</a>
+        <a href="learn.html" onclick="closeMobileMenu()">Learn APCAF (Field Guide)</a>
         <a href="repository.html" onclick="closeMobileMenu()">Rule Repository</a>
         <a href="docs.html" onclick="closeMobileMenu()">Technical Documentation</a>
         <a href="#workbench" onclick="closeMobileMenu()">45s Field Triage</a>
@@ -125,11 +125,11 @@
           </p>
 
           <div class="resend-btn-cluster">
-            <a href="#workbench" class="resend-btn-main">
-              Run 45s Field Triage
+            <a href="learn.html" class="resend-btn-main">
+              Learn APCAF (Field Guide)
             </a>
-            <a href="docs.html" class="resend-btn-ghost">
-              Explore Documentation
+            <a href="#workbench" class="resend-btn-ghost">
+              Run 45s Field Triage
             </a>
           </div>
 
@@ -172,6 +172,48 @@
       </div>
     </div>
   </div>
+
+  <!-- Choose Your Pathway: Learn it -> Use it -> Study it -->
+  <section class="section" style="padding-bottom: 20px;">
+    <div class="container">
+      <div class="section-head" style="text-align: center;">
+        <span class="section-eyebrow">Getting Started</span>
+        <h2>Choose Your Pathway</h2>
+        <p>Three purpose-built ways to engage with the APCAF standard.</p>
+      </div>
+
+      <div class="three-path-grid">
+        
+        <a href="learn.html" class="path-card primary-path">
+          <span class="path-tag">1. Learn it • 15 Mins</span>
+          <div class="path-title">I'm new to APCAF</div>
+          <div class="path-desc">
+            A 6-lesson practical field guide. Learn why "paper existence" fails, master the 5-step mental model, and test your skills in an interactive facility simulator.
+          </div>
+          <span class="path-cta">Start Field Guide →</span>
+        </a>
+
+        <a href="#workbench" class="path-card">
+          <span class="path-tag">2. Use it • 45s Walk</span>
+          <div class="path-title">I'm assessing a facility</div>
+          <div class="path-desc">
+            Run the deterministic 45-second physical triage workbench. Test credentials, frame tolerances, and port states to generate instant CISO warranty notices.
+          </div>
+          <span class="path-cta">Launch 45s Workbench →</span>
+        </a>
+
+        <a href="docs.html" class="path-card">
+          <span class="path-tag">3. Study it • Standards &amp; Code</span>
+          <div class="path-title">I want the specification</div>
+          <div class="path-desc">
+            Explore technical taxonomy mappings, building and fire code citations (NFPA 80 / ANSI SDI / ISO 14443), and Atomic Red Team YAML specifications.
+          </div>
+          <span class="path-cta">Read Technical Specification →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
 
   <!-- Learn APCAF: The 60-Second Mental Model -->
   <section class="section" id="learn">

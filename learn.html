@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn APCAF | The Interactive Physical Security Field Guide</title>
+  <meta name="description" content="A practical 15-minute introduction to adversarial physical-control assessment. Master the APCAF 5-step model, passive inspection boundaries, and core techniques.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- High-End Glassmorphic Floating Island Navigation -->
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a href="index.html" class="brand-link" aria-label="APCAF Home">
+        <div class="brand-icon-box">
+          <svg width="18" height="18" viewBox="0 0 64 64" fill="none">
+            <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" />
+            <path d="M32 19 V35 M26 25 H38 M28 31 H36" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+            <circle cx="32" cy="42" r="2.5" fill="#ffffff" />
+          </svg>
+        </div>
+        <span class="brand-badge">APCAF</span>
+      </a>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="learn.html" class="active">Learn</a></li>
+          <li><a href="repository.html">Repository</a></li>
+          <li><a href="docs.html">Docs</a></li>
+          <li><a href="index.html#workbench">Field Triage</a></li>
+          <li><a href="index.html#strategy">Playbook</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Currency Selector -->
+        <div class="currency-selector-wrap">
+          <button type="button" class="btn-nav-currency" onclick="toggleCurrencyDropdown()" title="Switch detected country/currency">
+            <svg class="icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span id="currentCurrencyLabel">USD ($)</span>
+          </button>
+          
+          <div class="currency-dropdown-menu" id="currencyDropdownMenu">
+            <button type="button" class="currency-opt-btn active" data-currency="USD" onclick="selectCurrency('USD')"><span>USD ($)</span> <span>United States</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="GBP" onclick="selectCurrency('GBP')"><span>GBP (£)</span> <span>United Kingdom</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="EUR" onclick="selectCurrency('EUR')"><span>EUR (€)</span> <span>European Union</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="CAD" onclick="selectCurrency('CAD')"><span>CAD (CA$)</span> <span>Canada</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="AUD" onclick="selectCurrency('AUD')"><span>AUD (A$)</span> <span>Australia</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="NGN" onclick="selectCurrency('NGN')"><span>NGN (₦)</span> <span>Nigeria</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="JPY" onclick="selectCurrency('JPY')"><span>JPY (¥)</span> <span>Japan</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="INR" onclick="selectCurrency('INR')"><span>INR (₹)</span> <span>India</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="ZAR" onclick="selectCurrency('ZAR')"><span>ZAR (R)</span> <span>South Africa</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="SGD" onclick="selectCurrency('SGD')"><span>SGD (S$)</span> <span>Singapore</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="CHF" onclick="selectCurrency('CHF')"><span>CHF (CHF)</span> <span>Switzerland</span></button>
+            <button type="button" class="currency-opt-btn" data-currency="AED" onclick="selectCurrency('AED')"><span>AED (AED)</span> <span>UAE</span></button>
+          </div>
+        </div>
+
+        <button type="button" class="btn-nav-sow" onclick="openSowModal()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          SOW
+        </button>
+        <a href="index.html#workbench" class="btn-nav-primary">
+          Run 45s QA
+        </a>
+        <!-- Mobile Menu Toggle Button -->
+        <button type="button" class="btn-mobile-menu-toggle" id="mobileMenuToggleBtn" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation Drawer -->
+      <div class="mobile-nav-drawer" id="mobileNavMenu">
+        <a href="index.html" onclick="closeMobileMenu()">Overview</a>
+        <a href="learn.html" class="active" onclick="closeMobileMenu()">Learn APCAF (Field Guide)</a>
+        <a href="repository.html" onclick="closeMobileMenu()">Rule Repository</a>
+        <a href="docs.html" onclick="closeMobileMenu()">Technical Documentation</a>
+        <a href="index.html#workbench" onclick="closeMobileMenu()">45s Field Triage</a>
+        <a href="index.html#strategy" onclick="closeMobileMenu()">CISO Warranty Playbook</a>
+        <a href="index.html#crosswalk" onclick="closeMobileMenu()">Compliance Crosswalk</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Learn APCAF Field Guide Layout -->
+  <main class="container learn-page-layout">
+    
+    <!-- Hero Header -->
+    <div class="learn-hero-header">
+      <span class="chip-tag" style="margin-bottom: 12px;">APCAF Fundamentals</span>
+      <h1>Learn APCAF</h1>
+      <p>A practical, 15-minute introduction to adversarial physical-control assessment. Master the mental model, passive inspection boundaries, and core techniques without technical fluff.</p>
+    </div>
+
+    <!-- Sticky Lesson Navigation Bar -->
+    <nav class="learn-nav-sticky" aria-label="Lessons navigation">
+      <a href="#lesson-01" class="learn-nav-btn active">01 • The Problem</a>
+      <a href="#lesson-02" class="learn-nav-btn">02 • The Model</a>
+      <a href="#lesson-03" class="learn-nav-btn">03 • Tactics vs Techniques</a>
+      <a href="#lesson-04" class="learn-nav-btn">04 • Passive QA</a>
+      <a href="#lesson-05" class="learn-nav-btn">05 • 4 MVP Techniques</a>
+      <a href="#lesson-06" class="learn-nav-btn">06 • Interactive Simulator</a>
+    </nav>
+
+    <!-- LESSON 01: The Problem -->
+    <section class="lesson-card" id="lesson-01">
+      <div class="lesson-head">
+        <span class="lesson-num">Lesson 01</span>
+        <span class="lesson-time">2 min read</span>
+      </div>
+      <h2 class="lesson-title">The Problem: Why "Paper Existence" Fails</h2>
+      <div class="lesson-body">
+        <p>
+          In traditional compliance audits (like ISO 27001 or PCI DSS), an assessor walks through a facility with a clipboard and checks: <em>"Is there a physical lock on the server room door? [Yes / No]"</em>.
+        </p>
+        
+        <div class="plain-english-card" style="margin: 20px 0;">
+          <div style="font-size: 1.05rem; font-weight: 700; color: var(--text-pure); margin-bottom: 4px;">
+            The Fundamental Flaw:
+          </div>
+          <p class="plain-english-text">
+            <strong>"The door has a lock" ≠ "The door resists known bypass techniques."</strong>
+          </p>
+        </div>
+
+        <p>
+          A facility can have 100% paper compliance while remaining completely vulnerable to trivial, seconds-long physical bypasses. A door can have an expensive electronic lock installed, but if the contractor leaves an outward-swinging 4.5mm frame gap without an astragal guard, an attacker can slip the latch in 5 seconds with a $5 shove tool.
+        </p>
+
+        <!-- Comparison Matrix -->
+        <div class="comparison-grid">
+          <div class="comparison-box active-box">
+            <div class="comparison-title">Traditional Checklist Approach</div>
+            <p>Verifies whether hardware is physically mounted on the door. Concludes the control is "Compliant" regardless of installation defects or bypass susceptibility.</p>
+          </div>
+          <div class="comparison-box passive-box">
+            <div class="comparison-title">APCAF Adversarial Assessment</div>
+            <p>Deterministically measures whether the installed hardware resists common bypass mechanics under passive 45-second verification.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LESSON 02: The APCAF Model -->
+    <section class="lesson-card" id="lesson-02">
+      <div class="lesson-head">
+        <span class="lesson-num">Lesson 02</span>
+        <span class="lesson-time">3 min read</span>
+      </div>
+      <h2 class="lesson-title">The APCAF Model: The 5-Step Evaluation Chain</h2>
+      <div class="lesson-body">
+        <p>
+          To replace arbitrary checklists with rigorous engineering, APCAF structures all physical assessments around a deterministic 5-step mental pipeline. We use a single server room door example throughout:
+        </p>
+
+        <!-- Visual Pipeline -->
+        <div class="mental-pipeline-grid" style="margin: 24px 0;">
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">01. TACTIC</div>
+            <div class="pipeline-step-title">The Attacker's Goal</div>
+            <div class="pipeline-step-example"><strong>Portal Ingress:</strong> The adversary wants to get through the door.</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">02. TECHNIQUE</div>
+            <div class="pipeline-step-title">The Bypass Mechanism</div>
+            <div class="pipeline-step-example"><strong>Latch Slip (PHY-T1002):</strong> Manipulate the latch bolt through an exposed frame gap.</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">03. OBSERVATION</div>
+            <div class="pipeline-step-title">The Physical Check</div>
+            <div class="pipeline-step-example"><strong>Feeler Gauge:</strong> Assessor checks if frame gap > 3.2mm per NFPA 80 without an astragal.</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">04. ASSESSMENT</div>
+            <div class="pipeline-step-title">The Classification</div>
+            <div class="pipeline-step-example"><strong>Legacy / Soft Defect:</strong> Physical conditions allow bypass without a key.</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">05. REMEDIATION</div>
+            <div class="pipeline-step-title">The Warranty Fix</div>
+            <div class="pipeline-step-example"><strong>PHY-M1002:</strong> General Contractor mounts steel astragal under contract warranty ($0 capex).</div>
+          </div>
+        </div>
+
+        <p>
+          Notice how Step 5 finishes with a <strong>Contractor Warranty Remediation</strong>. APCAF findings are not expensive capital requests; they are installation defects that general contractors must fix at $0 additional cost to the client before final invoice payment.
+        </p>
+      </div>
+    </section>
+
+    <!-- LESSON 03: Tactics vs Techniques -->
+    <section class="lesson-card" id="lesson-03">
+      <div class="lesson-head">
+        <span class="lesson-num">Lesson 03</span>
+        <span class="lesson-time">2 min read</span>
+      </div>
+      <h2 class="lesson-title">Tactics vs. Techniques: Understanding the Matrix</h2>
+      <div class="lesson-body">
+        <p>
+          APCAF borrows MITRE ATT&CK's core behavioral separation:
+        </p>
+        
+        <div class="plain-english-card" style="margin: 16px 0;">
+          <ul style="margin: 0; padding-left: 20px; line-height: 1.8; color: var(--text-pure); font-weight: 500;">
+            <li><strong>Tactic</strong> = <em>What</em> the attacker wants to achieve (Spatial or access objective).</li>
+            <li><strong>Technique</strong> = <em>How</em> the attacker attempts to achieve it (Specific physical/hardware mechanism).</li>
+          </ul>
+        </div>
+
+        <p>APCAF organizes the entire physical attack surface into 5 Core Tactics:</p>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; margin: 20px 0;">
+          <div style="padding: 12px 16px; background: var(--bg-surface-elevated); border-radius: var(--radius-sm); border: 1px solid var(--border-card); display: flex; justify-content: space-between; align-items: center;">
+            <div><strong>PHY-TAC-01: Perimeter Breach</strong> — Defeating outermost fences, gates, or vehicle barriers.</div>
+            <span class="chip-tag">Planned</span>
+          </div>
+          <div style="padding: 12px 16px; background: var(--bg-surface-elevated); border-radius: var(--radius-sm); border: 1px solid var(--border-card); display: flex; justify-content: space-between; align-items: center;">
+            <div><strong>PHY-TAC-02: Credential Intercept</strong> — Wireless token harvesting, cloning, or relay attacks.</div>
+            <span class="chip-tag" style="background: #09090b; color: #fff;">PHY-T1001 Active</span>
+          </div>
+          <div style="padding: 12px 16px; background: var(--bg-surface-elevated); border-radius: var(--radius-sm); border: 1px solid var(--border-card); display: flex; justify-content: space-between; align-items: center;">
+            <div><strong>PHY-TAC-03: Portal Ingress</strong> — Defeating doors, latch assemblies, and exit sensors.</div>
+            <span class="chip-tag" style="background: #09090b; color: #fff;">PHY-T1002 & T1003 Active</span>
+          </div>
+          <div style="padding: 12px 16px; background: var(--bg-surface-elevated); border-radius: var(--radius-sm); border: 1px solid var(--border-card); display: flex; justify-content: space-between; align-items: center;">
+            <div><strong>PHY-TAC-04: Containment Bypass</strong> — Breaching server racks, sub-floor runs, and plenums.</div>
+            <span class="chip-tag">Planned</span>
+          </div>
+          <div style="padding: 12px 16px; background: var(--bg-surface-elevated); border-radius: var(--radius-sm); border: 1px solid var(--border-card); display: flex; justify-content: space-between; align-items: center;">
+            <div><strong>PHY-TAC-05: Interface & Tap</strong> — Unauthenticated physical network or serial hardware access.</div>
+            <span class="chip-tag" style="background: #09090b; color: #fff;">PHY-T1004 Active</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LESSON 04: Passive Assessment -->
+    <section class="lesson-card" id="lesson-04">
+      <div class="lesson-head">
+        <span class="lesson-num">Lesson 04</span>
+        <span class="lesson-time">3 min read</span>
+      </div>
+      <h2 class="lesson-title">Passive Assessment: The Non-Invasive Safety Boundary</h2>
+      <div class="lesson-body">
+        <p>
+          This is the most critical distinction in APCAF:
+        </p>
+
+        <div class="plain-english-card" style="margin: 18px 0;">
+          <div style="font-size: 1.05rem; font-weight: 700; color: var(--text-pure); margin-bottom: 4px;">
+            The Core Operational Rule:
+          </div>
+          <p class="plain-english-text">
+            <strong>APCAF does not require you to break or pick the control to assess it.</strong>
+          </p>
+        </div>
+
+        <p>
+          Many organizations avoid physical security testing because they believe it requires aggressive red-teaming: lockpicks, broken doors, or unauthorized trespassing. APCAF replaces destructive testing with <strong>non-invasive QA verification</strong>:
+        </p>
+
+        <div class="comparison-grid">
+          <div class="comparison-box active-box">
+            <div class="comparison-title">Active Exploitation (Red Team)</div>
+            <p><strong>"Let me try to defeat this door."</strong><br>Uses lockpicks, shove knives, or bypass tools to breach the threshold. Carries high operational risk and legal liability.</p>
+          </div>
+          <div class="comparison-box passive-box">
+            <div class="comparison-title">APCAF Passive Assessment (Hardware QA)</div>
+            <p><strong>"Let me determine whether the physical conditions required for this bypass exist."</strong><br>Uses pocket feeler gauges and passive RF listeners to inspect compliance with engineering standards (e.g. NFPA 80 3.2mm limit).</p>
+          </div>
+        </div>
+
+        <p>
+          Because APCAF is completely passive and non-destructive, it can be executed legally during standard facility commissioning walks under a single-sentence SOW authorization.
+        </p>
+      </div>
+    </section>
+
+    <!-- LESSON 05: The Four MVP Techniques -->
+    <section class="lesson-card" id="lesson-05">
+      <div class="lesson-head">
+        <span class="lesson-num">Lesson 05</span>
+        <span class="lesson-time">4 min read</span>
+      </div>
+      <h2 class="lesson-title">The Four MVP Techniques in Plain English</h2>
+      <div class="lesson-body">
+        <p>
+          Here are the four active baseline techniques evaluated during an APCAF walkthrough. We explain each in human terms before referencing the technical standard ID:
+        </p>
+
+        <!-- 1. RFID Harvesting -->
+        <div class="tech-breakdown-card">
+          <div class="tech-breakdown-head">
+            <h3 style="font-size: 1.1rem; color: var(--text-pure); margin: 0;">1. Wireless Badge Interception (RFID Harvesting)</h3>
+            <span class="chip-tag">PHY-T1001</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-pure); margin-bottom: 12px;"><strong>In Plain English:</strong> An attacker gets close to an employee's badge in a coffee shop or elevator and wirelessly copies their ID in under 3 seconds without touching them.</p>
+          <div class="tech-q-row"><span class="tech-q-label">What is attacker trying to do?</span><span class="tech-q-val">Clone authorized employee credentials to open electronic readers.</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">What does assessor look for?</span><span class="tech-q-val">Does the badge transmit an unencrypted 125 kHz Prox carrier or static CSN instead of AES-128 crypto?</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">What counts as susceptible?</span><span class="tech-q-val">Card immediately outputs plaintext facility code on a pocket interrogator.</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">Contractor Warranty Fix:</span><span class="tech-q-val">Replace legacy badges with AES-128 smartcards (DESFire EV3 / Seos) under contract warranty.</span></div>
+        </div>
+
+        <!-- 2. Latch Slip -->
+        <div class="tech-breakdown-card">
+          <div class="tech-breakdown-head">
+            <h3 style="font-size: 1.1rem; color: var(--text-pure); margin: 0;">2. Door Latch Manipulation (Latch Slip & UDT)</h3>
+            <span class="chip-tag">PHY-T1002</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-pure); margin-bottom: 12px;"><strong>In Plain English:</strong> An attacker slips a thin plastic card or shove knife through the gap between the door and frame to pop the lock open.</p>
+          <div class="tech-q-row"><span class="tech-q-label">What is attacker trying to do?</span><span class="tech-q-val">Retract the door latch bolt without a valid key, badge, or credential.</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">What does assessor look for?</span><span class="tech-q-val">Is the strike jamb clearance > 3.2mm (NFPA 80 / ANSI SDI limit) without a protective steel astragal plate?</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">What counts as susceptible?</span><span class="tech-q-val">Clearance > 3.2mm with direct line-of-sight to the bevel of the latch bolt.</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">Contractor Warranty Fix:</span><span class="tech-q-val">Install full-height continuous stainless steel security astragal latch guard.</span></div>
+        </div>
+
+        <!-- 3. REX Sensor Trip -->
+        <div class="tech-breakdown-card">
+          <div class="tech-breakdown-head">
+            <h3 style="font-size: 1.1rem; color: var(--text-pure); margin: 0;">3. Request-to-Exit Sensor Blind Activation</h3>
+            <span class="chip-tag">PHY-T1003</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-pure); margin-bottom: 12px;"><strong>In Plain English:</strong> An attacker sprays cold air or slides a tool under the door to trick the interior exit sensor into unlocking the door for them from the outside.</p>
+          <div class="tech-q-row"><span class="tech-q-label">What is attacker trying to do?</span><span class="tech-q-val">Trigger the internal motion sensor (REX) to drop magnetic locks automatically.</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">What does assessor look for?</span><span class="tech-q-val">Is the interior PIR sensor visible through door gaps without a directional deflector hood?</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">What counts as susceptible?</span><span class="tech-q-val">Unshielded wide-angle sensor lens visible through transom or threshold sweeps.</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">Contractor Warranty Fix:</span><span class="tech-q-val">Mount UL-listed directional deflector hoods over PIR sensors and install perimeter brush sweeps.</span></div>
+        </div>
+
+        <!-- 4. Network Drop -->
+        <div class="tech-breakdown-card">
+          <div class="tech-breakdown-head">
+            <h3 style="font-size: 1.1rem; color: var(--text-pure); margin: 0;">4. Unauthenticated Physical Network Port Tap</h3>
+            <span class="chip-tag">PHY-T1004</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-pure); margin-bottom: 12px;"><strong>In Plain English:</strong> An attacker plugs a laptop or rogue mini-device into an active wall jack in a conference room and gets immediate internal network access.</p>
+          <div class="tech-q-row"><span class="tech-q-label">What is attacker trying to do?</span><span class="tech-q-val">Establish Layer 1/2 connection to internal VLANs from unrestricted public areas.</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">What does assessor look for?</span><span class="tech-q-val">Does a passive zero-packet LED tester illuminate a solid link light on unmonitored wall drops?</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">What counts as susceptible?</span><span class="tech-q-val">Active Layer 1 PHY link signaling without 802.1X port isolation or quarantine.</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">Contractor Warranty Fix:</span><span class="tech-q-val">Administratively disable unassigned switch ports and enforce 802.1X Network Access Control.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LESSON 06: Interactive Facility Simulator -->
+    <section class="lesson-card" id="lesson-06">
+      <div class="lesson-head">
+        <span class="lesson-num">Lesson 06</span>
+        <span class="lesson-time">Interactive Sandbox</span>
+      </div>
+      <h2 class="lesson-title">Run Your First APCAF Assessment</h2>
+      <div class="lesson-body">
+        <p>
+          Put the fundamentals to work. Walk through a simulated inspection of <strong>"Acme Financial Data Center"</strong> and match each real-world observation to its corresponding APCAF technique:
+        </p>
+
+        <div class="simulator-box">
+          
+          <!-- Scenario 1 -->
+          <div class="sim-scenario-card" id="sim-card-1">
+            <div class="sim-scenario-head">
+              <span class="chip-tag">Checkpoint 01 • Lobby Badge Check</span>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);">Tactic: Credential Access</span>
+            </div>
+            <p style="font-size: 0.92rem; font-weight: 600; color: var(--text-pure); margin-bottom: 6px;">
+              You inspect an employee badge with a pocket interrogator. The screen immediately displays an unencrypted 125 kHz carrier transmitting a static 26-bit facility code in plaintext. Which APCAF technique applies?
+            </p>
+            <div class="sim-options-grid">
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(1, 'A')">A. Latch Slip</button>
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(1, 'B')">B. RFID Harvesting (PHY-T1001)</button>
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(1, 'C')">C. REX Blind Activation</button>
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(1, 'D')">D. Port Tap</button>
+            </div>
+            <div class="sim-feedback-box" id="sim-feedback-1"></div>
+          </div>
+
+          <!-- Scenario 2 -->
+          <div class="sim-scenario-card" id="sim-card-2">
+            <div class="sim-scenario-head">
+              <span class="chip-tag">Checkpoint 02 • Server Suite Door</span>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);">Tactic: Portal Ingress</span>
+            </div>
+            <p style="font-size: 0.92rem; font-weight: 600; color: var(--text-pure); margin-bottom: 6px;">
+              You inspect the outward-opening server suite door. Inserting a pocket feeler gauge reveals a 4.5mm clearance gap between door edge and jamb with direct visibility to the latch bolt bevel and no steel astragal. Which APCAF technique applies?
+            </p>
+            <div class="sim-options-grid">
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(2, 'A')">A. Mechanical Latch Manipulation (PHY-T1002)</button>
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(2, 'B')">B. RFID Harvesting</button>
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(2, 'C')">C. Network Port Tap</button>
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(2, 'D')">D. Fence Breach</button>
+            </div>
+            <div class="sim-feedback-box" id="sim-feedback-2"></div>
+          </div>
+
+          <!-- Scenario 3 -->
+          <div class="sim-scenario-card" id="sim-card-3">
+            <div class="sim-scenario-head">
+              <span class="chip-tag">Checkpoint 03 • Secure Portal Header</span>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);">Tactic: Portal Ingress</span>
+            </div>
+            <p style="font-size: 0.92rem; font-weight: 600; color: var(--text-pure); margin-bottom: 6px;">
+              Looking through the clear glass transom above the locked door, you observe an unhooded wide-angle PIR motion sensor mounted directly above the interior frame facing the gap. Which APCAF technique applies?
+            </p>
+            <div class="sim-options-grid">
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(3, 'A')">A. Network Tap</button>
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(3, 'B')">B. REX Sensor Blind Activation (PHY-T1003)</button>
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(3, 'C')">C. Credential Relay</button>
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(3, 'D')">D. Latch Slip</button>
+            </div>
+            <div class="sim-feedback-box" id="sim-feedback-3"></div>
+          </div>
+
+          <!-- Scenario 4 -->
+          <div class="sim-scenario-card" id="sim-card-4">
+            <div class="sim-scenario-head">
+              <span class="chip-tag">Checkpoint 04 • Executive Conference Room</span>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);">Tactic: Interface & Tap</span>
+            </div>
+            <p style="font-size: 0.92rem; font-weight: 600; color: var(--text-pure); margin-bottom: 6px;">
+              In a publicly accessible lounge, you insert a passive zero-packet LED tester into an RJ-45 wall drop. The link pulse LED illuminates steady green without 802.1X quarantine. Which APCAF technique applies?
+            </p>
+            <div class="sim-options-grid">
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(4, 'A')">A. Unauthenticated L1/L2 Network Drop (PHY-T1004)</button>
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(4, 'B')">B. REX Trip</button>
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(4, 'C')">C. Latch Slip</button>
+              <button type="button" class="sim-opt-btn" onclick="checkSimAnswer(4, 'D')">D. RFID Sniffing</button>
+            </div>
+            <div class="sim-feedback-box" id="sim-feedback-4"></div>
+          </div>
+
+          <!-- Live Score & Certificate -->
+          <div class="sim-score-bar">
+            <div>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Assessment Progress:</span>
+              <div style="font-size: 1.15rem; font-weight: 800; color: var(--text-pure);"><span id="simScore">0</span> / 4 Verified</div>
+            </div>
+            <div style="font-size: 0.85rem; color: var(--text-body);" id="simStatusMsg">Select an answer for each checkpoint.</div>
+          </div>
+
+          <div class="certificate-banner" id="simCertificate">
+            <div class="brand-icon-box" style="margin: 0 auto 12px; background: #ffffff; color: #09090b;">
+              <svg width="18" height="18" viewBox="0 0 64 64" fill="none">
+                <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#09090b" stroke="#09090b" stroke-width="3" stroke-linejoin="round" />
+                <path d="M32 19 V35 M26 25 H38 M28 31 H36" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+                <circle cx="32" cy="42" r="2.5" fill="#ffffff" />
+              </svg>
+            </div>
+            <h3 style="font-size: 1.4rem; margin-bottom: 6px;">APCAF Fundamentals Verified</h3>
+            <p style="font-size: 0.9rem; color: #a1a1aa; max-width: 500px; margin: 0 auto 18px;">
+              You have successfully completed the APCAF Fundamentals field scenarios. You understand the difference between compliance presence and adversarial resilience.
+            </p>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+              <a href="index.html#workbench" class="btn-nav-primary" style="background: #ffffff; color: #09090b;">Launch 45s Field Triage →</a>
+              <a href="docs.html" class="btn-nav-sow" style="border-color: rgba(255,255,255,0.2); color: #fff;">Explore Technical Standard</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="brand-icon-box" style="width: 24px; height: 24px;">
+          <svg width="14" height="14" viewBox="0 0 64 64" fill="none">
+            <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-dim);">
+          APCAF — Adversarial Physical Control Assessment Framework • Open Specification (CC BY 4.0)
+        </div>
+      </div>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="index.html" style="font-size: 0.82rem; color: var(--text-body);">Overview</a>
+        <a href="learn.html" style="font-size: 0.82rem; color: var(--text-body);">Learn APCAF</a>
+        <a href="repository.html" style="font-size: 0.82rem; color: var(--text-body);">Rule Repository</a>
+        <a href="docs.html" style="font-size: 0.82rem; color: var(--text-body);">Documentation</a>
+        <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener" style="font-size: 0.82rem; color: var(--text-body);">GitHub (v1.0.0)</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="currency.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // Interactive Simulator Logic for Lesson 06
+    const SIM_ANSWERS = {
+      1: { correct: 'B', explanation: '<strong>Correct (PHY-T1001):</strong> Unencrypted 125 kHz credentials transmit plaintext static UIDs that can be cloned wirelessly in under 3 seconds. APCAF assesses whether the credential initiates an encrypted ISO 14443-4 AES-128 handshake or broadcasts plaintext.' },
+      2: { correct: 'A', explanation: '<strong>Correct (PHY-T1002):</strong> Under NFPA 80 §6.3.1.7.1 and ANSI/SDI A250.8, allowable frame clearance is <= 3.2mm (1/8 in.). A 4.5mm gap with direct line-of-sight enables shove-knife bypass unless shielded by a continuous steel astragal.' },
+      3: { correct: 'B', explanation: '<strong>Correct (PHY-T1003):</strong> Unshielded wide-angle PIR sensors can be tripped from outside using thermal aerosol plumes or reaching tools through gaps, causing electronic locks to release. APCAF mandates directional deflector hoods.' },
+      4: { correct: 'A', explanation: '<strong>Correct (PHY-T1004):</strong> An unmonitored wall jack broadcasting active Layer 1 carrier without IEEE 802.1X NAC allows rogue physical network bridging. APCAF tests for administrative port shutdown and 802.1X enforcement.' }
+    };
+
+    const simUserScore = { 1: false, 2: false, 3: false, 4: false };
+
+    function checkSimAnswer(scenarioNum, choice) {
+      const card = document.getElementById(`sim-card-${scenarioNum}`);
+      const feedback = document.getElementById(`sim-feedback-${scenarioNum}`);
+      const expected = SIM_ANSWERS[scenarioNum];
+
+      const buttons = card.querySelectorAll('.sim-opt-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('correct', 'wrong');
+        if (btn.innerText.startsWith(choice)) {
+          if (choice === expected.correct) {
+            btn.classList.add('correct');
+            feedback.innerHTML = expected.explanation;
+            feedback.classList.add('show');
+            simUserScore[scenarioNum] = true;
+          } else {
+            btn.classList.add('wrong');
+            feedback.innerHTML = `<strong>Incorrect:</strong> That technique does not match the observed physical mechanics. Try again.`;
+            feedback.classList.add('show');
+            simUserScore[scenarioNum] = false;
+          }
+        }
+      });
+
+      updateSimScore();
+    }
+
+    function updateSimScore() {
+      const totalCorrect = Object.values(simUserScore).filter(Boolean).length;
+      document.getElementById('simScore').innerText = totalCorrect;
+      
+      const msg = document.getElementById('simStatusMsg');
+      const cert = document.getElementById('simCertificate');
+
+      if (totalCorrect === 4) {
+        msg.innerText = '100% Score! All 4 checkpoints verified.';
+        msg.style.color = 'var(--text-pure)';
+        cert.classList.add('unlocked');
+      } else {
+        msg.innerText = `${4 - totalCorrect} checkpoint(s) remaining.`;
+      }
+    }
+
+    // Scroll Spy for Sticky Lesson Nav
+    window.addEventListener('scroll', () => {
+      const lessons = document.querySelectorAll('.lesson-card');
+      const navLinks = document.querySelectorAll('.learn-nav-btn');
+      let currentId = '';
+
+      lessons.forEach(lesson => {
+        const top = lesson.offsetTop - 160;
+        if (window.scrollY >= top) {
+          currentId = lesson.getAttribute('id');
+        }
+      });
+
+      if (currentId) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${currentId}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
