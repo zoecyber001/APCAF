@@ -89,8 +89,9 @@ Below is the foundational technique mapping, featuring our 3 core MVP field cont
 * **Sub-Techniques:**
   * `PHY-T1002.001`: Latch bolt slipping on outward-opening doors via unguarded frame gap.
   * `PHY-T1002.002`: Under-door tool (UDT) reach targeting interior lever handle.
-* **Passive QA Standard (15s):** Visual alignment and gap gauge measurement. If door gap $> 3.2\text{mm}$ (1/8") and lacks a continuous overlapping astragal plate, classify as **Legacy / Soft**.
-* **Mitigation (`PHY-M1002`):** Install full-height, continuous heavy-gauge stainless steel interlocking astragal latch guards and deadlocking latch bolts.
+* **Passive QA Standard (15s):** Visual alignment and feeler gap gauge measurement. Under **NFPA 80 (2022) §6.3.1.7.1** and **ANSI/SDI A250.8 / SDI-122**, the maximum allowable perimeter operating clearance between door and frame is **1/8 in. (3.18 mm / 3.2 mm)** for hollow metal doors. If door gap exceeds 3.2mm and lacks an overlapping continuous stainless steel astragal plate, classify as **Legacy / Soft**.
+* **Citations & Standards:** NFPA 80 §6.3.1.7.1, ANSI/SDI A250.8, SDI-122, IBC Chapter 7/10.
+* **Mitigation (`PHY-M1002`):** Install full-height, continuous heavy-gauge stainless steel interlocking astragal latch guards and deadlocking latch bolts under contractor warranty.
 * **Compliance Mapping:** ISO 27001:2022 `A.7.4`, PCI DSS v4 `Req 9.1.1`, NDPA `Part V`.
 
 ---

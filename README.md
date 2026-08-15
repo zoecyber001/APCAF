@@ -1,7 +1,8 @@
 # APCAF - Adversarial Physical Control Assessment Framework
 ### *The MITRE ATT&CK® for Physical & Hardware-Layer Security*
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: CC BY 4.0](https://img.shields.io/badge/Specification-CC%20BY%204.0-lightgrey.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/Tooling-MIT-blue.svg)](LICENSE)
 [![Framework: ATT&CK-Aligned](https://img.shields.io/badge/Taxonomy-MITRE%20Physical-orange.svg)](docs/TAXONOMY.md)
 [![Methodology: Passive QA](https://img.shields.io/badge/Methodology-Non--Invasive%20QA-brightgreen.svg)](VENDOR_QA_SCORECARD.md)
 
@@ -35,7 +36,7 @@ Detailed architectural specifications and taxonomy mapping are in [`docs/TAXONOM
 | :--- | :--- | :--- |
 | **`PHY-TAC-01: Perimeter`** | Breaching outermost fence/gates/turnstiles | *Planned (Post-MVP)* |
 | **`PHY-TAC-02: Credential`** | Harvesting, cloning, or relaying badge tokens | **`PHY-T1001` (Unencrypted RFID Harvesting)** |
-| **`PHY-TAC-03: Portal Ingress`** | Defeating doors, latches, and exit sensors | **`PHY-T1002` (Latch Slip) & `PHY-T1003` (REX Trip)** |
+| **`PHY-TAC-03: Portal Ingress`** | Defeating doors, latches, and exit sensors | **`PHY-T1002` (Latch Slip - NFPA 80 §6.3.1.7.1) & `PHY-T1003` (REX Trip)** |
 | **`PHY-TAC-04: Containment`** | Bypassing server racks, cages, and vaults | *Planned (Post-MVP)* |
 | **`PHY-TAC-05: Interface/Tap`** | Tapping exposed network drops or serial lines | **`PHY-T1004` (Unauthenticated L1/L2 Port Tap)** |
 
@@ -45,11 +46,11 @@ Detailed architectural specifications and taxonomy mapping are in [`docs/TAXONOM
 
 The core MVP implements the 3 highest-leverage techniques across the physical kill-chain:
 
-| APCAF ID | Technique | Passive QA Inspection Method (Zero Liability) | Hardened Standard | Legacy / Soft Indicator |
+| APCAF ID | Technique | Passive QA Inspection Method (Zero Liability) | Hardened Standard | Building / Fire Code Citation |
 | :--- | :--- | :--- | :--- | :--- |
-| **`APCAF-01`** | **`PHY-T1001`** | **5s:** Contactless pocket RFID reader read | AES-128 / DESFire EV3 / Seos | 125 kHz Prox / MIFARE Classic |
-| **`APCAF-02`** | **`PHY-T1002 / T1003`** | **30s:** Visual & gap feeler measurement | Continuous Astragal + Shrouded REX PIR | Exposed latch bolt / unhooded REX |
-| **`APCAF-03`** | **`PHY-T1004`** | **10s:** Passive zero-packet LED plug test | Zero Link Pulse / 802.1X Auth | Active L1/L2 link state on open drop |
+| **`APCAF-01`** | **`PHY-T1001`** | **5s:** Contactless pocket RFID reader read | AES-128 / DESFire EV3 / Seos | ISO/IEC 14443-4, NIST SP 800-116 |
+| **`APCAF-02`** | **`PHY-T1002 / T1003`** | **30s:** Visual & feeler gap measurement | Continuous Astragal + Shrouded REX PIR | **NFPA 80 §6.3.1.7.1 (Max 3.2mm)**, ANSI/SDI A250.8 |
+| **`APCAF-03`** | **`PHY-T1004`** | **10s:** Passive zero-packet LED plug test | Zero Link Pulse / 802.1X Auth | IEEE 802.1X-2020, NIST SP 800-53 PE-3 |
 
 Detailed operational instructions: [`VENDOR_QA_SCORECARD.md`](VENDOR_QA_SCORECARD.md).
 
@@ -60,6 +61,8 @@ Detailed operational instructions: [`VENDOR_QA_SCORECARD.md`](VENDOR_QA_SCORECAR
 ```
 APCAF/
 ├── README.md                          # Framework architecture, philosophy & standard
+├── CONTRIBUTING.md                    # Contribution guidelines & technique YAML schema
+├── LICENSE                            # Dual license (CC BY 4.0 for spec, MIT for tooling)
 ├── VENDOR_QA_SCORECARD.md             # One-pager fast-path inspection reference manual
 ├── docs/
 │   └── TAXONOMY.md                    # Formal MITRE-aligned physical security taxonomy
@@ -69,20 +72,19 @@ APCAF/
 │   ├── ENGAGEMENT_CONSENT_CLAUSE.md   # Fast-path SOW & legal authorization addendums
 │   └── VENDOR_WARRANTY_NOTICE.md      # Executive CISO invoice-hold & punch list notice
 ├── cases/
-│   └── APCAF-CASE-001.yaml            # Validated field case tracking record
+│   └── APCAF-CASE-001.yaml            # Validated field commissioning case tracking record
 └── tools/
     └── field-triage.html              # Offline-first zero-dependency interactive triage app
 ```
 
 ---
 
-## 5. Field Triage & CISO Deliverable Generator
+## 5. Governance & Community Contributions
 
-Open [`tools/field-triage.html`](tools/field-triage.html) in any browser (offline-capable):
-* **Visual Matrix:** Displays the full MITRE-aligned physical security tactics.
-* **30-Second Evaluation:** Toggle Hardened vs. Legacy/Soft states with observed field notes.
-* **Instant CISO Punch List:** Automatically outputs a formatted **Vendor Warranty Non-Conformance Notice**.
-* **STIX/YAML Export:** Exports structured case logs ready to commit to [`cases/`](cases/).
+APCAF is developed and maintained by the **APCAF Working Group** as an open, vendor-neutral standard:
+* **Submissions:** Community researchers can propose new `PHY-Txxxx` techniques via GitHub PRs following [`CONTRIBUTING.md`](CONTRIBUTING.md).
+* **Licensing:** The written standard and taxonomy are licensed under **Creative Commons Attribution 4.0 International (CC BY 4.0)**. Assessment tools and code are licensed under **MIT**.
+* **Contact:** `governance@apcaf.org`
 
 ---
 

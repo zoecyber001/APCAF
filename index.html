@@ -289,7 +289,7 @@
           <div class="control-spec-row">
             <div class="spec-row-head">
               <span class="spec-row-title">PHY-T1002 / T1003: Perimeter Latch & Sensor Hardening</span>
-              <span class="spec-row-time">30s Check • Feeler Gauge & Line-of-Sight</span>
+              <span class="spec-row-time">30s Check • Feeler Gauge (NFPA 80 §6.3.1.7.1 Limit: 3.2mm)</span>
             </div>
             <div class="switch-opt-pair">
               <button type="button" class="switch-toggle-btn" id="btn-toggle-2-hard" onclick="setWorkbenchState('c2', 'Hardened')">
@@ -304,7 +304,7 @@
                   <svg class="icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                   <span>Legacy / Soft (Defect)</span>
                 </div>
-                <div class="toggle-detail">Exposed latch bolt (gap > 3.2mm) / unshrouded REX.</div>
+                <div class="toggle-detail">Exposed latch bolt (gap > 3.2mm / 1/8" per NFPA 80) / unshrouded REX.</div>
               </button>
             </div>
             <input type="text" class="telemetry-input-line" id="input-notes-c2" value="Server room outward door gap (4.5mm) exposed; no continuous astragal latch guard installed">
@@ -347,91 +347,117 @@
                 <line x1="16" y1="17" x2="8" y2="17"></line>
                 <polyline points="10 9 9 9 8 9"></polyline>
               </svg>
-              <span style="font-size: 0.84rem; font-weight: 700; font-family: var(--font-display);">Executive Warranty Notice</span>
+              <strong style="font-size: 0.92rem;">Executive Warranty Non-Conformance Memo</strong>
             </div>
-            <div id="noticeStatusStamp" class="notice-badge-stamp hold">Retainage Payment On Hold</div>
+            <span class="notice-badge-stamp hold" id="memoVerdictStamp">Retainage Hold (2 Defect(s) Identified)</span>
           </div>
 
           <div class="notice-paper-body">
-            <!-- Metadata Row -->
+            <!-- Memo Header Fields -->
             <div class="memo-meta-grid">
               <div class="memo-meta-item">
-                <label>Recipient</label>
-                <span>Physical Security Systems Integrator</span>
+                <label>Date</label>
+                <span id="memoDateDisplay">August 15, 2026</span>
               </div>
               <div class="memo-meta-item">
-                <label>Originator</label>
-                <span>Office of the CISO & Facilities Security</span>
+                <label>To</label>
+                <span>Lead Project GC &amp; Security Integration Contractor</span>
               </div>
               <div class="memo-meta-item">
-                <label>Inspection Date</label>
-                <span id="memoCurrentDate"></span>
+                <label>From</label>
+                <span>Office of the Chief Information Security Officer (CISO)</span>
               </div>
               <div class="memo-meta-item">
-                <label>Scope / Facility</label>
-                <span>[Target Facility / Room 101]</span>
+                <label>Subject</label>
+                <span id="memoSubjectDisplay">Warranty Non-Conformance Hold - Final Handover Retainage</span>
               </div>
             </div>
 
-            <!-- Executive Summary -->
+            <!-- Executive Finding Summary -->
             <div>
-              <div class="notice-section-title">1. Executive Non-Conformance Notice</div>
-              <p style="font-size: 0.85rem; color: var(--text-head);" id="memoExecutiveSummaryText">
+              <div class="notice-section-title">Executive Inspection Finding</div>
+              <p id="memoExecutiveSummaryText" style="font-size: 0.88rem; color: var(--text-head); line-height: 1.55;">
                 An independent APCAF Quality Assurance inspection identified latent hardware installation deficiencies. In accordance with standard contractual warranty terms, final invoice retainage is placed on hold pending zero-cost vendor rectification.
               </p>
             </div>
 
-            <!-- Itemized Punch List Table -->
+            <!-- Punch List Table (Scrollable on Mobile) -->
             <div>
-              <div class="notice-section-title">2. Itemized Punch List & Remediation Specs</div>
-              <div style="overflow-x: auto;">
-                <table class="punchlist-table" id="punchlistTable">
+              <div class="notice-section-title">Hardware Remediation Punch List</div>
+              <div class="table-scroll-container">
+                <table class="punchlist-table">
                   <thead>
                     <tr>
-                      <th>Vector ID</th>
-                      <th>Observed Defect</th>
-                      <th>Contract Standard Required</th>
-                      <th>Remediation Spec</th>
+                      <th style="width: 15%;">Control ID</th>
+                      <th style="width: 25%;">Observed Condition</th>
+                      <th style="width: 25%;">Engineering Standard</th>
+                      <th style="width: 35%;">Required Warranty Rectification</th>
                     </tr>
                   </thead>
-                  <tbody id="punchlistTableBody">
+                  <tbody id="memoPunchlistTbody">
                     <!-- Populated dynamically via app.js -->
                   </tbody>
                 </table>
               </div>
             </div>
 
-            <!-- Protocol & Legal Hold -->
-            <div>
-              <div class="notice-section-title">3. Rectification Timeline</div>
-              <p style="font-size: 0.83rem; color: var(--text-body);">
-                • <strong>Remediation Plan:</strong> Integrator must submit written rectification schedule within five (5) business days.<br>
-                • <strong>Re-Inspection:</strong> A 45-second APCAF QA re-inspection will verify full 'Hardened' status prior to invoice release.
+            <!-- Contractual Authority -->
+            <div class="spec-sheet-block">
+              <div class="block-title">Contractual Retainage Authority &amp; Next Steps</div>
+              <p style="font-size: 0.82rem; color: var(--text-body); line-height: 1.5;">
+                Pursuant to Section 14 (Warranty of Workmanship &amp; Fitness for Security Purpose), all identified deficiencies must be rectified by the contractor at zero client budget. Upon written notice of vendor completion, a 45-second verification re-test will be performed to release held retainage funds.
               </p>
             </div>
           </div>
 
-          <!-- Native Print / PDF & Copy buttons in footer -->
           <div class="executive-notice-footer">
-            <span style="font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono);">Status: Executive Memorandum Deliverable</span>
+            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim);">Format: Official CISO Executive Memorandum (Plaintext Ready)</span>
             <div style="display: flex; gap: 8px;">
-              <button type="button" class="btn-nav-sow" onclick="window.print()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                  <rect x="6" y="14" width="12" height="8"></rect>
-                </svg>
-                Print / PDF
-              </button>
               <button type="button" class="btn-nav-primary" onclick="copyExecutiveMemoText()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
-                Copy Text
+                Copy Memo to Clipboard
+              </button>
+              <button type="button" class="resend-btn-ghost" style="padding: 6px 14px; font-size: 0.8rem;" onclick="window.print()">
+                Print / Save PDF
               </button>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real-World Field Audit Case Study (Commissioning Evidence) -->
+  <section class="section" id="evidence">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Empirical Field Evidence</span>
+        <h2>Verified Commissioning Case Study</h2>
+        <p>De-identified audit log from a 120,000 sq ft enterprise facility pre-handover assessment.</p>
+      </div>
+
+      <div class="strategy-grid">
+        <div class="strategy-box">
+          <span class="strategy-tag">Facility Scope</span>
+          <div class="strategy-title">Tier III Co-Location Facility</div>
+          <p class="strategy-text">Pre-handover commissioning walk across 4 main access portals, staging rooms, and server suites prior to tenant sign-off.</p>
+        </div>
+
+        <div class="strategy-box">
+          <span class="strategy-tag">Defects Flagged</span>
+          <div class="strategy-title">3 Latent Hardware Faults</div>
+          <p class="strategy-text">125 kHz unencrypted Prox cards handed over; 4.5mm door gap on Suite 4B (exceeding NFPA 80 3.2mm limit); active unauthenticated lobby drop.</p>
+        </div>
+
+        <div class="strategy-box">
+          <span class="strategy-tag">Executive Leverage</span>
+          <div class="strategy-title">$48,000 Retainage Held</div>
+          <p class="strategy-text">CISO delivered standard APCAF Non-Conformance Notice to General Contractor holding final 10% milestone retainage payment.</p>
+        </div>
+
+        <div class="strategy-box">
+          <span class="strategy-tag">Outcome</span>
+          <div class="strategy-title">$0 Capex Rectification</div>
+          <p class="strategy-text">GC installed continuous stainless steel astragals and DESFire EV3 smartcards at contractor expense. 100% verified 14 days later.</p>
         </div>
       </div>
     </div>
@@ -492,6 +518,7 @@
               <th>APCAF ID</th>
               <th>Attack Vector</th>
               <th>Hardened Specification</th>
+              <th>Building / Security Code</th>
               <th>ISO 27001:2022</th>
               <th>PCI DSS v4</th>
             </tr>
@@ -501,6 +528,7 @@
               <td><span class="chip-tag">PHY-T1001</span></td>
               <td>Unencrypted RFID Harvesting</td>
               <td>AES-128 / DESFire EV3 Smartcards</td>
+              <td>ISO/IEC 14443-4</td>
               <td>Control A.7.2 (Physical Entry)</td>
               <td>Req 9.2.1 (Access Controls)</td>
             </tr>
@@ -508,6 +536,7 @@
               <td><span class="chip-tag">PHY-T1002</span></td>
               <td>Mechanical Latch Manipulation</td>
               <td>Continuous Steel Astragal (Gap &le; 3.2mm)</td>
+              <td>NFPA 80 §6.3.1.7.1 / ANSI SDI A250.8</td>
               <td>Control A.7.4 (Monitoring)</td>
               <td>Req 9.1.1 (Perimeter Security)</td>
             </tr>
@@ -515,6 +544,7 @@
               <td><span class="chip-tag">PHY-T1003</span></td>
               <td>REX Sensor Blind Activation</td>
               <td>Directional PIR Deflector Shrouds</td>
+              <td>NFPA 101 §7.2.1.6.2 / UL 294</td>
               <td>Control A.7.4 (Monitoring)</td>
               <td>Req 9.1.1 (Perimeter Security)</td>
             </tr>
@@ -522,6 +552,7 @@
               <td><span class="chip-tag">PHY-T1004</span></td>
               <td>Unauthenticated Network Tap</td>
               <td>Port Shutdown / 802.1X NAC</td>
+              <td>IEEE 802.1X / NIST PE-3</td>
               <td>Control A.7.4 &amp; A.8.20</td>
               <td>Req 9.1.2 (Network Drops)</td>
             </tr>
@@ -550,7 +581,7 @@
         <div class="strategy-box">
           <span class="strategy-tag" id="priceTagFeeler">$5 - $8</span>
           <div class="strategy-title">Metric Feeler Gauge</div>
-          <p class="strategy-text">Pocket gauge to measure door frame gaps and verify NFPA/IBC tolerances (&le; 3.2mm margins).</p>
+          <p class="strategy-text">Pocket gauge to measure door frame gaps and verify NFPA 80 §6.3.1.7.1 tolerances (&le; 3.2mm / 1/8" margins).</p>
         </div>
 
         <div class="strategy-box">
@@ -562,20 +593,56 @@
     </div>
   </section>
 
+  <!-- Governance, Working Group & Community Contributions -->
+  <section class="section" id="governance">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Open Standard</span>
+        <h2>Governance &amp; Community Contributions</h2>
+        <p>APCAF is maintained as an open, vendor-neutral standard by the APCAF Working Group.</p>
+      </div>
+
+      <div class="strategy-grid">
+        <div class="strategy-box">
+          <span class="strategy-tag">Accountability</span>
+          <div class="strategy-title">APCAF Working Group</div>
+          <p class="strategy-text">Maintained by Zoe Cyber &amp; security researchers. Inquiries and steering committee contact: <a href="mailto:governance@apcaf.org" style="text-decoration: underline;">governance@apcaf.org</a>.</p>
+        </div>
+
+        <div class="strategy-box">
+          <span class="strategy-tag">Contribute</span>
+          <div class="strategy-title">Propose a Technique (PHY-Txxxx)</div>
+          <p class="strategy-text">Submit new 45-second physical assessment techniques, building code citations, and YAML schemas via GitHub pull requests.</p>
+          <div style="margin-top: 12px;">
+            <a href="https://github.com/zoecyber001/APCAF/blob/main/CONTRIBUTING.md" class="btn-nav-primary" style="padding: 6px 12px; font-size: 0.76rem;" target="_blank" rel="noopener">
+              View Contributing Guidelines →
+            </a>
+          </div>
+        </div>
+
+        <div class="strategy-box">
+          <span class="strategy-tag">Licensing</span>
+          <div class="strategy-title">CC BY 4.0 + MIT Dual License</div>
+          <p class="strategy-text">Specification and taxonomy text is licensed under Creative Commons Attribution 4.0 (CC BY 4.0). Interactive tools are licensed under MIT.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
         <strong style="color: var(--text-pure); font-family: var(--font-display);">APCAF Standard</strong>
         <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 2px;">
-          Adversarial Physical Control Assessment Framework • Open MIT License
+          Adversarial Physical Control Assessment Framework • Specification under CC BY 4.0 • Tooling under MIT
         </div>
       </div>
-      <div style="display: flex; gap: 16px;">
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
         <a href="index.html" style="font-size: 0.82rem; color: var(--text-body);">Overview</a>
         <a href="repository.html" style="font-size: 0.82rem; color: var(--text-body);">Rule Repository</a>
         <a href="docs.html" style="font-size: 0.82rem; color: var(--text-body);">Documentation</a>
-        <a href="#workbench" style="font-size: 0.82rem; color: var(--text-body);">Field Triage</a>
+        <a href="https://github.com/zoecyber001/APCAF/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" style="font-size: 0.82rem; color: var(--text-body);">Contribute</a>
       </div>
     </div>
   </footer>

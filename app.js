@@ -25,6 +25,7 @@ const TECHNIQUES = [
     severity: "critical",
     inspectionTime: "5 Seconds",
     tool: "Pocket Multi-Frequency RFID Reader",
+    citations: ["ISO/IEC 14443-4", "NIST SP 800-116 Rev 1"],
     mechanics: "Unencrypted 125 kHz or MIFARE Classic cards transmit static UIDs that can be cloned in under 5 seconds using handheld copiers.",
     passiveQA: "Contactless read of badge credential. If card emits unencrypted 125 kHz carrier (HID Prox, EM4100) or static MIFARE CSN, classify as Legacy / Soft.",
     mitigationId: "PHY-M1001",
@@ -57,8 +58,9 @@ const TECHNIQUES = [
     severity: "critical",
     inspectionTime: "15 Seconds",
     tool: "Metric Feeler Gauge / Visual Margin Check",
-    mechanics: "Exposed latch bolts on outward-opening doors can be retracted with shove knives or reached via under-door tools due to excessive frame clearance.",
-    passiveQA: "Check door perimeter margins. If gap > 3.2mm (1/8\") and lacks a continuous overlapping astragal latch plate, classify as Legacy / Soft.",
+    citations: ["NFPA 80 (2022) §6.3.1.7.1", "ANSI/SDI A250.8 / SDI-122", "IBC §716"],
+    mechanics: "Exposed latch bolts on outward-opening doors can be retracted with shove knives or reached via under-door tools due to excessive frame clearance (> 3.2mm / 1/8 in.).",
+    passiveQA: "Measure door frame clearance with feeler gauge. Under NFPA 80 §6.3.1.7.1 & ANSI/SDI A250.8, allowable margin is <= 3.2mm (1/8\"). If gap > 3.2mm and lacks a continuous overlapping steel astragal plate, classify as Legacy / Soft.",
     mitigationId: "PHY-M1002",
     mitigationTitle: "Full-Length Continuous Steel Astragals",
     mitigation: "Install full-height continuous stainless steel astragal latch guards to completely shield the latch bolt from tool insertion.",
@@ -72,11 +74,11 @@ const TECHNIQUES = [
       steps: [
         "Verify the door is fully engaged in its locked strike position without touching the handle.",
         "Insert the feeler gauge into the vertical jamb margin directly in front of the latch bolt.",
-        "Measure the clearance distance between the door edge and the frame stop.",
+        "Measure the clearance distance between the door edge and the frame stop against the 3.2mm (1/8\") threshold defined in NFPA 80 §6.3.1.7.1.",
         "Inspect the external surface for a continuous full-height steel astragal plate overlapping the jamb."
       ],
-      passCriteria: "Frame clearance is <= 3.2mm (1/8\") OR an overlapping continuous steel astragal completely shields the latch bolt from direct line-of-sight and tool insertion.",
-      failCriteria: "Clearance exceeds 3.2mm with direct line-of-sight to the bevel of the latch bolt, allowing tool bypass without frame contact.",
+      passCriteria: "Frame clearance is <= 3.2mm (1/8\" per NFPA 80 §6.3.1.7.1) OR an overlapping continuous steel astragal completely shields the latch bolt from direct line-of-sight and tool insertion.",
+      failCriteria: "Clearance exceeds 3.2mm (1/8\") with direct line-of-sight to the bevel of the latch bolt, allowing tool bypass without frame contact.",
       warrantyRemediation: "Integrator must supply and mount full-height stainless steel security astragals and adjust door closer latching speeds to ensure positive mechanical latching."
     }
   },

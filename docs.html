@@ -317,25 +317,37 @@ atomic_tests:
         </div>
 
         <p>
-          Adversaries retract latch bolts on outward-opening doors using flexible shove knives, under-door tools, or latch slips when perimeter door frame clearances exceed standard IBC tolerances (> 3.2mm).
+          Adversaries retract latch bolts on outward-opening doors using flexible shove knives, under-door tools, or latch slips when perimeter door frame clearances exceed standard building/fire code tolerances (> 3.2mm / 1/8 in.).
         </p>
+
+        <div class="spec-sheet-block">
+          <div class="block-title">Authoritative Building &amp; Hardware Standards</div>
+          <p style="font-size: 0.85rem;">
+            • <strong>NFPA 80 (Standard for Fire Doors) §6.3.1.7.1:</strong> Mandates that clearances between the door and frame along top and vertical edges shall not exceed <strong>1/8 in. (3.18 mm / 3.2 mm)</strong> for steel doors.<br>
+            • <strong>ANSI/SDI A250.8 / SDI-122:</strong> Specifies standard operating clearance of 1/8 in. (3.2 mm) for commercial hollow metal door assemblies.<br>
+            • <strong>IBC (International Building Code) Chapter 7 &amp; 10:</strong> Requires positive latching and perimeter fire/smoke containment.
+          </p>
+        </div>
 
         <div class="doc-code-block">
           <button class="doc-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('yaml1002').innerText); showToast('Copied YAML Spec');">Copy Spec</button>
 <pre id="yaml1002"><code>attack_technique: PHY-T1002
 display_name: "Mechanical Latch Manipulation (Slip & Under-Door Tool)"
+citations:
+  - "NFPA 80 (2022) §6.3.1.7.1 (Max 1/8 in. / 3.18mm clearance)"
+  - "ANSI/SDI A250.8 / SDI-122"
 atomic_tests:
   - name: "Door Frame Clearance & Astragal Inspection"
     auto_generated_guid: "apcaf-t1002-test-01"
     supported_platforms: ["physical"]
     input_arguments:
       max_clearance_mm:
-        description: "Maximum allowable perimeter frame gap"
+        description: "Maximum allowable perimeter frame gap per NFPA 80"
         default: 3.2
     executor:
       name: "feeler_gauge_check"
       command: "measure_door_gap --target=strike_jamb --max=3.2mm"
-    pass_criteria: "Jamb margin <= 3.2mm OR overlapping continuous stainless steel astragal installed."
+    pass_criteria: "Jamb margin <= 3.2mm (1/8\") OR overlapping continuous stainless steel astragal installed."
     fail_criteria: "Margin > 3.2mm with direct line-of-sight to latch bolt bevel without protective plate."</code></pre>
         </div>
 
@@ -420,6 +432,31 @@ atomic_tests:
         </div>
       </article>
 
+      <!-- Section 9: Governance & Community Contribution -->
+      <article class="doc-article" id="governance">
+        <div class="doc-article-head">
+          <span class="section-eyebrow">Open Standard</span>
+          <h2>Governance &amp; Community Contribution Framework</h2>
+        </div>
+        <p>
+          APCAF is governed by the APCAF Working Group as an open, vendor-neutral standard for the global security and building engineering community.
+        </p>
+        <div class="spec-sheet-block">
+          <div class="block-title">How to Propose a New Technique (PHY-Txxxx)</div>
+          <p style="font-size: 0.86rem; color: var(--text-head); line-height: 1.55;">
+            To propose a new physical assessment technique, test cases must satisfy three requirements:
+            <br>1. <strong>Deterministic &le; 45s execution time</strong> during a non-disruptive site walk.
+            <br>2. <strong>Zero life-safety interference</strong> (no tampering with fire egress, crash bars, or alarm relays).
+            <br>3. <strong>Concrete contractor warranty mitigation standard</strong> with formal industry building/fire/security code citations.
+          </p>
+          <div style="margin-top: 12px;">
+            <a href="https://github.com/zoecyber001/APCAF/blob/main/CONTRIBUTING.md" class="btn-nav-primary" target="_blank" rel="noopener" style="font-size: 0.78rem;">
+              Review CONTRIBUTING.md on GitHub →
+            </a>
+          </div>
+        </div>
+      </article>
+
     </main>
   </div>
 
@@ -429,14 +466,14 @@ atomic_tests:
       <div>
         <strong style="color: var(--text-pure); font-family: var(--font-display);">APCAF Standard</strong>
         <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 2px;">
-          Adversarial Physical Control Assessment Framework • Open MIT License
+          Adversarial Physical Control Assessment Framework • Specification under CC BY 4.0 • Tooling under MIT
         </div>
       </div>
-      <div style="display: flex; gap: 16px;">
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
         <a href="index.html" style="font-size: 0.82rem; color: var(--text-body);">Overview</a>
         <a href="repository.html" style="font-size: 0.82rem; color: var(--text-body);">Rule Repository</a>
         <a href="docs.html" style="font-size: 0.82rem; color: var(--text-body);">Documentation</a>
-        <a href="index.html#workbench" style="font-size: 0.82rem; color: var(--text-body);">Field Triage</a>
+        <a href="https://github.com/zoecyber001/APCAF/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" style="font-size: 0.82rem; color: var(--text-body);">Contribute</a>
       </div>
     </div>
   </footer>
