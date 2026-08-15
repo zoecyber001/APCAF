@@ -1,7 +1,7 @@
-# APCAF Taxonomy Specification: Learning from MITRE ATT&CK
+# APCAF Taxonomy Specification: An ATT&CK-Inspired Behavioral Model
 
 **Standard:** Adversarial Physical Control Assessment Framework (APCAF)  
-**Reference Model:** MITRE ATT&CK® Enterprise Framework adapted for Physical & Hardware-Layer Security  
+**Reference Model:** Behavioral taxonomy principles inspired by MITRE ATT&CK®, applied to Physical & Hardware-Layer Security  
 **Status:** Architectural Specification & Standard Definition  
 
 ---

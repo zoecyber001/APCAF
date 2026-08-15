@@ -1,12 +1,12 @@
 # APCAF - Adversarial Physical Control Assessment Framework
-### *The MITRE ATT&CK® for Physical & Hardware-Layer Security*
+### *An ATT&CK-Inspired Open Framework for Adversarial Physical-Control Assessment*
 
 [![License: CC BY 4.0](https://img.shields.io/badge/Specification-CC%20BY%204.0-lightgrey.svg)](LICENSE)
 [![License: MIT](https://img.shields.io/badge/Tooling-MIT-blue.svg)](LICENSE)
-[![Framework: ATT&CK-Aligned](https://img.shields.io/badge/Taxonomy-MITRE%20Physical-orange.svg)](docs/TAXONOMY.md)
+[![Framework: ATT&CK-Aligned](https://img.shields.io/badge/Taxonomy-ATT%26CK%20Inspired-orange.svg)](docs/TAXONOMY.md)
 [![Methodology: Passive QA](https://img.shields.io/badge/Methodology-Non--Invasive%20QA-brightgreen.svg)](VENDOR_QA_SCORECARD.md)
 
-**APCAF (Adversarial Physical Control Assessment Framework)** is an open physical security evaluation standard inspired by MITRE ATT&CK®. It evaluates whether physical security controls actually resist real-world attacker bypasses, rather than just verifying their paper existence.
+**APCAF (Adversarial Physical Control Assessment Framework)** is an open physical security evaluation standard inspired by the behavioral taxonomy principles of MITRE ATT&CK®. It evaluates whether physical security controls actually resist real-world adversary bypass techniques under passive inspection, rather than just verifying their paper existence.
 
 ---
 
