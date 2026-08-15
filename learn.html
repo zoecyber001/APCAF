@@ -109,18 +109,79 @@
       <p>A practical, 15-minute introduction to adversarial physical-control assessment. Master the mental model, passive inspection boundaries, and core techniques without technical fluff.</p>
     </div>
 
-    <!-- Sticky Lesson Navigation Bar -->
-    <nav class="learn-nav-sticky" aria-label="Lessons navigation">
-      <a href="#lesson-01" class="learn-nav-btn active">01 • The Problem</a>
-      <a href="#lesson-02" class="learn-nav-btn">02 • The Model</a>
-      <a href="#lesson-03" class="learn-nav-btn">03 • Tactics vs Techniques</a>
-      <a href="#lesson-04" class="learn-nav-btn">04 • Passive QA</a>
-      <a href="#lesson-05" class="learn-nav-btn">05 • 4 MVP Techniques</a>
-      <a href="#lesson-06" class="learn-nav-btn">06 • Interactive Simulator</a>
-    </nav>
+    <div class="learn-studio-grid">
+      
+      <!-- Left Column: Desktop Journey Console / Rail -->
+      <aside class="learn-journey-console" aria-label="Lesson Progress">
+        <div class="journey-progress-card">
+          <div class="journey-progress-meta">
+            <span class="journey-progress-title">Field Guide Progress</span>
+            <span class="journey-progress-pct" id="journeyProgressPct">17%</span>
+          </div>
+          <div class="journey-progress-track">
+            <div class="journey-progress-fill" id="journeyProgressFill" style="width: 16.6%;"></div>
+          </div>
+          <div class="journey-kbd-tip">
+            <span>Tip:</span> Press <span class="kbd-badge">J</span> / <span class="kbd-badge">K</span> or <span class="kbd-badge">1-6</span>
+          </div>
+        </div>
 
-    <!-- LESSON 01: The Problem -->
-    <section class="lesson-card" id="lesson-01">
+        <div class="journey-step-list" id="journeyStepList">
+          <a href="#lesson-01" class="journey-step-btn active" data-lesson="1" id="stepBtn-1">
+            <span class="step-indicator-circle" id="stepCircle-1">01</span>
+            <div class="step-meta-col">
+              <span class="step-title">The Problem</span>
+              <span class="step-sub">Paper vs Resilience • 2 min</span>
+            </div>
+          </a>
+
+          <a href="#lesson-02" class="journey-step-btn" data-lesson="2" id="stepBtn-2">
+            <span class="step-indicator-circle" id="stepCircle-2">02</span>
+            <div class="step-meta-col">
+              <span class="step-title">The APCAF Model</span>
+              <span class="step-sub">5-Step Chain • 3 min</span>
+            </div>
+          </a>
+
+          <a href="#lesson-03" class="journey-step-btn" data-lesson="3" id="stepBtn-3">
+            <span class="step-indicator-circle" id="stepCircle-3">03</span>
+            <div class="step-meta-col">
+              <span class="step-title">Tactics vs Techniques</span>
+              <span class="step-sub">5 Attack Objectives • 2 min</span>
+            </div>
+          </a>
+
+          <a href="#lesson-04" class="journey-step-btn" data-lesson="4" id="stepBtn-4">
+            <span class="step-indicator-circle" id="stepCircle-4">04</span>
+            <div class="step-meta-col">
+              <span class="step-title">Passive Assessment</span>
+              <span class="step-sub">Safety Boundary • 3 min</span>
+            </div>
+          </a>
+
+          <a href="#lesson-05" class="journey-step-btn" data-lesson="5" id="stepBtn-5">
+            <span class="step-indicator-circle" id="stepCircle-5">05</span>
+            <div class="step-meta-col">
+              <span class="step-title">4 MVP Techniques</span>
+              <span class="step-sub">Baseline Attacks • 4 min</span>
+            </div>
+          </a>
+
+          <a href="#lesson-06" class="journey-step-btn" data-lesson="6" id="stepBtn-6">
+            <span class="step-indicator-circle" id="stepCircle-6">06</span>
+            <div class="step-meta-col">
+              <span class="step-title">Interactive Simulator</span>
+              <span class="step-sub">Facility Sandbox • 5 min</span>
+            </div>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Right Column: Lesson Deck -->
+      <div class="learn-lesson-deck">
+
+        <!-- LESSON 01: The Problem -->
+        <section class="lesson-card" id="lesson-01">
       <div class="lesson-head">
         <span class="lesson-num">Lesson 01</span>
         <span class="lesson-time">2 min read</span>
@@ -476,6 +537,29 @@
       </div>
     </section>
 
+      </div> <!-- /learn-lesson-deck -->
+    </div> <!-- /learn-studio-grid -->
+
+    <!-- Mobile Floating Journey Capsule (Emil Kowalski Bottom Control) -->
+    <div class="mobile-journey-capsule" id="mobileJourneyCapsule">
+      <div class="mobile-journey-info">
+        <span class="mobile-journey-num" id="mobileLessonNum">Lesson 01 / 06</span>
+        <span class="mobile-journey-label" id="mobileLessonLabel">The Problem: Paper vs Resilience</span>
+      </div>
+      <div class="mobile-journey-actions">
+        <button type="button" class="btn-journey-step" onclick="stepLesson(-1)" aria-label="Previous Lesson">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button type="button" class="btn-journey-step" onclick="stepLesson(1)" aria-label="Next Lesson">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+
   </main>
 
   <!-- Site Footer -->
@@ -504,7 +588,7 @@
   <script src="currency.js"></script>
   <script src="app.js"></script>
   <script>
-    // Interactive Simulator Logic for Lesson 06
+    // --- 1. Interactive Simulator Logic for Lesson 06 ---
     const SIM_ANSWERS = {
       1: { correct: 'B', explanation: '<strong>Correct (PHY-T1001):</strong> Unencrypted 125 kHz credentials transmit plaintext static UIDs that can be cloned wirelessly in under 3 seconds. APCAF assesses whether the credential initiates an encrypted ISO 14443-4 AES-128 handshake or broadcasts plaintext.' },
       2: { correct: 'A', explanation: '<strong>Correct (PHY-T1002):</strong> Under NFPA 80 §6.3.1.7.1 and ANSI/SDI A250.8, allowable frame clearance is <= 3.2mm (1/8 in.). A 4.5mm gap with direct line-of-sight enables shove-knife bypass unless shielded by a continuous steel astragal.' },
@@ -556,26 +640,100 @@
       }
     }
 
-    // Scroll Spy for Sticky Lesson Nav
-    window.addEventListener('scroll', () => {
-      const lessons = document.querySelectorAll('.lesson-card');
-      const navLinks = document.querySelectorAll('.learn-nav-btn');
-      let currentId = '';
+    // --- 2. Emil Kowalski Journey Rail & Progress Engine ---
+    const LESSON_TITLES = [
+      "The Problem: Paper vs Resilience",
+      "The APCAF Model: 5-Step Chain",
+      "Tactics vs Techniques",
+      "Passive Assessment: Safety Boundary",
+      "The 4 MVP Techniques",
+      "Interactive Facility Simulator"
+    ];
 
-      lessons.forEach(lesson => {
-        const top = lesson.offsetTop - 160;
-        if (window.scrollY >= top) {
-          currentId = lesson.getAttribute('id');
+    let currentLessonIndex = 1;
+
+    function updateActiveLesson(index) {
+      currentLessonIndex = index;
+
+      // Update Desktop Console Rail
+      document.querySelectorAll('.journey-step-btn').forEach(btn => {
+        const lessonNum = parseInt(btn.getAttribute('data-lesson'), 10);
+        const circle = document.getElementById(`stepCircle-${lessonNum}`);
+
+        if (lessonNum === index) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+
+        if (lessonNum < index) {
+          circle.classList.add('completed');
+          circle.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+        } else {
+          circle.classList.remove('completed');
+          circle.textContent = lessonNum < 10 ? `0${lessonNum}` : `${lessonNum}`;
         }
       });
 
-      if (currentId) {
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${currentId}`) {
-            link.classList.add('active');
+      // Update Progress Track & Pct
+      const pct = Math.round((index / 6) * 100);
+      const fill = document.getElementById('journeyProgressFill');
+      const pctLabel = document.getElementById('journeyProgressPct');
+      if (fill) fill.style.width = `${pct}%`;
+      if (pctLabel) pctLabel.textContent = `${pct}%`;
+
+      // Update Mobile Capsule
+      const mobNum = document.getElementById('mobileLessonNum');
+      const mobLabel = document.getElementById('mobileLessonLabel');
+      if (mobNum) mobNum.textContent = `Lesson 0${index} / 06`;
+      if (mobLabel) mobLabel.textContent = LESSON_TITLES[index - 1] || '';
+    }
+
+    function stepLesson(direction) {
+      let target = currentLessonIndex + direction;
+      if (target < 1) target = 1;
+      if (target > 6) target = 6;
+      
+      const targetEl = document.getElementById(`lesson-0${target}`);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // Scroll Observer
+    const lessonObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          const num = parseInt(id.replace('lesson-0', ''), 10);
+          if (num) {
+            updateActiveLesson(num);
           }
-        });
+        }
+      });
+    }, {
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: 0
+    });
+
+    document.querySelectorAll('.lesson-card').forEach(card => lessonObserver.observe(card));
+
+    // Keyboard Shortcuts (J/K or 1-6)
+    document.addEventListener('keydown', (e) => {
+      if (['input', 'textarea', 'select'].includes(document.activeElement.tagName.toLowerCase())) {
+        return;
+      }
+
+      if (e.key === 'j' || e.key === 'J' || e.key === 'ArrowDown') {
+        stepLesson(1);
+      } else if (e.key === 'k' || e.key === 'K' || e.key === 'ArrowUp') {
+        stepLesson(-1);
+      } else if (e.key >= '1' && e.key <= '6') {
+        const targetNum = parseInt(e.key, 10);
+        const targetEl = document.getElementById(`lesson-0${targetNum}`);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     });
   </script>

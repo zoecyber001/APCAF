@@ -617,6 +617,10 @@ code, pre {
   color: var(--text-pure);
 }
 
+.resend-btn-ghost:active {
+  transform: scale(0.975);
+}
+
 @media (max-width: 520px) {
   .resend-btn-cluster {
     flex-direction: column;
@@ -2041,6 +2045,10 @@ code, pre {
   box-shadow: var(--shadow-modal);
 }
 
+.path-card:active {
+  transform: scale(0.985) translateY(0);
+}
+
 .path-tag {
   display: inline-flex;
   align-items: center;
@@ -2099,25 +2107,26 @@ code, pre {
 }
 
 /* ==========================================================================
-   Learn APCAF Interactive Field Guide Layout & Styles
+   Learn APCAF Interactive Field Guide Layout & Styles (Emil Kowalski Studio)
    ========================================================================== */
 .learn-page-layout {
-  padding-top: 100px;
-  padding-bottom: 80px;
+  padding-top: 96px;
+  padding-bottom: 96px;
 }
 
 .learn-hero-header {
   text-align: center;
-  max-width: 760px;
-  margin: 0 auto 36px;
+  max-width: 780px;
+  margin: 0 auto 40px;
 }
 
 .learn-hero-header h1 {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
   font-weight: 800;
   letter-spacing: -0.04em;
   color: var(--text-pure);
   margin-bottom: 12px;
+  line-height: 1.1;
 }
 
 .learn-hero-header p {
@@ -2126,61 +2135,302 @@ code, pre {
   line-height: 1.6;
 }
 
-/* Sticky Lesson Progress Bar */
-.learn-nav-sticky {
-  position: sticky;
-  top: 72px;
-  z-index: 80;
-  background: var(--bg-glass);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-pill);
-  padding: 6px;
-  margin: 0 auto 40px;
-  max-width: 860px;
-  box-shadow: var(--shadow-nav);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 4px;
-  overflow-x: auto;
+/* 2-Column Studio Grid */
+.learn-studio-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: clamp(24px, 4vw, 48px);
+  align-items: start;
+  position: relative;
 }
 
-.learn-nav-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  font-size: 0.76rem;
-  font-weight: 700;
+@media (max-width: 980px) {
+  .learn-studio-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Desktop Sticky Journey Console (Left Rail) */
+.learn-journey-console {
+  position: sticky;
+  top: 84px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: calc(100vh - 104px);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.learn-journey-console::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 980px) {
+  .learn-journey-console {
+    display: none;
+  }
+}
+
+.journey-progress-card {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.journey-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.journey-progress-title {
   font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--text-dim);
+}
+
+.journey-progress-pct {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-pure);
+}
+
+.journey-progress-track {
+  height: 4px;
+  background: var(--bg-subtle);
   border-radius: var(--radius-pill);
+  overflow: hidden;
+  position: relative;
+}
+
+.journey-progress-fill {
+  height: 100%;
+  width: 16.6%;
+  background: #09090b;
+  border-radius: var(--radius-pill);
+  transition: width 240ms var(--ease-spring);
+}
+
+.journey-kbd-tip {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.kbd-badge {
+  display: inline-block;
+  padding: 1px 5px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-card);
+  border-radius: 4px;
+  color: var(--text-head);
+}
+
+/* Journey Stepper List */
+.journey-step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.journey-step-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
   text-decoration: none;
-  white-space: nowrap;
+  color: inherit;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all 140ms var(--ease-out);
+  cursor: pointer;
+  text-align: left;
+}
+
+.journey-step-btn:hover {
+  background: var(--bg-surface-elevated);
+  border-color: var(--border-subtle);
+}
+
+.journey-step-btn.active {
+  background: #09090b;
+  color: #ffffff;
+  border-color: #09090b;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.journey-step-btn.active .step-sub {
+  color: #a1a1aa;
+}
+
+.journey-step-btn.active .step-indicator-circle {
+  background: #ffffff;
+  color: #09090b;
+}
+
+.step-indicator-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  flex-shrink: 0;
   transition: all 140ms ease;
 }
 
-.learn-nav-btn:hover {
-  color: var(--text-pure);
-  background: rgba(0, 0, 0, 0.04);
-}
-
-.learn-nav-btn.active {
+.step-indicator-circle.completed {
   background: #09090b;
   color: #ffffff;
+  border-color: #09090b;
 }
 
-/* Lesson Cards */
+.journey-step-btn.active .step-indicator-circle.completed {
+  background: #ffffff;
+  color: #09090b;
+}
+
+.step-meta-col {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.step-title {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.step-sub {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  transition: color 140ms ease;
+}
+
+/* Mobile Quick Journey Floating Capsule */
+.mobile-journey-capsule {
+  display: none;
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 90;
+  background: rgba(9, 9, 11, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  padding: 6px 12px;
+  align-items: center;
+  gap: 12px;
+  width: calc(100% - 32px);
+  max-width: 420px;
+}
+
+@media (max-width: 980px) {
+  .mobile-journey-capsule {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.mobile-journey-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mobile-journey-num {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mobile-journey-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobile-journey-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-journey-step {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 120ms ease;
+}
+
+.btn-journey-step:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.btn-journey-step:active {
+  transform: scale(0.92);
+}
+
+/* Lesson Cards in Right Column */
+.learn-lesson-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
 .lesson-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-lg);
   padding: clamp(24px, 4vw, 40px);
-  margin-bottom: 36px;
-  box-shadow: var(--shadow-card);
-  scroll-margin-top: 130px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.04);
+  scroll-margin-top: 84px;
+  transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+}
+
+.lesson-card:hover {
+  border-color: var(--border-active);
 }
 
 .lesson-head {
@@ -2367,6 +2617,10 @@ code, pre {
   background: var(--bg-surface-hover);
   border-color: var(--border-active);
   color: var(--text-pure);
+}
+
+.sim-opt-btn:active {
+  transform: scale(0.98);
 }
 
 .sim-opt-btn.correct {
