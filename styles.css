@@ -2,7 +2,7 @@
    APCAF - High-Precision Executive Architectural Light Theme
    Pristine White Surface, Seamless Floating 3D WebGL Shield,
    High-End Glassmorphic Floating Island Navigation, Refined Monochromatic Palette
-   Typography: Geist & Clash Display (Headings), Geist / Plus Jakarta Sans (Body), JetBrains Mono (Code/IDs)
+   Typography: Strict 2-Family System: Geist (Human / UI / Headings / Body) & Geist Mono (Technical / Data / Metrics)
    ========================================================================== */
 
 :root {
@@ -50,10 +50,10 @@
   --accent-sky-bg: #f4f5f8;
   --accent-blue-subtle: #0284c7;
 
-  /* Typography: Geist & Clash Display (Headings), Geist (Body), JetBrains Mono (Code/IDs) */
-  --font-display: 'Geist', 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-sans: 'Geist', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Geist Mono', monospace;
+  /* Typography: Strict 2-Family System: Geist (Human) & Geist Mono (Technical) */
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
 
   /* Physics & Radii */
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
@@ -117,11 +117,11 @@ body {
 }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   color: var(--text-pure);
-  letter-spacing: -0.035em;
-  line-height: 1.1;
-  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.15;
+  font-weight: 600;
 }
 
 p {
@@ -210,10 +210,10 @@ code, pre {
 }
 
 .brand-badge {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   color: var(--text-pure);
 }
 
@@ -539,21 +539,21 @@ code, pre {
 }
 
 .resend-hero-title {
-  font-size: clamp(2.3rem, 6.2vw, 4.4rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.06;
+  font-size: clamp(2.3rem, 5.2vw, 3.8rem);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
   color: var(--text-pure);
-  margin-bottom: clamp(14px, 2.5vw, 22px);
+  margin-bottom: clamp(14px, 2.5vw, 20px);
   word-break: break-word;
 }
 
 .resend-hero-subtitle {
-  font-size: clamp(0.95rem, 2vw, 1.18rem);
+  font-size: clamp(1rem, 2vw, 1.15rem);
   color: var(--text-body);
-  line-height: 1.65;
-  margin-bottom: clamp(20px, 3.5vw, 32px);
-  max-width: 540px;
+  line-height: 1.55;
+  margin-bottom: clamp(20px, 3.5vw, 28px);
+  max-width: 520px;
 }
 
 .resend-btn-cluster {
@@ -1890,9 +1890,9 @@ code, pre {
 }
 
 .pipeline-step-title {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 0.92rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-pure);
   margin-bottom: 8px;
 }
@@ -2074,9 +2074,9 @@ code, pre {
 }
 
 .path-title {
-  font-family: var(--font-display);
-  font-size: 1.18rem;
-  font-weight: 800;
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--text-pure);
   margin-bottom: 8px;
@@ -2141,28 +2141,28 @@ code, pre {
 
 .why-card-tag {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text-dim);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .why-card-title {
-  font-family: var(--font-display);
-  font-size: 1.22rem;
-  font-weight: 800;
+  font-family: var(--font-sans);
+  font-size: 1.18rem;
+  font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--text-pure);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   line-height: 1.25;
 }
 
 .why-card-desc {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: var(--text-body);
-  line-height: 1.6;
+  line-height: 1.55;
 }
 
 /* ==========================================================================
@@ -2221,7 +2221,7 @@ code, pre {
 .tech-id-chip {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 600;
   padding: 2px 7px;
   background: #09090b;
   color: #ffffff;
@@ -2231,30 +2231,31 @@ code, pre {
 .tech-tactic-name {
   font-family: var(--font-mono);
   font-size: 0.68rem;
+  font-weight: 500;
   color: var(--text-dim);
   text-transform: uppercase;
 }
 
 .tech-visual-title {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 1.05rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-pure);
   margin-bottom: 6px;
   line-height: 1.25;
 }
 
 .tech-visual-check {
-  font-size: 0.8rem;
+  font-size: 0.84rem;
   color: var(--text-body);
-  line-height: 1.45;
+  line-height: 1.5;
   margin-bottom: 14px;
   flex-grow: 1;
 }
 
 .tech-visual-link {
   font-size: 0.78rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-pure);
   display: inline-flex;
   align-items: center;
@@ -2285,9 +2286,9 @@ code, pre {
 }
 
 .case-highlight-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
-  font-weight: 800;
+  font-family: var(--font-sans);
+  font-size: clamp(1.2rem, 3vw, 1.45rem);
+  font-weight: 600;
   color: var(--text-pure);
 }
 
@@ -2323,14 +2324,14 @@ code, pre {
 .case-stat-val {
   font-family: var(--font-mono);
   font-size: 1.35rem;
-  font-weight: 800;
+  font-weight: 600;
   color: var(--text-pure);
 }
 
 .case-stat-lbl {
   font-size: 0.76rem;
   color: var(--text-dim);
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -2359,12 +2360,12 @@ code, pre {
 }
 
 .learn-hero-header h1 {
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
+  font-size: clamp(2rem, 4.5vw, 2.8rem);
+  font-weight: 650;
+  letter-spacing: -0.035em;
   color: var(--text-pure);
   margin-bottom: 12px;
-  line-height: 1.1;
+  line-height: 1.15;
 }
 
 .learn-hero-header p {
@@ -2557,9 +2558,9 @@ code, pre {
 }
 
 .step-title {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -2615,7 +2616,7 @@ code, pre {
 
 .mobile-journey-label {
   font-size: 0.82rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #ffffff;
   white-space: nowrap;
   overflow: hidden;
@@ -2684,10 +2685,10 @@ code, pre {
 
 .lesson-num {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 800;
+  font-size: 0.76rem;
+  font-weight: 600;
   color: var(--text-dim);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -2698,17 +2699,18 @@ code, pre {
 }
 
 .lesson-title {
-  font-size: clamp(1.3rem, 3vw, 1.7rem);
-  font-weight: 800;
+  font-family: var(--font-sans);
+  font-size: clamp(1.25rem, 2.6vw, 1.55rem);
+  font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--text-pure);
   margin-bottom: 14px;
 }
 
 .lesson-body p {
-  font-size: 0.96rem;
+  font-size: 0.98rem;
   color: var(--text-head);
-  line-height: 1.65;
+  line-height: 1.6;
   margin-bottom: 16px;
 }
 
@@ -2742,9 +2744,9 @@ code, pre {
 }
 
 .comparison-title {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-pure);
   margin-bottom: 8px;
 }
