@@ -684,9 +684,9 @@
     let completedLessons = new Set();
     let isProgrammaticScrolling = false;
 
-    // Load progress from localStorage
+    // Load progress from localStorage - strictly default to empty if not set
     try {
-      const saved = localStorage.getItem('apcaf_field_guide_progress');
+      const saved = localStorage.getItem('apcaf_field_guide_progress_v2'); // Use v2 key to completely bypass legacy auto-scroll data
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
@@ -697,7 +697,7 @@
 
     function saveProgress() {
       try {
-        localStorage.setItem('apcaf_field_guide_progress', JSON.stringify(Array.from(completedLessons)));
+        localStorage.setItem('apcaf_field_guide_progress_v2', JSON.stringify(Array.from(completedLessons)));
       } catch (e) {}
     }
 
