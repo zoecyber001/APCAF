@@ -30,9 +30,9 @@ Instead of asking only *"Is there a lock on the door?"*, APCAF asks **"How could
 ```
 
 ### Choose Your Pathway
-* **[1. Learn it (Interactive Field Guide)](https://zoecyber001.github.io/APCAF/learn.html)** — A 6-lesson practical introduction with an interactive facility simulator.
-* **[2. Use it (45s Field Triage)](https://zoecyber001.github.io/APCAF/tools/field-triage.html)** — Non-invasive physical security evaluation with automated CISO warranty notices.
-* **[3. Study it (Technical Standard)](https://zoecyber001.github.io/APCAF/docs.html)** — Full taxonomy matrix, NFPA 80 building codes, and Atomic Red Team YAML test specs.
+* **[1. Learn it (Interactive Field Guide)](https://zoecyber001.github.io/APCAF/learn.html)** - A 6-lesson practical introduction with an interactive facility simulator.
+* **[2. Use it (45s Field Triage)](https://zoecyber001.github.io/APCAF/tools/field-triage.html)** - Non-invasive physical security evaluation with automated CISO warranty notices.
+* **[3. Study it (Technical Standard)](https://zoecyber001.github.io/APCAF/docs.html)** - Full taxonomy matrix, NFPA 80 building codes, and Atomic Red Team YAML test specs.
 
 ---
 
