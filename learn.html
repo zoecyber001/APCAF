@@ -53,26 +53,23 @@
         <a href="tools/field-triage.html" class="btn-nav-primary">
           Run Field Triage
         </a>
+        <!-- Mobile Menu Toggle Button -->
+        <button type="button" class="btn-mobile-menu-toggle" id="mobileMenuToggleBtn" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
       </div>
 
-      <!-- Mobile Hamburger Button -->
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-      </button>
-    </div>
-
-    <!-- Mobile Dropdown Menu -->
-    <div class="mobile-dropdown" id="mobileDropdown">
-      <div class="container mobile-dropdown-inner">
+      <!-- Mobile Navigation Drawer -->
+      <div class="mobile-nav-drawer" id="mobileNavMenu">
         <a href="index.html" onclick="closeMobileMenu()">Overview</a>
-        <a href="learn.html" class="active" onclick="closeMobileMenu()">Learn APCAF</a>
+        <a href="learn.html" class="active" onclick="closeMobileMenu()">Learn APCAF (Field Guide)</a>
         <a href="repository.html" onclick="closeMobileMenu()">Rule Repository</a>
-        <a href="docs.html" onclick="closeMobileMenu()">Documentation</a>
-        <a href="tools/field-triage.html" onclick="closeMobileMenu()">Field Triage</a>
+        <a href="docs.html" onclick="closeMobileMenu()">Technical Documentation</a>
+        <a href="tools/field-triage.html" onclick="closeMobileMenu()">45s Field Triage</a>
         <a href="docs.html#warranty-hold" onclick="closeMobileMenu()">CISO Warranty Playbook</a>
       </div>
     </div>
@@ -825,17 +822,6 @@
             updateActiveLesson(activeNum);
           }
 
-          // Auto-mark lesson completed when scrolled through
-          cards.forEach(card => {
-            const num = parseInt(card.id.replace('lesson-0', ''), 10);
-            const cardBottom = card.offsetTop + card.offsetHeight;
-            if (window.scrollY + window.innerHeight > cardBottom - 60) {
-              if (num && num < TOTAL_LESSONS) {
-                completedLessons.add(num);
-                saveProgress();
-              }
-            }
-          });
           updateProgressUI();
 
           scrollTicking = false;
