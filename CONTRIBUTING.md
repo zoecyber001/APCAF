@@ -10,7 +10,7 @@ APCAF is an open-source, vendor-neutral standard for physical and hardware-layer
 
 Every proposed physical technique in APCAF must adhere to the **Three Core Tenets**:
 
-1. **Deterministic 45-Second Budget:** The assessment step must be executable in 45 seconds or less during a standard site walk.
+1. **Standardised 45-Second Budget:** The assessment step must be executable in 45 seconds or less of direct read time during a standard site walk.
 2. **Zero Life-Safety Interference:** Tests must NEVER manipulate, compromise, or bypass life-safety systems (e.g. fire alarm trip relays, panic breakout hardware, emergency stairwell releases).
 3. **Contractual Warranty Linkage:** Every technique must define a concrete **Contractor Warranty Mitigation Specification (`PHY-Mxxxx`)** that a facility owner or CISO can cite against a vendor's installation scope of work.
 

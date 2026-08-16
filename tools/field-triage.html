@@ -567,6 +567,10 @@
       <input type="text" id="caseId" placeholder="APCAF-CASE-YYYYMMDD-01" />
     </div>
     <div class="meta-field">
+      <label for="assessorId">Assessor Identifier</label>
+      <input type="text" id="assessorId" placeholder="[Assessor ID or leave blank]" />
+    </div>
+    <div class="meta-field">
       <label for="facilityType">Facility Classification</label>
       <select id="facilityType">
         <option value="datacenter">Datacenter / Colocation Suite</option>
@@ -623,7 +627,7 @@
     <div class="card" id="card-02">
       <div class="card-header">
         <div class="card-title">
-          <span class="tag-tid">APCAF-02A • PHY-T1002</span>
+          <span class="tag-tid">APCAF-02 • PHY-T1002</span>
           <span>Mechanical Latch Manipulation (Latch Slip)</span>
           <span class="tag-compliance">NFPA 80 §6.3.1.7.1 • ANSI/SDI A250.8</span>
         </div>
@@ -652,7 +656,7 @@
     <div class="card" id="card-03">
       <div class="card-header">
         <div class="card-title">
-          <span class="tag-tid">APCAF-02B • PHY-T1003</span>
+          <span class="tag-tid">APCAF-02 • PHY-T1003</span>
           <span>REX Sensor Blind Activation</span>
           <span class="tag-compliance">NFPA 101 §7.2.1.6.2 • UL 294</span>
         </div>
@@ -775,6 +779,7 @@
       
       // Reset inputs
       document.getElementById('caseId').value = '';
+      document.getElementById('assessorId').value = '';
       document.getElementById('facilityRef').value = '';
       document.getElementById('authRef').value = '';
       document.getElementById('notes-01').value = '';
@@ -792,6 +797,7 @@
       
       // Populate synthetic example
       document.getElementById('caseId').value = 'APCAF-DEMO-001';
+      document.getElementById('assessorId').value = 'APCAF-SYNTHETIC-DEMO-RUNNER';
       document.getElementById('facilityType').value = 'datacenter';
       document.getElementById('facilityRef').value = 'synthetic-demo-datacenter-001';
       document.getElementById('authRef').value = 'SYNTHETIC-DEMO-SOW-CLAUSE-01';
@@ -813,7 +819,11 @@
   }
 
   function generateOutput(mode) {
-    const caseId = document.getElementById('caseId').value.trim() || (currentMode === 'demo' ? 'APCAF-DEMO-001' : 'APCAF-CASE-UNSPECIFIED');
+    const rawCaseId = document.getElementById('caseId').value.trim();
+    const caseId = rawCaseId || (currentMode === 'demo' ? 'APCAF-DEMO-001' : 'APCAF-CASE-UNSPECIFIED');
+    const rawAssessorId = document.getElementById('assessorId').value.trim();
+    const assessorId = currentMode === 'demo' ? 'APCAF-SYNTHETIC-DEMO-RUNNER' : (rawAssessorId ? `"${rawAssessorId}"` : 'null');
+    
     const facilityType = document.getElementById('facilityType').value;
     const facilityRef = document.getElementById('facilityRef').value.trim() || '[Target Facility / Area Unspecified]';
     const authRef = document.getElementById('authRef').value.trim() || '[Authorization Reference Unspecified]';
@@ -826,34 +836,60 @@
     const outputArea = document.getElementById('outputArea');
     const outputTitle = document.getElementById('outputTitle');
 
-    const assessedStates = [state['01'], state['02'], state['03'], state['04']];
-    const softCount = assessedStates.filter(s => s === 'Soft').length;
-    const allHardened = assessedStates.every(s => s === 'Hardened');
-    const hasUnassessed = assessedStates.some(s => s === null);
+    // Filter only assessed controls
+    const assessedList = [];
+    if (state['01'] !== null) assessedList.push({ id: '01', controlId: 'APCAF-01', tacticId: 'PHY-TAC-02', tid: 'PHY-T1001', name: 'Unencrypted RFID Harvesting', status: state['01'], notes: notes01, time: 5, mitigation: 'PHY-M1001', action: 'Replace credential stock with AES-128 crypto smartcards (DESFire EV3 / Seos) and activate SAM keys on readers.' });
+    if (state['02'] !== null) assessedList.push({ id: '02', controlId: 'APCAF-02', tacticId: 'PHY-TAC-03', tid: 'PHY-T1002', name: 'Mechanical Latch Manipulation (Latch Slip)', status: state['02'], notes: notes02, time: 15, mitigation: 'PHY-M1002', action: 'Install full-height continuous stainless steel security astragal plate.' });
+    if (state['03'] !== null) assessedList.push({ id: '03', controlId: 'APCAF-02', tacticId: 'PHY-TAC-03', tid: 'PHY-T1003', name: 'REX Sensor Blind Activation', status: state['03'], notes: notes03, time: 15, mitigation: 'PHY-M1003', action: 'Mount UL-listed directional deflector hood over interior PIR motion sensor.' });
+    if (state['04'] !== null) assessedList.push({ id: '04', controlId: 'APCAF-03', tacticId: 'PHY-TAC-05', tid: 'PHY-T1004', name: 'Exposed Active Physical Network Interface', status: state['04'], notes: notes04, time: 10, mitigation: 'PHY-M1004', action: 'Administratively shut down unmonitored switch ports at patch panel or configure 802.1X quarantine.' });
+
+    if (assessedList.length === 0) {
+      outputTitle.innerText = "Notice: No Controls Assessed";
+      outputArea.textContent = "Please select at least one control status (Hardened or Legacy/Soft) above to compile an APCAF assessment record.";
+      return;
+    }
+
+    const softCount = assessedList.filter(item => item.status === 'Soft').length;
+    const allHardened = softCount === 0;
 
     if (mode === 'yaml') {
       outputTitle.innerText = "ATT&CK-Aligned YAML Case Record (" + caseId + ")";
       
       const caseType = currentMode === 'demo' ? 'SYNTHETIC_DEMO' : 'FIELD_OBSERVED';
+      const evidenceStatus = currentMode === 'demo' ? 'NO_FIELD_EVIDENCE' : 'PRIMARY_FIELD_EVIDENCE';
       const valStatus = currentMode === 'demo' ? 'synthetic_fixture' : 'unverified';
       const evidenceType = currentMode === 'demo' ? 'synthetic_fixture' : 'observation';
       
-      const vendorResolution = allHardened ? 'NO_REMEDIATION_REQUIRED' : (softCount > 0 ? 'PENDING' : 'UNKNOWN');
+      const vendorResolution = allHardened ? 'NO_REMEDIATION_REQUIRED' : 'PENDING';
       const punchlistIssued = softCount > 0;
       const invoiceHold = softCount > 0;
+
+      let findingsYaml = assessedList.map(item => `  - control_id: "${item.controlId}"
+    tactic_id: "${item.tacticId}"
+    technique_id: "${item.tid}"
+    technique_name: "${item.name}"
+    classification: "${item.status === 'Hardened' ? 'Hardened' : 'Legacy/Soft'}"
+    evidence_type: "${evidenceType}"
+    observed_spec: "${item.notes}"
+    inspection_time_seconds: ${item.time}
+    mitigation_ref: "${item.mitigation}"
+    remediation_action: "${item.action}"
+    vendor_warranty_applicable: ${item.status === 'Soft'}`).join('\n\n');
 
       const yaml = `# -----------------------------------------------------------------------------
 # APCAF CASE ASSESSMENT RECORD
 # CASE_TYPE: ${caseType}
+# EVIDENCE_STATUS: ${evidenceStatus}
 # STATUS: ${valStatus.toUpperCase()}
 # -----------------------------------------------------------------------------
 
 case_id: "${caseId}"
 case_type: "${caseType}"
+evidence_status: "${evidenceStatus}"
 validation_status: "${valStatus}"
 timestamp: "${new Date().toISOString()}"
 framework_standard: "APCAF-ATT&CK-PHYSICAL-v1"
-assessor_id: "${currentMode === 'demo' ? 'APCAF-SYNTHETIC-DEMO-RUNNER' : 'APCAF-FIELD-ASSESSOR-01'}"
+assessor_id: ${assessorId}
 authorization_ref: "${authRef}"
 
 facility_metadata:
@@ -865,66 +901,21 @@ facility_metadata:
   target_facility_hash: "${facilityRef}"
 
 findings:
-  - control_id: "APCAF-01"
-    tactic_id: "PHY-TAC-02"
-    technique_id: "PHY-T1001"
-    technique_name: "Unencrypted RFID Harvesting"
-    classification: "${state['01'] === 'Hardened' ? 'Hardened' : (state['01'] === 'Soft' ? 'Legacy/Soft' : 'Unassessed')}"
-    evidence_type: "${evidenceType}"
-    observed_spec: "${notes01}"
-    inspection_time_seconds: 5
-    mitigation_ref: "PHY-M1001"
-    remediation_action: "Replace credential stock with AES-128 crypto smartcards (DESFire EV3 / Seos) and activate SAM keys on readers."
-    vendor_warranty_applicable: ${state['01'] === 'Soft'}
-
-  - control_id: "APCAF-02A"
-    tactic_id: "PHY-TAC-03"
-    technique_id: "PHY-T1002"
-    technique_name: "Mechanical Latch Manipulation (Latch Slip)"
-    classification: "${state['02'] === 'Hardened' ? 'Hardened' : (state['02'] === 'Soft' ? 'Legacy/Soft' : 'Unassessed')}"
-    evidence_type: "${evidenceType}"
-    observed_spec: "${notes02}"
-    inspection_time_seconds: 15
-    mitigation_ref: "PHY-M1002"
-    remediation_action: "Install full-height continuous stainless steel security astragal plate."
-    vendor_warranty_applicable: ${state['02'] === 'Soft'}
-
-  - control_id: "APCAF-02B"
-    tactic_id: "PHY-TAC-03"
-    technique_id: "PHY-T1003"
-    technique_name: "REX Sensor Blind Activation"
-    classification: "${state['03'] === 'Hardened' ? 'Hardened' : (state['03'] === 'Soft' ? 'Legacy/Soft' : 'Unassessed')}"
-    evidence_type: "${evidenceType}"
-    observed_spec: "${notes03}"
-    inspection_time_seconds: 15
-    mitigation_ref: "PHY-M1003"
-    remediation_action: "Mount UL-listed directional deflector hood over interior PIR motion sensor."
-    vendor_warranty_applicable: ${state['03'] === 'Soft'}
-
-  - control_id: "APCAF-03"
-    tactic_id: "PHY-TAC-05"
-    technique_id: "PHY-T1004"
-    technique_name: "Exposed Active Physical Network Interface"
-    classification: "${state['04'] === 'Hardened' ? 'Hardened' : (state['04'] === 'Soft' ? 'Legacy/Soft' : 'Unassessed')}"
-    evidence_type: "${evidenceType}"
-    observed_spec: "${notes04}"
-    inspection_time_seconds: 10
-    mitigation_ref: "PHY-M1004"
-    remediation_action: "Administratively shut down unmonitored switch ports at patch panel or configure 802.1X quarantine."
-    vendor_warranty_applicable: ${state['04'] === 'Soft'}
+${findingsYaml}
 
 remediation_status:
   ciso_punchlist_issued: ${punchlistIssued}
   vendor_invoice_hold: ${invoiceHold}
   vendor_resolution: "${vendorResolution}"
-  notes: "${currentMode === 'demo' ? 'Synthetic demonstration example for schema validation.' : (allHardened ? 'All controls verified hardened. No non-conformance identified.' : 'Actionable non-conformance punchlist compiled under APCAF triage.')}"`;
+  notes: "${currentMode === 'demo' ? 'Synthetic demonstration example for schema validation.' : (allHardened ? 'All evaluated controls verified hardened. No non-conformance identified.' : 'Actionable non-conformance punchlist compiled under APCAF triage.')}"`;
 
       outputArea.textContent = yaml;
     } else {
       if (allHardened) {
         outputTitle.innerText = "QA Physical Verification Pass Summary";
+        const passItems = assessedList.map(item => `* [PASS] ${item.controlId} / ${item.tid} (${item.name}): Verified Hardened (${item.notes}).`).join('\n');
         const passDoc = `# APCAF QUALITY ASSURANCE VERIFICATION SUMMARY
-## Status: All Assessed Physical Controls Verified Hardened
+## Status: All Evaluated Physical Controls Verified Hardened
 
 TO: Project Management / Commissioning Authority
 FROM: Physical Security Assessment Team
@@ -936,17 +927,20 @@ CASE REF: ${caseId}
 ---
 
 ### Verification Summary:
-A passive 45-second APCAF physical security verification was completed for the designated facility. All evaluated baseline controls were confirmed in a Hardened configuration:
+A passive APCAF physical security verification was completed for the designated facility. All evaluated baseline controls were confirmed in a Hardened configuration:
 
-* [PASS] APCAF-01 / PHY-T1001: Encrypted smartcard credential standard verified (${notes01}).
-* [PASS] APCAF-02A / PHY-T1002: Latch clearance within allowable building code tolerance or shielded by continuous astragal (${notes02}).
-* [PASS] APCAF-02B / PHY-T1003: Interior REX motion sensor protected against external threshold line-of-sight (${notes03}).
-* [PASS] APCAF-03 / PHY-T1004: Public network drops confirmed inactive or isolated (${notes04}).
+${passItems}
 
-CONCLUSION: Zero non-conformance defects flagged. Final physical security commissioning milestone recommended for approval.`;
+CONCLUSION: Zero non-conformance defects flagged among assessed controls. Physical security commissioning milestone recommended for approval.`;
         outputArea.textContent = passDoc;
       } else {
         outputTitle.innerText = "CISO Vendor Non-Conformance Notice (Defect Punch List)";
+        const defectsList = assessedList.filter(item => item.status === 'Soft');
+        const defectItems = defectsList.map(item => `* [${item.controlId} / ${item.tid}] ${item.name}:
+  - Observed Condition: ${item.notes}
+  - Mitigation Standard: ${item.mitigation}
+  - Remediation Action: ${item.action}`).join('\n\n');
+
         const doc = `# VENDOR WARRANTY NON-CONFORMANCE NOTICE
 ## Physical Control Installation Defects Identified
 
@@ -963,22 +957,11 @@ STATUS: RETAINAGE PAYMENT ON HOLD (${softCount} Potential Specification Defect(s
 ### Non-Conformance Executive Summary:
 A passive quality assurance inspection identified the following physical control installation non-conformances mapped to known physical bypass mechanisms. These items are flagged for contractor warranty rectification prior to final milestone payment disbursement:
 
-${state['01'] === 'Soft' ? `* [APCAF-01 / PHY-T1001] Credential Standard Non-Conformance (Unencrypted RFID):
-  - Observed Condition: ${notes01}
-  - Contract Standard: Encrypted Smartcards (AES-128 / MIFARE DESFire EV3 / HID Seos / ISO 14443-4).
-  - Remediation Action (PHY-M1001): Supply compliant encrypted credentials and flash reader SAM encryption keys.\n` : ''}${state['02'] === 'Soft' ? `* [APCAF-02A / PHY-T1002] Perimeter Latch Exposure Non-Conformance (Latch Slip):
-  - Observed Condition: ${notes02}
-  - Contract Standard: Continuous heavy-gauge stainless steel astragal latch guard (NFPA 80 §6.3.1.7.1).
-  - Remediation Action (PHY-M1002): Mount full-height interlocking astragal plates on exterior door jamb.\n` : ''}${state['03'] === 'Soft' ? `* [APCAF-02B / PHY-T1003] Exit Sensor Shroud Non-Conformance (REX Sensor Exposure):
-  - Observed Condition: ${notes03}
-  - Contract Standard: UL-listed directional deflector hood & threshold brush sweeps (NFPA 101 §7.2.1.6.2).
-  - Remediation Action (PHY-M1003): Install directional deflector hoods over interior motion sensors.\n` : ''}${state['04'] === 'Soft' ? `* [APCAF-03 / PHY-T1004] Active Physical Interface Non-Conformance (Exposed Network Drop):
-  - Observed Condition: ${notes04}
-  - Contract Standard: Administrative port shutdown / 802.1X Port-Based Network Access Control (NIST SP 800-53 PE-3).
-  - Remediation Action (PHY-M1004): Administratively disable unused public drops at the patch panel.\n` : ''}
+${defectItems}
+
 ---
 Notice: This notice identifies physical control installation non-conformances and does not constitute legal advice. Actionability is subject to applicable construction contracts and local jurisdiction.
-Verification Protocol: A 45-second APCAF QA re-inspection will verify full 'Hardened' status prior to retainage release.`;
+Verification Protocol: A follow-up APCAF QA re-inspection will verify full 'Hardened' status prior to retainage release.`;
         outputArea.textContent = doc;
       }
     }

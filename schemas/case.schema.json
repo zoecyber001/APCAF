@@ -21,6 +21,11 @@
       "enum": ["SYNTHETIC_DEMO", "FIELD_OBSERVED"],
       "description": "Distinguishes synthetic teaching fixtures from verified real-world field assessments"
     },
+    "evidence_status": {
+      "type": "string",
+      "enum": ["NO_FIELD_EVIDENCE", "PRIMARY_FIELD_EVIDENCE", "INDEPENDENTLY_REVIEWED"],
+      "description": "Distinguishes whether case contains real primary field evidence or simulated/fixture data"
+    },
     "validation_status": {
       "type": "string",
       "enum": ["unverified", "independently_reviewed", "synthetic_fixture"],
@@ -34,7 +39,7 @@
       "type": "string"
     },
     "assessor_id": {
-      "type": "string"
+      "type": ["string", "null"]
     },
     "authorization_ref": {
       "type": "string",

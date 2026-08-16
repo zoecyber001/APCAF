@@ -7,6 +7,7 @@
 
 case_id: "APCAF-CASE-001"
 case_type: "SYNTHETIC_DEMO"
+evidence_status: "NO_FIELD_EVIDENCE"
 validation_status: "synthetic_fixture"
 timestamp: "2026-08-15T10:30:00Z"
 framework_standard: "APCAF-ATT&CK-PHYSICAL-v1"

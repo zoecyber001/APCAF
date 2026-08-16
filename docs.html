@@ -200,10 +200,10 @@
           <h1>APCAF Specification & Philosophy</h1>
         </div>
         <p>
-          The <strong>Adversarial Physical Control Assessment Framework (APCAF)</strong> is an open-source technical standard inspired by <strong>MITRE ATT&CK</strong> behavioral taxonomy principles and <strong>Atomic Red Team</strong> for physical and hardware-layer security.
+          The <strong>Adversarial Physical Control Assessment Framework (APCAF)</strong> is an open technical standard inspired by <strong>MITRE ATT&CK</strong> behavioral taxonomy principles and <strong>Atomic Red Team</strong> for physical and hardware-layer security.
         </p>
         <p>
-          Traditional compliance standards (such as ISO 27001:2022 A.7 or PCI DSS v4 Requirement 9) verify whether physical controls exist on paper. APCAF deterministically measures whether installed hardware withstands real-world adversary bypasses in a non-destructive 45-second field walkthrough.
+          Traditional compliance standards (such as ISO 27001:2022 A.7 or PCI DSS v4 Requirement 9) verify whether physical controls exist on paper. APCAF standardises non-invasive inspection to evaluate whether installed hardware withstands real-world adversary bypasses in a non-destructive 45-second field walkthrough.
         </p>
         
         <div class="spec-sheet-block">
@@ -240,7 +240,7 @@ hardware installation specifications."</code></pre>
           <h2>The 45-Second Non-Invasive Execution Model</h2>
         </div>
         <p>
-          Every APCAF test is engineered around a deterministic 45-second time budget per checkpoint:
+          Every APCAF test is engineered around a standardised 45-second direct read budget per checkpoint:
         </p>
         
         <div class="atomic-step-list">
@@ -520,7 +520,7 @@ atomic_tests:
           <div class="block-title">How to Propose a New Technique (PHY-Txxxx)</div>
           <p style="font-size: 0.86rem; color: var(--text-head); line-height: 1.55;">
             To propose a new physical assessment technique, test cases must satisfy three requirements:
-            <br>1. <strong>Deterministic &le; 45s execution time</strong> during a non-disruptive site walk.
+            <br>1. <strong>Standardised &le; 45s direct read budget</strong> during a non-disruptive site walk.
             <br>2. <strong>Zero life-safety interference</strong> (no tampering with fire egress, crash bars, or alarm relays).
             <br>3. <strong>Concrete contractor warranty mitigation standard</strong> with formal industry building/fire/security code citations.
           </p>

@@ -108,8 +108,8 @@ Traditional compliance audits (ISO 27001, PCI DSS, SOC 2, NDPA) verify the *pres
                                           LEGACY / SOFT  HARDENED
 ```
 
-* **HARDENED Criteria:** Jack is unpatched at cross-connect, switch port is administratively `shutdown`, or port immediately rejects unauthenticated link without 802.1X EAPOL handshake.
-* **LEGACY / SOFT Criteria:** Layer 1/2 link indicator LED illuminates continuously on unmonitored public/common-area drops.
+* **HARDENED Criteria:** Jack is unpatched at cross-connect, switch port is administratively `shutdown`, or documented 802.1X quarantine is confirmed via independent authorized testing.
+* **LEGACY / SOFT Criteria:** Layer 1 PHY carrier link indicator LED illuminates continuously on unmonitored common-area drop.
 
 ---
 
@@ -119,7 +119,7 @@ Traditional compliance audits (ISO 27001, PCI DSS, SOC 2, NDPA) verify the *pres
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **APCAF-01** | Credential Modernity | Pocket RFID Interrogation | 5s | AES-128 / DESFire EV2/EV3 / Seos / PKI | 125 kHz Prox / EM4100 / MIFARE Classic |
 | **APCAF-02** | Perimeter Hardening | Visual & Gap Measurement | 30s | Continuous Astragal + Shrouded REX PIR | Exposed latch bolt (gap > 3.2mm) / Unshrouded REX |
-| **APCAF-03** | Exposed Port State | Passive LED Plug Test | 10s | Zero PHY Link / Port Disabled / 802.1X | Active L1/L2 link state on unmonitored drop |
+| **APCAF-03** | Exposed Port State | Passive LED Plug Test | 10s | Zero PHY Link / Port Disabled / 802.1X | Active L1 PHY link state on unmonitored drop |
 
 ---
 
@@ -128,17 +128,17 @@ Traditional compliance audits (ISO 27001, PCI DSS, SOC 2, NDPA) verify the *pres
 ```mermaid
 graph TD
     A[Pre-Audit Engagement] -->|Insert 1-Sentence SOW Clause| B[Legal Consent Secured]
-    B --> C[Standard Compliance Site Walk]
+    B --> C[Standard Facility Site Walk]
     C -->|Run 45-Second APCAF QA| D{Binary Evaluation}
-    D -->|All Controls Hardened| E[Issue Standard Pass + Clean QA Verification]
+    D -->|All Controls Hardened| E[Issue Clean QA Verification Summary]
     D -->|Deficiencies Found| F[Generate CISO Vendor Warranty Punch List]
-    F --> G[CISO Holds Vendor Retainage / Warranty Rectification]
+    F --> G[CISO Issues Warranty Notice to Integrator]
     G --> H[Log Empirical Data in cases/APCAF-CASE-XXX.yaml]
 ```
 
 1. **Step 1 - Legal Baseline:** Integrate [`templates/ENGAGEMENT_CONSENT_CLAUSE.md`](templates/ENGAGEMENT_CONSENT_CLAUSE.md) into engagement terms.
 2. **Step 2 - Field Execution:** Execute the 3 checks in 45 seconds during the physical walk.
 3. **Step 3 - Deliverable Packaging:**
-   * Regulator / Compliance Body $\rightarrow$ Standard Compliance PASS report.
-   * CISO / Client Leadership $\rightarrow$ [`templates/VENDOR_WARRANTY_NOTICE.md`](templates/VENDOR_WARRANTY_NOTICE.md) containing the punch list.
+   * Compliance / Commissioning Records: Objective non-conformance telemetry.
+   * CISO / Client Leadership: [`templates/VENDOR_WARRANTY_NOTICE.md`](templates/VENDOR_WARRANTY_NOTICE.md) containing the punch list.
 4. **Step 4 - Case Archival:** Commit field logs to [`cases/`](cases/) validated against [`schemas/case.schema.json`](schemas/case.schema.json).
