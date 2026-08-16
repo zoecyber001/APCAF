@@ -22,36 +22,43 @@
     <div class="mobile-top-progress-fill" id="mobileTopProgressFill"></div>
   </div>
 
-  <!-- Header Navigation -->
+  <!-- High-End Glassmorphic Floating Island Navigation -->
   <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="brand-group">
+    <div class="nav-wrap">
+      <a href="index.html" class="brand-link" aria-label="APCAF Home">
+        <!-- Bespoke APCAF Vector Logo Mark -->
         <div class="brand-icon-box">
-          <svg width="22" height="22" viewBox="0 0 64 64" fill="none">
+          <svg width="18" height="18" viewBox="0 0 64 64" fill="none">
             <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" />
             <path d="M32 19 V35 M26 25 H38 M28 31 H36" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
             <circle cx="32" cy="42" r="2.5" fill="#ffffff" />
           </svg>
         </div>
-        <div class="brand-text">
-          <span class="brand-name">APCAF</span>
-          <span class="brand-tag">FIELD GUIDE</span>
-        </div>
+        <span class="brand-badge">APCAF</span>
       </a>
 
-      <!-- Desktop Center Navigation Bar -->
-      <nav class="nav-links">
-        <a href="index.html">Overview</a>
-        <a href="learn.html" class="active">Learn APCAF</a>
-        <a href="repository.html">Rule Repository</a>
-        <a href="docs.html">Documentation</a>
-        <a href="tools/field-triage.html">Field Triage</a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="learn.html" class="active">Learn</a></li>
+          <li><a href="repository.html">Repository</a></li>
+          <li><a href="docs.html">Docs</a></li>
+          <li><a href="tools/field-triage.html">Field Triage</a></li>
+          <li><a href="docs.html#warranty-hold">Playbook</a></li>
+        </ul>
       </nav>
 
-      <!-- Right Actions -->
       <div class="nav-actions">
+        <!-- SOW button opens modal -->
+        <button type="button" class="btn-nav-sow" onclick="openSowModal()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          SOW Clause
+        </button>
         <a href="tools/field-triage.html" class="btn-nav-primary">
-          Run Field Triage
+          Run 45s QA
         </a>
         <!-- Mobile Menu Toggle Button -->
         <button type="button" class="btn-mobile-menu-toggle" id="mobileMenuToggleBtn" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
@@ -850,5 +857,44 @@
     updateProgressUI();
     updateActiveLesson(1);
   </script>
+
+  <!-- SOW Consent Clause Modal Sheet -->
+  <div class="modal-sheet-backdrop" id="sowModal">
+    <div class="modal-sheet-card">
+      <div class="modal-sheet-header">
+        <div>
+          <span class="chip-tag">Engagement Addendum</span>
+          <h3 style="margin-top: 6px; font-size: 1.15rem;">Audit Scope &amp; Consent Clause</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeSowModal()" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-sheet-main">
+        <div class="spec-sheet-block" style="border-left: 3px solid var(--accent-sky);">
+          <div class="block-title" style="color: var(--accent-sky);">Single-Sentence Fast-Path Clause</div>
+          <p id="sowClauseText" style="font-size: 0.9rem; color: var(--text-head); font-style: italic;">
+            "Client explicitly authorizes the assessment team to perform non-invasive, passive radio frequency (RF) credential reads and non-intrusive passive physical network port link detection during the inspection to verify vendor hardware installation specifications."
+          </p>
+        </div>
+
+        <div class="spec-sheet-block">
+          <div class="block-title">Scope &amp; Life-Safety Protection Guarantees</div>
+          <p style="font-size: 0.82rem; color: var(--text-body); line-height: 1.5;">
+            • <strong>Zero Operational Impact:</strong> Strictly non-intrusive reads only. No packet injection or sniffing.<br>
+            • <strong>Life-Safety Non-Interference:</strong> Zero manipulation of fire alarm, emergency egress, or crash bar hardware.<br>
+            • <strong>Contractual Purpose:</strong> Generates a quality assurance scorecard to assist client in validating contractor warranty deliverables.
+          </p>
+        </div>
+
+        <button type="button" class="btn-nav-primary" style="width: 100%; justify-content: center; padding: 12px; border-radius: var(--radius-pill);" onclick="copySowClauseAndClose()">
+          Copy SOW Clause to Clipboard
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
