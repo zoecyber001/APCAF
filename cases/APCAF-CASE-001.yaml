@@ -1,6 +1,13 @@
+# -----------------------------------------------------------------------------
+# APCAF SYNTHETIC DEMONSTRATION CASE FIXTURE
+# STATUS: SYNTHETIC_DEMO (Schema Validation Test Fixture)
+# NOTICE: This file is a synthetic test fixture for case.schema.json validation.
+#         No real-world facility was evaluated.
+# -----------------------------------------------------------------------------
+
 case_id: "APCAF-CASE-001"
 timestamp: "2026-08-15T10:30:00Z"
-assessor_id: "APCAF-LEAD-01"
+assessor_id: "APCAF-SYNTHETIC-DEMO-RUNNER"
 
 facility_metadata:
   facility_type: "datacenter"
@@ -8,7 +15,7 @@ facility_metadata:
     - "ISO_27001"
     - "SOC_2"
     - "PCI_DSS_v4"
-  target_facility_hash: "anon-facility-001-eu"
+  target_facility_hash: "synthetic-demo-datacenter-001"
 
 findings:
   - control_id: "APCAF-01"

@@ -31,7 +31,7 @@ Instead of asking only *"Is there a lock on the door?"*, APCAF asks **"How could
 
 ### Choose Your Pathway
 * **[1. Learn it (Interactive Field Guide)](https://zoecyber001.github.io/APCAF/learn.html)** — A 6-lesson practical introduction with an interactive facility simulator.
-* **[2. Use it (45s Field Triage)](https://zoecyber001.github.io/APCAF/#workbench)** — Non-invasive physical security evaluation with automated CISO warranty notices.
+* **[2. Use it (45s Field Triage)](https://zoecyber001.github.io/APCAF/tools/field-triage.html)** — Non-invasive physical security evaluation with automated CISO warranty notices.
 * **[3. Study it (Technical Standard)](https://zoecyber001.github.io/APCAF/docs.html)** — Full taxonomy matrix, NFPA 80 building codes, and Atomic Red Team YAML test specs.
 
 ---
@@ -98,7 +98,7 @@ APCAF/
 │   ├── ENGAGEMENT_CONSENT_CLAUSE.md   # Fast-path SOW & legal authorization addendums
 │   └── VENDOR_WARRANTY_NOTICE.md      # Executive CISO invoice-hold & punch list notice
 ├── cases/
-│   └── APCAF-CASE-001.yaml            # Validated field commissioning case tracking record
+│   └── APCAF-CASE-001.yaml            # Synthetic schema test fixture (demonstration only)
 └── tools/
     └── field-triage.html              # Offline-first zero-dependency interactive triage app
 ```

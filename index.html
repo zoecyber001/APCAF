@@ -107,15 +107,15 @@
           <div class="hero-stats-row">
             <div class="hero-stat-item">
               <span class="hero-stat-val">45s</span>
-              <span class="hero-stat-lbl">Walk Triage</span>
+              <span class="hero-stat-lbl">Target Walk Budget</span>
             </div>
             <div class="hero-stat-item">
-              <span class="hero-stat-val">$0</span>
-              <span class="hero-stat-lbl">Remediation Cost</span>
+              <span class="hero-stat-val">4 MVP</span>
+              <span class="hero-stat-lbl">Baseline Techniques</span>
             </div>
             <div class="hero-stat-item">
               <span class="hero-stat-val">100%</span>
-              <span class="hero-stat-lbl">Non-Invasive QA</span>
+              <span class="hero-stat-lbl">Passive &amp; Non-Invasive</span>
             </div>
           </div>
         </div>
@@ -144,55 +144,68 @@
     </div>
   </div>
 
-  <!-- 2. Empirical Evidence: Real-World Commissioning Case Study (Moved Higher) -->
-  <section class="section" id="case-study" style="padding-bottom: 48px;">
+  <!-- 2. The Field Validation Phase & Synthetic Demonstration -->
+  <section class="section" id="validation" style="padding-bottom: 48px;">
     <div class="container">
       <div class="section-head">
-        <span class="section-eyebrow">Empirical Evidence</span>
-        <h2>What APCAF Found in the Real World</h2>
-        <p>Pre-handover physical commissioning audit of a 120,000 sq ft enterprise data center facility.</p>
+        <span class="section-eyebrow">Methodology &amp; Roadmap</span>
+        <h2>The Field Validation Phase</h2>
+        <p>APCAF's current MVP is designed around four non-invasive assessment techniques. The next phase is to execute these checks during real facility walks, document the observations, and publish anonymized field cases.</p>
       </div>
 
       <div class="case-highlight-deck">
         <div class="case-highlight-header">
           <div>
-            <span class="chip-tag" style="margin-bottom: 6px;">Commissioning Audit #2026-08</span>
-            <div class="case-highlight-title">Tier III Commercial Bank Facility Handover</div>
+            <span class="chip-tag" style="margin-bottom: 6px; background: rgba(88, 166, 255, 0.15); color: #58a6ff; border-color: rgba(88, 166, 255, 0.3);">
+              Demonstration Walkthrough
+            </span>
+            <div class="case-highlight-title">Hypothetical Assessment Scenario</div>
           </div>
-          <span class="card-badge-severity medium" style="background: rgba(35, 134, 54, 0.15); color: #166534; border-color: rgba(35, 134, 54, 0.3);">
-            100% RECTIFIED UNDER WARRANTY
+          <span class="card-badge-severity low" style="background: rgba(148, 163, 184, 0.15); color: #64748b; border-color: rgba(148, 163, 184, 0.3);">
+            STATUS: SYNTHETIC EXAMPLE (NO REAL FACILITY ASSESSED)
           </span>
         </div>
 
         <div class="case-stats-grid">
           <div class="case-stat-box">
-            <span class="case-stat-val">120k sq ft</span>
-            <span class="case-stat-lbl">Facility Scope</span>
+            <span class="case-stat-val">PHY-T1004</span>
+            <span class="case-stat-lbl">Technique Under Check</span>
           </div>
           <div class="case-stat-box">
-            <span class="case-stat-val">3 Defects</span>
-            <span class="case-stat-lbl">Latent Faults Flagged</span>
+            <span class="case-stat-val">10 Seconds</span>
+            <span class="case-stat-lbl">Target Inspection Budget</span>
           </div>
           <div class="case-stat-box">
-            <span class="case-stat-val">$48,000</span>
-            <span class="case-stat-lbl">Retainage Held</span>
+            <span class="case-stat-val">Passive LED</span>
+            <span class="case-stat-lbl">Tool Required</span>
           </div>
           <div class="case-stat-box">
-            <span class="case-stat-val">$0</span>
-            <span class="case-stat-lbl">Client Capex Cost</span>
+            <span class="case-stat-val">Susceptible</span>
+            <span class="case-stat-lbl">Simulated Finding</span>
           </div>
         </div>
 
-        <p style="font-size: 0.92rem; color: var(--text-body); line-height: 1.6; margin-bottom: 20px;">
-          During the pre-handover walk, the assessment identified legacy 125 kHz Prox cards, a 4.5mm door margin violating NFPA 80, and an active unauthenticated network drop in the reception lobby. Delivering the formal APCAF Notice enabled the CISO to hold $48,000 in retainage until all 3 latent faults were corrected at contractor expense.
-        </p>
+        <div style="font-size: 0.92rem; color: var(--text-body); line-height: 1.6; margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px;">
+          <div>
+            <strong>1. Scenario Context:</strong> A facility walk identifies an unmonitored physical Ethernet jack located in a public conference room or visitor reception area.
+          </div>
+          <div>
+            <strong>2. Passive Observation:</strong> Inserting a passive zero-packet LED link tester reveals active Layer 1 PHY carrier signaling without IEEE 802.1X port quarantine.
+          </div>
+          <div>
+            <strong>3. Framework Assessment:</strong> Classified as <em>Legacy / Susceptible (Soft)</em> against NIST SP 800-53 PE-3 and ISO 27001 A.8.20 specifications.
+          </div>
+          <div>
+            <strong>4. Specification Remediation:</strong> Administratively disable unassigned switch ports at the patch panel and enforce 802.1X Network Access Control (<code>PHY-M1004</code>).
+          </div>
+        </div>
 
         <div class="case-highlight-footer">
           <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-dim);">
-            Method: 45s Passive Triage • Zero Destructive Tools • NFPA 80 §6.3.1.7.1 &amp; ISO 14443-4
+            Evidence Standard: Real field audits will be catalogued in <code>cases/</code> upon physical walk execution.
           </span>
           <a href="docs.html#warranty-hold" class="resend-btn-main" style="padding: 10px 20px; font-size: 0.85rem;">
-            Read the CISO Retainage Playbook →
+            Read the Commissioning Playbook →
           </a>
         </div>
       </div>
