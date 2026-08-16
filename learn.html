@@ -40,39 +40,12 @@
       </nav>
 
       <div class="nav-actions">
-        <!-- Currency Selector -->
-        <div class="currency-selector-wrap">
-          <button type="button" class="btn-nav-currency" onclick="toggleCurrencyDropdown()" title="Switch detected country/currency">
-            <svg class="icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-            <span id="currentCurrencyLabel">USD ($)</span>
-          </button>
-          
-          <div class="currency-dropdown-menu" id="currencyDropdownMenu">
-            <button type="button" class="currency-opt-btn active" data-currency="USD" onclick="selectCurrency('USD')"><span>USD ($)</span> <span>United States</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="GBP" onclick="selectCurrency('GBP')"><span>GBP (£)</span> <span>United Kingdom</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="EUR" onclick="selectCurrency('EUR')"><span>EUR (€)</span> <span>European Union</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="CAD" onclick="selectCurrency('CAD')"><span>CAD (CA$)</span> <span>Canada</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="AUD" onclick="selectCurrency('AUD')"><span>AUD (A$)</span> <span>Australia</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="NGN" onclick="selectCurrency('NGN')"><span>NGN (₦)</span> <span>Nigeria</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="JPY" onclick="selectCurrency('JPY')"><span>JPY (¥)</span> <span>Japan</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="INR" onclick="selectCurrency('INR')"><span>INR (₹)</span> <span>India</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="ZAR" onclick="selectCurrency('ZAR')"><span>ZAR (R)</span> <span>South Africa</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="SGD" onclick="selectCurrency('SGD')"><span>SGD (S$)</span> <span>Singapore</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="CHF" onclick="selectCurrency('CHF')"><span>CHF (CHF)</span> <span>Switzerland</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="AED" onclick="selectCurrency('AED')"><span>AED (AED)</span> <span>UAE</span></button>
-          </div>
-        </div>
-
         <button type="button" class="btn-nav-sow" onclick="openSowModal()">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
           </svg>
-          SOW
+          SOW Clause
         </button>
         <a href="tools/field-triage.html" class="btn-nav-primary">
           Run 45s QA
@@ -372,23 +345,23 @@
             <h3 style="font-size: 1.1rem; color: var(--text-pure); margin: 0;">1. Wireless Badge Interception (RFID Harvesting)</h3>
             <span class="chip-tag">PHY-T1001</span>
           </div>
-          <p style="font-size: 0.88rem; color: var(--text-pure); margin-bottom: 12px;"><strong>In Plain English:</strong> An attacker gets close to an employee's badge in a coffee shop or elevator and wirelessly copies their ID in under 3 seconds without touching them.</p>
-          <div class="tech-q-row"><span class="tech-q-label">What is attacker trying to do?</span><span class="tech-q-val">Clone authorized employee credentials to open electronic readers.</span></div>
+          <p style="font-size: 0.88rem; color: var(--text-pure); margin-bottom: 12px;"><strong>In Plain English:</strong> This credential technology may broadcast static identifiers without cryptographic challenge, allowing unauthorized replication under passive contactless interrogation.</p>
+          <div class="tech-q-row"><span class="tech-q-label">What is the control objective?</span><span class="tech-q-val">Ensure credential data cannot be read or cloned by unauthenticated interrogators.</span></div>
           <div class="tech-q-row"><span class="tech-q-label">What does assessor look for?</span><span class="tech-q-val">Does the badge transmit an unencrypted 125 kHz Prox carrier or static CSN instead of AES-128 crypto?</span></div>
-          <div class="tech-q-row"><span class="tech-q-label">What counts as susceptible?</span><span class="tech-q-val">Card immediately outputs plaintext facility code on a pocket interrogator.</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">What counts as susceptible?</span><span class="tech-q-val">Card immediately outputs plaintext facility/card code on a pocket interrogator.</span></div>
           <div class="tech-q-row"><span class="tech-q-label">Contractor Warranty Fix:</span><span class="tech-q-val">Replace legacy badges with AES-128 smartcards (DESFire EV3 / Seos) under contract warranty.</span></div>
         </div>
 
         <!-- 2. Latch Slip -->
         <div class="tech-breakdown-card">
           <div class="tech-breakdown-head">
-            <h3 style="font-size: 1.1rem; color: var(--text-pure); margin: 0;">2. Door Latch Manipulation (Latch Slip & UDT)</h3>
+            <h3 style="font-size: 1.1rem; color: var(--text-pure); margin: 0;">2. Door Latch Manipulation (Latch Slip &amp; UDT)</h3>
             <span class="chip-tag">PHY-T1002</span>
           </div>
-          <p style="font-size: 0.88rem; color: var(--text-pure); margin-bottom: 12px;"><strong>In Plain English:</strong> An attacker slips a thin plastic card or shove knife through the gap between the door and frame to pop the lock open.</p>
-          <div class="tech-q-row"><span class="tech-q-label">What is attacker trying to do?</span><span class="tech-q-val">Retract the door latch bolt without a valid key, badge, or credential.</span></div>
-          <div class="tech-q-row"><span class="tech-q-label">What does assessor look for?</span><span class="tech-q-val">Is the strike jamb clearance > 3.2mm (NFPA 80 / ANSI SDI limit) without a protective steel astragal plate?</span></div>
-          <div class="tech-q-row"><span class="tech-q-label">What counts as susceptible?</span><span class="tech-q-val">Clearance > 3.2mm with direct line-of-sight to the bevel of the latch bolt.</span></div>
+          <p style="font-size: 0.88rem; color: var(--text-pure); margin-bottom: 12px;"><strong>In Plain English:</strong> Excessive frame clearance without an overlapping steel astragal leaves the latch bolt bevel physically exposed to mechanical manipulation.</p>
+          <div class="tech-q-row"><span class="tech-q-label">What is the control objective?</span><span class="tech-q-val">Prevent mechanical manipulation of the latch bolt through exterior door margins.</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">What does assessor look for?</span><span class="tech-q-val">Is the strike jamb clearance &gt; 3.2mm (NFPA 80 / ANSI SDI limit) without a protective steel astragal plate?</span></div>
+          <div class="tech-q-row"><span class="tech-q-label">What counts as susceptible?</span><span class="tech-q-val">Clearance &gt; 3.2mm with direct line-of-sight to the bevel of the latch bolt.</span></div>
           <div class="tech-q-row"><span class="tech-q-label">Contractor Warranty Fix:</span><span class="tech-q-val">Install full-height continuous stainless steel security astragal latch guard.</span></div>
         </div>
 
@@ -398,8 +371,8 @@
             <h3 style="font-size: 1.1rem; color: var(--text-pure); margin: 0;">3. Request-to-Exit Sensor Blind Activation</h3>
             <span class="chip-tag">PHY-T1003</span>
           </div>
-          <p style="font-size: 0.88rem; color: var(--text-pure); margin-bottom: 12px;"><strong>In Plain English:</strong> An attacker sprays cold air or slides a tool under the door to trick the interior exit sensor into unlocking the door for them from the outside.</p>
-          <div class="tech-q-row"><span class="tech-q-label">What is attacker trying to do?</span><span class="tech-q-val">Trigger the internal motion sensor (REX) to drop magnetic locks automatically.</span></div>
+          <p style="font-size: 0.88rem; color: var(--text-pure); margin-bottom: 12px;"><strong>In Plain English:</strong> An unshielded interior exit sensor can be activated through perimeter door gaps, causing electronic locks to release without authorization.</p>
+          <div class="tech-q-row"><span class="tech-q-label">What is the control objective?</span><span class="tech-q-val">Ensure the interior motion sensor is only activated by bona fide interior occupants.</span></div>
           <div class="tech-q-row"><span class="tech-q-label">What does assessor look for?</span><span class="tech-q-val">Is the interior PIR sensor visible through door gaps without a directional deflector hood?</span></div>
           <div class="tech-q-row"><span class="tech-q-label">What counts as susceptible?</span><span class="tech-q-val">Unshielded wide-angle sensor lens visible through transom or threshold sweeps.</span></div>
           <div class="tech-q-row"><span class="tech-q-label">Contractor Warranty Fix:</span><span class="tech-q-val">Mount UL-listed directional deflector hoods over PIR sensors and install perimeter brush sweeps.</span></div>
@@ -411,8 +384,8 @@
             <h3 style="font-size: 1.1rem; color: var(--text-pure); margin: 0;">4. Unauthenticated Physical Network Port Tap</h3>
             <span class="chip-tag">PHY-T1004</span>
           </div>
-          <p style="font-size: 0.88rem; color: var(--text-pure); margin-bottom: 12px;"><strong>In Plain English:</strong> An attacker plugs a laptop or rogue mini-device into an active wall jack in a conference room and gets immediate internal network access.</p>
-          <div class="tech-q-row"><span class="tech-q-label">What is attacker trying to do?</span><span class="tech-q-val">Establish Layer 1/2 connection to internal VLANs from unrestricted public areas.</span></div>
+          <p style="font-size: 0.88rem; color: var(--text-pure); margin-bottom: 12px;"><strong>In Plain English:</strong> Publicly accessible network wall jacks maintain active Layer 1 link carrier without administrative port shutdown or 802.1X access control.</p>
+          <div class="tech-q-row"><span class="tech-q-label">What is the control objective?</span><span class="tech-q-val">Prevent unauthorized Layer 1/2 physical bridging into enterprise network segments.</span></div>
           <div class="tech-q-row"><span class="tech-q-label">What does assessor look for?</span><span class="tech-q-val">Does a passive zero-packet LED tester illuminate a solid link light on unmonitored wall drops?</span></div>
           <div class="tech-q-row"><span class="tech-q-label">What counts as susceptible?</span><span class="tech-q-val">Active Layer 1 PHY link signaling without 802.1X port isolation or quarantine.</span></div>
           <div class="tech-q-row"><span class="tech-q-label">Contractor Warranty Fix:</span><span class="tech-q-val">Administratively disable unassigned switch ports and enforce 802.1X Network Access Control.</span></div>
@@ -585,15 +558,14 @@
     </div>
   </footer>
 
-  <script src="currency.js"></script>
   <script src="app.js"></script>
   <script>
     // --- 1. Interactive Simulator Logic for Lesson 06 ---
     const SIM_ANSWERS = {
-      1: { correct: 'B', explanation: '<strong>Correct (PHY-T1001):</strong> Unencrypted 125 kHz credentials transmit plaintext static UIDs that can be cloned wirelessly in under 3 seconds. APCAF assesses whether the credential initiates an encrypted ISO 14443-4 AES-128 handshake or broadcasts plaintext.' },
-      2: { correct: 'A', explanation: '<strong>Correct (PHY-T1002):</strong> Under NFPA 80 §6.3.1.7.1 and ANSI/SDI A250.8, allowable frame clearance is <= 3.2mm (1/8 in.). A 4.5mm gap with direct line-of-sight enables shove-knife bypass unless shielded by a continuous steel astragal.' },
-      3: { correct: 'B', explanation: '<strong>Correct (PHY-T1003):</strong> Unshielded wide-angle PIR sensors can be tripped from outside using thermal aerosol plumes or reaching tools through gaps, causing electronic locks to release. APCAF mandates directional deflector hoods.' },
-      4: { correct: 'A', explanation: '<strong>Correct (PHY-T1004):</strong> An unmonitored wall jack broadcasting active Layer 1 carrier without IEEE 802.1X NAC allows rogue physical network bridging. APCAF tests for administrative port shutdown and 802.1X enforcement.' }
+      1: { correct: 'B', explanation: '<strong>Correct (PHY-T1001):</strong> Unencrypted 125 kHz credentials broadcast plaintext static UIDs without challenge authentication. APCAF assesses whether the credential initiates an encrypted ISO 14443-4 AES-128 handshake or broadcasts plaintext.' },
+      2: { correct: 'A', explanation: '<strong>Correct (PHY-T1002):</strong> Under NFPA 80 §6.3.1.7.1 and ANSI/SDI A250.8, allowable frame clearance is <= 3.2mm (1/8 in.). A 4.5mm gap with direct line-of-sight to the latch bolt creates mechanical manipulation susceptibility unless shielded by a continuous steel astragal.' },
+      3: { correct: 'B', explanation: '<strong>Correct (PHY-T1003):</strong> Unshielded wide-angle PIR sensors can be tripped through portal margins, causing electronic locks to release. APCAF mandates directional deflector hoods.' },
+      4: { correct: 'A', explanation: '<strong>Correct (PHY-T1004):</strong> An unmonitored wall jack broadcasting active Layer 1 carrier without IEEE 802.1X NAC creates unauthorized network bridging susceptibility. APCAF tests for administrative port shutdown and 802.1X enforcement.' }
     };
 
     const simUserScore = { 1: false, 2: false, 3: false, 4: false };

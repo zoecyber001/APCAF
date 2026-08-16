@@ -17,7 +17,7 @@
 </head>
 <body>
 
-  <!-- Floating Frosted Glass Navbar with Currency Selector -->
+  <!-- High-End Glassmorphic Floating Island Navigation -->
   <header class="site-header">
     <div class="nav-wrap">
       <a href="index.html" class="brand-link" aria-label="APCAF Home">
@@ -44,39 +44,12 @@
       </nav>
 
       <div class="nav-actions">
-        <!-- Currency Selector -->
-        <div class="currency-selector-wrap">
-          <button type="button" class="btn-nav-currency" onclick="toggleCurrencyDropdown()" title="Switch detected country/currency">
-            <svg class="icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-            <span id="currentCurrencyLabel">USD ($)</span>
-          </button>
-          
-          <div class="currency-dropdown-menu" id="currencyDropdownMenu">
-            <button type="button" class="currency-opt-btn active" data-currency="USD" onclick="selectCurrency('USD')"><span>USD ($)</span> <span>United States</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="GBP" onclick="selectCurrency('GBP')"><span>GBP (£)</span> <span>United Kingdom</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="EUR" onclick="selectCurrency('EUR')"><span>EUR (€)</span> <span>European Union</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="CAD" onclick="selectCurrency('CAD')"><span>CAD (CA$)</span> <span>Canada</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="AUD" onclick="selectCurrency('AUD')"><span>AUD (A$)</span> <span>Australia</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="NGN" onclick="selectCurrency('NGN')"><span>NGN (₦)</span> <span>Nigeria</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="JPY" onclick="selectCurrency('JPY')"><span>JPY (¥)</span> <span>Japan</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="INR" onclick="selectCurrency('INR')"><span>INR (₹)</span> <span>India</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="ZAR" onclick="selectCurrency('ZAR')"><span>ZAR (R)</span> <span>South Africa</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="SGD" onclick="selectCurrency('SGD')"><span>SGD (S$)</span> <span>Singapore</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="CHF" onclick="selectCurrency('CHF')"><span>CHF (CHF)</span> <span>Switzerland</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="AED" onclick="selectCurrency('AED')"><span>AED (AED)</span> <span>UAE</span></button>
-          </div>
-        </div>
-
         <button type="button" class="btn-nav-sow" onclick="openSowModal()">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
           </svg>
-          SOW
+          SOW Clause
         </button>
         <a href="tools/field-triage.html" class="btn-nav-primary">
           Run 45s QA
@@ -619,7 +592,6 @@ atomic_tests:
     </div>
   </div>
 
-  <script src="currency.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

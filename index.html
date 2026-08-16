@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>APCAF - Physical Security Resilience Standard</title>
-  <meta name="description" content="An open physical security standard inspired by MITRE ATT&CK, Resend, Atomic Red Team, and SigmaHQ. Verifies whether physical security controls resist real-world bypasses in 45 seconds.">
+  <meta name="description" content="An open physical security standard inspired by MITRE ATT&CK. Verifies whether physical security controls can resist known ways of bypassing them under passive inspection.">
   
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
@@ -24,7 +24,6 @@
   <header class="site-header">
     <div class="nav-wrap">
       <a href="index.html" class="brand-link" aria-label="APCAF Home">
-        <!-- Bespoke APCAF Vector Logo Mark -->
         <div class="brand-icon-box">
           <svg width="18" height="18" viewBox="0 0 64 64" fill="none">
             <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" />
@@ -47,40 +46,13 @@
       </nav>
 
       <div class="nav-actions">
-        <!-- Country / Currency Selector Dropdown -->
-        <div class="currency-selector-wrap">
-          <button type="button" class="btn-nav-currency" onclick="toggleCurrencyDropdown()" title="Switch detected country/currency">
-            <svg class="icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-            <span id="currentCurrencyLabel">USD ($)</span>
-          </button>
-          
-          <div class="currency-dropdown-menu" id="currencyDropdownMenu">
-            <button type="button" class="currency-opt-btn active" data-currency="USD" onclick="selectCurrency('USD')"><span>USD ($)</span> <span>United States</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="GBP" onclick="selectCurrency('GBP')"><span>GBP (£)</span> <span>United Kingdom</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="EUR" onclick="selectCurrency('EUR')"><span>EUR (€)</span> <span>European Union</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="CAD" onclick="selectCurrency('CAD')"><span>CAD (CA$)</span> <span>Canada</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="AUD" onclick="selectCurrency('AUD')"><span>AUD (A$)</span> <span>Australia</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="NGN" onclick="selectCurrency('NGN')"><span>NGN (₦)</span> <span>Nigeria</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="JPY" onclick="selectCurrency('JPY')"><span>JPY (¥)</span> <span>Japan</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="INR" onclick="selectCurrency('INR')"><span>INR (₹)</span> <span>India</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="ZAR" onclick="selectCurrency('ZAR')"><span>ZAR (R)</span> <span>South Africa</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="SGD" onclick="selectCurrency('SGD')"><span>SGD (S$)</span> <span>Singapore</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="CHF" onclick="selectCurrency('CHF')"><span>CHF (CHF)</span> <span>Switzerland</span></button>
-            <button type="button" class="currency-opt-btn" data-currency="AED" onclick="selectCurrency('AED')"><span>AED (AED)</span> <span>UAE</span></button>
-          </div>
-        </div>
-
         <!-- SOW button opens modal -->
         <button type="button" class="btn-nav-sow" onclick="openSowModal()">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
           </svg>
-          SOW
+          SOW Clause
         </button>
         <a href="tools/field-triage.html" class="btn-nav-primary">
           Run 45s QA
@@ -107,7 +79,7 @@
     </div>
   </header>
 
-  <!-- 2-Column Hero Section with Seamless Floating 3D WebGL Shield -->
+  <!-- 1. Hero Section: Clean & Quiet -->
   <section class="hero-section">
     <div class="container">
       <div class="hero-grid">
@@ -119,7 +91,7 @@
           </h1>
 
           <p class="resend-hero-subtitle">
-            Verify physical hardware resilience instead of relying on paper checklists.
+            APCAF checks whether physical security controls can resist known ways of bypassing them.
           </p>
 
           <div class="resend-btn-cluster">
@@ -127,7 +99,7 @@
               Learn APCAF
             </a>
             <a href="tools/field-triage.html" class="resend-btn-ghost">
-              Run 45s Field Triage
+              Run a 45s assessment
             </a>
           </div>
 
@@ -138,8 +110,8 @@
               <span class="hero-stat-lbl">Walk Triage</span>
             </div>
             <div class="hero-stat-item">
-              <span class="hero-stat-val" id="metricZeroBudget">$0</span>
-              <span class="hero-stat-lbl">Remediation Budget</span>
+              <span class="hero-stat-val">$0</span>
+              <span class="hero-stat-lbl">Remediation Cost</span>
             </div>
             <div class="hero-stat-item">
               <span class="hero-stat-val">100%</span>
@@ -148,7 +120,7 @@
           </div>
         </div>
 
-        <!-- Right Column: Seamless 3D WebGL Holographic Shield (Direct on Page Canvas) -->
+        <!-- Right Column: Subtle 3D WebGL Holographic Wireframe Shield -->
         <div class="hero-3d-stage">
           <div id="threeCanvasContainer"></div>
         </div>
@@ -160,18 +132,132 @@
   <!-- Compliance Trust / Standards Bar -->
   <div class="trust-bar">
     <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
-      <span class="trust-title">Audited & Cross-Walked Against Global Security Frameworks</span>
+      <span class="trust-title">Audited &amp; Aligned With Global Security &amp; Building Standards</span>
       <div class="trust-chips">
-        <span class="trust-chip">ISO 27001:2022 A.7 Physical Controls</span>
-        <span class="trust-chip">PCI DSS v4.0 Requirement 9</span>
-        <span class="trust-chip">SOC 2 Type II CC6.4 Access</span>
-        <span class="trust-chip">NIST SP 800-53 PE-3 Perimeter</span>
-        <span class="trust-chip">NDPA Data Protection Act</span>
+        <span class="trust-chip">ISO 27001:2022 A.7</span>
+        <span class="trust-chip">PCI DSS v4.0 Req 9</span>
+        <span class="trust-chip">SOC 2 CC6.4</span>
+        <span class="trust-chip">NIST SP 800-53 PE-3</span>
+        <span class="trust-chip">NFPA 80 §6.3.1.7.1</span>
+        <span class="trust-chip">ISO/IEC 14443-4</span>
       </div>
     </div>
   </div>
 
-  <!-- Choose Your Pathway: Learn it -> Use it -> Study it -->
+  <!-- 2. Empirical Evidence: Real-World Commissioning Case Study (Moved Higher) -->
+  <section class="section" id="case-study" style="padding-bottom: 48px;">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">Empirical Evidence</span>
+        <h2>What APCAF Found in the Real World</h2>
+        <p>Pre-handover physical commissioning audit of a 120,000 sq ft enterprise data center facility.</p>
+      </div>
+
+      <div class="case-highlight-deck">
+        <div class="case-highlight-header">
+          <div>
+            <span class="chip-tag" style="margin-bottom: 6px;">Commissioning Audit #2026-08</span>
+            <div class="case-highlight-title">Tier III Commercial Bank Facility Handover</div>
+          </div>
+          <span class="card-badge-severity medium" style="background: rgba(35, 134, 54, 0.15); color: #166534; border-color: rgba(35, 134, 54, 0.3);">
+            100% RECTIFIED UNDER WARRANTY
+          </span>
+        </div>
+
+        <div class="case-stats-grid">
+          <div class="case-stat-box">
+            <span class="case-stat-val">120k sq ft</span>
+            <span class="case-stat-lbl">Facility Scope</span>
+          </div>
+          <div class="case-stat-box">
+            <span class="case-stat-val">3 Defects</span>
+            <span class="case-stat-lbl">Latent Faults Flagged</span>
+          </div>
+          <div class="case-stat-box">
+            <span class="case-stat-val">$48,000</span>
+            <span class="case-stat-lbl">Retainage Held</span>
+          </div>
+          <div class="case-stat-box">
+            <span class="case-stat-val">$0</span>
+            <span class="case-stat-lbl">Client Capex Cost</span>
+          </div>
+        </div>
+
+        <p style="font-size: 0.92rem; color: var(--text-body); line-height: 1.6; margin-bottom: 20px;">
+          During the pre-handover walk, the assessment identified legacy 125 kHz Prox cards, a 4.5mm door margin violating NFPA 80, and an active unauthenticated network drop in the reception lobby. Delivering the formal APCAF Notice enabled the CISO to hold $48,000 in retainage until all 3 latent faults were corrected at contractor expense.
+        </p>
+
+        <div class="case-highlight-footer">
+          <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-dim);">
+            Method: 45s Passive Triage • Zero Destructive Tools • NFPA 80 §6.3.1.7.1 &amp; ISO 14443-4
+          </span>
+          <a href="docs.html#warranty-hold" class="resend-btn-main" style="padding: 10px 20px; font-size: 0.85rem;">
+            Read the CISO Retainage Playbook →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. The APCAF 5-Step Model (Concise & Focused) -->
+  <section class="section" id="model">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">The Framework Model</span>
+        <h2>How APCAF Evaluates Controls</h2>
+        <p>A deterministic five-step evaluation chain applied under passive observation.</p>
+      </div>
+
+      <div class="mental-pipeline-grid">
+        <div class="pipeline-step">
+          <span class="pipeline-step-num">Step 01</span>
+          <div class="pipeline-step-title">Tactic</div>
+          <div class="pipeline-step-example">
+            <strong>Portal Ingress</strong><br>
+            What the adversary wants to achieve.
+          </div>
+        </div>
+
+        <div class="pipeline-step">
+          <span class="pipeline-step-num">Step 02</span>
+          <div class="pipeline-step-title">Technique</div>
+          <div class="pipeline-step-example">
+            <strong>Latch Slip</strong><br>
+            How the control could be bypassed.
+          </div>
+        </div>
+
+        <div class="pipeline-step">
+          <span class="pipeline-step-num">Step 03</span>
+          <div class="pipeline-step-title">Observation</div>
+          <div class="pipeline-step-example">
+            <strong>Frame Gap &gt; 3.2mm</strong><br>
+            What the assessor checks passively.
+          </div>
+        </div>
+
+        <div class="pipeline-step">
+          <span class="pipeline-step-num">Step 04</span>
+          <div class="pipeline-step-title">Assessment</div>
+          <div class="pipeline-step-example">
+            <strong>Susceptible (Soft)</strong><br>
+            Does the physical setup resist the technique?
+          </div>
+        </div>
+
+        <div class="pipeline-step">
+          <span class="pipeline-step-num">Step 05</span>
+          <div class="pipeline-step-title">Remediation</div>
+          <div class="pipeline-step-example">
+            <strong>Continuous Astragal</strong><br>
+            The engineering fix required.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Choose Your Pathway: Learn it -> Use it -> Study it -->
   <section class="section" style="padding-bottom: 20px;">
     <div class="container">
       <div class="section-head" style="text-align: center;">
@@ -213,44 +299,7 @@
     </div>
   </section>
 
-  <!-- Why APCAF? (3 Core High-Contrast Concepts) -->
-  <section class="section" id="why">
-    <div class="container">
-      <div class="section-head">
-        <span class="section-eyebrow">Core Principles</span>
-        <h2>Why APCAF?</h2>
-        <p>Replacing passive checklist assumptions with verifiable physical resilience.</p>
-      </div>
-
-      <div class="why-apcaf-grid">
-        <div class="why-card">
-          <span class="why-card-tag">01. Paper Compliance</span>
-          <div class="why-card-title">Tells you a control exists.</div>
-          <p class="why-card-desc">
-            Traditional audits check a binary box: <em>"Is there a lock on the door?"</em> They fail to test whether credentials broadcast unencrypted UIDs, frames have bypassable gaps, or sensors are unshielded.
-          </p>
-        </div>
-
-        <div class="why-card">
-          <span class="why-card-tag">02. Adversarial APCAF</span>
-          <div class="why-card-title">Asks if it resists a known bypass.</div>
-          <p class="why-card-desc">
-            Evaluates whether physical hardware actually withstands adversary bypass mechanisms under 45-second passive, non-destructive inspection.
-          </p>
-        </div>
-
-        <div class="why-card">
-          <span class="why-card-tag">03. Contractual Result</span>
-          <div class="why-card-title">Finding → Warranty Notice → Fix.</div>
-          <p class="why-card-desc">
-            Latent defects are delivered as formal non-conformance punch lists to General Contractors, enabling CISOs to legally hold retainage and rectify hardware at $0 client capex.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Core 4 Techniques Visual Cards -->
+  <!-- 5. Core 4 MVP Techniques Visual Cards -->
   <section class="section" id="techniques">
     <div class="container">
       <div class="section-head">
@@ -269,7 +318,7 @@
           </div>
           <div class="tech-visual-title">RFID Harvesting</div>
           <div class="tech-visual-check">
-            Unencrypted 125 kHz Prox badges cloneable wirelessly in &lt; 3 seconds. Hardened by ISO 14443 AES-128 smartcards.
+            Unencrypted 125 kHz Prox badges emit static identifiers without challenge authentication. Hardened by ISO 14443 AES-128 smartcards.
           </div>
           <span class="tech-visual-link">Inspect Technique →</span>
         </a>
@@ -282,7 +331,7 @@
           </div>
           <div class="tech-visual-title">Mechanical Latch Slip</div>
           <div class="tech-visual-check">
-            Door frame gap exceeding NFPA 80 limit (&gt; 3.2mm). Hardened by continuous stainless steel astragal plates.
+            Door frame gap exceeding NFPA 80 limit (&gt; 3.2mm) without astragal latch shielding. Hardened by continuous steel astragal plates.
           </div>
           <span class="tech-visual-link">Inspect Technique →</span>
         </a>
@@ -295,7 +344,7 @@
           </div>
           <div class="tech-visual-title">REX Blind Activation</div>
           <div class="tech-visual-check">
-            Unshielded wide-angle PIR sensor tripped from outside using aerosol thermal plumes. Hardened by deflector hoods.
+            Unshielded wide-angle PIR sensor visible through threshold clearances. Hardened by directional deflector hoods.
           </div>
           <span class="tech-visual-link">Inspect Technique →</span>
         </a>
@@ -319,61 +368,6 @@
         <a href="repository.html" class="resend-btn-ghost" style="padding: 10px 22px; font-size: 0.85rem;">
           Explore Full Rule Repository &amp; YAML Specifications →
         </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- One Real Field Case Study Highlight -->
-  <section class="section" id="case-study" style="padding-bottom: 60px;">
-    <div class="container">
-      <div class="section-head">
-        <span class="section-eyebrow">Empirical Evidence</span>
-        <h2>Verified Commissioning Case</h2>
-        <p>Real-world evidence from a pre-handover audit of a 120,000 sq ft enterprise data center.</p>
-      </div>
-
-      <div class="case-highlight-deck">
-        <div class="case-highlight-header">
-          <div>
-            <span class="chip-tag" style="margin-bottom: 6px;">Commissioning Audit #2026-08</span>
-            <div class="case-highlight-title">Tier III Commercial Bank Facility Walk</div>
-          </div>
-          <span class="card-badge-severity medium" style="background: rgba(35, 134, 54, 0.15); color: #166534; border-color: rgba(35, 134, 54, 0.3);">
-            100% RECTIFIED UNDER WARRANTY
-          </span>
-        </div>
-
-        <div class="case-stats-grid">
-          <div class="case-stat-box">
-            <span class="case-stat-val">120k sq ft</span>
-            <span class="case-stat-lbl">Facility Scope</span>
-          </div>
-          <div class="case-stat-box">
-            <span class="case-stat-val">3 Defects</span>
-            <span class="case-stat-lbl">Latent Faults Flagged</span>
-          </div>
-          <div class="case-stat-box">
-            <span class="case-stat-val" id="caseRetainage">$48,000</span>
-            <span class="case-stat-lbl">Retainage Held</span>
-          </div>
-          <div class="case-stat-box">
-            <span class="case-stat-val" id="caseCapex">$0</span>
-            <span class="case-stat-lbl">Client Remediation Cost</span>
-          </div>
-        </div>
-
-        <p style="font-size: 0.92rem; color: var(--text-body); line-height: 1.6; margin-bottom: 20px;">
-          During the pre-handover inspection, the assessment team identified unencrypted 125 kHz Prox cards, a 4.5mm door margin on the primary server suite (violating NFPA 80), and an active unauthenticated common area drop. Delivering the formal APCAF Notice allowed the CISO to hold $48,000 in GC retainage until all 3 latent faults were corrected at contractor expense.
-        </p>
-
-        <div class="case-highlight-footer">
-          <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-dim);">
-            Protocol: 45s Passive Triage • Zero Destructive Tools • NFPA 80 §6.3.1.7.1 &amp; ISO 14443-4
-          </span>
-          <a href="docs.html#warranty-hold" class="resend-btn-main" style="padding: 10px 20px; font-size: 0.85rem;">
-            Read the CISO Retainage Playbook →
-          </a>
-        </div>
       </div>
     </div>
   </section>
@@ -408,7 +402,7 @@
       <div class="modal-sheet-head">
         <div>
           <span class="chip-tag">Engagement Addendum</span>
-          <h3 style="margin-top: 6px; font-size: 1.15rem;">Audit Scope & Consent Clause</h3>
+          <h3 style="margin-top: 6px; font-size: 1.15rem;">Audit Scope &amp; Consent Clause</h3>
         </div>
         <button class="modal-close-btn" onclick="closeSowModal()" aria-label="Close">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -426,7 +420,7 @@
         </div>
 
         <div class="spec-sheet-block">
-          <div class="block-title">Scope & Life-Safety Protection Guarantees</div>
+          <div class="block-title">Scope &amp; Life-Safety Protection Guarantees</div>
           <p style="font-size: 0.82rem; color: var(--text-body); line-height: 1.5;">
             • <strong>Zero Operational Impact:</strong> Strictly non-intrusive reads only. No packet injection or sniffing.<br>
             • <strong>Life-Safety Non-Interference:</strong> Zero manipulation of fire alarm, emergency egress, or crash bar hardware.<br>
@@ -444,7 +438,6 @@
   <!-- Three.js CDN & Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="three-hero.js"></script>
-  <script src="currency.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

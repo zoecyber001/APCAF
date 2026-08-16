@@ -1,7 +1,6 @@
 /**
- * APCAF Interactive Engine
- * SigmaHQ Search Repository, Atomic Test Docs & Executive Notice Generator
- * Pure SVG Icons, Zero Emojis, Auto Currency Localizer
+ * APCAF Framework Core Application Controller
+ * Pure SVG Icons, Zero Emojis, Institutional Standards Architecture
  */
 
 // SVG Icon Helper Constants
@@ -26,8 +25,8 @@ const TECHNIQUES = [
     inspectionTime: "5 Seconds",
     tool: "Pocket Multi-Frequency RFID Reader",
     citations: ["ISO/IEC 14443-4", "NIST SP 800-116 Rev 1"],
-    plainEnglish: "An attacker can wirelessly copy someone's badge ID from pocket distance in under 3 seconds without them knowing, then use a cloned card to walk straight through the door.",
-    mechanics: "Unencrypted 125 kHz or MIFARE Classic cards transmit static UIDs that can be cloned in under 5 seconds using handheld copiers.",
+    plainEnglish: "This credential technology may expose static identifiers that support credential cloning or unauthorized replication under passive contactless inspection.",
+    mechanics: "Unencrypted 125 kHz or legacy MIFARE Classic cards transmit static identifiers without cryptographic challenge-response authentication.",
     passiveQA: "Contactless read of badge credential. If card emits unencrypted 125 kHz carrier (HID Prox, EM4100) or static MIFARE CSN, classify as Legacy / Soft.",
     mitigationId: "PHY-M1001",
     mitigationTitle: "Encrypted Smartcards (AES-128 / DESFire EV3)",
@@ -60,8 +59,8 @@ const TECHNIQUES = [
     inspectionTime: "15 Seconds",
     tool: "Metric Feeler Gauge / Visual Margin Check",
     citations: ["NFPA 80 (2022) §6.3.1.7.1", "ANSI/SDI A250.8 / SDI-122", "IBC §716"],
-    plainEnglish: "An attacker can slide a thin shove tool or reaching wire through an exposed gap between the door and the frame to pop the latch open without needing a badge or key.",
-    mechanics: "Exposed latch bolts on outward-opening doors can be retracted with shove knives or reached via under-door tools due to excessive frame clearance (> 3.2mm / 1/8 in.).",
+    plainEnglish: "The physical latch bolt and frame clearance lack continuous physical shielding, creating susceptibility to mechanical latch manipulation through perimeter margins.",
+    mechanics: "Exposed latch bolts on outward-opening doors lack physical astragal latch guards when frame clearance exceeds allowable standards (> 3.2mm / 1/8 in.).",
     passiveQA: "Measure door frame clearance with feeler gauge. Under NFPA 80 §6.3.1.7.1 & ANSI/SDI A250.8, allowable margin is <= 3.2mm (1/8\"). If gap > 3.2mm and lacks a continuous overlapping steel astragal plate, classify as Legacy / Soft.",
     mitigationId: "PHY-M1002",
     mitigationTitle: "Full-Length Continuous Steel Astragals",
@@ -94,8 +93,8 @@ const TECHNIQUES = [
     inspectionTime: "15 Seconds",
     tool: "Line-of-Sight Check",
     citations: ["NFPA 101 §7.2.1.6.2", "UL 294 Standard"],
-    plainEnglish: "An attacker can spray compressed cold air or slide a tool under the door to trigger the exit sensor inside, causing the electronic door to automatically unlock itself from the outside.",
-    mechanics: "Interior Request-to-Exit (REX) PIR sensors unlock doors when tripped from outside using compressed air canisters or reaching tools through gaps.",
+    plainEnglish: "The interior request-to-exit motion sensor field is unshielded, creating susceptibility to non-contact activation through threshold gaps or transom margins.",
+    mechanics: "Interior Request-to-Exit (REX) PIR sensors unlock doors when tripped through threshold gaps by external thermal plumes or non-destructive reaching tools.",
     passiveQA: "Inspect optical line-of-sight to the interior REX sensor through door threshold/transom. If the sensor PIR lens is visible without a directional deflector hood, classify as Legacy / Soft.",
     mitigationId: "PHY-M1003",
     mitigationTitle: "Directional REX PIR Deflector Hoods",
@@ -128,8 +127,8 @@ const TECHNIQUES = [
     inspectionTime: "10 Seconds",
     tool: "Passive LED Link Tester",
     citations: ["IEEE 802.1X-2020", "NIST SP 800-53 PE-3"],
-    plainEnglish: "An attacker can plug an unauthorized device or rogue laptop into an active wall jack in a lobby or meeting room and gain immediate access to the internal network.",
-    mechanics: "Accessible wall drops in public or common areas provide immediate physical layer link pulses without port isolation or 802.1X authentication.",
+    plainEnglish: "Exposed, unauthenticated physical network drops exhibit active Layer 1 link state without port isolation or 802.1X access control enforcement.",
+    mechanics: "Accessible wall drops in public or common areas provide active physical layer link signaling without administrative port shutdown or 802.1X authentication.",
     passiveQA: "Insert zero-packet passive LED link tester into drop. If Layer 1 link LED illuminates continuously on an unmonitored drop, classify as Legacy / Soft.",
     mitigationId: "PHY-M1004",
     mitigationTitle: "Port Shutdown & IEEE 802.1X NAC",
@@ -179,7 +178,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "Escape") {
       closeTechniqueModal();
       closeSowModal();
-      closeCurrencyDropdown();
     }
   });
   
@@ -197,14 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Close currency dropdown on outside click
-  document.addEventListener("click", (e) => {
-    const wrap = document.querySelector(".currency-selector-wrap");
-    if (wrap && !wrap.contains(e.target)) {
-      closeCurrencyDropdown();
-    }
-  });
-
   // Attach input listeners for live updates
   ["input-notes-c1", "input-notes-c2", "input-notes-c3"].forEach(id => {
     const el = document.getElementById(id);
@@ -212,33 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// --- 4. Currency Selector Dropdown Controller ---
-function toggleCurrencyDropdown() {
-  const menu = document.getElementById("currencyDropdownMenu");
-  if (menu) {
-    const isOpening = !menu.classList.contains("open");
-    if (isOpening) {
-      closeMobileMenu();
-    }
-    menu.classList.toggle("open");
-  }
-}
-
-function closeCurrencyDropdown() {
-  const menu = document.getElementById("currencyDropdownMenu");
-  if (menu) {
-    menu.classList.remove("open");
-  }
-}
-
-function selectCurrency(code) {
-  if (typeof setAppCurrency === "function") {
-    setAppCurrency(code);
-  }
-  closeCurrencyDropdown();
-}
-
-// --- 5. SigmaHQ-Style Rule Repository Engine ---
+// --- 4. SigmaHQ-Style Rule Repository Engine ---
 function handleRepoSearch(query) {
   workbenchState.repoSearchQuery = query.toLowerCase().trim();
   renderRepoGrid();
@@ -542,10 +506,6 @@ function toggleMobileMenu() {
   const menu = document.getElementById("mobileNavMenu");
   const btn = document.getElementById("mobileMenuToggleBtn");
   if (!menu) return;
-  const isOpening = !menu.classList.contains("open");
-  if (isOpening) {
-    closeCurrencyDropdown();
-  }
   const isOpen = menu.classList.toggle("open");
   if (btn) btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
 }
@@ -559,14 +519,6 @@ function closeMobileMenu() {
 
 // Global click outside to close menus
 document.addEventListener("click", (e) => {
-  const currencyMenu = document.getElementById("currencyDropdownMenu");
-  const currencyBtn = document.querySelector(".btn-nav-currency");
-  if (currencyMenu && currencyMenu.classList.contains("open")) {
-    if (!currencyMenu.contains(e.target) && (!currencyBtn || !currencyBtn.contains(e.target))) {
-      currencyMenu.classList.remove("open");
-    }
-  }
-
   const mobileMenu = document.getElementById("mobileNavMenu");
   const mobileBtn = document.getElementById("mobileMenuToggleBtn");
   if (mobileMenu && mobileMenu.classList.contains("open")) {
