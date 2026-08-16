@@ -457,16 +457,19 @@ code, pre {
   .btn-nav-sow { display: none; }
 }
 
+@media (max-width: 460px) {
+  .btn-nav-primary { display: none; }
+}
+
 @media (max-width: 480px) {
   .nav-wrap { height: 48px; padding: 0 4px 0 8px; }
   .brand-icon-box { width: 26px; height: 26px; }
   .brand-badge { font-size: 0.88rem; }
   .btn-nav-currency { padding: 5px 8px; font-size: 0.68rem; gap: 3px; }
-  .btn-nav-primary { padding: 5px 10px; font-size: 0.74rem; }
   .btn-mobile-menu-toggle { width: 32px; height: 32px; }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 360px) {
   .brand-badge { display: none; }
 }
 
@@ -487,12 +490,12 @@ code, pre {
 
 @media (max-width: 960px) {
   .hero-section {
-    padding: 76px 0 32px;
+    padding: 80px 0 32px;
   }
 
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 18px;
     text-align: center;
   }
 
@@ -502,15 +505,16 @@ code, pre {
   }
 
   .resend-hero-title {
-    font-size: clamp(1.95rem, 5.8vw, 3rem);
+    font-size: clamp(1.95rem, 6.2vw, 3rem);
     margin-bottom: 12px;
   }
 
   .resend-hero-subtitle {
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 18px;
+    max-width: 480px;
   }
 
   .resend-btn-cluster {
@@ -525,8 +529,8 @@ code, pre {
 
   .hero-3d-stage {
     order: 2;
-    height: 220px;
-    min-height: 190px;
+    height: clamp(200px, 45vw, 280px);
+    min-height: 180px;
     margin-top: 4px;
   }
 }
@@ -1140,6 +1144,11 @@ code, pre {
   padding-bottom: 12px;
   margin-bottom: 24px;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.tactic-tab-bar::-webkit-scrollbar {
+  display: none;
 }
 
 .tactic-tab-btn {
@@ -2345,12 +2354,31 @@ code, pre {
   padding-top: 16px;
 }
 
+@media (max-width: 600px) {
+  .case-highlight-footer {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .case-highlight-footer a {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* ==========================================================================
    Learn APCAF Interactive Field Guide Layout & Styles (Emil Kowalski Studio)
    ========================================================================== */
 .learn-page-layout {
   padding-top: 96px;
   padding-bottom: 96px;
+}
+
+@media (max-width: 980px) {
+  .learn-page-layout {
+    padding-top: 76px;
+    padding-bottom: 120px;
+  }
 }
 
 .learn-hero-header {
@@ -2576,7 +2604,7 @@ code, pre {
 .mobile-journey-capsule {
   display: none;
   position: fixed;
-  bottom: 18px;
+  bottom: max(16px, env(safe-area-inset-bottom, 16px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 90;
@@ -2590,7 +2618,7 @@ code, pre {
   align-items: center;
   gap: 12px;
   width: calc(100% - 32px);
-  max-width: 420px;
+  max-width: 440px;
 }
 
 @media (max-width: 980px) {

@@ -371,6 +371,31 @@
       overflow-x: auto;
       max-height: 420px;
       white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 10px;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      header div:last-child {
+        text-align: left !important;
+      }
+      .actions-bar {
+        flex-direction: column;
+      }
+      .actions-bar .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .card-title {
+        font-size: 0.98rem;
+      }
     }
   </style>
 </head>
