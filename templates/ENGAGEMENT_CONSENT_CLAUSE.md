@@ -41,3 +41,7 @@ Findings from this inspection shall be documented as a "Vendor Installation QA S
 - [ ] Emergency contact and physical security manager point-of-contact documented.
 - [ ] Escort protocol confirmed (audit walk conducted with authorized client representative).
 - [ ] Client legal/procurement lead notified that findings can be used as vendor warranty punch list items.
+
+---
+
+> **Notice:** This template is provided for informational and standardisation purposes only and does not constitute legal advice. Clauses should be reviewed by qualified legal counsel against applicable contracts and local jurisdiction.

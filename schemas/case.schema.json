@@ -14,7 +14,17 @@
   "properties": {
     "case_id": {
       "type": "string",
-      "pattern": "^APCAF-CASE-[0-9]{3,}$"
+      "pattern": "^APCAF-(CASE|DEMO)-[0-9A-Za-z_-]{3,}$"
+    },
+    "case_type": {
+      "type": "string",
+      "enum": ["SYNTHETIC_DEMO", "FIELD_OBSERVED"],
+      "description": "Distinguishes synthetic teaching fixtures from verified real-world field assessments"
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": ["unverified", "independently_reviewed", "synthetic_fixture"],
+      "description": "Peer validation level for empirical case cataloguing"
     },
     "timestamp": {
       "type": "string",
@@ -25,6 +35,10 @@
     },
     "assessor_id": {
       "type": "string"
+    },
+    "authorization_ref": {
+      "type": "string",
+      "description": "SOW addendum, client ticket, or audit consent authorization reference"
     },
     "facility_metadata": {
       "type": "object",
@@ -74,6 +88,14 @@
             "type": "string",
             "description": "Clarifies observable physical vulnerability condition versus executed exploit"
           },
+          "evidence_type": {
+            "type": "string",
+            "enum": ["measurement", "photo", "device_read", "configuration_verification", "observation", "synthetic_fixture"]
+          },
+          "evidence_ref": {
+            "type": "string",
+            "description": "Identifier or hash for physical photo, gauge measurement log, or device capture"
+          },
           "observed_spec": {
             "type": "string"
           },
@@ -104,7 +126,7 @@
         },
         "vendor_resolution": {
           "type": "string",
-          "enum": ["PENDING", "REMEDIATED_NO_COST", "DISPUTED", "ACCEPTED_RISK", "UNKNOWN"]
+          "enum": ["PENDING", "REMEDIATED_NO_COST", "NO_REMEDIATION_REQUIRED", "VERIFIED_HARDENED", "DISPUTED", "ACCEPTED_RISK", "UNKNOWN"]
         },
         "notes": {
           "type": "string"

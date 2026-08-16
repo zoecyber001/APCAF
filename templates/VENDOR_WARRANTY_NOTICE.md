@@ -38,3 +38,7 @@ The inspection identified **[Number of Deficiencies]** critical hardware specifi
 ____________________________________________  
 **[Name]**, Chief Information Security Officer / Authorized Representative  
 **[Organization Name]**
+
+---
+
+> **Notice:** This template is provided for informational and quality assurance purposes only and does not constitute legal advice. Actionability and retainage rights are governed by the applicable construction or integration contract and local law.

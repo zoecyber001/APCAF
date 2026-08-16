@@ -6,8 +6,12 @@
 # -----------------------------------------------------------------------------
 
 case_id: "APCAF-CASE-001"
+case_type: "SYNTHETIC_DEMO"
+validation_status: "synthetic_fixture"
 timestamp: "2026-08-15T10:30:00Z"
+framework_standard: "APCAF-ATT&CK-PHYSICAL-v1"
 assessor_id: "APCAF-SYNTHETIC-DEMO-RUNNER"
+authorization_ref: "SYNTHETIC-DEMO-SOW-CLAUSE-01"
 
 facility_metadata:
   facility_type: "datacenter"
@@ -23,6 +27,8 @@ findings:
     technique_id: "PHY-T1001"
     technique_name: "Unencrypted RFID Harvesting"
     classification: "Legacy/Soft"
+    evidence_type: "synthetic_fixture"
+    evidence_ref: "SYNTHETIC-DEVICE-READ-001"
     observed_spec: "HID 125kHz H10301 (26-bit unencrypted Prox)"
     inspection_time_seconds: 4
     mitigation_ref: "PHY-M1001"
@@ -34,17 +40,21 @@ findings:
     technique_id: "PHY-T1002"
     technique_name: "Mechanical Latch Manipulation"
     classification: "Legacy/Soft"
+    evidence_type: "synthetic_fixture"
+    evidence_ref: "SYNTHETIC-MEASUREMENT-002"
     observed_spec: "Server Suite A double door outward swing, 4.5mm perimeter gap (exceeds NFPA 80 3.2mm limit), no astragal latch guard, Bosch DS160 REX sensor unhooded."
     inspection_time_seconds: 28
-    mitigation_ref: "PHY-M1002/M1003"
-    remediation_action: "Install full-length continuous interlocking astragal plate and install REX sensor beam deflector collar."
+    mitigation_ref: "PHY-M1002"
+    remediation_action: "Install full-length continuous interlocking astragal plate."
     vendor_warranty_applicable: true
 
   - control_id: "APCAF-03"
     tactic_id: "PHY-TAC-05"
     technique_id: "PHY-T1004"
-    technique_name: "Unauthenticated Physical L1/L2 Network Tap"
+    technique_name: "Exposed Active Physical Network Interface"
     classification: "Hardened"
+    evidence_type: "synthetic_fixture"
+    evidence_ref: "SYNTHETIC-OBSERVATION-003"
     observed_spec: "Reception lobby wall RJ-45 drops show zero Layer 1 link pulse (passive LED unilluminated)."
     inspection_time_seconds: 8
     mitigation_ref: "PHY-M1004"
@@ -54,5 +64,5 @@ findings:
 remediation_status:
   ciso_punchlist_issued: true
   vendor_invoice_hold: true
-  vendor_resolution: "REMEDIATED_NO_COST"
-  notes: "Integrator installed continuous astragal latch guards and supplied DESFire EV3 smartcards under 1-year installation warranty prior to final payment milestone release."
+  vendor_resolution: "PENDING"
+  notes: "Synthetic example for schema validation during the upcoming field validation phase. No real facility was assessed."

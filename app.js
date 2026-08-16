@@ -121,7 +121,7 @@ const TECHNIQUES = [
     id: "PHY-T1004",
     tacticId: "PHY-TAC-05",
     tacticName: "Interface & Tap",
-    title: "Unauthenticated Physical L1/L2 Network Drop",
+    title: "Exposed Active Physical Network Interface",
     isMVP: true,
     severity: "high",
     inspectionTime: "10 Seconds",
