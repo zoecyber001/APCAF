@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>APCAF - MITRE-Aligned Physical Security Matrix & Field Triage</title>
+  <title>APCAF - Field Triage &amp; Assessment Workbench</title>
   
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 
-  <!-- Institutional Standards Typography System: Inter (Human) & IBM Plex Mono (Technical) -->
+  <!-- Typography System: Inter & IBM Plex Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -65,7 +65,7 @@
     }
 
     .brand-title {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 700;
       letter-spacing: -0.02em;
       display: flex;
@@ -89,6 +89,68 @@
       background: var(--surface-hover);
       border: 1px solid var(--surface-border);
       color: var(--tech-blue);
+    }
+
+    /* STEP 1: OBJECT SELECTOR BAR */
+    .object-nav-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+    }
+
+    .object-nav-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .object-nav-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .object-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .object-tab-btn {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 6px;
+      background: var(--bg);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .object-tab-btn:hover {
+      color: var(--text-main);
+      border-color: var(--text-muted);
+    }
+
+    .object-tab-btn.active {
+      background: var(--surface-hover);
+      color: var(--tech-blue);
+      border-color: var(--tech-blue);
     }
 
     /* MODE SELECTOR BANNER */
@@ -147,62 +209,6 @@
       border-color: var(--tech-blue);
     }
 
-    /* MITRE ATT&CK MATRIX BAR */
-    .attack-matrix {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-
-    .tactic-col {
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: 6px;
-      padding: 10px;
-    }
-
-    .tactic-header {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      border-bottom: 1px solid var(--surface-border);
-      padding-bottom: 6px;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .technique-chip {
-      background: var(--bg);
-      border: 1px solid var(--surface-border);
-      border-radius: 4px;
-      padding: 6px 8px;
-      margin-bottom: 6px;
-      font-size: 0.75rem;
-      font-family: var(--font-mono);
-      color: var(--text-muted);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.15s;
-    }
-
-    .technique-chip.active-mvp {
-      border-color: var(--tech-blue);
-      color: var(--text-main);
-      background: rgba(88, 166, 255, 0.08);
-      font-weight: 600;
-    }
-
-    .technique-chip.planned {
-      opacity: 0.45;
-      font-style: italic;
-    }
-
     /* META BAR */
     .meta-bar {
       display: grid;
@@ -245,7 +251,7 @@
     .control-cards {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
       margin-bottom: 24px;
     }
 
@@ -255,6 +261,10 @@
       border-radius: 8px;
       padding: 20px;
       transition: border-color 0.2s;
+    }
+
+    .card.hidden-by-filter {
+      display: none !important;
     }
 
     .card-header {
@@ -273,6 +283,17 @@
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
+    }
+
+    .tag-object {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #09090b;
+      color: #ffffff;
+      border: 1px solid var(--surface-border);
     }
 
     .tag-tid {
@@ -300,11 +321,18 @@
       color: var(--text-muted);
     }
 
-    .control-q-text {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 12px;
+    .control-step-box {
+      background: var(--bg);
+      border: 1px solid var(--surface-border);
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 0.82rem;
       line-height: 1.45;
+    }
+
+    .control-step-box strong {
+      color: var(--text-main);
     }
 
     .control-grid {
@@ -394,6 +422,22 @@
       color: var(--text-main);
       font-family: var(--font-mono);
       font-size: 0.82rem;
+    }
+
+    .remediation-preview {
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: rgba(248, 81, 73, 0.08);
+      border: 1px solid rgba(248, 81, 73, 0.25);
+      font-size: 0.76rem;
+      color: #ffa198;
+      font-family: var(--font-mono);
+      display: none;
+    }
+
+    .remediation-preview.visible {
+      display: block;
     }
 
     .actions-bar {
@@ -490,16 +534,45 @@
           </svg>
           <span>APCAF</span>
         </a>
-        <span class="badge">ATT&CK PHYSICAL MATRIX v1.0</span>
+        <span class="badge">FIELD TRIAGE WORKBENCH</span>
       </div>
       <p style="font-size: 0.84rem; color: var(--text-muted); margin-top: 4px;">
-        Adversarial Physical Control Assessment Framework: Non-Invasive QA &amp; Field Triage Workbench
+        Adversarial Physical Control Assessment Framework: Non-Invasive QA &amp; Defect Triage
       </p>
     </div>
     <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); text-align: right;">
       Audit Walk Budget: <strong style="color: #58a6ff;">45 Seconds</strong>
     </div>
   </header>
+
+  <!-- STEP 1: WHAT ARE YOU INSPECTING? OBJECT ROUTER -->
+  <div class="object-nav-card">
+    <div class="object-nav-header">
+      <div class="object-nav-title">
+        <span>Step 1: What are you inspecting?</span>
+      </div>
+      <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">
+        Select object to filter inspection check:
+      </span>
+    </div>
+    <div class="object-tabs">
+      <button type="button" class="object-tab-btn active" id="tabAll" onclick="filterObject('all')">
+        ALL OBJECTS (4)
+      </button>
+      <button type="button" class="object-tab-btn" id="tabDoor" onclick="filterObject('door')">
+        DOOR (PHY-T1002)
+      </button>
+      <button type="button" class="object-tab-btn" id="tabBadge" onclick="filterObject('badge')">
+        BADGE (PHY-T1001)
+      </button>
+      <button type="button" class="object-tab-btn" id="tabPort" onclick="filterObject('port')">
+        PORT (PHY-T1004)
+      </button>
+      <button type="button" class="object-tab-btn" id="tabSensor" onclick="filterObject('sensor')">
+        SENSOR (PHY-T1003)
+      </button>
+    </div>
+  </div>
 
   <!-- MODE SELECTOR BANNER -->
   <div class="mode-bar">
@@ -513,50 +586,6 @@
       <button type="button" class="mode-btn" id="btnModeDemo" onclick="setToolMode('demo')">
         Load Synthetic Demo
       </button>
-    </div>
-  </div>
-
-  <!-- MITRE ATT&CK PHYSICAL TAXONOMY VISUALIZER -->
-  <div class="attack-matrix">
-    <div class="tactic-col">
-      <div class="tactic-header">
-        <span>PHY-TAC-01</span>
-        <span style="font-size: 0.65rem;">Perimeter</span>
-      </div>
-      <div class="technique-chip planned">PHY-T1010 Fence Breach</div>
-      <div class="technique-chip planned">PHY-T1011 Turnstile Tailgate</div>
-    </div>
-    <div class="tactic-col">
-      <div class="tactic-header">
-        <span>PHY-TAC-02</span>
-        <span style="font-size: 0.65rem;">Credential</span>
-      </div>
-      <div class="technique-chip active-mvp">PHY-T1001 RFID Harvest [MVP]</div>
-      <div class="technique-chip planned">PHY-T1012 Magstripe Clone</div>
-    </div>
-    <div class="tactic-col">
-      <div class="tactic-header">
-        <span>PHY-TAC-03</span>
-        <span style="font-size: 0.65rem;">Portal Ingress</span>
-      </div>
-      <div class="technique-chip active-mvp">PHY-T1002 Latch Slip [MVP]</div>
-      <div class="technique-chip active-mvp">PHY-T1003 REX Trip [MVP]</div>
-    </div>
-    <div class="tactic-col">
-      <div class="tactic-header">
-        <span>PHY-TAC-04</span>
-        <span style="font-size: 0.65rem;">Containment</span>
-      </div>
-      <div class="technique-chip planned">PHY-T1020 Rack Bypass</div>
-      <div class="technique-chip planned">PHY-T1021 Cage Climb</div>
-    </div>
-    <div class="tactic-col">
-      <div class="tactic-header">
-        <span>PHY-TAC-05</span>
-        <span style="font-size: 0.65rem;">Interface/Tap</span>
-      </div>
-      <div class="technique-chip active-mvp">PHY-T1004 Port Tap [MVP]</div>
-      <div class="technique-chip planned">PHY-T1031 Console Tap</div>
     </div>
   </div>
 
@@ -594,48 +623,59 @@
   <!-- 4 MVP ASSESSMENT CARDS -->
   <div class="control-cards">
     
-    <!-- CONTROL 1 / PHY-T1001 -->
-    <div class="card" id="card-01">
+    <!-- 1. BADGE (PHY-T1001) -->
+    <div class="card" id="card-badge" data-object="badge">
       <div class="card-header">
         <div class="card-title">
-          <span class="tag-tid">APCAF-01 • PHY-T1001</span>
+          <span class="tag-object">BADGE</span>
+          <span class="tag-tid">PHY-T1001</span>
           <span>Unencrypted RFID Harvesting</span>
           <span class="tag-compliance">ISO 27001 A.7.2 • PCI DSS Req 9.2</span>
         </div>
         <span class="tag-time">5s Check • Pocket RFID Reader</span>
       </div>
-      <div class="control-q-text">
-        <strong>Assessment Condition:</strong> Does this credential rely on an exposed static identifier as an authentication factor without cryptographic mutual authentication?
+      
+      <div class="control-step-box">
+        <strong>What are you checking?</strong> Contactless passive carrier frequency. Does this credential rely on an exposed static UID without cryptographic mutual authentication?
       </div>
+
       <div class="control-grid">
         <button type="button" class="status-btn" id="btn-01-hard" onclick="setStatus('01', 'Hardened')">
           <span class="status-title">Hardened (PHY-M1001)</span>
-          <span class="status-desc">Encrypted crypto smartcard (AES-128 / DESFire EV2/EV3 / Seos / PIV); reader cryptographic SAM keys active.</span>
+          <span class="status-desc">Mutual crypto smartcard (AES-128 / DESFire EV2/EV3 / Seos / PIV); reader cryptographic SAM keys active.</span>
         </button>
         <button type="button" class="status-btn" id="btn-01-soft" onclick="setStatus('01', 'Soft')">
           <span class="status-title">Legacy / Soft (Susceptible)</span>
           <span class="status-desc">Unencrypted 125 kHz Prox carrier or static CSN without cryptographic challenge-response authentication.</span>
         </button>
       </div>
+
       <div class="input-details">
-        <label for="notes-01">Observed Spec &amp; Telemetry</label>
-        <input type="text" id="notes-01" placeholder="e.g., Badge carrier frequency observed, credential type, or reader firmware profile" />
+        <label for="notes-01">What did you observe? (Evidence &amp; Spec)</label>
+        <input type="text" id="notes-01" placeholder="e.g., Badge carrier frequency observed (125 kHz Prox vs 13.56 MHz DESFire EV3), chip profile" />
+      </div>
+
+      <div class="remediation-preview" id="rem-01">
+        <strong>Remediation Action:</strong> Replace credential stock with AES-128 crypto smartcards (DESFire EV3 / Seos) and activate SAM keys on readers.
       </div>
     </div>
 
-    <!-- CONTROL 2A / PHY-T1002 -->
-    <div class="card" id="card-02">
+    <!-- 2. DOOR (PHY-T1002) -->
+    <div class="card" id="card-door" data-object="door">
       <div class="card-header">
         <div class="card-title">
-          <span class="tag-tid">APCAF-02 • PHY-T1002</span>
+          <span class="tag-object">DOOR</span>
+          <span class="tag-tid">PHY-T1002</span>
           <span>Mechanical Latch Manipulation (Latch Slip)</span>
           <span class="tag-compliance">NFPA 80 §6.3.1.7.1 • ANSI/SDI A250.8</span>
         </div>
         <span class="tag-time">15s Check • Visual &amp; Feeler Gauge</span>
       </div>
-      <div class="control-q-text">
-        <strong>Assessment Condition:</strong> Does the strike margin exceed 3.2mm (1/8 in.) with direct line-of-sight to the latch bolt and no overlapping steel astragal guard?
+      
+      <div class="control-step-box">
+        <strong>What are you checking?</strong> Latch bolt exposure and clearance margin. Does the strike margin exceed 3.2mm (1/8 in.) with direct line-of-sight to the latch bolt and no overlapping steel astragal guard?
       </div>
+
       <div class="control-grid">
         <button type="button" class="status-btn" id="btn-02-hard" onclick="setStatus('02', 'Hardened')">
           <span class="status-title">Hardened (PHY-M1002)</span>
@@ -646,25 +686,33 @@
           <span class="status-desc">Exposed latch bolt with clearance > 3.2mm and zero protective astragal shielding on exterior side.</span>
         </button>
       </div>
+
       <div class="input-details">
-        <label for="notes-02">Observed Spec &amp; Telemetry</label>
+        <label for="notes-02">What did you observe? (Evidence &amp; Spec)</label>
         <input type="text" id="notes-02" placeholder="e.g., Strike margin feeler gauge measurement in mm, astragal plate presence" />
+      </div>
+
+      <div class="remediation-preview" id="rem-02">
+        <strong>Remediation Action:</strong> Install full-height continuous stainless steel security astragal plate on outward door assembly.
       </div>
     </div>
 
-    <!-- CONTROL 2B / PHY-T1003 -->
-    <div class="card" id="card-03">
+    <!-- 3. SENSOR (PHY-T1003) -->
+    <div class="card" id="card-sensor" data-object="sensor">
       <div class="card-header">
         <div class="card-title">
-          <span class="tag-tid">APCAF-02 • PHY-T1003</span>
+          <span class="tag-object">SENSOR</span>
+          <span class="tag-tid">PHY-T1003</span>
           <span>REX Sensor Blind Activation</span>
           <span class="tag-compliance">NFPA 101 §7.2.1.6.2 • UL 294</span>
         </div>
         <span class="tag-time">15s Check • Visual Line-of-Sight</span>
       </div>
-      <div class="control-q-text">
-        <strong>Assessment Condition:</strong> Is the interior Request-to-Exit (REX) motion sensor optical field visible through transom or threshold gaps without a directional deflector hood?
+      
+      <div class="control-step-box">
+        <strong>What are you checking?</strong> Request-to-Exit (REX) PIR sensor coverage. Is the interior REX motion sensor optical field visible through transom or threshold gaps without a directional deflector hood?
       </div>
+
       <div class="control-grid">
         <button type="button" class="status-btn" id="btn-03-hard" onclick="setStatus('03', 'Hardened')">
           <span class="status-title">Hardened (PHY-M1003)</span>
@@ -675,25 +723,33 @@
           <span class="status-desc">Unshielded wide-angle PIR sensor visible directly through door margins, allowing exterior non-contact tripping.</span>
         </button>
       </div>
+
       <div class="input-details">
-        <label for="notes-03">Observed Spec &amp; Telemetry</label>
+        <label for="notes-03">What did you observe? (Evidence &amp; Spec)</label>
         <input type="text" id="notes-03" placeholder="e.g., Interior REX sensor model, optical line-of-sight status, deflector hood presence" />
+      </div>
+
+      <div class="remediation-preview" id="rem-03">
+        <strong>Remediation Action:</strong> Mount UL-listed directional deflector hood over interior PIR motion sensor.
       </div>
     </div>
 
-    <!-- CONTROL 3 / PHY-T1004 -->
-    <div class="card" id="card-04">
+    <!-- 4. PORT (PHY-T1004) -->
+    <div class="card" id="card-port" data-object="port">
       <div class="card-header">
         <div class="card-title">
-          <span class="tag-tid">APCAF-03 • PHY-T1004</span>
+          <span class="tag-object">PORT</span>
+          <span class="tag-tid">PHY-T1004</span>
           <span>Exposed Active Physical Network Interface</span>
           <span class="tag-compliance">IEEE 802.1X • NIST SP 800-53 PE-3</span>
         </div>
         <span class="tag-time">10s Check • Passive LED Link Tester</span>
       </div>
-      <div class="control-q-text">
-        <strong>Assessment Condition:</strong> Does an accessible wall jack in an unrestricted area broadcast an active physical Layer 1 carrier without port shutdown or 802.1X quarantine?
+      
+      <div class="control-step-box">
+        <strong>What are you checking?</strong> Common area Ethernet drop state. Does an accessible wall jack in an unrestricted area broadcast an active physical Layer 1 carrier without port shutdown or 802.1X quarantine?
       </div>
+
       <div class="control-grid">
         <button type="button" class="status-btn" id="btn-04-hard" onclick="setStatus('04', 'Hardened')">
           <span class="status-title">Hardened (PHY-M1004)</span>
@@ -704,9 +760,14 @@
           <span class="status-desc">Active PHY Layer 1 link pulse LED illuminates continuously on unmonitored common area drop.</span>
         </button>
       </div>
+
       <div class="input-details">
-        <label for="notes-04">Observed Spec &amp; Telemetry</label>
+        <label for="notes-04">What did you observe? (Evidence &amp; Spec)</label>
         <input type="text" id="notes-04" placeholder="e.g., Wall jack label, passive LED link pulse status, switch port isolation notes" />
+      </div>
+
+      <div class="remediation-preview" id="rem-04">
+        <strong>Remediation Action:</strong> Administratively shut down unmonitored switch ports at patch panel or configure 802.1X quarantine.
       </div>
     </div>
 
@@ -736,7 +797,7 @@
       <h3 style="font-size: 0.95rem; font-weight: 600;" id="outputTitle">Generated Output</h3>
       <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.75rem;" onclick="copyOutput()">Copy Text</button>
     </div>
-    <pre id="outputArea">Select control statuses and enter observation telemetry above, then click 'Export YAML Case Record' or 'Generate Vendor Warranty Notice' to compile output.</pre>
+    <pre id="outputArea">Select an inspection object above, choose your assessment classification, and enter observation telemetry to compile output.</pre>
   </div>
 </div>
 
@@ -749,20 +810,45 @@
     '04': null
   };
 
+  // Object filter handler
+  function filterObject(objName) {
+    const tabs = ['all', 'door', 'badge', 'port', 'sensor'];
+    tabs.forEach(tab => {
+      const btn = document.getElementById(`tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+      if (btn) {
+        if (tab === objName) btn.classList.add('active');
+        else btn.classList.remove('active');
+      }
+    });
+
+    const cards = document.querySelectorAll('.card[data-object]');
+    cards.forEach(card => {
+      if (objName === 'all' || card.getAttribute('data-object') === objName) {
+        card.classList.remove('hidden-by-filter');
+      } else {
+        card.classList.add('hidden-by-filter');
+      }
+    });
+  }
+
   function setStatus(controlId, status) {
     state[controlId] = status;
     const hardBtn = document.getElementById(`btn-${controlId}-hard`);
     const softBtn = document.getElementById(`btn-${controlId}-soft`);
+    const remBox = document.getElementById(`rem-${controlId}`);
 
     if (status === 'Hardened') {
       hardBtn.className = 'status-btn selected-hardened';
       softBtn.className = 'status-btn';
+      if (remBox) remBox.classList.remove('visible');
     } else if (status === 'Soft') {
       hardBtn.className = 'status-btn';
       softBtn.className = 'status-btn selected-soft';
+      if (remBox) remBox.classList.add('visible');
     } else {
       hardBtn.className = 'status-btn';
       softBtn.className = 'status-btn';
+      if (remBox) remBox.classList.remove('visible');
     }
   }
 
@@ -788,7 +874,7 @@
       document.getElementById('notes-04').value = '';
 
       ['01', '02', '03', '04'].forEach(id => setStatus(id, null));
-      document.getElementById('outputArea').textContent = "Select control statuses and enter observation telemetry above, then click 'Export YAML Case Record' or 'Generate Vendor Warranty Notice' to compile output.";
+      document.getElementById('outputArea').textContent = "Select an inspection object above, choose your assessment classification, and enter observation telemetry to compile output.";
       document.getElementById('outputTitle').innerText = "Generated Output";
     } else {
       btnNew.classList.remove('active');
@@ -974,6 +1060,15 @@ Verification Protocol: A follow-up APCAF QA re-inspection will verify full 'Hard
       alert('Copied output to clipboard.');
     });
   }
+
+  // Parse URL query parameter (e.g. ?object=door)
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const objParam = params.get('object');
+    if (objParam && ['door', 'badge', 'port', 'sensor'].includes(objParam.toLowerCase())) {
+      filterObject(objParam.toLowerCase());
+    }
+  });
 </script>
 </body>
 </html>

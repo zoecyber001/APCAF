@@ -667,6 +667,103 @@ code, pre {
 }
 
 /* ==========================================================================
+   Object Selection Grid: "What are you inspecting?"
+   ========================================================================== */
+.object-select-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.object-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-card);
+  transition: transform 160ms var(--ease-spring), border-color 140ms ease, box-shadow 160ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.object-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-active);
+  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.09);
+}
+
+.object-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.object-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: #09090b;
+  color: #ffffff;
+  letter-spacing: 0.06em;
+}
+
+.object-tid {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.object-card-title {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-pure);
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+
+.object-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-body);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.object-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.object-cta {
+  font-weight: 700;
+  color: var(--text-pure);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform 120ms ease;
+}
+
+.object-card:hover .object-cta {
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
    Atomic Red Team-Inspired Ecosystem / Projects Grid
    ========================================================================== */
 .projects-grid {

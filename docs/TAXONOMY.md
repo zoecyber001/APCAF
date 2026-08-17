@@ -163,7 +163,7 @@ PHASE 1 (MVP BASELINE SPECIFICATION)       PHASE 2 (FIELD VALIDATION PHASE)    P
 ┌───────────────────────────────────────┐  ┌───────────────────────────────┐  ┌───────────────────────────────┐
 │ The 4-Technique Core MVP              │  │ Empirical Field Cataloguing   │  │ Full Open Behavioral Matrix   │
 │ • PHY-T1001 (Unencrypted RFID)        │  │ • Documented Real Field Walks │  │ • Complete PHY-TAC-01 to 05   │
-│ • PHY-T1002 (Mechanical Latch Slip)   │─>│ • Non-Binary Resistance Scale │─>│ • STIX 2.1 / TAXII Export     │
+│ • PHY-T1002 (Mechanical Latch Slip)   │─>│ • Non-Binary Resistance Scale │─>│ • Structured YAML Cases       │
 │ • PHY-T1003 (REX Sensor Exposure)     │  │ • Multi-Factor Confidence     │  │ • Automated Punch Lists       │
 │ • PHY-T1004 (Active Network Drop)     │  │ • Community Case Pipeline     │  │ • Open Remediation Repository │
 └───────────────────────────────────────┘  └───────────────────────────────┘  └───────────────────────────────┘
