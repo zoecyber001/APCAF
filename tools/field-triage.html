@@ -3,104 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>APCAF - Field Triage &amp; Assessment Workbench</title>
+  <title>APCAF Field Triage &amp; Assessment Workbench</title>
+  <meta name="description" content="Standardised 45-second physical control verification and instant CISO warranty notice generator.">
   
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 
   <!-- Typography System: Inter & IBM Plex Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
+  <link rel="stylesheet" href="../styles.css">
+
   <style>
-    :root {
-      --bg: #090d13;
-      --surface: #121820;
-      --surface-border: #232d3b;
-      --surface-hover: #1c2533;
-      --text-main: #f0f6fc;
-      --text-muted: #8b949e;
-      --text-dim: #484f58;
-      --accent: #238636;
-      --accent-hover: #2ea043;
-      --tech-blue: #58a6ff;
-      --danger: #f85149;
-      --danger-bg: rgba(248, 81, 73, 0.12);
-      --warning: #d29922;
-      --warning-bg: rgba(210, 153, 34, 0.12);
-      --success: #3fb950;
-      --success-bg: rgba(63, 185, 80, 0.12);
-      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-mono: 'IBM Plex Mono', monospace;
+    /* Dedicated Field Workbench Styling Inheriting the Design System */
+    .triage-page-wrap {
+      padding-top: 100px;
+      padding-bottom: 60px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      font-family: var(--font-main);
-      line-height: 1.5;
-      padding: 24px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .triage-head-block {
+      margin-bottom: 24px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 1100px;
-    }
-
-    header {
+    .triage-step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
       margin-bottom: 20px;
-      border-bottom: 1px solid var(--surface-border);
-      padding-bottom: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 16px;
+      box-shadow: var(--shadow-card);
     }
 
-    .brand-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-title a {
-      color: inherit;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .badge {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      padding: 3px 8px;
-      border-radius: 4px;
-      background: var(--surface-hover);
-      border: 1px solid var(--surface-border);
-      color: var(--tech-blue);
-    }
-
-    /* STEP 1: OBJECT SELECTOR BAR */
-    .object-nav-card {
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: 8px;
-      padding: 14px 18px;
-      margin-bottom: 20px;
-    }
-
-    .object-nav-header {
+    .triage-step-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -109,165 +44,171 @@
       gap: 8px;
     }
 
-    .object-nav-title {
-      font-size: 0.8rem;
+    .triage-step-title {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: var(--text-muted);
+      color: var(--text-pure);
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    .object-tabs {
+    .triage-tabs {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }
 
-    .object-tab-btn {
+    .triage-tab-btn {
       font-family: var(--font-mono);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
-      padding: 7px 14px;
-      border-radius: 6px;
-      background: var(--bg);
-      border: 1px solid var(--surface-border);
-      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      color: var(--text-body);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.15s ease;
+      transition: all 140ms ease;
     }
 
-    .object-tab-btn:hover {
-      color: var(--text-main);
-      border-color: var(--text-muted);
+    .triage-tab-btn:hover {
+      border-color: var(--border-active);
+      color: var(--text-pure);
     }
 
-    .object-tab-btn.active {
-      background: var(--surface-hover);
-      color: var(--tech-blue);
-      border-color: var(--tech-blue);
+    .triage-tab-btn.active {
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-text);
+      border-color: var(--btn-primary-bg);
     }
 
-    /* MODE SELECTOR BANNER */
-    .mode-bar {
+    /* Mode selector bar */
+    .triage-mode-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: 8px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
       padding: 10px 16px;
       margin-bottom: 20px;
       flex-wrap: wrap;
       gap: 12px;
     }
 
-    .mode-status-text {
+    .triage-mode-label {
       font-family: var(--font-mono);
       font-size: 0.78rem;
-      color: var(--text-muted);
+      color: var(--text-dim);
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .mode-status-text strong {
-      color: var(--text-main);
+    .triage-mode-label strong {
+      color: var(--text-pure);
     }
 
-    .mode-btn-group {
+    .triage-mode-btns {
       display: flex;
       gap: 8px;
     }
 
-    .mode-btn {
+    .triage-mode-btn {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 600;
       padding: 6px 12px;
-      border-radius: 4px;
-      background: var(--bg);
-      border: 1px solid var(--surface-border);
-      color: var(--text-muted);
+      border-radius: var(--radius-pill);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      color: var(--text-body);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 120ms ease;
     }
 
-    .mode-btn:hover {
-      color: var(--text-main);
-      border-color: var(--text-muted);
+    .triage-mode-btn:hover {
+      border-color: var(--border-active);
+      color: var(--text-pure);
     }
 
-    .mode-btn.active {
-      background: var(--surface-hover);
-      color: var(--tech-blue);
-      border-color: var(--tech-blue);
+    .triage-mode-btn.active {
+      background: var(--bg-subtle);
+      border-color: var(--border-dark);
+      color: var(--text-pure);
+      font-weight: 700;
     }
 
-    /* META BAR */
-    .meta-bar {
+    /* Metadata Form Grid */
+    .triage-meta-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
       gap: 12px;
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: 8px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
       padding: 16px;
       margin-bottom: 24px;
+      box-shadow: var(--shadow-card);
     }
 
-    .meta-field label {
+    .triage-input-field label {
       display: block;
-      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: var(--text-muted);
-      margin-bottom: 4px;
+      color: var(--text-dim);
+      margin-bottom: 6px;
     }
 
-    .meta-field input, .meta-field select {
+    .triage-input-field input, .triage-input-field select {
       width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--surface-border);
-      border-radius: 6px;
+      background: var(--bg-app);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
       padding: 8px 12px;
-      color: var(--text-main);
+      color: var(--text-pure);
       font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
+      transition: border-color 140ms ease;
     }
 
-    .meta-field input:focus, .meta-field select:focus {
+    .triage-input-field input:focus, .triage-input-field select:focus {
       outline: none;
-      border-color: var(--accent);
+      border-color: var(--border-dark);
     }
 
-    /* CONTROL CARDS */
-    .control-cards {
+    /* Assessment Control Cards */
+    .triage-cards-list {
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
       margin-bottom: 24px;
     }
 
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: 8px;
+    .triage-control-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
       padding: 20px;
-      transition: border-color 0.2s;
+      box-shadow: var(--shadow-card);
+      transition: border-color 140ms ease;
     }
 
-    .card.hidden-by-filter {
+    .triage-control-card.hidden-by-filter {
       display: none !important;
     }
 
-    .card-header {
+    .triage-card-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -276,66 +217,60 @@
       gap: 8px;
     }
 
-    .card-title {
+    .triage-card-title {
       font-size: 1.05rem;
-      font-weight: 600;
+      font-weight: 700;
+      color: var(--text-pure);
       display: flex;
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
     }
 
-    .tag-object {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 4px;
-      background: #09090b;
-      color: #ffffff;
-      border: 1px solid var(--surface-border);
-    }
-
-    .tag-tid {
-      font-family: var(--font-mono);
-      font-weight: 700;
-      color: var(--tech-blue);
-      font-size: 0.85rem;
-      background: rgba(88, 166, 255, 0.1);
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
-
-    .tag-compliance {
+    .tag-object-badge {
       font-family: var(--font-mono);
       font-size: 0.7rem;
-      color: var(--text-muted);
-      background: var(--surface-hover);
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      background: #09090b;
+      color: #ffffff;
+    }
+
+    .tag-tid-badge {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--text-pure);
+      font-size: 0.8rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-card);
       padding: 2px 6px;
       border-radius: 4px;
     }
 
-    .tag-time {
+    .tag-time-badge {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--text-muted);
+      font-size: 0.74rem;
+      color: var(--text-dim);
+      font-weight: 600;
     }
 
-    .control-step-box {
-      background: var(--bg);
-      border: 1px solid var(--surface-border);
-      border-radius: 6px;
+    .triage-check-desc {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
       padding: 10px 14px;
       margin-bottom: 14px;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
+      color: var(--text-body);
       line-height: 1.45;
     }
 
-    .control-step-box strong {
-      color: var(--text-main);
+    .triage-check-desc strong {
+      color: var(--text-pure);
     }
 
-    .control-grid {
+    .triage-options-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
@@ -343,104 +278,107 @@
     }
 
     @media (max-width: 700px) {
-      .control-grid { grid-template-columns: 1fr; }
+      .triage-options-grid { grid-template-columns: 1fr; }
     }
 
-    .status-btn {
+    .triage-choice-btn {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 6px;
       padding: 14px;
-      border-radius: 6px;
-      background: var(--bg);
-      border: 1px solid var(--surface-border);
-      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      background: var(--bg-app);
+      border: 1px solid var(--border-card);
+      color: var(--text-dim);
       cursor: pointer;
       text-align: left;
       font-family: inherit;
-      transition: all 0.15s ease-in-out;
+      transition: all 140ms ease;
     }
 
-    .status-btn .status-title {
-      font-weight: 600;
+    .triage-choice-btn:hover {
+      background: var(--bg-surface-hover);
+      border-color: var(--border-active);
+    }
+
+    .triage-choice-btn .choice-head {
+      font-weight: 700;
       font-size: 0.88rem;
+      color: var(--text-pure);
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    .status-btn .status-desc {
-      font-size: 0.75rem;
+    .triage-choice-btn .choice-desc {
+      font-size: 0.76rem;
       line-height: 1.4;
-      color: var(--text-muted);
+      color: var(--text-body);
     }
 
-    .status-btn:hover {
-      background: var(--surface-hover);
+    .triage-choice-btn.selected-hardened {
+      background: #f0fdf4;
+      border-color: #16a34a;
+      color: #15803d;
     }
 
-    .status-btn.selected-hardened {
-      background: var(--success-bg);
-      border-color: var(--success);
-      color: var(--success);
+    .triage-choice-btn.selected-hardened .choice-head {
+      color: #15803d;
     }
 
-    .status-btn.selected-hardened .status-desc {
-      color: #a1e3a9;
+    .triage-choice-btn.selected-soft {
+      background: #fef2f2;
+      border-color: #dc2626;
+      color: #b91c1c;
     }
 
-    .status-btn.selected-soft {
-      background: var(--danger-bg);
-      border-color: var(--danger);
-      color: var(--danger);
+    .triage-choice-btn.selected-soft .choice-head {
+      color: #b91c1c;
     }
 
-    .status-btn.selected-soft .status-desc {
-      color: #ffa198;
-    }
-
-    .input-details {
+    .triage-telemetry-input {
       margin-top: 14px;
     }
 
-    .input-details label {
+    .triage-telemetry-input label {
       display: block;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-family: var(--font-mono);
-      color: var(--text-muted);
+      font-weight: 600;
+      color: var(--text-dim);
       margin-bottom: 4px;
       text-transform: uppercase;
     }
 
-    .input-details input {
+    .triage-telemetry-input input {
       width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--surface-border);
-      border-radius: 6px;
+      background: var(--bg-app);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
       padding: 8px 12px;
-      color: var(--text-main);
+      color: var(--text-pure);
       font-family: var(--font-mono);
       font-size: 0.82rem;
     }
 
-    .remediation-preview {
+    .triage-rem-preview {
       margin-top: 10px;
       padding: 8px 12px;
-      border-radius: 6px;
-      background: rgba(248, 81, 73, 0.08);
-      border: 1px solid rgba(248, 81, 73, 0.25);
+      border-radius: var(--radius-sm);
+      background: #fef2f2;
+      border: 1px solid rgba(220, 38, 38, 0.25);
       font-size: 0.76rem;
-      color: #ffa198;
+      color: #991b1b;
       font-family: var(--font-mono);
       display: none;
     }
 
-    .remediation-preview.visible {
+    .triage-rem-preview.visible {
       display: block;
     }
 
-    .actions-bar {
+    .triage-actions-row {
       display: flex;
       justify-content: flex-end;
       gap: 12px;
@@ -448,33 +386,15 @@
       flex-wrap: wrap;
     }
 
-    .btn {
-      font-family: var(--font-main);
-      font-weight: 600;
-      font-size: 0.85rem;
-      padding: 10px 18px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid transparent;
-      transition: background 0.15s;
-    }
-
-    .btn-primary { background: var(--accent); color: #ffffff; }
-    .btn-primary:hover { background: var(--accent-hover); }
-    .btn-secondary { background: var(--surface); border-color: var(--surface-border); color: var(--text-main); }
-    .btn-secondary:hover { background: var(--surface-hover); }
-
-    .output-section {
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: 8px;
+    .triage-output-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
       padding: 20px;
+      box-shadow: var(--shadow-card);
     }
 
-    .output-header {
+    .triage-output-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -483,12 +403,12 @@
       gap: 8px;
     }
 
-    pre {
-      background: var(--bg);
-      border: 1px solid var(--surface-border);
-      border-radius: 6px;
+    pre.triage-code-block {
+      background: #09090b;
+      border: 1px solid #27272a;
+      border-radius: var(--radius-sm);
       padding: 16px;
-      color: #e6edf3;
+      color: #f4f4f5;
       font-family: var(--font-mono);
       font-size: 0.8rem;
       overflow-x: auto;
@@ -497,460 +417,553 @@
       word-break: break-word;
       line-height: 1.5;
     }
-
-    @media (max-width: 640px) {
-      body {
-        padding: 16px 10px;
-      }
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-      .actions-bar {
-        flex-direction: column;
-      }
-      .actions-bar .btn {
-        width: 100%;
-        justify-content: center;
-      }
-      .card-title {
-        font-size: 0.98rem;
-      }
-    }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <header>
-    <div>
-      <div class="brand-title">
-        <a href="../index.html">
-          <svg width="22" height="22" viewBox="0 0 64 64" fill="none">
+  <!-- Precision Ambient Light Beam -->
+  <div class="hero-ambient-glow"></div>
+
+  <!-- High-End Glassmorphic Floating Island Navigation -->
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a href="../index.html" class="brand-link" aria-label="APCAF Home">
+        <div class="brand-icon-box">
+          <svg width="18" height="18" viewBox="0 0 64 64" fill="none">
             <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" />
             <path d="M32 19 V35 M26 25 H38 M28 31 H36" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
             <circle cx="32" cy="42" r="2.5" fill="#ffffff" />
           </svg>
-          <span>APCAF</span>
+        </div>
+        <span class="brand-badge">APCAF</span>
+      </a>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="../index.html">Overview</a></li>
+          <li><a href="../learn.html">Learn</a></li>
+          <li><a href="../repository.html">Repository</a></li>
+          <li><a href="../docs.html">Docs</a></li>
+          <li><a href="field-triage.html" class="active">Field Triage</a></li>
+          <li><a href="../docs.html#warranty-hold">Playbook</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="btn-nav-sow" onclick="openSowModal()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          SOW Clause
+        </button>
+        <a href="field-triage.html" class="btn-nav-primary">
+          Run 45s QA
         </a>
-        <span class="badge">FIELD TRIAGE WORKBENCH</span>
+        <button type="button" class="btn-mobile-menu-toggle" id="mobileMenuToggleBtn" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
       </div>
-      <p style="font-size: 0.84rem; color: var(--text-muted); margin-top: 4px;">
-        Adversarial Physical Control Assessment Framework: Non-Invasive QA &amp; Defect Triage
-      </p>
-    </div>
-    <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); text-align: right;">
-      Audit Walk Budget: <strong style="color: #58a6ff;">45 Seconds</strong>
+
+      <!-- Mobile Navigation Drawer -->
+      <div class="mobile-nav-drawer" id="mobileNavMenu">
+        <a href="../index.html" onclick="closeMobileMenu()">Overview</a>
+        <a href="../learn.html" onclick="closeMobileMenu()">Learn APCAF (Field Guide)</a>
+        <a href="../repository.html" onclick="closeMobileMenu()">Rule Repository</a>
+        <a href="../docs.html" onclick="closeMobileMenu()">Technical Documentation</a>
+        <a href="field-triage.html" class="active" onclick="closeMobileMenu()">45s Field Triage</a>
+        <a href="../docs.html#warranty-hold" onclick="closeMobileMenu()">CISO Warranty Playbook</a>
+      </div>
     </div>
   </header>
 
-  <!-- STEP 1: WHAT ARE YOU INSPECTING? OBJECT ROUTER -->
-  <div class="object-nav-card">
-    <div class="object-nav-header">
-      <div class="object-nav-title">
-        <span>Step 1: What are you inspecting?</span>
-      </div>
-      <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">
-        Select object to filter inspection check:
-      </span>
-    </div>
-    <div class="object-tabs">
-      <button type="button" class="object-tab-btn active" id="tabAll" onclick="filterObject('all')">
-        ALL OBJECTS (4)
-      </button>
-      <button type="button" class="object-tab-btn" id="tabDoor" onclick="filterObject('door')">
-        DOOR (PHY-T1002)
-      </button>
-      <button type="button" class="object-tab-btn" id="tabBadge" onclick="filterObject('badge')">
-        BADGE (PHY-T1001)
-      </button>
-      <button type="button" class="object-tab-btn" id="tabPort" onclick="filterObject('port')">
-        PORT (PHY-T1004)
-      </button>
-      <button type="button" class="object-tab-btn" id="tabSensor" onclick="filterObject('sensor')">
-        SENSOR (PHY-T1003)
-      </button>
-    </div>
-  </div>
-
-  <!-- MODE SELECTOR BANNER -->
-  <div class="mode-bar">
-    <div class="mode-status-text" id="modeStatusLabel">
-      Mode: <strong>New Field Assessment (Clean Slate)</strong>
-    </div>
-    <div class="mode-btn-group">
-      <button type="button" class="mode-btn active" id="btnModeNew" onclick="setToolMode('new')">
-        + New Assessment
-      </button>
-      <button type="button" class="mode-btn" id="btnModeDemo" onclick="setToolMode('demo')">
-        Load Synthetic Demo
-      </button>
-    </div>
-  </div>
-
-  <!-- META METRIC BAR -->
-  <div class="meta-bar">
-    <div class="meta-field">
-      <label for="caseId">Case ID (Schema-Bound)</label>
-      <input type="text" id="caseId" placeholder="APCAF-CASE-YYYYMMDD-01" />
-    </div>
-    <div class="meta-field">
-      <label for="assessorId">Assessor Identifier</label>
-      <input type="text" id="assessorId" placeholder="[Assessor ID or leave blank]" />
-    </div>
-    <div class="meta-field">
-      <label for="facilityType">Facility Classification</label>
-      <select id="facilityType">
-        <option value="datacenter">Datacenter / Colocation Suite</option>
-        <option value="corporate_hq">Corporate HQ / Commercial Core</option>
-        <option value="bank_branch">Financial / Cash Processing</option>
-        <option value="critical_infrastructure">Critical Infrastructure (SCADA/Ops)</option>
-        <option value="warehouse">Logistics Hub / Demarcation Zone</option>
-        <option value="other">Other / Custom Facility</option>
-      </select>
-    </div>
-    <div class="meta-field">
-      <label for="facilityRef">Facility Pseudo-ID (Anonymized)</label>
-      <input type="text" id="facilityRef" placeholder="[Target Facility / Room / Level]" />
-    </div>
-    <div class="meta-field">
-      <label for="authRef">Authorization Reference</label>
-      <input type="text" id="authRef" placeholder="[SOW Addendum / Ticket Ref]" />
-    </div>
-  </div>
-
-  <!-- 4 MVP ASSESSMENT CARDS -->
-  <div class="control-cards">
+  <main class="container triage-page-wrap">
     
-    <!-- 1. BADGE (PHY-T1001) -->
-    <div class="card" id="card-badge" data-object="badge">
-      <div class="card-header">
-        <div class="card-title">
-          <span class="tag-object">BADGE</span>
-          <span class="tag-tid">PHY-T1001</span>
-          <span>Unencrypted RFID Harvesting</span>
-          <span class="tag-compliance">ISO 27001 A.7.2 • PCI DSS Req 9.2</span>
+    <div class="triage-head-block">
+      <div class="chip-tag" style="margin-bottom: 8px;">Field Assessment Instrument • 45s Target Budget</div>
+      <h1 style="font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin-bottom: 6px; font-weight: 800; color: var(--text-pure);">
+        Field Triage &amp; Assessment Workbench
+      </h1>
+      <p style="color: var(--text-body); font-size: 0.95rem; max-width: 800px;">
+        Perform standardised non-invasive physical security evaluations, log empirical telemetry, and compile instant YAML case records and CISO warranty punch lists.
+      </p>
+    </div>
+
+    <!-- Step 1: Object Selector Bar -->
+    <div class="triage-step-card">
+      <div class="triage-step-header">
+        <div class="triage-step-title">
+          <span>Step 1: What are you inspecting?</span>
         </div>
-        <span class="tag-time">5s Check • Pocket RFID Reader</span>
+        <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim);">
+          Filter cards by physical asset:
+        </span>
       </div>
-      
-      <div class="control-step-box">
-        <strong>What are you checking?</strong> Contactless passive carrier frequency. Does this credential rely on an exposed static UID without cryptographic mutual authentication?
-      </div>
-
-      <div class="control-grid">
-        <button type="button" class="status-btn" id="btn-01-hard" onclick="setStatus('01', 'Hardened')">
-          <span class="status-title">Hardened (PHY-M1001)</span>
-          <span class="status-desc">Mutual crypto smartcard (AES-128 / DESFire EV2/EV3 / Seos / PIV); reader cryptographic SAM keys active.</span>
+      <div class="triage-tabs">
+        <button type="button" class="triage-tab-btn active" id="tabAll" onclick="filterObject('all')">
+          ALL OBJECTS (4)
         </button>
-        <button type="button" class="status-btn" id="btn-01-soft" onclick="setStatus('01', 'Soft')">
-          <span class="status-title">Legacy / Soft (Susceptible)</span>
-          <span class="status-desc">Unencrypted 125 kHz Prox carrier or static CSN without cryptographic challenge-response authentication.</span>
+        <button type="button" class="triage-tab-btn" id="tabDoor" onclick="filterObject('door')">
+          DOOR (PHY-T1002)
         </button>
-      </div>
-
-      <div class="input-details">
-        <label for="notes-01">What did you observe? (Evidence &amp; Spec)</label>
-        <input type="text" id="notes-01" placeholder="e.g., Badge carrier frequency observed (125 kHz Prox vs 13.56 MHz DESFire EV3), chip profile" />
-      </div>
-
-      <div class="remediation-preview" id="rem-01">
-        <strong>Remediation Action:</strong> Replace credential stock with AES-128 crypto smartcards (DESFire EV3 / Seos) and activate SAM keys on readers.
+        <button type="button" class="triage-tab-btn" id="tabBadge" onclick="filterObject('badge')">
+          BADGE (PHY-T1001)
+        </button>
+        <button type="button" class="triage-tab-btn" id="tabPort" onclick="filterObject('port')">
+          PORT (PHY-T1004)
+        </button>
+        <button type="button" class="triage-tab-btn" id="tabSensor" onclick="filterObject('sensor')">
+          SENSOR (PHY-T1003)
+        </button>
       </div>
     </div>
 
-    <!-- 2. DOOR (PHY-T1002) -->
-    <div class="card" id="card-door" data-object="door">
-      <div class="card-header">
-        <div class="card-title">
-          <span class="tag-object">DOOR</span>
-          <span class="tag-tid">PHY-T1002</span>
-          <span>Mechanical Latch Manipulation (Latch Slip)</span>
-          <span class="tag-compliance">NFPA 80 §6.3.1.7.1 • ANSI/SDI A250.8</span>
-        </div>
-        <span class="tag-time">15s Check • Visual &amp; Feeler Gauge</span>
+    <!-- Mode Selector Bar -->
+    <div class="triage-mode-bar">
+      <div class="triage-mode-label" id="modeStatusLabel">
+        Assessment Mode: <strong>New Field Assessment (Clean Slate)</strong>
       </div>
-      
-      <div class="control-step-box">
-        <strong>What are you checking?</strong> Latch bolt exposure and clearance margin. Does the strike margin exceed 3.2mm (1/8 in.) with direct line-of-sight to the latch bolt and no overlapping steel astragal guard?
-      </div>
-
-      <div class="control-grid">
-        <button type="button" class="status-btn" id="btn-02-hard" onclick="setStatus('02', 'Hardened')">
-          <span class="status-title">Hardened (PHY-M1002)</span>
-          <span class="status-desc">Continuous stainless steel astragal plate overlapping jamb; latch bolt fully shielded from direct manipulation.</span>
+      <div class="triage-mode-btns">
+        <button type="button" class="triage-mode-btn active" id="btnModeNew" onclick="setToolMode('new')">
+          + New Assessment
         </button>
-        <button type="button" class="status-btn" id="btn-02-soft" onclick="setStatus('02', 'Soft')">
-          <span class="status-title">Legacy / Soft (Susceptible)</span>
-          <span class="status-desc">Exposed latch bolt with clearance > 3.2mm and zero protective astragal shielding on exterior side.</span>
+        <button type="button" class="triage-mode-btn" id="btnModeDemo" onclick="setToolMode('demo')">
+          Load Synthetic Demo
         </button>
-      </div>
-
-      <div class="input-details">
-        <label for="notes-02">What did you observe? (Evidence &amp; Spec)</label>
-        <input type="text" id="notes-02" placeholder="e.g., Strike margin feeler gauge measurement in mm, astragal plate presence" />
-      </div>
-
-      <div class="remediation-preview" id="rem-02">
-        <strong>Remediation Action:</strong> Install full-height continuous stainless steel security astragal plate on outward door assembly.
       </div>
     </div>
 
-    <!-- 3. SENSOR (PHY-T1003) -->
-    <div class="card" id="card-sensor" data-object="sensor">
-      <div class="card-header">
-        <div class="card-title">
-          <span class="tag-object">SENSOR</span>
-          <span class="tag-tid">PHY-T1003</span>
-          <span>REX Sensor Blind Activation</span>
-          <span class="tag-compliance">NFPA 101 §7.2.1.6.2 • UL 294</span>
-        </div>
-        <span class="tag-time">15s Check • Visual Line-of-Sight</span>
+    <!-- Assessment Metadata Grid -->
+    <div class="triage-meta-grid">
+      <div class="triage-input-field">
+        <label for="caseId">Case ID (Schema-Bound)</label>
+        <input type="text" id="caseId" placeholder="APCAF-CASE-YYYYMMDD-01" />
       </div>
-      
-      <div class="control-step-box">
-        <strong>What are you checking?</strong> Request-to-Exit (REX) PIR sensor coverage. Is the interior REX motion sensor optical field visible through transom or threshold gaps without a directional deflector hood?
+      <div class="triage-input-field">
+        <label for="assessorId">Assessor Identifier</label>
+        <input type="text" id="assessorId" placeholder="[Assessor ID or leave blank]" />
       </div>
-
-      <div class="control-grid">
-        <button type="button" class="status-btn" id="btn-03-hard" onclick="setStatus('03', 'Hardened')">
-          <span class="status-title">Hardened (PHY-M1003)</span>
-          <span class="status-desc">UL-listed directional deflector hood restricts PIR field strictly to interior exit path; perimeter brush sweep installed.</span>
-        </button>
-        <button type="button" class="status-btn" id="btn-03-soft" onclick="setStatus('03', 'Soft')">
-          <span class="status-title">Legacy / Soft (Susceptible)</span>
-          <span class="status-desc">Unshielded wide-angle PIR sensor visible directly through door margins, allowing exterior non-contact tripping.</span>
-        </button>
+      <div class="triage-input-field">
+        <label for="facilityType">Facility Classification</label>
+        <select id="facilityType">
+          <option value="corporate_hq">Corporate HQ / Commercial Core</option>
+          <option value="datacenter">Datacenter / Colocation Suite</option>
+          <option value="bank_branch">Financial / Cash Processing</option>
+          <option value="critical_infrastructure">Critical Infrastructure (SCADA/Ops)</option>
+          <option value="warehouse">Logistics Hub / Demarcation Zone</option>
+          <option value="other">Other / Custom Facility</option>
+        </select>
       </div>
-
-      <div class="input-details">
-        <label for="notes-03">What did you observe? (Evidence &amp; Spec)</label>
-        <input type="text" id="notes-03" placeholder="e.g., Interior REX sensor model, optical line-of-sight status, deflector hood presence" />
+      <div class="triage-input-field">
+        <label for="facilityRef">Facility Identifier (Anonymized)</label>
+        <input type="text" id="facilityRef" placeholder="[Target Facility / Room / Level]" />
       </div>
-
-      <div class="remediation-preview" id="rem-03">
-        <strong>Remediation Action:</strong> Mount UL-listed directional deflector hood over interior PIR motion sensor.
+      <div class="triage-input-field">
+        <label for="authRef">Authorization Reference</label>
+        <input type="text" id="authRef" placeholder="[SOW Addendum / Ticket Ref]" />
       </div>
     </div>
 
-    <!-- 4. PORT (PHY-T1004) -->
-    <div class="card" id="card-port" data-object="port">
-      <div class="card-header">
-        <div class="card-title">
-          <span class="tag-object">PORT</span>
-          <span class="tag-tid">PHY-T1004</span>
-          <span>Exposed Active Physical Network Interface</span>
-          <span class="tag-compliance">IEEE 802.1X • NIST SP 800-53 PE-3</span>
-        </div>
-        <span class="tag-time">10s Check • Passive LED Link Tester</span>
-      </div>
+    <!-- 4 Assessment Cards -->
+    <div class="triage-cards-list">
       
-      <div class="control-step-box">
-        <strong>What are you checking?</strong> Common area Ethernet drop state. Does an accessible wall jack in an unrestricted area broadcast an active physical Layer 1 carrier without port shutdown or 802.1X quarantine?
+      <!-- 1. BADGE (PHY-T1001) -->
+      <div class="triage-control-card" id="card-badge" data-object="badge">
+        <div class="triage-card-top">
+          <div class="triage-card-title">
+            <span class="tag-object-badge">BADGE</span>
+            <span class="tag-tid-badge">PHY-T1001</span>
+            <span>Unencrypted RFID Harvesting</span>
+          </div>
+          <span class="tag-time-badge">5s Check • Pocket RFID Reader</span>
+        </div>
+        
+        <div class="triage-check-desc">
+          <strong>Step 2: What are you checking?</strong> Contactless passive carrier frequency. Does this credential rely on an exposed static UID without cryptographic mutual authentication?
+        </div>
+
+        <div class="triage-options-grid">
+          <button type="button" class="triage-choice-btn" id="btn-01-hard" onclick="setStatus('01', 'Hardened')">
+            <span class="choice-head">Hardened (PHY-M1001)</span>
+            <span class="choice-desc">Mutual crypto smartcard (AES-128 / DESFire EV2/EV3 / Seos / PIV); reader cryptographic SAM keys active.</span>
+          </button>
+          <button type="button" class="triage-choice-btn" id="btn-01-soft" onclick="setStatus('01', 'Soft')">
+            <span class="choice-head">Legacy / Soft (Susceptible)</span>
+            <span class="choice-desc">Unencrypted 125 kHz Prox carrier or static CSN without cryptographic challenge-response authentication.</span>
+          </button>
+        </div>
+
+        <div class="triage-telemetry-input">
+          <label for="notes-01">Step 3: What did you observe? (Evidence &amp; Spec)</label>
+          <input type="text" id="notes-01" placeholder="e.g., Badge carrier frequency observed (125 kHz Prox vs 13.56 MHz DESFire EV3), chip profile" />
+        </div>
+
+        <div class="triage-rem-preview" id="rem-01">
+          <strong>Remediation Action:</strong> Replace credential stock with AES-128 crypto smartcards (DESFire EV3 / Seos) and activate SAM keys on readers.
+        </div>
       </div>
 
-      <div class="control-grid">
-        <button type="button" class="status-btn" id="btn-04-hard" onclick="setStatus('04', 'Hardened')">
-          <span class="status-title">Hardened (PHY-M1004)</span>
-          <span class="status-desc">Zero Layer 1 link state (port administratively shut down / unpatched) OR documented 802.1X quarantine enforced.</span>
-        </button>
-        <button type="button" class="status-btn" id="btn-04-soft" onclick="setStatus('04', 'Soft')">
-          <span class="status-title">Legacy / Soft (Susceptible)</span>
-          <span class="status-desc">Active PHY Layer 1 link pulse LED illuminates continuously on unmonitored common area drop.</span>
-        </button>
+      <!-- 2. DOOR (PHY-T1002) -->
+      <div class="triage-control-card" id="card-door" data-object="door">
+        <div class="triage-card-top">
+          <div class="triage-card-title">
+            <span class="tag-object-badge">DOOR</span>
+            <span class="tag-tid-badge">PHY-T1002</span>
+            <span>Mechanical Latch Manipulation (Latch Slip)</span>
+          </div>
+          <span class="tag-time-badge">15s Check • Visual &amp; Feeler Gauge</span>
+        </div>
+        
+        <div class="triage-check-desc">
+          <strong>Step 2: What are you checking?</strong> Latch bolt exposure and clearance margin. Does the strike margin exceed 3.2mm (1/8 in.) with direct line-of-sight to the latch bolt and no overlapping steel astragal guard?
+        </div>
+
+        <div class="triage-options-grid">
+          <button type="button" class="triage-choice-btn" id="btn-02-hard" onclick="setStatus('02', 'Hardened')">
+            <span class="choice-head">Hardened (PHY-M1002)</span>
+            <span class="choice-desc">Continuous stainless steel astragal plate overlapping jamb; latch bolt fully shielded from direct manipulation.</span>
+          </button>
+          <button type="button" class="triage-choice-btn" id="btn-02-soft" onclick="setStatus('02', 'Soft')">
+            <span class="choice-head">Legacy / Soft (Susceptible)</span>
+            <span class="choice-desc">Exposed latch bolt with clearance > 3.2mm and zero protective astragal shielding on exterior side.</span>
+          </button>
+        </div>
+
+        <div class="triage-telemetry-input">
+          <label for="notes-02">Step 3: What did you observe? (Evidence &amp; Spec)</label>
+          <input type="text" id="notes-02" placeholder="e.g., Strike margin feeler gauge measurement in mm, astragal plate presence" />
+        </div>
+
+        <div class="triage-rem-preview" id="rem-02">
+          <strong>Remediation Action:</strong> Install full-height continuous stainless steel security astragal plate on outward door assembly.
+        </div>
       </div>
 
-      <div class="input-details">
-        <label for="notes-04">What did you observe? (Evidence &amp; Spec)</label>
-        <input type="text" id="notes-04" placeholder="e.g., Wall jack label, passive LED link pulse status, switch port isolation notes" />
+      <!-- 3. SENSOR (PHY-T1003) -->
+      <div class="triage-control-card" id="card-sensor" data-object="sensor">
+        <div class="triage-card-top">
+          <div class="triage-card-title">
+            <span class="tag-object-badge">SENSOR</span>
+            <span class="tag-tid-badge">PHY-T1003</span>
+            <span>REX Sensor Blind Activation</span>
+          </div>
+          <span class="tag-time-badge">15s Check • Visual Line-of-Sight</span>
+        </div>
+        
+        <div class="triage-check-desc">
+          <strong>Step 2: What are you checking?</strong> Request-to-Exit (REX) PIR sensor coverage. Is the interior REX motion sensor optical field visible through transom or threshold gaps without a directional deflector hood?
+        </div>
+
+        <div class="triage-options-grid">
+          <button type="button" class="triage-choice-btn" id="btn-03-hard" onclick="setStatus('03', 'Hardened')">
+            <span class="choice-head">Hardened (PHY-M1003)</span>
+            <span class="choice-desc">UL-listed directional deflector hood restricts PIR field strictly to interior exit path; perimeter brush sweep installed.</span>
+          </button>
+          <button type="button" class="triage-choice-btn" id="btn-03-soft" onclick="setStatus('03', 'Soft')">
+            <span class="choice-head">Legacy / Soft (Susceptible)</span>
+            <span class="choice-desc">Unshielded wide-angle PIR sensor visible directly through door margins, allowing exterior non-contact tripping.</span>
+          </button>
+        </div>
+
+        <div class="triage-telemetry-input">
+          <label for="notes-03">Step 3: What did you observe? (Evidence &amp; Spec)</label>
+          <input type="text" id="notes-03" placeholder="e.g., Interior REX sensor model, optical line-of-sight status, deflector hood presence" />
+        </div>
+
+        <div class="triage-rem-preview" id="rem-03">
+          <strong>Remediation Action:</strong> Mount UL-listed directional deflector hood over interior PIR motion sensor.
+        </div>
       </div>
 
-      <div class="remediation-preview" id="rem-04">
-        <strong>Remediation Action:</strong> Administratively shut down unmonitored switch ports at patch panel or configure 802.1X quarantine.
+      <!-- 4. PORT (PHY-T1004) -->
+      <div class="triage-control-card" id="card-port" data-object="port">
+        <div class="triage-card-top">
+          <div class="triage-card-title">
+            <span class="tag-object-badge">PORT</span>
+            <span class="tag-tid-badge">PHY-T1004</span>
+            <span>Exposed Active Physical Network Interface</span>
+          </div>
+          <span class="tag-time-badge">10s Check • Passive LED Link Tester</span>
+        </div>
+        
+        <div class="triage-check-desc">
+          <strong>Step 2: What are you checking?</strong> Common area Ethernet drop state. Does an accessible wall jack in an unrestricted area broadcast an active physical Layer 1 carrier without port shutdown or 802.1X quarantine?
+        </div>
+
+        <div class="triage-options-grid">
+          <button type="button" class="triage-choice-btn" id="btn-04-hard" onclick="setStatus('04', 'Hardened')">
+            <span class="choice-head">Hardened (PHY-M1004)</span>
+            <span class="choice-desc">Zero Layer 1 link state (port administratively shut down / unpatched) OR documented 802.1X quarantine enforced.</span>
+          </button>
+          <button type="button" class="triage-choice-btn" id="btn-04-soft" onclick="setStatus('04', 'Soft')">
+            <span class="choice-head">Legacy / Soft (Susceptible)</span>
+            <span class="choice-desc">Active PHY Layer 1 link pulse LED illuminates continuously on unmonitored common area drop.</span>
+          </button>
+        </div>
+
+        <div class="triage-telemetry-input">
+          <label for="notes-04">Step 3: What did you observe? (Evidence &amp; Spec)</label>
+          <input type="text" id="notes-04" placeholder="e.g., Wall jack label, passive LED link pulse status, switch port isolation notes" />
+        </div>
+
+        <div class="triage-rem-preview" id="rem-04">
+          <strong>Remediation Action:</strong> Administratively shut down unmonitored switch ports at patch panel or configure 802.1X quarantine.
+        </div>
       </div>
+
     </div>
 
+    <!-- Actions Row -->
+    <div class="triage-actions-row">
+      <button type="button" class="resend-btn-ghost" onclick="generateOutput('yaml')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        Export YAML Case Record
+      </button>
+      <button type="button" class="resend-btn-main" onclick="generateOutput('punchlist')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Generate Vendor Warranty Notice
+      </button>
+    </div>
+
+    <!-- Output Section -->
+    <div class="triage-output-card">
+      <div class="triage-output-header">
+        <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--text-pure);" id="outputTitle">Generated Output</h3>
+        <button type="button" class="resend-btn-ghost" style="padding: 5px 12px; font-size: 0.76rem; min-height: auto;" onclick="copyOutput()">
+          Copy Text
+        </button>
+      </div>
+      <pre class="triage-code-block" id="outputArea">Select an inspection object above, choose your assessment classification, and enter observation telemetry to compile output.</pre>
+    </div>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="brand-icon-box" style="width: 24px; height: 24px;">
+          <svg width="14" height="14" viewBox="0 0 64 64" fill="none">
+            <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-dim);">
+          APCAF: Adversarial Physical Control Assessment Framework • Open Specification (CC BY 4.0)
+        </div>
+      </div>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="../index.html" style="font-size: 0.82rem; color: var(--text-body);">Overview</a>
+        <a href="../learn.html" style="font-size: 0.82rem; color: var(--text-body);">Learn APCAF</a>
+        <a href="../repository.html" style="font-size: 0.82rem; color: var(--text-body);">Rule Repository</a>
+        <a href="../docs.html" style="font-size: 0.82rem; color: var(--text-body);">Documentation</a>
+        <a href="field-triage.html" style="font-size: 0.82rem; color: var(--text-body);">Field Triage</a>
+        <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener" style="font-size: 0.82rem; color: var(--text-body);">GitHub (v1.0.0)</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SOW Consent Clause Modal Sheet -->
+  <div class="modal-sheet-backdrop" id="sowModal">
+    <div class="modal-sheet-card">
+      <div class="modal-sheet-header">
+        <div>
+          <span class="chip-tag">Engagement Addendum</span>
+          <h3 style="margin-top: 6px; font-size: 1.15rem;">Audit Scope &amp; Consent Clause</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeSowModal()" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-sheet-main">
+        <div class="spec-sheet-block" style="border-left: 3px solid var(--border-dark);">
+          <div class="block-title" style="color: var(--text-pure);">Single-Sentence Fast-Path Clause</div>
+          <p id="sowClauseText" style="font-size: 0.9rem; color: var(--text-head); font-style: italic;">
+            "Client explicitly authorizes the assessment team to perform non-invasive, passive radio frequency (RF) credential reads and non-intrusive passive physical network port link detection during the inspection to verify vendor hardware installation specifications."
+          </p>
+        </div>
+
+        <div class="spec-sheet-block">
+          <div class="block-title">Scope &amp; Life-Safety Protection Guarantees</div>
+          <p style="font-size: 0.82rem; color: var(--text-body); line-height: 1.5;">
+            • <strong>Zero Operational Impact:</strong> Strictly non-intrusive reads only. No packet injection or sniffing.<br>
+            • <strong>Life-Safety Non-Interference:</strong> Zero manipulation of fire alarm, emergency egress, or crash bar hardware.<br>
+            • <strong>Contractual Purpose:</strong> Generates a quality assurance scorecard to assist client in validating contractor warranty deliverables.
+          </p>
+        </div>
+
+        <button type="button" class="btn-nav-primary" style="width: 100%; justify-content: center; padding: 12px; border-radius: var(--radius-pill);" onclick="copySowClauseAndClose()">
+          Copy SOW Clause to Clipboard
+        </button>
+      </div>
+    </div>
   </div>
 
-  <div class="actions-bar">
-    <button type="button" class="btn btn-secondary" onclick="generateOutput('yaml')">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-      </svg>
-      Export YAML Case Record
-    </button>
-    <button type="button" class="btn btn-primary" onclick="generateOutput('punchlist')">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-        <polyline points="14 2 14 8 20 8"></polyline>
-        <line x1="16" y1="13" x2="8" y2="13"></line>
-        <line x1="16" y1="17" x2="8" y2="17"></line>
-      </svg>
-      Generate Vendor Warranty Notice
-    </button>
-  </div>
+  <script src="../app.js"></script>
+  <script>
+    let currentMode = 'new'; // 'new' | 'demo'
+    const state = {
+      '01': null,
+      '02': null,
+      '03': null,
+      '04': null
+    };
 
-  <div class="output-section">
-    <div class="output-header">
-      <h3 style="font-size: 0.95rem; font-weight: 600;" id="outputTitle">Generated Output</h3>
-      <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.75rem;" onclick="copyOutput()">Copy Text</button>
-    </div>
-    <pre id="outputArea">Select an inspection object above, choose your assessment classification, and enter observation telemetry to compile output.</pre>
-  </div>
-</div>
+    // Object filter handler
+    function filterObject(objName) {
+      const tabs = ['all', 'door', 'badge', 'port', 'sensor'];
+      tabs.forEach(tab => {
+        const btn = document.getElementById(`tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+        if (btn) {
+          if (tab === objName) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
+      });
 
-<script>
-  let currentMode = 'new'; // 'new' | 'demo'
-  const state = {
-    '01': null,
-    '02': null,
-    '03': null,
-    '04': null
-  };
+      const cards = document.querySelectorAll('.triage-control-card[data-object]');
+      cards.forEach(card => {
+        if (objName === 'all' || card.getAttribute('data-object') === objName) {
+          card.classList.remove('hidden-by-filter');
+        } else {
+          card.classList.add('hidden-by-filter');
+        }
+      });
+    }
 
-  // Object filter handler
-  function filterObject(objName) {
-    const tabs = ['all', 'door', 'badge', 'port', 'sensor'];
-    tabs.forEach(tab => {
-      const btn = document.getElementById(`tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
-      if (btn) {
-        if (tab === objName) btn.classList.add('active');
-        else btn.classList.remove('active');
-      }
-    });
+    function setStatus(controlId, status) {
+      state[controlId] = status;
+      const hardBtn = document.getElementById(`btn-${controlId}-hard`);
+      const softBtn = document.getElementById(`btn-${controlId}-soft`);
+      const remBox = document.getElementById(`rem-${controlId}`);
 
-    const cards = document.querySelectorAll('.card[data-object]');
-    cards.forEach(card => {
-      if (objName === 'all' || card.getAttribute('data-object') === objName) {
-        card.classList.remove('hidden-by-filter');
+      if (status === 'Hardened') {
+        hardBtn.className = 'triage-choice-btn selected-hardened';
+        softBtn.className = 'triage-choice-btn';
+        if (remBox) remBox.classList.remove('visible');
+      } else if (status === 'Soft') {
+        hardBtn.className = 'triage-choice-btn';
+        softBtn.className = 'triage-choice-btn selected-soft';
+        if (remBox) remBox.classList.add('visible');
       } else {
-        card.classList.add('hidden-by-filter');
+        hardBtn.className = 'triage-choice-btn';
+        softBtn.className = 'triage-choice-btn';
+        if (remBox) remBox.classList.remove('visible');
       }
-    });
-  }
-
-  function setStatus(controlId, status) {
-    state[controlId] = status;
-    const hardBtn = document.getElementById(`btn-${controlId}-hard`);
-    const softBtn = document.getElementById(`btn-${controlId}-soft`);
-    const remBox = document.getElementById(`rem-${controlId}`);
-
-    if (status === 'Hardened') {
-      hardBtn.className = 'status-btn selected-hardened';
-      softBtn.className = 'status-btn';
-      if (remBox) remBox.classList.remove('visible');
-    } else if (status === 'Soft') {
-      hardBtn.className = 'status-btn';
-      softBtn.className = 'status-btn selected-soft';
-      if (remBox) remBox.classList.add('visible');
-    } else {
-      hardBtn.className = 'status-btn';
-      softBtn.className = 'status-btn';
-      if (remBox) remBox.classList.remove('visible');
-    }
-  }
-
-  function setToolMode(mode) {
-    currentMode = mode;
-    const btnNew = document.getElementById('btnModeNew');
-    const btnDemo = document.getElementById('btnModeDemo');
-    const statusLabel = document.getElementById('modeStatusLabel');
-
-    if (mode === 'new') {
-      btnNew.classList.add('active');
-      btnDemo.classList.remove('active');
-      statusLabel.innerHTML = 'Mode: <strong>New Field Assessment (Clean Slate)</strong>';
-      
-      // Reset inputs
-      document.getElementById('caseId').value = '';
-      document.getElementById('assessorId').value = '';
-      document.getElementById('facilityRef').value = '';
-      document.getElementById('authRef').value = '';
-      document.getElementById('notes-01').value = '';
-      document.getElementById('notes-02').value = '';
-      document.getElementById('notes-03').value = '';
-      document.getElementById('notes-04').value = '';
-
-      ['01', '02', '03', '04'].forEach(id => setStatus(id, null));
-      document.getElementById('outputArea').textContent = "Select an inspection object above, choose your assessment classification, and enter observation telemetry to compile output.";
-      document.getElementById('outputTitle').innerText = "Generated Output";
-    } else {
-      btnNew.classList.remove('active');
-      btnDemo.classList.add('active');
-      statusLabel.innerHTML = 'Mode: <strong style="color: var(--warning);">Synthetic Demonstration Fixture (Simulated)</strong>';
-      
-      // Populate synthetic example
-      document.getElementById('caseId').value = 'APCAF-DEMO-001';
-      document.getElementById('assessorId').value = 'APCAF-SYNTHETIC-DEMO-RUNNER';
-      document.getElementById('facilityType').value = 'datacenter';
-      document.getElementById('facilityRef').value = 'synthetic-demo-datacenter-001';
-      document.getElementById('authRef').value = 'SYNTHETIC-DEMO-SOW-CLAUSE-01';
-
-      setStatus('01', 'Soft');
-      document.getElementById('notes-01').value = 'HID 125kHz H10301 (26-bit unencrypted Prox credentials active)';
-
-      setStatus('02', 'Soft');
-      document.getElementById('notes-02').value = 'Server Suite outward door gap (4.5mm) exceeding NFPA 80 limit; no astragal latch guard';
-
-      setStatus('03', 'Soft');
-      document.getElementById('notes-03').value = 'Unshielded Bosch DS160 REX sensor PIR lens visible through top transom margin';
-
-      setStatus('04', 'Hardened');
-      document.getElementById('notes-04').value = 'Public reception lobby wall RJ-45 drops show zero Layer 1 link pulse (port shutdown verified)';
-
-      generateOutput('yaml');
-    }
-  }
-
-  function generateOutput(mode) {
-    const rawCaseId = document.getElementById('caseId').value.trim();
-    const caseId = rawCaseId || (currentMode === 'demo' ? 'APCAF-DEMO-001' : 'APCAF-CASE-UNSPECIFIED');
-    const rawAssessorId = document.getElementById('assessorId').value.trim();
-    const assessorId = currentMode === 'demo' ? 'APCAF-SYNTHETIC-DEMO-RUNNER' : (rawAssessorId ? `"${rawAssessorId}"` : 'null');
-    
-    const facilityType = document.getElementById('facilityType').value;
-    const facilityRef = document.getElementById('facilityRef').value.trim() || '[Target Facility / Area Unspecified]';
-    const authRef = document.getElementById('authRef').value.trim() || '[Authorization Reference Unspecified]';
-    
-    const notes01 = document.getElementById('notes-01').value.trim() || 'No specific telemetry logged';
-    const notes02 = document.getElementById('notes-02').value.trim() || 'No specific telemetry logged';
-    const notes03 = document.getElementById('notes-03').value.trim() || 'No specific telemetry logged';
-    const notes04 = document.getElementById('notes-04').value.trim() || 'No specific telemetry logged';
-
-    const outputArea = document.getElementById('outputArea');
-    const outputTitle = document.getElementById('outputTitle');
-
-    // Filter only assessed controls
-    const assessedList = [];
-    if (state['01'] !== null) assessedList.push({ id: '01', controlId: 'APCAF-01', tacticId: 'PHY-TAC-02', tid: 'PHY-T1001', name: 'Unencrypted RFID Harvesting', status: state['01'], notes: notes01, time: 5, mitigation: 'PHY-M1001', action: 'Replace credential stock with AES-128 crypto smartcards (DESFire EV3 / Seos) and activate SAM keys on readers.' });
-    if (state['02'] !== null) assessedList.push({ id: '02', controlId: 'APCAF-02', tacticId: 'PHY-TAC-03', tid: 'PHY-T1002', name: 'Mechanical Latch Manipulation (Latch Slip)', status: state['02'], notes: notes02, time: 15, mitigation: 'PHY-M1002', action: 'Install full-height continuous stainless steel security astragal plate.' });
-    if (state['03'] !== null) assessedList.push({ id: '03', controlId: 'APCAF-02', tacticId: 'PHY-TAC-03', tid: 'PHY-T1003', name: 'REX Sensor Blind Activation', status: state['03'], notes: notes03, time: 15, mitigation: 'PHY-M1003', action: 'Mount UL-listed directional deflector hood over interior PIR motion sensor.' });
-    if (state['04'] !== null) assessedList.push({ id: '04', controlId: 'APCAF-03', tacticId: 'PHY-TAC-05', tid: 'PHY-T1004', name: 'Exposed Active Physical Network Interface', status: state['04'], notes: notes04, time: 10, mitigation: 'PHY-M1004', action: 'Administratively shut down unmonitored switch ports at patch panel or configure 802.1X quarantine.' });
-
-    if (assessedList.length === 0) {
-      outputTitle.innerText = "Notice: No Controls Assessed";
-      outputArea.textContent = "Please select at least one control status (Hardened or Legacy/Soft) above to compile an APCAF assessment record.";
-      return;
     }
 
-    const softCount = assessedList.filter(item => item.status === 'Soft').length;
-    const allHardened = softCount === 0;
+    function setToolMode(mode) {
+      currentMode = mode;
+      const btnNew = document.getElementById('btnModeNew');
+      const btnDemo = document.getElementById('btnModeDemo');
+      const statusLabel = document.getElementById('modeStatusLabel');
 
-    if (mode === 'yaml') {
-      outputTitle.innerText = "ATT&CK-Aligned YAML Case Record (" + caseId + ")";
-      
-      const caseType = currentMode === 'demo' ? 'SYNTHETIC_DEMO' : 'FIELD_OBSERVED';
-      const evidenceStatus = currentMode === 'demo' ? 'NO_FIELD_EVIDENCE' : 'PRIMARY_FIELD_EVIDENCE';
-      const valStatus = currentMode === 'demo' ? 'synthetic_fixture' : 'unverified';
-      const evidenceType = currentMode === 'demo' ? 'synthetic_fixture' : 'observation';
-      
-      const vendorResolution = allHardened ? 'NO_REMEDIATION_REQUIRED' : 'PENDING';
-      const punchlistIssued = softCount > 0;
-      const invoiceHold = softCount > 0;
+      if (mode === 'new') {
+        btnNew.classList.add('active');
+        btnDemo.classList.remove('active');
+        statusLabel.innerHTML = 'Assessment Mode: <strong>New Field Assessment (Clean Slate)</strong>';
+        
+        // Reset inputs
+        document.getElementById('caseId').value = '';
+        document.getElementById('assessorId').value = '';
+        document.getElementById('facilityRef').value = '';
+        document.getElementById('authRef').value = '';
+        document.getElementById('notes-01').value = '';
+        document.getElementById('notes-02').value = '';
+        document.getElementById('notes-03').value = '';
+        document.getElementById('notes-04').value = '';
 
-      let findingsYaml = assessedList.map(item => `  - control_id: "${item.controlId}"
+        ['01', '02', '03', '04'].forEach(id => setStatus(id, null));
+        document.getElementById('outputArea').textContent = "Select an inspection object above, choose your assessment classification, and enter observation telemetry to compile output.";
+        document.getElementById('outputTitle').innerText = "Generated Output";
+      } else {
+        btnNew.classList.remove('active');
+        btnDemo.classList.add('active');
+        statusLabel.innerHTML = 'Assessment Mode: <strong style="color: #d97706;">Synthetic Demonstration Fixture (Simulated)</strong>';
+        
+        // Populate synthetic example
+        document.getElementById('caseId').value = 'APCAF-DEMO-001';
+        document.getElementById('assessorId').value = 'APCAF-SYNTHETIC-DEMO-RUNNER';
+        document.getElementById('facilityType').value = 'datacenter';
+        document.getElementById('facilityRef').value = 'synthetic-demo-datacenter-001';
+        document.getElementById('authRef').value = 'SYNTHETIC-DEMO-SOW-CLAUSE-01';
+
+        setStatus('01', 'Soft');
+        document.getElementById('notes-01').value = 'HID 125kHz H10301 (26-bit unencrypted Prox credentials active)';
+
+        setStatus('02', 'Soft');
+        document.getElementById('notes-02').value = 'Server Suite outward door gap (4.5mm) exceeding NFPA 80 limit; no astragal latch guard';
+
+        setStatus('03', 'Soft');
+        document.getElementById('notes-03').value = 'Unshielded Bosch DS160 REX sensor PIR lens visible through top transom margin';
+
+        setStatus('04', 'Hardened');
+        document.getElementById('notes-04').value = 'Public reception lobby wall RJ-45 drops show zero Layer 1 link pulse (port shutdown verified)';
+
+        generateOutput('yaml');
+      }
+    }
+
+    function generateOutput(mode) {
+      const rawCaseId = document.getElementById('caseId').value.trim();
+      const caseId = rawCaseId || (currentMode === 'demo' ? 'APCAF-DEMO-001' : 'APCAF-CASE-UNSPECIFIED');
+      const rawAssessorId = document.getElementById('assessorId').value.trim();
+      const assessorId = currentMode === 'demo' ? 'APCAF-SYNTHETIC-DEMO-RUNNER' : (rawAssessorId ? `"${rawAssessorId}"` : 'null');
+      
+      const facilityType = document.getElementById('facilityType').value;
+      const facilityRef = document.getElementById('facilityRef').value.trim() || '[Target Facility / Area Unspecified]';
+      const authRef = document.getElementById('authRef').value.trim() || '[Authorization Reference Unspecified]';
+      
+      const notes01 = document.getElementById('notes-01').value.trim() || 'No specific telemetry logged';
+      const notes02 = document.getElementById('notes-02').value.trim() || 'No specific telemetry logged';
+      const notes03 = document.getElementById('notes-03').value.trim() || 'No specific telemetry logged';
+      const notes04 = document.getElementById('notes-04').value.trim() || 'No specific telemetry logged';
+
+      const outputArea = document.getElementById('outputArea');
+      const outputTitle = document.getElementById('outputTitle');
+
+      // Filter only assessed controls
+      const assessedList = [];
+      if (state['01'] !== null) assessedList.push({ id: '01', controlId: 'APCAF-01', tacticId: 'PHY-TAC-02', tid: 'PHY-T1001', name: 'Unencrypted RFID Harvesting', status: state['01'], notes: notes01, time: 5, mitigation: 'PHY-M1001', action: 'Replace credential stock with AES-128 crypto smartcards (DESFire EV3 / Seos) and activate SAM keys on readers.' });
+      if (state['02'] !== null) assessedList.push({ id: '02', controlId: 'APCAF-02', tacticId: 'PHY-TAC-03', tid: 'PHY-T1002', name: 'Mechanical Latch Manipulation (Latch Slip)', status: state['02'], notes: notes02, time: 15, mitigation: 'PHY-M1002', action: 'Install full-height continuous stainless steel security astragal plate on outward door assembly.' });
+      if (state['03'] !== null) assessedList.push({ id: '03', controlId: 'APCAF-02', tacticId: 'PHY-TAC-03', tid: 'PHY-T1003', name: 'REX Sensor Blind Activation', status: state['03'], notes: notes03, time: 15, mitigation: 'PHY-M1003', action: 'Mount UL-listed directional deflector hood over interior PIR motion sensor.' });
+      if (state['04'] !== null) assessedList.push({ id: '04', controlId: 'APCAF-03', tacticId: 'PHY-TAC-05', tid: 'PHY-T1004', name: 'Exposed Active Physical Network Interface', status: state['04'], notes: notes04, time: 10, mitigation: 'PHY-M1004', action: 'Administratively shut down unmonitored switch ports at patch panel or configure 802.1X quarantine.' });
+
+      if (assessedList.length === 0) {
+        outputTitle.innerText = "Notice: No Controls Assessed";
+        outputArea.textContent = "Please select at least one control status (Hardened or Legacy/Soft) above to compile an APCAF assessment record.";
+        return;
+      }
+
+      const softCount = assessedList.filter(item => item.status === 'Soft').length;
+      const allHardened = softCount === 0;
+
+      if (mode === 'yaml') {
+        outputTitle.innerText = "ATT&CK-Aligned YAML Case Record (" + caseId + ")";
+        
+        const caseType = currentMode === 'demo' ? 'SYNTHETIC_DEMO' : 'FIELD_OBSERVED';
+        const evidenceStatus = currentMode === 'demo' ? 'NO_FIELD_EVIDENCE' : 'PRIMARY_FIELD_EVIDENCE';
+        const valStatus = currentMode === 'demo' ? 'synthetic_fixture' : 'unverified';
+        const evidenceType = currentMode === 'demo' ? 'synthetic_fixture' : 'observation';
+        
+        const vendorResolution = allHardened ? 'NO_REMEDIATION_REQUIRED' : 'PENDING';
+        const punchlistIssued = softCount > 0;
+        const invoiceHold = softCount > 0;
+
+        let findingsYaml = assessedList.map(item => `  - control_id: "${item.controlId}"
     tactic_id: "${item.tacticId}"
     technique_id: "${item.tid}"
     technique_name: "${item.name}"
@@ -962,7 +975,7 @@
     remediation_action: "${item.action}"
     vendor_warranty_applicable: ${item.status === 'Soft'}`).join('\n\n');
 
-      const yaml = `# -----------------------------------------------------------------------------
+        const yaml = `# -----------------------------------------------------------------------------
 # APCAF CASE ASSESSMENT RECORD
 # CASE_TYPE: ${caseType}
 # EVIDENCE_STATUS: ${evidenceStatus}
@@ -995,12 +1008,12 @@ remediation_status:
   vendor_resolution: "${vendorResolution}"
   notes: "${currentMode === 'demo' ? 'Synthetic demonstration example for schema validation.' : (allHardened ? 'All evaluated controls verified hardened. No non-conformance identified.' : 'Actionable non-conformance punchlist compiled under APCAF triage.')}"`;
 
-      outputArea.textContent = yaml;
-    } else {
-      if (allHardened) {
-        outputTitle.innerText = "QA Physical Verification Pass Summary";
-        const passItems = assessedList.map(item => `* [PASS] ${item.controlId} / ${item.tid} (${item.name}): Verified Hardened (${item.notes}).`).join('\n');
-        const passDoc = `# APCAF QUALITY ASSURANCE VERIFICATION SUMMARY
+        outputArea.textContent = yaml;
+      } else {
+        if (allHardened) {
+          outputTitle.innerText = "QA Physical Verification Pass Summary";
+          const passItems = assessedList.map(item => `* [PASS] ${item.controlId} / ${item.tid} (${item.name}): Verified Hardened (${item.notes}).`).join('\n');
+          const passDoc = `# APCAF QUALITY ASSURANCE VERIFICATION SUMMARY
 ## Status: All Evaluated Physical Controls Verified Hardened
 
 TO: Project Management / Commissioning Authority
@@ -1018,16 +1031,16 @@ A passive APCAF physical security verification was completed for the designated 
 ${passItems}
 
 CONCLUSION: Zero non-conformance defects flagged among assessed controls. Physical security commissioning milestone recommended for approval.`;
-        outputArea.textContent = passDoc;
-      } else {
-        outputTitle.innerText = "CISO Vendor Non-Conformance Notice (Defect Punch List)";
-        const defectsList = assessedList.filter(item => item.status === 'Soft');
-        const defectItems = defectsList.map(item => `* [${item.controlId} / ${item.tid}] ${item.name}:
+          outputArea.textContent = passDoc;
+        } else {
+          outputTitle.innerText = "CISO Vendor Non-Conformance Notice (Defect Punch List)";
+          const defectsList = assessedList.filter(item => item.status === 'Soft');
+          const defectItems = defectsList.map(item => `* [${item.controlId} / ${item.tid}] ${item.name}:
   - Observed Condition: ${item.notes}
   - Mitigation Standard: ${item.mitigation}
   - Remediation Action: ${item.action}`).join('\n\n');
 
-        const doc = `# VENDOR WARRANTY NON-CONFORMANCE NOTICE
+          const doc = `# VENDOR WARRANTY NON-CONFORMANCE NOTICE
 ## Physical Control Installation Defects Identified
 
 TO: Physical Security Systems Integrator / General Contractor
@@ -1048,27 +1061,27 @@ ${defectItems}
 ---
 Notice: This notice identifies physical control installation non-conformances and does not constitute legal advice. Actionability is subject to applicable construction contracts and local jurisdiction.
 Verification Protocol: A follow-up APCAF QA re-inspection will verify full 'Hardened' status prior to retainage release.`;
-        outputArea.textContent = doc;
+          outputArea.textContent = doc;
+        }
       }
     }
-  }
 
-  function copyOutput() {
-    const text = document.getElementById('outputArea').textContent;
-    if (!text) return;
-    navigator.clipboard.writeText(text).then(() => {
-      alert('Copied output to clipboard.');
-    });
-  }
-
-  // Parse URL query parameter (e.g. ?object=door)
-  window.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    const objParam = params.get('object');
-    if (objParam && ['door', 'badge', 'port', 'sensor'].includes(objParam.toLowerCase())) {
-      filterObject(objParam.toLowerCase());
+    function copyOutput() {
+      const text = document.getElementById('outputArea').textContent;
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Copied output to clipboard.');
+      });
     }
-  });
-</script>
+
+    // Parse URL query parameter (e.g. ?object=door)
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const objParam = params.get('object');
+      if (objParam && ['door', 'badge', 'port', 'sensor'].includes(objParam.toLowerCase())) {
+        filterObject(objParam.toLowerCase());
+      }
+    });
+  </script>
 </body>
 </html>
