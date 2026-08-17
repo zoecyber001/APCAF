@@ -2194,6 +2194,62 @@ code, pre {
 /* ==========================================================================
    Core 4 Techniques Visual Cards
    ========================================================================== */
+/* ==========================================================================
+   5-Step APCAF Assessment Chain Model
+   Tactic -> Technique -> Observation -> Classification -> Remediation
+   ========================================================================== */
+.chain-model-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-top: 24px;
+}
+
+@media (max-width: 960px) {
+  .chain-model-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .chain-model-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chain-step-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+.chain-step-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.chain-step-title {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-pure);
+}
+
+.chain-step-desc {
+  font-size: 0.8rem;
+  color: var(--text-body);
+  line-height: 1.45;
+}
+
 .tech-visual-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
