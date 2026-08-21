@@ -787,21 +787,21 @@
   </footer>
 
   <!-- SOW Consent Clause Modal Sheet -->
-  <div class="modal-sheet-backdrop" id="sowModal">
-    <div class="modal-sheet-card">
-      <div class="modal-sheet-header">
+  <div class="modal-overlay modal-sheet-backdrop" id="sowModal">
+    <div class="modal-sheet modal-sheet-card">
+      <div class="modal-sheet-head modal-sheet-header">
         <div>
           <span class="chip-tag">Engagement Addendum</span>
           <h3 style="margin-top: 6px; font-size: 1.15rem;">Audit Scope &amp; Consent Clause</h3>
         </div>
-        <button class="modal-close-btn" onclick="closeSowModal()" aria-label="Close">
+        <button type="button" class="modal-close-btn" onclick="closeSowModal()" aria-label="Close">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
       </div>
-      <div class="modal-sheet-main">
+      <div class="modal-sheet-main modal-sheet-body">
         <div class="spec-sheet-block" style="border-left: 3px solid var(--border-dark);">
           <div class="block-title" style="color: var(--text-pure);">Single-Sentence Fast-Path Clause</div>
           <p id="sowClauseText" style="font-size: 0.9rem; color: var(--text-head); font-style: italic;">
