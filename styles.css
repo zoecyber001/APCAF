@@ -380,27 +380,31 @@ code, pre {
 }
 
 .btn-nav-sow {
-  padding: 6px 12px;
+  padding: 6px 13px;
   font-size: 0.76rem;
-  font-weight: 600;
+  font-weight: 700;
   font-family: var(--font-mono);
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid var(--border-card);
-  color: var(--text-head);
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   transition: all 140ms var(--ease-out);
   white-space: nowrap;
 }
 
+.btn-nav-sow svg {
+  stroke: #ffffff !important;
+}
+
 .btn-nav-sow:hover {
-  color: var(--text-pure);
-  border-color: var(--border-active);
-  background: #ffffff;
+  background: #18181b !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
 }
 
 .btn-nav-primary {
@@ -1733,15 +1737,73 @@ code, pre {
   background: var(--bg-surface-elevated);
 }
 
+/* Creative Technical Data Caliper & Architectural Taglines */
+.spec-tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-pure);
+  margin-bottom: 14px;
+  padding: 4px 0;
+  text-transform: uppercase;
+}
+
+.spec-tagline-kicker {
+  color: var(--accent-sky);
+  font-weight: 800;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-card);
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.spec-tagline-sep {
+  color: var(--text-dim);
+  font-weight: 400;
+  user-select: none;
+}
+
+.spec-tagline-title {
+  color: var(--text-head);
+  letter-spacing: 0.06em;
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-sky);
+  margin-bottom: 8px;
+}
+
+.section-eyebrow::before {
+  content: "//";
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
 .chip-tag {
   font-family: var(--font-mono);
   font-size: 0.72rem;
+  font-weight: 600;
   padding: 2px 8px;
-  border-radius: var(--radius-pill);
-  background: var(--bg-subtle);
+  border-radius: 2px;
+  background: var(--bg-surface-elevated);
   border: 1px solid var(--border-card);
-  color: var(--text-head);
-  display: inline-block;
+  border-left: 2px solid var(--accent-blue-subtle);
+  color: var(--text-pure);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   white-space: nowrap;
 }
 
@@ -3244,29 +3306,29 @@ code, pre {
 /* ==========================================================================
    Field Assessment Offline Indicator & Status
    ========================================================================== */
+/* ==========================================================================
+   Field Assessment Offline Indicator & Status
+   ========================================================================== */
 .field-offline-status {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--bg-subtle);
+  background: var(--bg-surface-elevated);
   border: 1px solid var(--border-card);
+  border-left: 2px solid var(--status-hardened);
   padding: 6px 12px;
-  border-radius: var(--radius-pill);
+  border-radius: 2px;
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: var(--text-dim);
+  color: var(--text-pure);
   text-transform: uppercase;
 }
 
-.field-offline-status .offline-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
-  display: inline-block;
+.field-offline-status .offline-badge-tag {
+  color: var(--status-hardened);
+  font-weight: 800;
 }
 
 /* ==========================================================================
