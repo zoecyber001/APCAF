@@ -106,11 +106,11 @@ Below is the foundational technique mapping for the core baseline techniques:
 * **Tactic:** `PHY-TAC-03: Portal & Architectural Barrier Protection`
 * **Target Object:** `DOOR`
 * **Technique Hypothesis:** Door and frame geometry may permit mechanical manipulation of the latch bolt assembly where protective physical shielding is absent and strike clearances exceed engineering tolerances.
-* **Assessment Condition:** Does the door-to-frame operating clearance exceed 3.2mm (1/8 in.) with direct line-of-sight to the latch bolt and zero overlapping protective steel astragal guard?
+* **Assessment Condition:** Does the door-to-frame operating clearance exceed 3.2mm (1/8 in.) with direct line-of-sight to the latch bolt and zero overlapping protective steel astragal guard, where applicable standards or specifications mandate tight margins or shielding?
 * **Sub-Techniques:**
   * `PHY-T1002.001`: Perimeter strike gap exceeding 3.2mm on outward-opening doors.
   * `PHY-T1002.002`: Absence or incomplete coverage of protective astragal guard.
-* **Non-Invasive Inspection Procedure (15s):** Visual inspection and feeler gap gauge measurement. Under **NFPA 80 (2022) §6.3.1.7.1** and **ANSI/SDI A250.8 / SDI-122**, the maximum allowable perimeter operating clearance between door and frame is **1/8 in. (3.18 mm / 3.2 mm)** for hollow metal doors. If door gap exceeds 3.2mm and lacks an overlapping continuous stainless steel astragal plate, classify as **Deficient**.
+* **Non-Invasive Inspection Procedure (15s):** Visual inspection and feeler gap gauge measurement. Where the assessed opening falls within the applicable **NFPA 80 (2022) §6.3.1.7.1** or **ANSI/SDI A250.8 / SDI-122** scope, compare the measured clearance against applicable assembly tolerances (e.g. 1/8 in. / 3.2mm). If the opening exceeds applicable tolerances and lacks an overlapping continuous stainless steel astragal plate, classify as **Deficient**.
 * **Technical References:** NFPA 80 §6.3.1.7.1, ANSI/SDI A250.8, SDI-122.
 * **Mitigation (`PHY-M1002`):** Install full-height, continuous heavy-gauge stainless steel interlocking astragal latch guards and deadlocking latch bolts.
 * **Framework Mappings:** ISO 27001:2022 `A.7.1`, PCI DSS v4 `Req 9.1.1`.
@@ -125,7 +125,7 @@ Below is the foundational technique mapping for the core baseline techniques:
 * **Sub-Techniques:**
   * `PHY-T1003.001`: Unshielded optical line-of-sight to sensor lens through transom gap.
   * `PHY-T1003.002`: Absence of directional deflector hood on ceiling/wall-mounted REX detector.
-* **Non-Invasive Inspection Procedure (15s):** Inspect optical line-of-sight through top and side door gaps. If REX PIR sensor lens is visible from the exterior without a directional deflector shroud, classify as **Deficient**.
+* **Non-Invasive Inspection Procedure (15s):** Inspect optical line-of-sight through top and side door gaps. If REX PIR sensor lens is visible from the exterior without a directional deflector shroud, classify as **Condition Requires Validation** (or **Deficient** where installation specifications explicitly mandate directional shielding).
 * **Technical References:** NFPA 101 §7.2.1.6.2, UL 294 Section 4.2.
 * **Mitigation (`PHY-M1003`):** Install UL-listed directional REX PIR beam deflector hoods and perimeter brush/gasket seals.
 * **Framework Mappings:** ISO 27001:2022 `A.7.1`, SOC 2 `CC6.4`.
@@ -140,7 +140,7 @@ Below is the foundational technique mapping for the core baseline techniques:
 * **Sub-Techniques:**
   * `PHY-T1004.001`: Active Layer 1 link carrier on unmonitored wall drop.
   * `PHY-T1004.002`: Unassigned port in visitor/common zone without administrative shutdown.
-* **Non-Invasive Inspection Procedure (10s):** Insert a passive zero-packet LED link-state tester. If the Layer 1 PHY carrier LED illuminates on an unmonitored common area drop, classify as **Deficient** / **Condition Requires Validation**. *(Note: This test establishes physical Layer 1 carrier availability; network authorization and 802.1X access controls require authorized verification).*
+* **Non-Invasive Inspection Procedure (10s):** Insert a passive zero-packet LED link-state tester. If the Layer 1 PHY carrier LED illuminates on an unmonitored common area drop, classify as **Condition Requires Validation** *(establishing physical Layer 1 carrier availability; administrative port shutdown and 802.1X access controls require administrative verification)* or **Deficient** *(where absence of access controls is confirmed)*.
 * **Technical References:** IEEE 802.1X-2020, NIST SP 800-53 Rev 5 PE-3.
 * **Mitigation (`PHY-M1004`):** Administratively disable unassigned switch ports (`shutdown`), physically patch down public drops to isolated guest VLANs, and enforce IEEE 802.1X port security.
 * **Framework Mappings:** ISO 27001:2022 `A.8.20`, PCI DSS v4 `Req 9.1.2`.

@@ -26,12 +26,12 @@
         "RFID reader frequency & protocol log",
         "Credential model identifier"
       ],
-      "validation_criteria": "Documented carrier frequency and whether challenge-response cryptographic SAM keys are required by reader firmware."
+      "validation_criteria": "Documented carrier frequency and whether credential protocol implements cryptographic challenge-response authentication."
     },
     "result_model": {
-      "hardened_criteria": "Credential implements mutual cryptographic authentication (AES-128 / DESFire EV2/EV3 / Seos / PIV smartcard) and reader verifies encrypted payload.",
+      "hardened_criteria": "Credential implements mutual cryptographic authentication (AES-128 / DESFire EV2/EV3 / Seos / PIV smartcard).",
       "deficient_criteria": "Credential relies on unencrypted 125 kHz Prox (HID Prox, EM4100) or static 13.56 MHz CSN without mutual authentication.",
-      "condition_requires_validation_criteria": "High-frequency smartcard observed, but reader configuration / SAM activation status requires administrative verification."
+      "condition_requires_validation_criteria": "High-frequency smartcard observed; reader-side SAM cryptographic validation requires administrative policy audit."
     },
     "limitations": {
       "can_establish": [
@@ -80,7 +80,7 @@
     "target_object": "DOOR",
     "target_time_seconds": 15,
     "hypothesis": "Door and frame geometry may permit mechanical manipulation of the latch bolt assembly where protective physical shielding is absent and strike clearances exceed engineering tolerances.",
-    "assessment_condition": "Does the outward-opening door assembly exhibit strike margin clearance exceeding 3.2mm (1/8 in.) with direct line-of-sight to the latch bolt and zero overlapping protective steel astragal guard?",
+    "assessment_condition": "Does the outward-opening door assembly exhibit strike margin clearance exceeding 3.2mm (1/8 in.) with direct line-of-sight to the latch bolt and zero overlapping protective steel astragal guard, where applicable standards or specifications mandate tight margins or shielding?",
     "assessment_procedure": {
       "method": "visual_and_feeler_gauge",
       "tools_required": [
@@ -99,12 +99,12 @@
         "Measured gap dimension in millimeters (mm)",
         "Photo of frame margin with gauge"
       ],
-      "validation_criteria": "Measured gap compared against NFPA 80 maximum allowable 3.2mm perimeter margin."
+      "validation_criteria": "Where the assessed opening falls within the applicable NFPA 80 or ANSI/SDI A250.8 scope, compare measured clearance against applicable assembly tolerances."
     },
     "result_model": {
       "hardened_criteria": "Outward door fitted with continuous full-height steel astragal overlapping jamb; latch bolt fully shielded from direct mechanical access.",
-      "deficient_criteria": "Exposed latch bolt with perimeter strike gap exceeding 3.2mm (1/8 in.) and no exterior astragal plate.",
-      "condition_requires_validation_criteria": "Perimeter gap measures between 2.8mm and 3.2mm with minor strike exposure; requires physical latch deadlocking verification."
+      "deficient_criteria": "Exposed latch bolt with perimeter strike gap exceeding applicable specification (e.g. 3.2mm / 1/8 in.) and no exterior astragal plate.",
+      "condition_requires_validation_criteria": "Perimeter gap exceeds 3.2mm on non-rated assembly where deadlocking auxiliary latch engagement requires physical verification."
     },
     "limitations": {
       "can_establish": [
@@ -175,8 +175,8 @@
     },
     "result_model": {
       "hardened_criteria": "REX sensor fitted with directional deflector hood restricting detection field strictly to the interior egress path; perimeter brush sweep or astragal installed.",
-      "deficient_criteria": "Unshielded wide-angle PIR sensor lens directly visible through perimeter door seams, creating potential exterior trigger exposure.",
-      "condition_requires_validation_criteria": "Sensor partially shrouded but mounted within 300mm of top transom; requires controlled thermal/aerosol trigger validation."
+      "deficient_criteria": "Unshielded wide-angle PIR sensor lens directly visible through perimeter door seams where installation specifications explicitly mandate directional shrouding.",
+      "condition_requires_validation_criteria": "Unshielded wide-angle PIR sensor body or lens visible through perimeter door gaps without a deflector hood; potential exterior trigger exposure requiring controlled validation or engineering review."
     },
     "limitations": {
       "can_establish": [
@@ -245,9 +245,9 @@
       "validation_criteria": "Documented link carrier state without transmitting IP packets or conducting network probing."
     },
     "result_model": {
-      "hardened_criteria": "Zero Layer 1 link state (port administratively shut down or unpatched at switch level) OR documented 802.1X port-security policy enforced.",
-      "deficient_criteria": "Active Layer 1 link carrier continuously illuminated on unmonitored public/visitor area jack without documented access controls.",
-      "condition_requires_validation_criteria": "Link carrier active on dedicated printer/display drop; requires network architecture review to verify VLAN isolation and 802.1X enforcement."
+      "hardened_criteria": "Zero Layer 1 link state (port administratively shut down or unpatched at switch level) OR documented 802.1X port-security policy confirmed enforced.",
+      "deficient_criteria": "Active Layer 1 link carrier continuously illuminated on unmonitored common-area drop with verified absence of 802.1X or administrative port shutdown policy.",
+      "condition_requires_validation_criteria": "Active Layer 1 link carrier observed on unmonitored drop; network access control (802.1X), VLAN isolation, and MAC quarantine status require administrative verification."
     },
     "limitations": {
       "can_establish": [

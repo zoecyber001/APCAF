@@ -18,7 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - `schemas/case.schema.json` for case assessment records with explicit provenance.
 - Synthetic case fixture `cases/synthetic/APCAF-CASE-001.yaml` for automated schema validation.
 - Field case template `cases/field/APCAF-CASE-TEMPLATE.yaml` for authorized field walks.
-- Single source of truth compilation script `scripts/build_data.js` generating `data/techniques.json`.
+- Single source of truth compilation script `scripts/build_data.py` generating `data/techniques.json`.
 - Offline-first interactive Field Triage workbench (`tools/field-triage.html`).
 - Sample Assessment Authorization Language (`templates/ENGAGEMENT_CONSENT_CLAUSE.md`).
 - Optional Vendor Remediation & Warranty Notice Profile (`templates/VENDOR_REMEDIATION_NOTICE.md`).

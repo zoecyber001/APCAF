@@ -17,8 +17,8 @@ The assessor establishes whether the interior REX passive infrared (PIR) sensor 
 
 ## Result Model
 - **Hardened:** UL-listed directional deflector hood restricts PIR field strictly to interior egress zone.
-- **Deficient:** Unshielded wide-angle PIR lens directly visible through perimeter door margins.
-- **Condition Requires Validation:** Shroud installed but proximity to gap requires controlled trigger verification.
+- **Deficient:** Unshielded wide-angle PIR lens directly visible through perimeter door seams where installation specifications explicitly mandate directional shrouding.
+- **Condition Requires Validation:** Unshielded wide-angle PIR sensor lens visible directly through door margins; potential exposure requiring engineering review or controlled validation.
 
 ## Limitations
 - **Can Establish:** Direct line-of-sight to sensor and presence of physical deflector hoods.

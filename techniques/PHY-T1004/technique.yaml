@@ -27,9 +27,9 @@ evidence_requirements:
   validation_criteria: "Documented link carrier state without transmitting IP packets or conducting network probing."
 
 result_model:
-  hardened_criteria: "Zero Layer 1 link state (port administratively shut down or unpatched at switch level) OR documented 802.1X port-security policy enforced."
-  deficient_criteria: "Active Layer 1 link carrier continuously illuminated on unmonitored public/visitor area jack without documented access controls."
-  condition_requires_validation_criteria: "Link carrier active on dedicated printer/display drop; requires network architecture review to verify VLAN isolation and 802.1X enforcement."
+  hardened_criteria: "Zero Layer 1 link state (port administratively shut down or unpatched at switch level) OR documented 802.1X port-security policy confirmed enforced."
+  deficient_criteria: "Active Layer 1 link carrier continuously illuminated on unmonitored common-area drop with verified absence of 802.1X or administrative port shutdown policy."
+  condition_requires_validation_criteria: "Active Layer 1 link carrier observed on unmonitored drop; network access control (802.1X), VLAN isolation, and MAC quarantine status require administrative verification."
 
 limitations:
   can_establish:

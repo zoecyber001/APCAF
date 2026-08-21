@@ -90,7 +90,7 @@
           },
           "classification": {
             "type": "string",
-            "enum": ["Hardened", "Deficient", "Legacy/Soft", "Partially Hardened", "Condition_Requires_Validation", "Not_Assessed"]
+            "enum": ["Hardened", "Deficient", "Condition_Requires_Validation", "Not_Assessed"]
           },
           "susceptibility_assessment": {
             "type": "string",
@@ -138,15 +138,9 @@
     "remediation_status": {
       "type": "object",
       "properties": {
-        "ciso_punchlist_issued": {
-          "type": "boolean"
-        },
-        "vendor_invoice_hold": {
-          "type": "boolean"
-        },
-        "vendor_resolution": {
+        "status": {
           "type": "string",
-          "enum": ["PENDING", "REMEDIATED_NO_COST", "NO_REMEDIATION_REQUIRED", "VERIFIED_HARDENED", "DISPUTED", "ACCEPTED_RISK", "UNKNOWN"]
+          "enum": ["OPEN", "IN_PROGRESS", "RESOLVED", "ACCEPTED_RISK", "PENDING", "NO_REMEDIATION_REQUIRED", "VERIFIED_HARDENED"]
         },
         "notes": {
           "type": "string"
@@ -160,6 +154,7 @@
         "profile": { "type": "string" },
         "warranty_applicable": { "type": "boolean" },
         "punchlist_issued": { "type": "boolean" },
+        "invoice_hold": { "type": "boolean" },
         "invoice_hold_status": { "type": "string" },
         "contractor_ref": { "type": "string" },
         "resolution_status": { "type": "string" }

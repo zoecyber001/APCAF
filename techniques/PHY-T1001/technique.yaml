@@ -24,12 +24,12 @@ evidence_requirements:
   acceptable_formats:
     - "RFID reader frequency & protocol log"
     - "Credential model identifier"
-  validation_criteria: "Documented carrier frequency and whether challenge-response cryptographic SAM keys are required by reader firmware."
+  validation_criteria: "Documented carrier frequency and whether credential protocol implements cryptographic challenge-response authentication."
 
 result_model:
-  hardened_criteria: "Credential implements mutual cryptographic authentication (AES-128 / DESFire EV2/EV3 / Seos / PIV smartcard) and reader verifies encrypted payload."
+  hardened_criteria: "Credential implements mutual cryptographic authentication (AES-128 / DESFire EV2/EV3 / Seos / PIV smartcard)."
   deficient_criteria: "Credential relies on unencrypted 125 kHz Prox (HID Prox, EM4100) or static 13.56 MHz CSN without mutual authentication."
-  condition_requires_validation_criteria: "High-frequency smartcard observed, but reader configuration / SAM activation status requires administrative verification."
+  condition_requires_validation_criteria: "High-frequency smartcard observed; reader-side SAM cryptographic validation requires administrative policy audit."
 
 limitations:
   can_establish:

@@ -1384,14 +1384,18 @@ code, pre {
   color: var(--text-pure);
 }
 
-.switch-toggle-btn.active-soft {
+.switch-toggle-btn.active-soft,
+.switch-toggle-btn.active-deficient,
+.switch-toggle-btn.active-validation {
   background: #ffffff;
   border: 1.5px solid #09090b;
   color: var(--text-pure);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.switch-toggle-btn.active-soft .toggle-title {
+.switch-toggle-btn.active-soft .toggle-title,
+.switch-toggle-btn.active-deficient .toggle-title,
+.switch-toggle-btn.active-validation .toggle-title {
   color: var(--text-pure);
 }
 

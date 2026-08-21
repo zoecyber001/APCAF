@@ -26,8 +26,8 @@ findings:
   - control_id: "APCAF-01"
     tactic_id: "PHY-TAC-02"
     technique_id: "PHY-T1001"
-    technique_name: "Unencrypted RFID Harvesting"
-    classification: "Legacy/Soft"
+    technique_name: "Credential Technology Assessment"
+    classification: "Deficient"
     evidence_type: "synthetic_fixture"
     evidence_ref: "SYNTHETIC-DEVICE-READ-001"
     observed_spec: "HID 125kHz H10301 (26-bit unencrypted Prox)"
@@ -39,11 +39,11 @@ findings:
   - control_id: "APCAF-02"
     tactic_id: "PHY-TAC-03"
     technique_id: "PHY-T1002"
-    technique_name: "Mechanical Latch Manipulation"
-    classification: "Legacy/Soft"
+    technique_name: "Door & Latch Protection Assessment"
+    classification: "Deficient"
     evidence_type: "synthetic_fixture"
     evidence_ref: "SYNTHETIC-MEASUREMENT-002"
-    observed_spec: "Server Suite A double door outward swing, 4.5mm perimeter gap (exceeds NFPA 80 3.2mm limit), no astragal latch guard, Bosch DS160 REX sensor unhooded."
+    observed_spec: "Server Suite A double door outward swing, 4.5mm perimeter gap (exceeds NFPA 80 3.2mm limit), no astragal latch guard."
     inspection_time_seconds: 28
     mitigation_ref: "PHY-M1002"
     remediation_action: "Install full-length continuous interlocking astragal plate."
@@ -52,7 +52,7 @@ findings:
   - control_id: "APCAF-03"
     tactic_id: "PHY-TAC-05"
     technique_id: "PHY-T1004"
-    technique_name: "Exposed Active Physical Network Interface"
+    technique_name: "Exposed Physical Network Interface Assessment"
     classification: "Hardened"
     evidence_type: "synthetic_fixture"
     evidence_ref: "SYNTHETIC-OBSERVATION-003"
@@ -63,7 +63,14 @@ findings:
     vendor_warranty_applicable: false
 
 remediation_status:
-  ciso_punchlist_issued: true
-  vendor_invoice_hold: true
-  vendor_resolution: "PENDING"
+  status: "OPEN"
   notes: "Synthetic example for schema validation during the upcoming field validation phase. No real facility was assessed."
+
+commercial_workflow:
+  profile: "APCAF-WF-01"
+  warranty_applicable: true
+  punchlist_issued: true
+  invoice_hold: true
+  invoice_hold_status: "HELD_PENDING_RECTIFICATION"
+  contractor_ref: "SYNTHETIC-INTEGRATOR-CORP"
+  resolution_status: "PENDING"

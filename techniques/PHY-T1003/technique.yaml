@@ -29,8 +29,8 @@ evidence_requirements:
 
 result_model:
   hardened_criteria: "REX sensor fitted with directional deflector hood restricting detection field strictly to the interior egress path; perimeter brush sweep or astragal installed."
-  deficient_criteria: "Unshielded wide-angle PIR sensor lens directly visible through perimeter door seams, creating potential exterior trigger exposure."
-  condition_requires_validation_criteria: "Sensor partially shrouded but mounted within 300mm of top transom; requires controlled thermal/aerosol trigger validation."
+  deficient_criteria: "Unshielded wide-angle PIR sensor lens directly visible through perimeter door seams where installation specifications explicitly mandate directional shrouding."
+  condition_requires_validation_criteria: "Unshielded wide-angle PIR sensor body or lens visible through perimeter door gaps without a deflector hood; potential exterior trigger exposure requiring controlled validation or engineering review."
 
 limitations:
   can_establish:

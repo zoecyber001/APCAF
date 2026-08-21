@@ -16,9 +16,9 @@ The assessor establishes whether a publicly accessible RJ-45 Ethernet wall jack 
 3. Check whether the drop is labeled and administratively documented.
 
 ## Result Model
-- **Hardened:** Zero link pulse (port administratively shut down or unpatched) or documented 802.1X policy.
-- **Deficient:** Active Layer 1 link continuous on unmonitored common-area drop.
-- **Condition Requires Validation:** Link active on specialized drop (e.g. digital signage); requires administrative review to verify VLAN isolation.
+- **Hardened:** Zero link pulse (port administratively shut down or unpatched) or documented 802.1X policy confirmed enforced.
+- **Deficient:** Active Layer 1 link continuous on unmonitored common-area drop with verified absence of 802.1X or administrative shutdown policy.
+- **Condition Requires Validation:** Active Layer 1 link carrier observed on unmonitored drop; network access control (802.1X), VLAN isolation, and MAC quarantine status require administrative verification.
 
 ## Limitations
 - **Can Establish:** Physical Layer 1 carrier signaling and administrative port shutdown state.

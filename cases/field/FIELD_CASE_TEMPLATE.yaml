@@ -27,8 +27,8 @@ findings:
   - control_id: "APCAF-01"
     tactic_id: "PHY-TAC-02"
     technique_id: "PHY-T1001"
-    technique_name: "Unencrypted RFID Harvesting"
-    classification: "Legacy/Soft" # Hardened | Legacy/Soft
+    technique_name: "Credential Technology Assessment"
+    classification: "Deficient" # Hardened | Deficient | Condition_Requires_Validation
     evidence_type: "observation" # observation | measurement | photo_redacted
     observed_spec: "HID 125kHz H10301 Prox credential read; static facility code without AES encryption"
     inspection_time_seconds: 5
@@ -42,8 +42,8 @@ findings:
   - control_id: "APCAF-02"
     tactic_id: "PHY-TAC-03"
     technique_id: "PHY-T1002"
-    technique_name: "Mechanical Latch Manipulation (Latch Slip)"
-    classification: "Legacy/Soft" # Hardened | Legacy/Soft
+    technique_name: "Door & Latch Protection Assessment"
+    classification: "Deficient" # Hardened | Deficient | Condition_Requires_Validation
     evidence_type: "measurement"
     observed_spec: "4.2mm frame strike gap measured via feeler gauge; latch bolt exposed; no astragal plate"
     inspection_time_seconds: 15
@@ -57,8 +57,8 @@ findings:
   - control_id: "APCAF-02"
     tactic_id: "PHY-TAC-03"
     technique_id: "PHY-T1003"
-    technique_name: "REX Sensor Blind Activation"
-    classification: "Hardened" # Hardened | Legacy/Soft
+    technique_name: "REX Sensor Placement Assessment"
+    classification: "Hardened" # Hardened | Deficient | Condition_Requires_Validation
     evidence_type: "observation"
     observed_spec: "Interior Bosch DS160 REX sensor fitted with metal directional deflector hood; no exterior optical line of sight"
     inspection_time_seconds: 12
@@ -72,8 +72,8 @@ findings:
   - control_id: "APCAF-03"
     tactic_id: "PHY-TAC-05"
     technique_id: "PHY-T1004"
-    technique_name: "Exposed Active Physical Network Interface"
-    classification: "Hardened" # Hardened | Legacy/Soft
+    technique_name: "Exposed Physical Network Interface Assessment"
+    classification: "Hardened" # Hardened | Deficient | Condition_Requires_Validation
     evidence_type: "observation"
     observed_spec: "Wall port J-104 in reception lobby tested with passive LED plug; zero Layer 1 link carrier illuminated"
     inspection_time_seconds: 8
@@ -82,7 +82,13 @@ findings:
     vendor_warranty_applicable: false
 
 remediation_status:
-  ciso_punchlist_issued: true
-  vendor_invoice_hold: true
-  vendor_resolution: "PENDING" # PENDING | IN_PROGRESS | RECHECK_PASSED | NO_REMEDIATION_REQUIRED
-  notes: "Field-observed physical security baseline assessment. Punch list issued for credential and latch defect remediation."
+  status: "OPEN"
+  notes: "Field-observed physical security baseline assessment. Non-conformance items logged for technical remediation."
+
+commercial_workflow:
+  profile: "APCAF-WF-01"
+  warranty_applicable: true
+  punchlist_issued: true
+  invoice_hold: false
+  contractor_ref: "Integrator / General Contractor"
+  resolution_status: "PENDING"

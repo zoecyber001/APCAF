@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>APCAF Field Triage &amp; Assessment Workbench</title>
-  <meta name="description" content="Standardised 45-second physical control verification and instant CISO warranty notice generator.">
+  <meta name="description" content="Offline-first tool for recording APCAF observations, evidence, and assessment results in the field.">
   
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 
@@ -327,14 +327,26 @@
       color: #15803d;
     }
 
-    .triage-choice-btn.selected-soft {
+    .triage-choice-btn.selected-soft,
+    .triage-choice-btn.selected-deficient {
       background: #fef2f2;
       border-color: #dc2626;
       color: #b91c1c;
     }
 
-    .triage-choice-btn.selected-soft .choice-head {
+    .triage-choice-btn.selected-soft .choice-head,
+    .triage-choice-btn.selected-deficient .choice-head {
       color: #b91c1c;
+    }
+
+    .triage-choice-btn.selected-validation {
+      background: #fffbeb;
+      border-color: #d97706;
+      color: #b45309;
+    }
+
+    .triage-choice-btn.selected-validation .choice-head {
+      color: #b45309;
     }
 
     .triage-telemetry-input {
@@ -577,7 +589,7 @@
           <div class="triage-card-title">
             <span class="tag-object-badge">BADGE</span>
             <span class="tag-tid-badge">PHY-T1001</span>
-            <span>Unencrypted RFID Harvesting</span>
+            <span>Credential Technology Assessment</span>
           </div>
           <span class="tag-time-badge">5s Check • Pocket RFID Reader</span>
         </div>
@@ -588,11 +600,11 @@
 
         <div class="triage-options-grid">
           <button type="button" class="triage-choice-btn" id="btn-01-hard" onclick="setStatus('01', 'Hardened')">
-            <span class="choice-head">Hardened (PHY-M1001)</span>
+            <span class="choice-head">Hardened</span>
             <span class="choice-desc">Mutual crypto smartcard (AES-128 / DESFire EV2/EV3 / Seos / PIV); reader cryptographic SAM keys active.</span>
           </button>
-          <button type="button" class="triage-choice-btn" id="btn-01-soft" onclick="setStatus('01', 'Soft')">
-            <span class="choice-head">Legacy / Soft (Susceptible)</span>
+          <button type="button" class="triage-choice-btn" id="btn-01-def" onclick="setStatus('01', 'Deficient')">
+            <span class="choice-head">Deficient</span>
             <span class="choice-desc">Unencrypted 125 kHz Prox carrier or static CSN without cryptographic challenge-response authentication.</span>
           </button>
         </div>
@@ -613,7 +625,7 @@
           <div class="triage-card-title">
             <span class="tag-object-badge">DOOR</span>
             <span class="tag-tid-badge">PHY-T1002</span>
-            <span>Mechanical Latch Manipulation (Latch Slip)</span>
+            <span>Door &amp; Latch Protection Assessment</span>
           </div>
           <span class="tag-time-badge">15s Check • Visual &amp; Feeler Gauge</span>
         </div>
@@ -624,11 +636,11 @@
 
         <div class="triage-options-grid">
           <button type="button" class="triage-choice-btn" id="btn-02-hard" onclick="setStatus('02', 'Hardened')">
-            <span class="choice-head">Hardened (PHY-M1002)</span>
+            <span class="choice-head">Hardened</span>
             <span class="choice-desc">Continuous stainless steel astragal plate overlapping jamb; latch bolt fully shielded from direct manipulation.</span>
           </button>
-          <button type="button" class="triage-choice-btn" id="btn-02-soft" onclick="setStatus('02', 'Soft')">
-            <span class="choice-head">Legacy / Soft (Susceptible)</span>
+          <button type="button" class="triage-choice-btn" id="btn-02-def" onclick="setStatus('02', 'Deficient')">
+            <span class="choice-head">Deficient</span>
             <span class="choice-desc">Exposed latch bolt with clearance > 3.2mm and zero protective astragal shielding on exterior side.</span>
           </button>
         </div>
@@ -649,7 +661,7 @@
           <div class="triage-card-title">
             <span class="tag-object-badge">SENSOR</span>
             <span class="tag-tid-badge">PHY-T1003</span>
-            <span>REX Sensor Blind Activation</span>
+            <span>REX Sensor Placement Assessment</span>
           </div>
           <span class="tag-time-badge">15s Check • Visual Line-of-Sight</span>
         </div>
@@ -660,10 +672,10 @@
 
         <div class="triage-options-grid">
           <button type="button" class="triage-choice-btn" id="btn-03-hard" onclick="setStatus('03', 'Hardened')">
-            <span class="choice-head">Hardened (PHY-M1003)</span>
+            <span class="choice-head">Hardened</span>
             <span class="choice-desc">UL-listed directional deflector hood restricts PIR field strictly to interior exit path; perimeter brush sweep installed.</span>
           </button>
-          <button type="button" class="triage-choice-btn" id="btn-03-soft" onclick="setStatus('03', 'Soft')">
+          <button type="button" class="triage-choice-btn" id="btn-03-val" onclick="setStatus('03', 'Condition_Requires_Validation')">
             <span class="choice-head">Condition Requires Validation</span>
             <span class="choice-desc">Unshielded wide-angle PIR sensor lens visible directly through door margins; potential exposure requiring engineering review.</span>
           </button>
@@ -696,10 +708,10 @@
 
         <div class="triage-options-grid">
           <button type="button" class="triage-choice-btn" id="btn-04-hard" onclick="setStatus('04', 'Hardened')">
-            <span class="choice-head">Hardened (PHY-M1004)</span>
+            <span class="choice-head">Hardened</span>
             <span class="choice-desc">Zero Layer 1 link state (port administratively shut down / unpatched) OR documented 802.1X policy enforced.</span>
           </button>
-          <button type="button" class="triage-choice-btn" id="btn-04-soft" onclick="setStatus('04', 'Soft')">
+          <button type="button" class="triage-choice-btn" id="btn-04-val" onclick="setStatus('04', 'Condition_Requires_Validation')">
             <span class="choice-head">Condition Requires Validation</span>
             <span class="choice-desc">Active physical Layer 1 carrier link pulse observed on unmonitored drop; network access control and VLAN isolation not verified.</span>
           </button>
@@ -847,21 +859,20 @@
     function setStatus(controlId, status) {
       state[controlId] = status;
       const hardBtn = document.getElementById(`btn-${controlId}-hard`);
-      const softBtn = document.getElementById(`btn-${controlId}-soft`);
+      const defBtn = document.getElementById(`btn-${controlId}-def`);
+      const valBtn = document.getElementById(`btn-${controlId}-val`);
       const remBox = document.getElementById(`rem-${controlId}`);
 
-      if (status === 'Hardened') {
-        hardBtn.className = 'triage-choice-btn selected-hardened';
-        softBtn.className = 'triage-choice-btn';
-        if (remBox) remBox.classList.remove('visible');
-      } else if (status === 'Soft') {
-        hardBtn.className = 'triage-choice-btn';
-        softBtn.className = 'triage-choice-btn selected-soft';
-        if (remBox) remBox.classList.add('visible');
-      } else {
-        hardBtn.className = 'triage-choice-btn';
-        softBtn.className = 'triage-choice-btn';
-        if (remBox) remBox.classList.remove('visible');
+      if (hardBtn) hardBtn.className = 'triage-choice-btn' + (status === 'Hardened' ? ' selected-hardened' : '');
+      if (defBtn) defBtn.className = 'triage-choice-btn' + (status === 'Deficient' ? ' selected-deficient' : '');
+      if (valBtn) valBtn.className = 'triage-choice-btn' + (status === 'Condition_Requires_Validation' ? ' selected-validation' : '');
+
+      if (remBox) {
+        if (status === 'Deficient' || status === 'Condition_Requires_Validation') {
+          remBox.classList.add('visible');
+        } else {
+          remBox.classList.remove('visible');
+        }
       }
     }
 
@@ -901,13 +912,13 @@
         document.getElementById('facilityRef').value = 'synthetic-demo-datacenter-001';
         document.getElementById('authRef').value = 'SYNTHETIC-DEMO-SOW-CLAUSE-01';
 
-        setStatus('01', 'Soft');
+        setStatus('01', 'Deficient');
         document.getElementById('notes-01').value = 'HID 125kHz H10301 (26-bit unencrypted Prox credentials active)';
 
-        setStatus('02', 'Soft');
-        document.getElementById('notes-02').value = 'Server Suite outward door gap (4.5mm) exceeding NFPA 80 limit; no astragal latch guard';
+        setStatus('02', 'Deficient');
+        document.getElementById('notes-02').value = 'Server Suite outward door gap (4.5mm) exceeding specification; no astragal latch guard';
 
-        setStatus('03', 'Soft');
+        setStatus('03', 'Condition_Requires_Validation');
         document.getElementById('notes-03').value = 'Unshielded Bosch DS160 REX sensor PIR lens visible through top transom margin';
 
         setStatus('04', 'Hardened');
@@ -937,43 +948,38 @@
 
       // Filter only assessed controls
       const assessedList = [];
-      if (state['01'] !== null) assessedList.push({ id: '01', controlId: 'APCAF-01', tacticId: 'PHY-TAC-02', tid: 'PHY-T1001', name: 'Unencrypted RFID Harvesting', status: state['01'], notes: notes01, time: 5, mitigation: 'PHY-M1001', action: 'Replace credential stock with AES-128 crypto smartcards (DESFire EV3 / Seos) and activate SAM keys on readers.' });
-      if (state['02'] !== null) assessedList.push({ id: '02', controlId: 'APCAF-02', tacticId: 'PHY-TAC-03', tid: 'PHY-T1002', name: 'Mechanical Latch Manipulation (Latch Slip)', status: state['02'], notes: notes02, time: 15, mitigation: 'PHY-M1002', action: 'Install full-height continuous stainless steel security astragal plate on outward door assembly.' });
-      if (state['03'] !== null) assessedList.push({ id: '03', controlId: 'APCAF-02', tacticId: 'PHY-TAC-03', tid: 'PHY-T1003', name: 'REX Sensor Blind Activation', status: state['03'], notes: notes03, time: 15, mitigation: 'PHY-M1003', action: 'Mount UL-listed directional deflector hood over interior PIR motion sensor.' });
-      if (state['04'] !== null) assessedList.push({ id: '04', controlId: 'APCAF-03', tacticId: 'PHY-TAC-05', tid: 'PHY-T1004', name: 'Exposed Active Physical Network Interface', status: state['04'], notes: notes04, time: 10, mitigation: 'PHY-M1004', action: 'Administratively shut down unmonitored switch ports at patch panel or configure 802.1X quarantine.' });
+      if (state['01'] !== null) assessedList.push({ id: '01', controlId: 'APCAF-01', tacticId: 'PHY-TAC-02', tid: 'PHY-T1001', name: 'Credential Technology Assessment', status: state['01'], notes: notes01, time: 5, mitigation: 'PHY-M1001', action: 'Replace credential stock with AES-128 crypto smartcards (DESFire EV3 / Seos) and activate SAM keys on readers.' });
+      if (state['02'] !== null) assessedList.push({ id: '02', controlId: 'APCAF-02', tacticId: 'PHY-TAC-03', tid: 'PHY-T1002', name: 'Door & Latch Protection Assessment', status: state['02'], notes: notes02, time: 15, mitigation: 'PHY-M1002', action: 'Install full-height continuous stainless steel security astragal plate on outward door assembly.' });
+      if (state['03'] !== null) assessedList.push({ id: '03', controlId: 'APCAF-02', tacticId: 'PHY-TAC-03', tid: 'PHY-T1003', name: 'REX Sensor Placement Assessment', status: state['03'], notes: notes03, time: 15, mitigation: 'PHY-M1003', action: 'Mount UL-listed directional deflector hood over interior PIR motion sensor.' });
+      if (state['04'] !== null) assessedList.push({ id: '04', controlId: 'APCAF-03', tacticId: 'PHY-TAC-05', tid: 'PHY-T1004', name: 'Exposed Physical Network Interface Assessment', status: state['04'], notes: notes04, time: 10, mitigation: 'PHY-M1004', action: 'Administratively shut down unmonitored switch ports at patch panel or configure 802.1X quarantine.' });
 
       if (assessedList.length === 0) {
         outputTitle.innerText = "Notice: No Controls Assessed";
-        outputArea.textContent = "Please select at least one control status (Hardened or Legacy/Soft) above to compile an APCAF assessment record.";
+        outputArea.textContent = "Please select at least one control status above to compile an APCAF assessment record.";
         return;
       }
 
-      const softCount = assessedList.filter(item => item.status === 'Soft').length;
-      const allHardened = softCount === 0;
+      const nonHardenedCount = assessedList.filter(item => item.status !== 'Hardened').length;
+      const allHardened = nonHardenedCount === 0;
 
       if (mode === 'yaml') {
-        outputTitle.innerText = "ATT&CK-Aligned YAML Case Record (" + caseId + ")";
+        outputTitle.innerText = "APCAF Assessment Case Record (" + caseId + ")";
         
         const caseType = currentMode === 'demo' ? 'SYNTHETIC_DEMO' : 'FIELD_OBSERVED';
         const evidenceStatus = currentMode === 'demo' ? 'NO_FIELD_EVIDENCE' : 'PRIMARY_FIELD_EVIDENCE';
         const valStatus = currentMode === 'demo' ? 'synthetic_fixture' : 'unverified';
         const evidenceType = currentMode === 'demo' ? 'synthetic_fixture' : 'observation';
-        
-        const vendorResolution = allHardened ? 'NO_REMEDIATION_REQUIRED' : 'PENDING';
-        const punchlistIssued = softCount > 0;
-        const invoiceHold = softCount > 0;
 
         let findingsYaml = assessedList.map(item => `  - control_id: "${item.controlId}"
     tactic_id: "${item.tacticId}"
     technique_id: "${item.tid}"
     technique_name: "${item.name}"
-    classification: "${item.status === 'Hardened' ? 'Hardened' : 'Legacy/Soft'}"
+    classification: "${item.status}"
     evidence_type: "${evidenceType}"
     observed_spec: "${item.notes}"
     inspection_time_seconds: ${item.time}
     mitigation_ref: "${item.mitigation}"
-    remediation_action: "${item.action}"
-    vendor_warranty_applicable: ${item.status === 'Soft'}`).join('\n\n');
+    remediation_action: "${item.action}"`).join('\n\n');
 
         const yaml = `# -----------------------------------------------------------------------------
 # APCAF CASE ASSESSMENT RECORD
@@ -1003,20 +1009,18 @@ findings:
 ${findingsYaml}
 
 remediation_status:
-  ciso_punchlist_issued: ${punchlistIssued}
-  vendor_invoice_hold: ${invoiceHold}
-  vendor_resolution: "${vendorResolution}"
-  notes: "${currentMode === 'demo' ? 'Synthetic demonstration example for schema validation.' : (allHardened ? 'All evaluated controls verified hardened. No non-conformance identified.' : 'Actionable non-conformance punchlist compiled under APCAF triage.')}"`;
+  status: "${allHardened ? 'RESOLVED' : 'OPEN'}"
+  notes: "${currentMode === 'demo' ? 'Synthetic demonstration example for schema validation.' : (allHardened ? 'All evaluated controls verified hardened. Zero physical deficiencies identified.' : 'Physical security non-conformances flagged for technical remediation.')}"`;
 
         outputArea.textContent = yaml;
       } else {
         if (allHardened) {
           outputTitle.innerText = "QA Physical Verification Pass Summary";
-          const passItems = assessedList.map(item => `* [PASS] ${item.controlId} / ${item.tid} (${item.name}): Verified Hardened (${item.notes}).`).join('\n');
+          const passItems = assessedList.map(item => `* [HARDENED] ${item.controlId} / ${item.tid} (${item.name}): Verified Hardened (${item.notes}).`).join('\n');
           const passDoc = `# APCAF QUALITY ASSURANCE VERIFICATION SUMMARY
 ## Status: All Evaluated Physical Controls Verified Hardened
 
-TO: Project Management / Commissioning Authority
+TO: Facility Management / Security Operations
 FROM: Physical Security Assessment Team
 DATE: ${new Date().toLocaleDateString()}
 FACILITY: ${facilityRef}
@@ -1026,41 +1030,41 @@ CASE REF: ${caseId}
 ---
 
 ### Verification Summary:
-A passive APCAF physical security verification was completed for the designated facility. All evaluated baseline controls were confirmed in a Hardened configuration:
+A passive APCAF physical security assessment was completed for the designated facility. All evaluated baseline controls were confirmed in a Hardened configuration:
 
 ${passItems}
 
-CONCLUSION: Zero non-conformance defects flagged among assessed controls. Physical security commissioning milestone recommended for approval.`;
+CONCLUSION: Zero non-conformance defects identified among evaluated controls. Physical security commissioning milestone verified.`;
           outputArea.textContent = passDoc;
         } else {
-          outputTitle.innerText = "CISO Vendor Non-Conformance Notice (Defect Punch List)";
-          const defectsList = assessedList.filter(item => item.status === 'Soft');
-          const defectItems = defectsList.map(item => `* [${item.controlId} / ${item.tid}] ${item.name}:
+          outputTitle.innerText = "Remediation Punch List (APCAF-WF-01 Extension)";
+          const defectsList = assessedList.filter(item => item.status !== 'Hardened');
+          const defectItems = defectsList.map(item => `* [${item.controlId} / ${item.tid}] ${item.name} (${item.status}):
   - Observed Condition: ${item.notes}
   - Mitigation Standard: ${item.mitigation}
   - Remediation Action: ${item.action}`).join('\n\n');
 
-          const doc = `# VENDOR WARRANTY NON-CONFORMANCE NOTICE
-## Physical Control Installation Defects Identified
+          const doc = `# VENDOR REMEDIATION NOTICE (APCAF-WF-01 PROFILE)
+## Physical Control Installation Non-Conformances Identified
 
-TO: Physical Security Systems Integrator / General Contractor
-FROM: Office of the CISO / Physical Security Oversight
+TO: Physical Security Systems Integrator / Contractor
+FROM: Security Engineering / Commissioning Oversight
 DATE: ${new Date().toLocaleDateString()}
 FACILITY: ${facilityRef}
 AUTHORIZATION REF: ${authRef}
 CASE REF: ${caseId}
-STATUS: RETAINAGE PAYMENT ON HOLD (${softCount} Potential Specification Defect(s) Flagged)
+STATUS: ACTION REQUIRED (${nonHardenedCount} Finding(s) Flagged)
 
 ---
 
-### Non-Conformance Executive Summary:
-A passive quality assurance inspection identified the following physical control installation non-conformances mapped to known physical bypass mechanisms. These items are flagged for contractor warranty rectification prior to final milestone payment disbursement:
+### Non-Conformance Summary:
+A passive quality assurance inspection identified the following physical control installation non-conformances mapped to known physical bypass mechanisms. These items are flagged for technical remediation:
 
 ${defectItems}
 
 ---
-Notice: This notice identifies physical control installation non-conformances and does not constitute legal advice. Actionability is subject to applicable construction contracts and local jurisdiction.
-Verification Protocol: A follow-up APCAF QA re-inspection will verify full 'Hardened' status prior to retainage release.`;
+Notice: This document records observed physical control conditions and does not constitute legal or contractual advice. Remediation obligations are subject to applicable construction specifications and vendor agreements.
+Verification Protocol: A follow-up APCAF QA re-inspection will verify full 'Hardened' status upon completion.`;
           outputArea.textContent = doc;
         }
       }
