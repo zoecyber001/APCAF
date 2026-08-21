@@ -1741,54 +1741,42 @@ code, pre {
 .spec-tagline {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-family: var(--font-mono);
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--text-pure);
   margin-bottom: 14px;
-  padding: 4px 0;
+  padding: 0;
   text-transform: uppercase;
 }
 
 .spec-tagline-kicker {
-  color: var(--accent-sky);
+  color: var(--text-pure);
   font-weight: 800;
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-card);
-  padding: 2px 7px;
+  padding: 3px 8px;
   border-radius: 2px;
-}
-
-.spec-tagline-sep {
-  color: var(--text-dim);
-  font-weight: 400;
-  user-select: none;
+  letter-spacing: 0.08em;
 }
 
 .spec-tagline-title {
-  color: var(--text-head);
+  color: var(--text-dim);
   letter-spacing: 0.06em;
 }
 
 .section-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   color: var(--accent-sky);
   margin-bottom: 8px;
-}
-
-.section-eyebrow::before {
-  content: "//";
-  color: var(--text-dim);
-  font-weight: 400;
 }
 
 .chip-tag {
