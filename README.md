@@ -37,9 +37,9 @@ To maintain scientific integrity and prevent misinterpretation, APCAF explicitly
 
 ## Plain-English Mental Model
 
-Traditional compliance checklists often verify only nominal presence: *"Is there a lock on the door?"*
+Traditional compliance audits verify nominal control presence: *"Is there a lock on the door?"*
 
-APCAF evaluates whether the installed physical hardware resists known bypass conditions: **"What physical condition would permit bypass, and does the installed hardware prevent that condition?"**
+**APCAF complements security audits by adding structured physical-control assessment that may be outside the scope of a conventional control-presence review.** It evaluates whether the installed physical hardware resists known bypass conditions: **"What physical condition would permit bypass, and does the installed hardware prevent that condition?"**
 
 ### The 6-Step Evaluation Chain
 ```

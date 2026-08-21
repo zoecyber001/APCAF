@@ -9,7 +9,7 @@
 
 ## 1. Operational Persona & Philosophy
 
-Traditional compliance audits (ISO 27001, PCI DSS, SOC 2, NDPA) verify the *presence* of physical controls. APCAF verifies the *engineering specification* of physical controls.
+Traditional compliance audits verify the nominal presence of physical controls. **APCAF complements security audits by adding structured physical-control assessment that may be outside the scope of a conventional control-presence review.**
 
 ```
                     ┌────────────────────────────────────────────────────────┐

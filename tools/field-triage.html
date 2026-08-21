@@ -664,8 +664,8 @@
             <span class="choice-desc">UL-listed directional deflector hood restricts PIR field strictly to interior exit path; perimeter brush sweep installed.</span>
           </button>
           <button type="button" class="triage-choice-btn" id="btn-03-soft" onclick="setStatus('03', 'Soft')">
-            <span class="choice-head">Legacy / Soft (Susceptible)</span>
-            <span class="choice-desc">Unshielded wide-angle PIR sensor visible directly through door margins, allowing exterior non-contact tripping.</span>
+            <span class="choice-head">Condition Requires Validation</span>
+            <span class="choice-desc">Unshielded wide-angle PIR sensor lens visible directly through door margins; potential exposure requiring engineering review.</span>
           </button>
         </div>
 
@@ -685,23 +685,23 @@
           <div class="triage-card-title">
             <span class="tag-object-badge">PORT</span>
             <span class="tag-tid-badge">PHY-T1004</span>
-            <span>Exposed Active Physical Network Interface</span>
+            <span>Exposed Physical Network Interface Assessment</span>
           </div>
           <span class="tag-time-badge">10s Check • Passive LED Link Tester</span>
         </div>
         
         <div class="triage-check-desc">
-          <strong>Step 2: What are you checking?</strong> Common area Ethernet drop state. Does an accessible wall jack in an unrestricted area broadcast an active physical Layer 1 carrier without port shutdown or 802.1X quarantine?
+          <strong>Step 2: What are you checking?</strong> Common area Ethernet drop state. Does an accessible wall jack in an unrestricted area broadcast an active physical Layer 1 carrier signal upon passive connection?
         </div>
 
         <div class="triage-options-grid">
           <button type="button" class="triage-choice-btn" id="btn-04-hard" onclick="setStatus('04', 'Hardened')">
             <span class="choice-head">Hardened (PHY-M1004)</span>
-            <span class="choice-desc">Zero Layer 1 link state (port administratively shut down / unpatched) OR documented 802.1X quarantine enforced.</span>
+            <span class="choice-desc">Zero Layer 1 link state (port administratively shut down / unpatched) OR documented 802.1X policy enforced.</span>
           </button>
           <button type="button" class="triage-choice-btn" id="btn-04-soft" onclick="setStatus('04', 'Soft')">
-            <span class="choice-head">Legacy / Soft (Susceptible)</span>
-            <span class="choice-desc">Active PHY Layer 1 link pulse LED illuminates continuously on unmonitored common area drop.</span>
+            <span class="choice-head">Condition Requires Validation</span>
+            <span class="choice-desc">Active physical Layer 1 carrier link pulse observed on unmonitored drop; network access control and VLAN isolation not verified.</span>
           </button>
         </div>
 

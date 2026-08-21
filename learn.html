@@ -189,18 +189,18 @@
             </div>
 
             <p>
-              A facility can have 100% paper compliance while remaining completely vulnerable to trivial, seconds-long physical bypasses. A door can have an expensive electronic lock installed, but if the contractor leaves an outward-swinging 4.5mm frame gap without an astragal guard, an attacker can slip the latch in 5 seconds with a simple shove tool.
+              A conventional checklist audit might verify that an electronic lock is physically mounted, but if the installed frame gap measures 4.5mm without an astragal guard, the hardware presents an observable condition associated with mechanical latch manipulation. APCAF Base identifies this non-conforming physical condition without attempting a physical bypass.
             </p>
 
             <!-- Comparison Matrix -->
             <div class="comparison-grid">
               <div class="comparison-box active-box">
-                <div class="comparison-title">Traditional Checklist Approach</div>
-                <p>Verifies whether hardware is physically mounted on the door. Concludes the control is "Compliant" regardless of installation defects or bypass susceptibility.</p>
+                <div class="comparison-title">Conventional Control Review</div>
+                <p>Verifies whether hardware is physically mounted on the door. Assumes the control is satisfactory without evaluating physical tolerances or installation clearances.</p>
               </div>
               <div class="comparison-box passive-box">
-                <div class="comparison-title">APCAF Adversarial Assessment</div>
-                <p>Standardises non-invasive inspection to evaluate whether the installed hardware resists common bypass mechanics under passive 45-second verification.</p>
+                <div class="comparison-title">APCAF Physical Assessment</div>
+                <p>Standardises non-invasive inspection procedures to determine whether installed hardware resists known bypass conditions through repeatable, passive checks.</p>
               </div>
             </div>
 
@@ -220,43 +220,48 @@
             <span class="lesson-num">Lesson 02</span>
             <span class="lesson-time">3 min read</span>
           </div>
-          <h2 class="lesson-title">The APCAF Model: The 5-Step Evaluation Chain</h2>
+          <h2 class="lesson-title">The APCAF Model: The 6-Step Evaluation Chain</h2>
           <div class="lesson-body">
             <p>
-              To replace arbitrary checklists with rigorous engineering, APCAF structures all physical assessments around a standardised 5-step mental pipeline. We use a single server room door example throughout:
+              To replace arbitrary checklists with rigorous engineering, APCAF structures all physical assessments around a standardised 6-step evaluation chain:
             </p>
 
             <!-- Visual Pipeline -->
             <div class="mental-pipeline-grid" style="margin: 24px 0;">
               <div class="pipeline-step">
                 <div class="pipeline-step-num">01. TACTIC</div>
-                <div class="pipeline-step-title">The Attacker's Goal</div>
-                <div class="pipeline-step-example"><strong>Portal Ingress:</strong> The adversary wants to get through the door.</div>
+                <div class="pipeline-step-title">Security Objective</div>
+                <div class="pipeline-step-example"><strong>Portal Protection:</strong> Safeguard physical access portals against unauthenticated ingress.</div>
               </div>
               <div class="pipeline-step">
-                <div class="pipeline-step-num">02. TECHNIQUE</div>
-                <div class="pipeline-step-title">The Bypass Mechanism</div>
-                <div class="pipeline-step-example"><strong>Latch Slip (PHY-T1002):</strong> Manipulate the latch bolt through an exposed frame gap.</div>
+                <div class="pipeline-step-num">02. HYPOTHESIS</div>
+                <div class="pipeline-step-title">Bypass Path</div>
+                <div class="pipeline-step-example"><strong>Latch Manipulation (PHY-T1002):</strong> Mechanical manipulation of latch bolt via exposed frame gap.</div>
               </div>
               <div class="pipeline-step">
                 <div class="pipeline-step-num">03. OBSERVATION</div>
-                <div class="pipeline-step-title">The Physical Check</div>
-                <div class="pipeline-step-example"><strong>Feeler Gauge:</strong> Assessor checks if frame gap &gt; 3.2mm per NFPA 80 without an astragal.</div>
+                <div class="pipeline-step-title">Physical Check</div>
+                <div class="pipeline-step-example"><strong>Feeler Gauge:</strong> Measure frame strike clearance against NFPA 80 (3.2mm).</div>
               </div>
               <div class="pipeline-step">
-                <div class="pipeline-step-num">04. ASSESSMENT</div>
-                <div class="pipeline-step-title">The Classification</div>
-                <div class="pipeline-step-example"><strong>Legacy / Soft Defect:</strong> Physical conditions allow bypass without a key.</div>
+                <div class="pipeline-step-num">04. EVIDENCE</div>
+                <div class="pipeline-step-title">Logged Record</div>
+                <div class="pipeline-step-example"><strong>Measured Gap:</strong> 4.5mm clearance with photo evidence and gauge serial.</div>
               </div>
               <div class="pipeline-step">
-                <div class="pipeline-step-num">05. REMEDIATION</div>
-                <div class="pipeline-step-title">The Warranty Fix</div>
-                <div class="pipeline-step-example"><strong>PHY-M1002:</strong> General Contractor mounts steel astragal under contract warranty ($0 capex).</div>
+                <div class="pipeline-step-num">05. ASSESSMENT</div>
+                <div class="pipeline-step-title">Disposition</div>
+                <div class="pipeline-step-example"><strong>Deficient:</strong> Frame margin exceeds allowable clearance without protective astragal.</div>
+              </div>
+              <div class="pipeline-step">
+                <div class="pipeline-step-num">06. REMEDIATION</div>
+                <div class="pipeline-step-title">Correction</div>
+                <div class="pipeline-step-example"><strong>PHY-M1002:</strong> Mount continuous steel astragal overlapping door stop.</div>
               </div>
             </div>
 
             <p>
-              Notice how Step 5 finishes with a <strong>Contractor Warranty Remediation</strong>. APCAF findings represent physical installation non-conformances that contractors must rectify under applicable warranty scopes before final invoice release.
+              APCAF Base identifies the physical condition and documents the finding. It does not perform active exploitation.
             </p>
 
             <!-- Lesson 02 Footer Navigation -->
@@ -352,12 +357,12 @@
 
             <div class="comparison-grid">
               <div class="comparison-box active-box">
-                <div class="comparison-title">Active Exploitation (Red Team)</div>
-                <p><strong>"Let me try to defeat this door."</strong><br>Uses lockpicks, shove knives, or bypass tools to breach the threshold. Carries operational risk and liability.</p>
+                <div class="comparison-title">Active Exploitation (Penetration Testing)</div>
+                <p><strong>"Attempting to defeat the barrier."</strong><br>Attempts to exploit the barrier using physical tools or manipulation. Carries operational risk, potential damage, and liability.</p>
               </div>
               <div class="comparison-box passive-box">
-                <div class="comparison-title">APCAF Passive Assessment (Hardware QA)</div>
-                <p><strong>"Let me determine whether the physical conditions required for this bypass exist."</strong><br>Uses pocket feeler gauges and passive RF listeners to inspect compliance with engineering standards (e.g. NFPA 80 3.2mm limit).</p>
+                <div class="comparison-title">APCAF Base Assessment (Specification Verification)</div>
+                <p><strong>"Determining whether non-conforming conditions exist."</strong><br>Uses pocket feeler gauges and passive RF listeners to inspect compliance with engineering standards (e.g. NFPA 80 3.2mm limit).</p>
               </div>
             </div>
 
@@ -555,16 +560,16 @@
 
               <!-- Completion Certificate -->
               <div class="completion-cert" id="simCertificate">
-                <div class="cert-seal">APCAF CERTIFIED</div>
+                <div class="cert-seal">FUNDAMENTALS COMPLETED</div>
                 <h3 style="font-size: 1.25rem; font-weight: 700; color: #ffffff; margin-bottom: 6px;">
                   Field Guide Fundamentals Completed
                 </h3>
                 <p style="font-size: 0.9rem; color: #a1a1aa; max-width: 500px; margin: 0 auto 18px;">
-                  You have successfully completed the APCAF Fundamentals field scenarios. You understand the difference between compliance presence and adversarial resilience.
+                  You have successfully completed the APCAF Fundamentals field scenarios. You understand the difference between nominal control presence and verified non-invasive resilience.
                 </p>
                 <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                  <a href="tools/field-triage.html" class="btn-nav-primary" style="background: #ffffff; color: #09090b;">Launch 45s Field Triage →</a>
-                  <a href="docs.html" class="btn-nav-sow" style="border-color: rgba(255,255,255,0.2); color: #fff;">Explore Technical Standard</a>
+                  <a href="tools/field-triage.html" class="btn-nav-primary" style="background: #ffffff; color: #09090b;">Launch Field Triage →</a>
+                  <a href="docs.html" class="btn-nav-sow" style="border-color: rgba(255,255,255,0.2); color: #fff;">Explore Technical Specification</a>
                 </div>
               </div>
 
