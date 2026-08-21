@@ -190,20 +190,28 @@
           <p id="modalMitigation"></p>
         </div>
         <div class="spec-sheet-block">
-          <div class="block-title">Compliance Cross-Walk Mappings</div>
+          <div class="block-title">Standards &amp; Framework Cross-Walk</div>
           <div id="modalCompliance" style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px;"></div>
+        </div>
+        <div style="margin-top: 18px; display: flex; gap: 10px;">
+          <a id="modalTestInTriageBtn" href="tools/field-triage.html" class="btn-nav-primary" style="flex: 1; justify-content: center; text-decoration: none;">
+            Test in Field Triage →
+          </a>
+          <button type="button" class="resend-btn-ghost" onclick="closeTechniqueModal()" style="padding: 8px 16px;">
+            Close
+          </button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- SOW Legal Clause Modal -->
-  <div class="modal-overlay" id="sowModalOverlay">
-    <div class="modal-sheet">
-      <div class="modal-sheet-head">
+  <div class="modal-sheet-backdrop" id="sowModal">
+    <div class="modal-sheet-card">
+      <div class="modal-sheet-header">
         <div>
           <span class="chip-tag">Engagement Addendum</span>
-          <h3 style="margin-top: 6px; font-size: 1.15rem;">Audit Scope & Consent Clause</h3>
+          <h3 style="margin-top: 6px; font-size: 1.15rem;">Audit Scope &amp; Consent Clause</h3>
         </div>
         <button class="modal-close-btn" onclick="closeSowModal()" aria-label="Close">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -213,15 +221,15 @@
         </button>
       </div>
       <div class="modal-sheet-main">
-        <div class="spec-sheet-block" style="border-left: 3px solid var(--accent-sky);">
-          <div class="block-title" style="color: var(--accent-sky);">Single-Sentence Fast-Path Clause</div>
+        <div class="spec-sheet-block" style="border-left: 3px solid var(--border-dark);">
+          <div class="block-title">Single-Sentence Fast-Path Clause</div>
           <p id="sowClauseText" style="font-size: 0.9rem; color: var(--text-head); font-style: italic;">
             "Client explicitly authorizes the assessment team to perform non-invasive, passive radio frequency (RF) credential reads and non-intrusive passive physical network port link detection during the inspection to verify vendor hardware installation specifications."
           </p>
         </div>
 
         <div class="spec-sheet-block">
-          <div class="block-title">Scope & Life-Safety Protection Guarantees</div>
+          <div class="block-title">Scope &amp; Life-Safety Protection Guarantees</div>
           <p style="font-size: 0.82rem; color: var(--text-body); line-height: 1.5;">
             • <strong>Zero Operational Impact:</strong> Strictly non-intrusive reads only. No packet injection or sniffing.<br>
             • <strong>Life-Safety Non-Interference:</strong> Zero manipulation of fire alarm, emergency egress, or crash bar hardware.<br>

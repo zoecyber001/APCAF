@@ -1,6 +1,8 @@
-# Standard Engagement Letter Consent Clause & Addendum
+# Sample Assessment Authorization Language
 
-This document contains standardized legal and scope clauses to insert directly into Statements of Work (SOW), Master Services Agreements (MSA), or Assessment Authorization letters prior to physical site walks.
+> **Notice:** This document is a sample operational authorization template, not legal advice. Organizations should adapt it in consultation with qualified legal counsel.
+
+This document contains sample scope and authorization clauses for inclusion in Statements of Work (SOW), Master Services Agreements (MSA), or Assessment Authorization letters prior to physical site walks.
 
 ---
 

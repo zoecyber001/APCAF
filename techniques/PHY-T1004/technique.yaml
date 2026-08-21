@@ -1,0 +1,60 @@
+id: "PHY-T1004"
+name: "Exposed Physical Network Interface Assessment"
+status: "base_coverage"
+tactic_id: "PHY-TAC-05"
+tactic_name: "Physical Interface & Hardware Layer Protection"
+target_object: "PORT"
+target_time_seconds: 10
+
+hypothesis: "Publicly accessible network jacks that maintain an active physical link may provide unauthorized network connectivity if administrative port shutdown, 802.1X, or MAC-based quarantine is misconfigured."
+
+assessment_condition: "Does a publicly accessible RJ-45 Ethernet wall drop in an unmonitored or common area broadcast an active physical Layer 1 carrier signal upon non-intrusive connection?"
+
+assessment_procedure:
+  method: "passive_led_link_test"
+  tools_required:
+    - "Passive LED Ethernet link state tester (zero-packet transmit)"
+  steps:
+    - "Connect passive LED link tester to the exposed common area RJ-45 wall drop."
+    - "Observe status indicator LEDs for Layer 1 electrical carrier detection (10/100/1000 Mbps)."
+    - "Verify whether port is administratively shut down or disconnected at the patch panel."
+
+evidence_requirements:
+  data_type: "device_read"
+  acceptable_formats:
+    - "LED carrier indicator status (Illuminated vs. Unilluminated)"
+    - "Port label and physical location identifier"
+  validation_criteria: "Documented link carrier state without transmitting IP packets or conducting network probing."
+
+result_model:
+  hardened_criteria: "Zero Layer 1 link state (port administratively shut down or unpatched at switch level) OR documented 802.1X port-security policy enforced."
+  deficient_criteria: "Active Layer 1 link carrier continuously illuminated on unmonitored public/visitor area jack without documented access controls."
+  condition_requires_validation_criteria: "Link carrier active on dedicated printer/display drop; requires network architecture review to verify VLAN isolation and 802.1X enforcement."
+
+limitations:
+  can_establish:
+    - "Physical Layer 1 carrier signaling and electrical continuity."
+    - "Whether port is administratively shut down at the hardware layer."
+  cannot_establish:
+    - "Whether IEEE 802.1X network access control (NAC) is enforced upon frame transmission."
+    - "VLAN segmentation, DHCP address assignment, or lateral IP connectivity."
+
+mitigation_id: "PHY-M1004"
+mitigation_name: "Administrative Port Quarantine & 802.1X Enforcement"
+mitigation_action: "Administratively shut down unused common area switch ports at the patch panel or configure strict IEEE 802.1X port authentication."
+
+technical_references:
+  - standard: "IEEE 802.1X-2020"
+    section: "Port-Based Network Access Control"
+    title: "IEEE Standard for Local and Metropolitan Area Networks"
+  - standard: "NIST SP 800-53 Rev 5"
+    section: "PE-3, PE-4"
+    title: "Physical and Environmental Protection - Access Control & Monitoring"
+
+framework_mappings:
+  - framework: "ISO/IEC 27001:2022"
+    control_id: "A.8.20"
+    title: "Network security"
+  - framework: "PCI DSS v4.0"
+    control_id: "Req 9.1.2"
+    title: "Physical protection of network interfaces"

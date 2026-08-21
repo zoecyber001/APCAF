@@ -10,7 +10,7 @@ case_type: "SYNTHETIC_DEMO"
 evidence_status: "NO_FIELD_EVIDENCE"
 validation_status: "synthetic_fixture"
 timestamp: "2026-08-15T10:30:00Z"
-framework_standard: "APCAF-ATT&CK-PHYSICAL-v1"
+framework_standard: "APCAF-BASE-v0.1.0"
 assessor_id: "APCAF-SYNTHETIC-DEMO-RUNNER"
 authorization_ref: "SYNTHETIC-DEMO-SOW-CLAUSE-01"
 

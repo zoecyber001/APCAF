@@ -1,11 +1,14 @@
-# Executive Memo: Physical Security Installation - Notice of Non-Conformance & Warranty Punch List
+# Optional Implementation Profile: Vendor Remediation & Warranty Notice (APCAF-WF-01)
+
+> **Profile:** APCAF-WF-01 (Vendor / Commercial Workflow Extension)  
+> **Notice:** This template is an optional commercial workflow extension. It is not legal advice and is governed by applicable client-contractor agreements.
 
 **TO:** [General Contractor / Physical Security Systems Integrator]  
 **FROM:** [Chief Information Security Officer / VP Corporate Security / Head of Facilities]  
 **DATE:** [Date]  
 **FACILITY:** [Facility Name / Building / Room ID]  
 **CONTRACT REF:** [Master Installation Agreement / Purchase Order Number]  
-**SUBJECT:** Post-Installation QA Inspection Findings - Invoice Hold & Warranty Rectification Request  
+**SUBJECT:** Post-Installation QA Inspection Findings - Remediation & Warranty Notice  
 
 ---
 

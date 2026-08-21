@@ -1,0 +1,60 @@
+id: "PHY-T1003"
+name: "REX Sensor Placement Assessment"
+status: "base_coverage"
+tactic_id: "PHY-TAC-03"
+tactic_name: "Portal & Architectural Barrier Protection"
+target_object: "SENSOR"
+target_time_seconds: 15
+
+hypothesis: "Interior Request-to-Exit (REX) motion detectors whose detection cones extend to perimeter door margins may be susceptible to non-contact activation through door seams if directional shielding is absent."
+
+assessment_condition: "Is the interior Request-to-Exit (REX) passive infrared (PIR) sensor optical field or lens visible from the exterior through transom, jamb, or threshold margins without a directional deflector hood?"
+
+assessment_procedure:
+  method: "optical_line_of_sight"
+  tools_required:
+    - "Visual inspection"
+    - "Flashlight"
+  steps:
+    - "Examine perimeter threshold, transom, and meeting stile gaps from the exterior side of the portal."
+    - "Determine if interior REX PIR sensor body or optical lens is within direct line-of-sight."
+    - "Verify presence of a directional deflector collar, shroud, or physical sensor hood."
+
+evidence_requirements:
+  data_type: "observation"
+  acceptable_formats:
+    - "Optical line-of-sight description"
+    - "Photo of interior transom from exterior gap"
+  validation_criteria: "Documented sensor presence, mounting angle, and shroud installation status."
+
+result_model:
+  hardened_criteria: "REX sensor fitted with directional deflector hood restricting detection field strictly to the interior egress path; perimeter brush sweep or astragal installed."
+  deficient_criteria: "Unshielded wide-angle PIR sensor lens directly visible through perimeter door seams, creating potential exterior trigger exposure."
+  condition_requires_validation_criteria: "Sensor partially shrouded but mounted within 300mm of top transom; requires controlled thermal/aerosol trigger validation."
+
+limitations:
+  can_establish:
+    - "Optical line-of-sight to the interior sensor lens from the exterior perimeter."
+    - "Presence of mechanical deflector hoods or perimeter brush sweeps."
+  cannot_establish:
+    - "Actual sensor sensitivity threshold setting, PIR pulse count configuration, or whether environmental triggers can reliably trip the relay."
+
+mitigation_id: "PHY-M1003"
+mitigation_name: "Directional REX Deflector Shroud Installation"
+mitigation_action: "Mount a directional metal deflector hood over the interior REX PIR sensor and install perimeter brush sweeps on door gaps."
+
+technical_references:
+  - standard: "NFPA 101"
+    section: "§7.2.1.6.2"
+    title: "Life Safety Code - Sensor Release of Electrically Locked Egress Doors"
+  - standard: "UL 294"
+    section: "Section 4.2"
+    title: "Standard for Access Control System Units"
+
+framework_mappings:
+  - framework: "ISO/IEC 27001:2022"
+    control_id: "A.7.1"
+    title: "Physical security perimeters"
+  - framework: "PCI DSS v4.0"
+    control_id: "Req 9.1.1"
+    title: "Physical access controls"

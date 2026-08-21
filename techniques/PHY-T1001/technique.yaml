@@ -1,0 +1,60 @@
+id: "PHY-T1001"
+name: "Credential Technology Assessment"
+status: "base_coverage"
+tactic_id: "PHY-TAC-02"
+tactic_name: "Credential & Identity Protection"
+target_object: "BADGE"
+target_time_seconds: 5
+
+hypothesis: "Static, unauthenticated credential identifiers may permit credential replay or cloning where the access-control architecture does not provide cryptographic mutual authentication."
+
+assessment_condition: "Does the electronic credential broadcast a static unencrypted identifier (such as 125 kHz Prox or unauthenticated CSN) without cryptographic challenge-response validation?"
+
+assessment_procedure:
+  method: "passive_rf_interrogation"
+  tools_required:
+    - "Pocket dual-frequency RFID/NFC reader"
+  steps:
+    - "Hold sample authorized credential in proximity to the test reader."
+    - "Identify operating carrier frequency (125 kHz Low Frequency vs. 13.56 MHz High Frequency)."
+    - "Determine whether transmission is static unencrypted UID/CSN or mutual cryptographic protocol (ISO/IEC 14443-4 / ISO/IEC 7816)."
+
+evidence_requirements:
+  data_type: "device_read"
+  acceptable_formats:
+    - "RFID reader frequency & protocol log"
+    - "Credential model identifier"
+  validation_criteria: "Documented carrier frequency and whether challenge-response cryptographic SAM keys are required by reader firmware."
+
+result_model:
+  hardened_criteria: "Credential implements mutual cryptographic authentication (AES-128 / DESFire EV2/EV3 / Seos / PIV smartcard) and reader verifies encrypted payload."
+  deficient_criteria: "Credential relies on unencrypted 125 kHz Prox (HID Prox, EM4100) or static 13.56 MHz CSN without mutual authentication."
+  condition_requires_validation_criteria: "High-frequency smartcard observed, but reader configuration / SAM activation status requires administrative verification."
+
+limitations:
+  can_establish:
+    - "Operating carrier frequency (LF 125 kHz vs. HF 13.56 MHz)."
+    - "Presence of unencrypted static identifier broadcast."
+  cannot_establish:
+    - "Whether physical badge cloning equipment is locally available."
+    - "Whether secondary compensating factors (such as biometric verification or PACs duress monitoring) are enforced at readers."
+
+mitigation_id: "PHY-M1001"
+mitigation_name: "Cryptographic Smartcard Migration"
+mitigation_action: "Upgrade credential stock to ISO/IEC 14443-4 smartcards with AES-128 mutual authentication (DESFire EV3 / Seos) and activate SAM keys on access readers."
+
+technical_references:
+  - standard: "ISO/IEC 14443-4"
+    section: "Transmission Protocol"
+    title: "Identification cards - Contactless integrated circuit cards"
+  - standard: "NIST SP 800-116 Rev 1"
+    section: "Section 4.1"
+    title: "Guidelines for the Use of PIV Credentials in Facility Access"
+
+framework_mappings:
+  - framework: "ISO/IEC 27001:2022"
+    control_id: "A.7.2"
+    title: "Physical entry controls"
+  - framework: "PCI DSS v4.0"
+    control_id: "Req 9.2.1"
+    title: "Physical access control to sensitive areas"

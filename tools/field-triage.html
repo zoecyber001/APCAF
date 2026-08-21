@@ -719,21 +719,21 @@
 
     <!-- Actions Row -->
     <div class="triage-actions-row">
-      <button type="button" class="resend-btn-ghost" onclick="generateOutput('yaml')">
+      <button type="button" class="resend-btn-main" onclick="generateOutput('yaml')">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
           <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
         </svg>
         Export YAML Case Record
       </button>
-      <button type="button" class="resend-btn-main" onclick="generateOutput('punchlist')">
+      <button type="button" class="resend-btn-ghost" onclick="generateOutput('punchlist')">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
           <polyline points="14 2 14 8 20 8"></polyline>
           <line x1="16" y1="13" x2="8" y2="13"></line>
           <line x1="16" y1="17" x2="8" y2="17"></line>
         </svg>
-        Generate Vendor Warranty Notice
+        Generate Remediation Notice
       </button>
     </div>
 
@@ -760,7 +760,7 @@
           </svg>
         </div>
         <div style="font-size: 0.85rem; color: var(--text-dim);">
-          APCAF: Adversarial Physical Control Assessment Framework • Open Specification (CC BY 4.0)
+          APCAF Base Draft v0.1.0 • Open Specification (CC BY 4.0)
         </div>
       </div>
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
@@ -769,7 +769,7 @@
         <a href="../repository.html" style="font-size: 0.82rem; color: var(--text-body);">Rule Repository</a>
         <a href="../docs.html" style="font-size: 0.82rem; color: var(--text-body);">Documentation</a>
         <a href="field-triage.html" style="font-size: 0.82rem; color: var(--text-body);">Field Triage</a>
-        <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener" style="font-size: 0.82rem; color: var(--text-body);">GitHub (v1.0.0)</a>
+        <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener" style="font-size: 0.82rem; color: var(--text-body);">GitHub (v0.1.0)</a>
       </div>
     </div>
   </footer>
@@ -987,7 +987,7 @@ case_type: "${caseType}"
 evidence_status: "${evidenceStatus}"
 validation_status: "${valStatus}"
 timestamp: "${new Date().toISOString()}"
-framework_standard: "APCAF-ATT&CK-PHYSICAL-v1"
+framework_standard: "APCAF-BASE-v0.1.0"
 assessor_id: ${assessorId}
 authorization_ref: "${authRef}"
 

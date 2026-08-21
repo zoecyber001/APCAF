@@ -1,15 +1,17 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "APCAF_Case_Log",
-  "description": "Canonical schema for logging non-invasive APCAF physical security assessment findings, observed conditions, and vendor warranty remediation tracking.",
+  "description": "Canonical schema for logging non-invasive APCAF physical security assessment findings, observed conditions, and optional remediation tracking.",
   "type": "object",
   "required": [
     "case_id",
+    "case_type",
+    "evidence_status",
+    "validation_status",
     "timestamp",
     "facility_metadata",
     "assessor_id",
-    "findings",
-    "remediation_status"
+    "findings"
   ],
   "properties": {
     "case_id": {
@@ -18,7 +20,7 @@
     },
     "case_type": {
       "type": "string",
-      "enum": ["SYNTHETIC_DEMO", "FIELD_OBSERVED"],
+      "enum": ["SYNTHETIC_DEMO", "FIELD_OBSERVED", "FIELD_OBSERVED_REVIEWED"],
       "description": "Distinguishes synthetic teaching fixtures from verified real-world field assessments"
     },
     "evidence_status": {
@@ -43,11 +45,11 @@
     },
     "authorization_ref": {
       "type": "string",
-      "description": "SOW addendum, client ticket, or audit consent authorization reference"
+      "description": "Assessment authorization, client ticket, or scope reference"
     },
     "facility_metadata": {
       "type": "object",
-      "required": ["facility_type", "regulatory_scope"],
+      "required": ["facility_type"],
       "properties": {
         "facility_type": {
           "type": "string",
@@ -55,13 +57,14 @@
         },
         "regulatory_scope": {
           "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "items": { "type": "string" }
         },
         "target_facility_hash": {
           "type": "string",
-          "description": "Anonymized SHA-256 or pseudo-identifier for client data confidentiality"
+          "description": "Anonymized identifier or hash for client data confidentiality"
+        },
+        "control_owner": {
+          "type": "string"
         }
       }
     },
@@ -87,7 +90,7 @@
           },
           "classification": {
             "type": "string",
-            "enum": ["Hardened", "Legacy/Soft", "Partially Hardened"]
+            "enum": ["Hardened", "Deficient", "Legacy/Soft", "Partially Hardened", "Condition_Requires_Validation", "Not_Assessed"]
           },
           "susceptibility_assessment": {
             "type": "string",
@@ -100,6 +103,19 @@
           "evidence_ref": {
             "type": "string",
             "description": "Identifier or hash for physical photo, gauge measurement log, or device capture"
+          },
+          "evidence_hash": {
+            "type": "string"
+          },
+          "confidence": {
+            "type": "string",
+            "enum": ["HIGH", "MEDIUM", "LOW"]
+          },
+          "measurement_unit": {
+            "type": "string"
+          },
+          "measurement_method": {
+            "type": "string"
           },
           "observed_spec": {
             "type": "string"
@@ -121,7 +137,6 @@
     },
     "remediation_status": {
       "type": "object",
-      "required": ["ciso_punchlist_issued", "vendor_invoice_hold"],
       "properties": {
         "ciso_punchlist_issued": {
           "type": "boolean"
@@ -136,6 +151,18 @@
         "notes": {
           "type": "string"
         }
+      }
+    },
+    "commercial_workflow": {
+      "type": "object",
+      "description": "Optional APCAF-WF-01 profile for vendor warranty and commercial retainage tracking",
+      "properties": {
+        "profile": { "type": "string" },
+        "warranty_applicable": { "type": "boolean" },
+        "punchlist_issued": { "type": "boolean" },
+        "invoice_hold_status": { "type": "string" },
+        "contractor_ref": { "type": "string" },
+        "resolution_status": { "type": "string" }
       }
     }
   }

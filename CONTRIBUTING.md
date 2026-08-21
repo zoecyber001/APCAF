@@ -2,75 +2,113 @@
 
 Thank you for contributing to the **Adversarial Physical Control Assessment Framework (APCAF)**. 
 
-APCAF is an open-source, vendor-neutral standard for physical and hardware-layer security testing. We welcome contributions from red team operators, building engineers, physical penetration testers, CISOs, and hardware integrity researchers.
+APCAF is an open specification for standardized, non-invasive physical security control assessment. We welcome contributions from building engineers, physical security consultants, auditors, facility managers, and hardware security researchers.
 
 ---
 
-## Contribution Criteria
+## 1. Contribution Principles
 
-Every proposed physical technique in APCAF must adhere to the **Three Core Tenets**:
+Every technique proposed in APCAF must adhere to three foundational rules:
 
-1. **Standardised 45-Second Budget:** The assessment step must be executable in 45 seconds or less of direct read time during a standard site walk.
-2. **Zero Life-Safety Interference:** Tests must NEVER manipulate, compromise, or bypass life-safety systems (e.g. fire alarm trip relays, panic breakout hardware, emergency stairwell releases).
-3. **Contractual Warranty Linkage:** Every technique must define a concrete **Contractor Warranty Mitigation Specification (`PHY-Mxxxx`)** that a facility owner or CISO can cite against a vendor's installation scope of work.
+1. **Non-Invasive Procedure:** Assessments must rely exclusively on non-destructive, non-exploitative observations (e.g. feeler gauges, optical line-of-sight, passive RF frequency analysis, passive zero-packet LED carrier detection).
+2. **Zero Life-Safety Interference:** Assessments must NEVER manipulate or compromise life-safety, fire alarm, or emergency egress hardware.
+3. **Explicit Evidence & Remediation Boundary:** Every technique must specify:
+   - What the non-invasive check can establish and what it cannot establish (Limitations).
+   - Verifiable building/engineering code citations (e.g. NFPA 80/101, UL 294, ISO/IEC 14443).
+   - Concrete mitigation and remediation guidance (`PHY-Mxxxx`).
 
 ---
 
-## Technique YAML Schema
+## 2. Canonical Technique Structure
 
-All technique definitions submitted to the repository must follow this structure:
+Each technique resides in its own dedicated directory under `techniques/PHY-TXXXX/`:
+
+```
+techniques/
+├── PHY-T1001/
+│   ├── technique.yaml
+│   └── README.md
+├── PHY-T1002/
+│   ├── technique.yaml
+│   └── README.md
+...
+```
+
+### Technique YAML Schema (`schemas/technique.schema.json`)
+
+All technique definitions must adhere strictly to `schemas/technique.schema.json`:
 
 ```yaml
-attack_technique: PHY-T100X
-display_name: "Technique Name"
-tactic: "PHY-TAC-0X"
-severity: "critical" # critical | high | medium | low
-inspection_time: "XXs"
-tool_required: "Tool Name (e.g., Feeler gauge, Pocket RFID reader)"
+id: "PHY-T100X"
+name: "Technique Assessment Name"
+status: "candidate" # base_coverage | candidate | deprecated
+tactic_id: "PHY-TAC-0X"
+tactic_name: "Tactic Name"
+target_object: "DOOR" # DOOR | BADGE | PORT | SENSOR | ENCLAVE | PERIMETER
+target_time_seconds: 15
 
-atomic_tests:
-  - name: "Test Step Name"
-    auto_generated_guid: "apcaf-t100x-test-01"
-    description: "Clear technical description of the passive inspection."
-    supported_platforms: ["physical"]
-    citations:
-      - standard: "NFPA 80 (2022) §6.3.1.7.1"
-      - standard: "ANSI/SDI A250.8"
-    input_arguments:
-      param_name:
-        description: "Parameter description"
-        default: 3.2
-    executor:
-      name: "tool_name"
-      command: "inspection_command_or_protocol"
-    pass_criteria: "What constitutes a hardened installation."
-    fail_criteria: "What constitutes an unmitigated installation defect."
+hypothesis: "Clear description of the physical bypass hypothesis."
 
-mitigation:
-  id: "PHY-M100X"
-  title: "Contractor Warranty Mitigation Specification"
-  contractor_mandate: "Exact contractual language for warranty remediation."
-  compliance_mappings:
-    - standard: "ISO 27001:2022"
-      clause: "A.7.X"
-    - standard: "PCI DSS v4.0"
-      clause: "Requirement 9.X.X"
+assessment_condition: "Normative test condition verifiable non-invasively."
+
+assessment_procedure:
+  method: "visual_and_feeler_gauge" # passive_rf_interrogation | visual_and_feeler_gauge | optical_line_of_sight | passive_led_link_test | visual_inspection
+  tools_required:
+    - "Feeler gap gauge"
+  steps:
+    - "Step 1 description"
+    - "Step 2 description"
+
+evidence_requirements:
+  data_type: "measurement" # measurement | observation | device_read | photo
+  acceptable_formats:
+    - "Dimension in millimeters (mm)"
+  validation_criteria: "Criterion compared against standard tolerance."
+
+result_model:
+  hardened_criteria: "Condition indicating hardened defense."
+  deficient_criteria: "Condition indicating physical deficiency."
+  condition_requires_validation_criteria: "Condition requiring controlled testing."
+
+limitations:
+  can_establish:
+    - "What the non-invasive check establishes."
+  cannot_establish:
+    - "What the check cannot prove without active exploitation."
+
+mitigation_id: "PHY-M100X"
+mitigation_name: "Mitigation Title"
+mitigation_action: "Concrete technical correction guidance."
+
+technical_references:
+  - standard: "NFPA 80"
+    section: "§6.3.1.7.1"
+    title: "Standard for Fire Doors and Other Opening Protectives"
+
+framework_mappings:
+  - framework: "ISO/IEC 27001:2022"
+    control_id: "A.7.1"
+    title: "Physical security perimeters"
 ```
 
 ---
 
-## Submission Process
+## 3. Pull Request & Verification Workflow
 
-1. **Fork the Repository:** `git clone https://github.com/zoecyber001/APCAF.git`
-2. **Create a Branch:** `git checkout -b technique/phy-t100x-name`
-3. **Add Your Definition:** Add the technique YAML file under `techniques/` and update `docs/TAXONOMY.md`.
-4. **Cite Industry Building/Fire/Hardware Codes:** Provide authoritative citations (e.g. NFPA 80/101, UL 437/294, ANSI/BHMA, SDI, NIST SP 800-116).
-5. **Submit a Pull Request:** Open a PR against `main` for review by the APCAF Working Group.
+1. **Fork & Branch:** Clone your fork and create a branch (`git checkout -b technique/phy-t100x-name`).
+2. **Add Technique Definition:** Create `techniques/PHY-TXXXX/technique.yaml` and `techniques/PHY-TXXXX/README.md`.
+3. **Compile and Validate:**
+   ```bash
+   # Validate technique against canonical schema
+   python3 scripts/validate_schemas.py
+
+   # Compile technique into data/techniques.json
+   python3 scripts/build_data.py
+   ```
+4. **Submit PR:** Submit a Pull Request with technical rationale and reference citations for review by the APCAF Maintainers.
 
 ---
 
-## Maintainership & Governance
+## 4. Licensing
 
-* **Core Maintainer:** Zoe Cyber & APCAF Working Group Contributors
-* **Contact & Inquiries:** [GitHub Issues & Discussions](https://github.com/zoecyber001/APCAF/issues)
-* **License:** All documentation and taxonomy text is contributed under **CC BY 4.0**; tooling code is contributed under **MIT**.
+All documentation, specifications, and taxonomy contributions are licensed under **Creative Commons Attribution 4.0 International (CC BY 4.0)**. Software and tooling code is licensed under **MIT**.

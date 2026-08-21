@@ -1,0 +1,147 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "APCAF_Technique_Specification",
+  "description": "Canonical schema for APCAF physical security assessment technique specifications.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "status",
+    "tactic_id",
+    "tactic_name",
+    "hypothesis",
+    "assessment_condition",
+    "assessment_procedure",
+    "evidence_requirements",
+    "result_model",
+    "limitations",
+    "mitigation_id",
+    "mitigation_name",
+    "mitigation_action",
+    "technical_references",
+    "framework_mappings"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^PHY-T[0-9]{4}(\\.[0-9]{3})?$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["base_coverage", "candidate", "deprecated"]
+    },
+    "tactic_id": {
+      "type": "string",
+      "pattern": "^PHY-TAC-[0-9]{2}$"
+    },
+    "tactic_name": {
+      "type": "string"
+    },
+    "target_object": {
+      "type": "string",
+      "enum": ["DOOR", "BADGE", "PORT", "SENSOR", "ENCLAVE", "PERIMETER"]
+    },
+    "target_time_seconds": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "hypothesis": {
+      "type": "string",
+      "description": "Adversarial bypass hypothesis tested by this assessment"
+    },
+    "assessment_condition": {
+      "type": "string",
+      "description": "Normative non-invasive physical test condition"
+    },
+    "assessment_procedure": {
+      "type": "object",
+      "required": ["method", "tools_required", "steps"],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["passive_rf_interrogation", "visual_and_feeler_gauge", "optical_line_of_sight", "passive_led_link_test", "visual_inspection"]
+        },
+        "tools_required": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "steps": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "evidence_requirements": {
+      "type": "object",
+      "required": ["data_type", "acceptable_formats", "validation_criteria"],
+      "properties": {
+        "data_type": { "type": "string" },
+        "acceptable_formats": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "validation_criteria": { "type": "string" }
+      }
+    },
+    "result_model": {
+      "type": "object",
+      "required": ["hardened_criteria", "deficient_criteria", "condition_requires_validation_criteria"],
+      "properties": {
+        "hardened_criteria": { "type": "string" },
+        "deficient_criteria": { "type": "string" },
+        "condition_requires_validation_criteria": { "type": "string" }
+      }
+    },
+    "limitations": {
+      "type": "object",
+      "required": ["can_establish", "cannot_establish"],
+      "properties": {
+        "can_establish": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "cannot_establish": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "mitigation_id": {
+      "type": "string",
+      "pattern": "^PHY-M[0-9]{4}$"
+    },
+    "mitigation_name": {
+      "type": "string"
+    },
+    "mitigation_action": {
+      "type": "string"
+    },
+    "technical_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["standard", "section", "title"],
+        "properties": {
+          "standard": { "type": "string" },
+          "section": { "type": "string" },
+          "title": { "type": "string" }
+        }
+      }
+    },
+    "framework_mappings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["framework", "control_id", "title"],
+        "properties": {
+          "framework": { "type": "string" },
+          "control_id": { "type": "string" },
+          "title": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -140,5 +140,5 @@ graph TD
 2. **Step 2 - Field Execution:** Execute the 3 checks in 45 seconds during the physical walk.
 3. **Step 3 - Deliverable Packaging:**
    * Compliance / Commissioning Records: Objective non-conformance telemetry.
-   * CISO / Client Leadership: [`templates/VENDOR_WARRANTY_NOTICE.md`](templates/VENDOR_WARRANTY_NOTICE.md) containing the punch list.
+   * CISO / Client Leadership: [`templates/VENDOR_REMEDIATION_NOTICE.md`](templates/VENDOR_REMEDIATION_NOTICE.md) containing the punch list.
 4. **Step 4 - Case Archival:** Commit field logs to [`cases/`](cases/) validated against [`schemas/case.schema.json`](schemas/case.schema.json).

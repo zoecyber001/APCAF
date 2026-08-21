@@ -13,142 +13,94 @@ const SVG_ICONS = {
   close: `<svg class="icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`
 };
 
-// --- 1. APCAF Technique Knowledge Base ---
+// --- 1. APCAF Canonical Technique Knowledge Base ---
 const TECHNIQUES = [
   {
     id: "PHY-T1001",
     tacticId: "PHY-TAC-02",
-    tacticName: "Credential Intercept",
-    title: "Unencrypted RFID Harvesting",
+    tacticName: "Credential & Identity Protection",
+    title: "Credential Technology Assessment",
     isMVP: true,
-    severity: "critical",
+    severity: "base_coverage",
     inspectionTime: "5 Seconds",
     tool: "Pocket Multi-Frequency RFID Reader",
     citations: ["ISO/IEC 14443-4", "NIST SP 800-116 Rev 1"],
-    plainEnglish: "This credential technology may expose static identifiers that support credential cloning or unauthorized replication under passive contactless inspection.",
-    mechanics: "Unencrypted 125 kHz or legacy MIFARE Classic cards transmit static identifiers without cryptographic challenge-response authentication.",
-    passiveQA: "Contactless read of badge credential. If card emits unencrypted 125 kHz carrier (HID Prox, EM4100) or static MIFARE CSN, classify as Legacy / Soft.",
+    plainEnglish: "Interrogates credential carrier frequency to determine whether authentication relies on static unencrypted identifiers without cryptographic challenge-response validation.",
+    mechanics: "Evaluates whether contactless tokens broadcast unencrypted static UIDs (125 kHz Prox / MIFARE CSN) without mutual AES-128 cryptographic authentication.",
+    passiveQA: "Contactless read of badge credential. If card emits unencrypted 125 kHz carrier or static CSN without mutual authentication, classify as Deficient.",
     mitigationId: "PHY-M1001",
-    mitigationTitle: "Encrypted Smartcards (AES-128 / DESFire EV3)",
-    mitigation: "Mandate ISO/IEC 14443-4 credentials with AES-128 mutual authentication (DESFire EV2/EV3, Seos, PIV smartcards) with cryptographic SAM keys configured on readers.",
-    compliance: ["ISO 27001 A.7.2", "PCI DSS Req 9.2.1", "SOC 2 CC6.4"],
-    atomicDoc: {
-      prerequisites: [
-        "Pocket RFID Interrogator (Proxmark3 / Keysy / Multi-reader)",
-        "Assessor badge holder consent",
-        "Zero RF field perturbation on active reader panels"
-      ],
-      steps: [
-        "Power on pocket RFID interrogator in passive listen/read mode.",
-        "Hold the badge within 2-5 cm of the interrogator coil for 3 seconds.",
-        "Check interrogation logs: Observe carrier frequency and data payload structure.",
-        "Evaluate modulation: Identify whether response contains static unencrypted UID (125 kHz Prox / CSN) or initiates ISO 14443-4 cryptochip challenge."
-      ],
-      passCriteria: "Card initiates encrypted handshake (AES-128 / DESFire EV2/EV3 / Seos) and refuses plaintext static UID cloning.",
-      failCriteria: "Card immediately broadcasts unencrypted 26-bit to 37-bit facility/card code on 125 kHz carrier, or returns plaintext MIFARE Classic UID.",
-      warrantyRemediation: "Integrator must exchange issued legacy credentials for AES-128 crypto-smartcards and configure cryptographic SAM keys across all access controllers under original contract warranty."
+    mitigationTitle: "Cryptographic Smartcard Migration",
+    mitigation: "Mandate ISO/IEC 14443-4 credentials with AES-128 mutual authentication (DESFire EV2/EV3, Seos, PIV smartcards) and activate SAM keys on readers.",
+    compliance: ["ISO 27001 A.7.2", "PCI DSS Req 9.2.1"],
+    limitations: {
+      canEstablish: ["Operating carrier frequency and static UID broadcast exposure."],
+      cannotEstablish: ["Cloning equipment availability or reader-side PIN/biometric policies."]
     }
   },
   {
     id: "PHY-T1002",
     tacticId: "PHY-TAC-03",
-    tacticName: "Portal Ingress",
-    title: "Mechanical Latch Manipulation (Slip & UDT)",
+    tacticName: "Portal & Architectural Barrier Protection",
+    title: "Door & Latch Protection Assessment",
     isMVP: true,
-    severity: "critical",
+    severity: "base_coverage",
     inspectionTime: "15 Seconds",
     tool: "Metric Feeler Gauge / Visual Margin Check",
-    citations: ["NFPA 80 (2022) §6.3.1.7.1", "ANSI/SDI A250.8 / SDI-122", "IBC §716"],
-    plainEnglish: "The physical latch bolt and frame clearance lack continuous physical shielding, creating susceptibility to mechanical latch manipulation through perimeter margins.",
-    mechanics: "Exposed latch bolts on outward-opening doors lack physical astragal latch guards when frame clearance exceeds allowable standards (> 3.2mm / 1/8 in.).",
-    passiveQA: "Measure door frame clearance with feeler gauge. Under NFPA 80 §6.3.1.7.1 & ANSI/SDI A250.8, allowable margin is <= 3.2mm (1/8\"). If gap > 3.2mm and lacks a continuous overlapping steel astragal plate, classify as Legacy / Soft.",
+    citations: ["NFPA 80 (2022) §6.3.1.7.1", "ANSI/SDI A250.8 / SDI-122"],
+    plainEnglish: "Measures door frame operating clearance against NFPA 80 tolerances (3.2mm) and checks for continuous steel astragal latch protection.",
+    mechanics: "Evaluates outward-opening doors for exposed latch bolt access through perimeter frame clearances exceeding 3.2mm without protective astragal shielding.",
+    passiveQA: "Measure frame strike gap with feeler gauge. If gap > 3.2mm and lacks continuous stainless steel astragal plate, classify as Deficient.",
     mitigationId: "PHY-M1002",
-    mitigationTitle: "Full-Length Continuous Steel Astragals",
-    mitigation: "Install full-height continuous stainless steel astragal latch guards to completely shield the latch bolt from tool insertion.",
-    compliance: ["ISO 27001 A.7.4", "PCI DSS Req 9.1.1"],
-    atomicDoc: {
-      prerequisites: [
-        "Pocket metric feeler gauge (0.5mm - 5.0mm blades)",
-        "Inspection penlight",
-        "Visual access to closed exterior door perimeter"
-      ],
-      steps: [
-        "Verify the door is fully engaged in its locked strike position without touching the handle.",
-        "Insert the feeler gauge into the vertical jamb margin directly in front of the latch bolt.",
-        "Measure the clearance distance between the door edge and the frame stop against the 3.2mm (1/8\") threshold defined in NFPA 80 §6.3.1.7.1.",
-        "Inspect the external surface for a continuous full-height steel astragal plate overlapping the jamb."
-      ],
-      passCriteria: "Frame clearance is <= 3.2mm (1/8\" per NFPA 80 §6.3.1.7.1) OR an overlapping continuous steel astragal completely shields the latch bolt from direct line-of-sight and tool insertion.",
-      failCriteria: "Clearance exceeds 3.2mm (1/8\") with direct line-of-sight to the bevel of the latch bolt, allowing tool bypass without frame contact.",
-      warrantyRemediation: "Integrator must supply and mount full-height stainless steel security astragals and adjust door closer latching speeds to ensure positive mechanical latching."
+    mitigationTitle: "Continuous Security Astragal Installation",
+    mitigation: "Install full-height continuous stainless steel astragal latch guards overlapping the frame stop on the exterior approach side.",
+    compliance: ["ISO 27001 A.7.1", "PCI DSS Req 9.1.1"],
+    limitations: {
+      canEstablish: ["Perimeter strike clearance and protective guard coverage."],
+      cannotEstablish: ["Lock cylinder pin resistance or interior deadbolt status."]
     }
   },
   {
     id: "PHY-T1003",
     tacticId: "PHY-TAC-03",
-    tacticName: "Portal Ingress",
-    title: "REX Sensor Blind Activation",
+    tacticName: "Portal & Architectural Barrier Protection",
+    title: "REX Sensor Placement Assessment",
     isMVP: true,
-    severity: "high",
+    severity: "base_coverage",
     inspectionTime: "15 Seconds",
-    tool: "Line-of-Sight Check",
+    tool: "Optical Line-of-Sight Check",
     citations: ["NFPA 101 §7.2.1.6.2", "UL 294 Standard"],
-    plainEnglish: "The interior request-to-exit motion sensor field is unshielded, creating susceptibility to non-contact activation through threshold gaps or transom margins.",
-    mechanics: "Interior Request-to-Exit (REX) PIR sensors unlock doors when tripped through threshold gaps by external thermal plumes or non-destructive reaching tools.",
-    passiveQA: "Inspect optical line-of-sight to the interior REX sensor through door threshold/transom. If the sensor PIR lens is visible without a directional deflector hood, classify as Legacy / Soft.",
+    plainEnglish: "Inspects perimeter transom and threshold margins for optical line-of-sight to the interior Request-to-Exit motion detector.",
+    mechanics: "Evaluates whether interior REX PIR sensor optical field is visible through door perimeter gaps without a directional deflector hood.",
+    passiveQA: "Inspect optical line-of-sight through door gaps. If REX PIR lens is visible from exterior without a directional deflector shroud, classify as Deficient.",
     mitigationId: "PHY-M1003",
-    mitigationTitle: "Directional REX PIR Deflector Hoods",
+    mitigationTitle: "Directional REX Deflector Shroud Installation",
     mitigation: "Install UL-listed directional deflector hoods limiting sensor field-of-view strictly to interior exit paths, paired with perimeter brush seals.",
-    compliance: ["ISO 27001 A.7.4", "SOC 2 CC6.4"],
-    atomicDoc: {
-      prerequisites: [
-        "Visual line-of-sight through threshold or door perimeter",
-        "Penlight for interior transom inspection",
-        "Zero deployment of pressurized aerosol or heat sources"
-      ],
-      steps: [
-        "Stand on the unsecure exterior side of the closed server room door.",
-        "Look through the top transom gap and bottom door threshold sweep.",
-        "Locate the interior REX PIR sensor mounted above the door header.",
-        "Verify whether the sensor has a downward-facing shroud or directional optical deflector limiting its cone."
-      ],
-      passCriteria: "REX sensor has a physical deflector shroud or is configured as a dual-technology (PIR + capacitive touch bar) system immune to threshold air currents.",
-      failCriteria: "Wide-angle unhooded PIR sensor is visible directly through door margins, allowing exterior thermal plumes or aerosol sprays to trip the sensor.",
-      warrantyRemediation: "Integrator must install UL-listed directional deflector hoods over all REX motion detectors and install heavy-duty perimeter brush weatherstripping."
+    compliance: ["ISO 27001 A.7.1", "SOC 2 CC6.4"],
+    limitations: {
+      canEstablish: ["Direct line-of-sight to sensor lens and presence of deflector hoods."],
+      cannotEstablish: ["Internal sensor sensitivity threshold or verified bypass tripping without active environmental testing."]
     }
   },
   {
     id: "PHY-T1004",
     tacticId: "PHY-TAC-05",
-    tacticName: "Interface & Tap",
-    title: "Exposed Active Physical Network Interface",
+    tacticName: "Physical Interface & Hardware Layer Protection",
+    title: "Exposed Physical Network Interface Assessment",
     isMVP: true,
-    severity: "high",
+    severity: "base_coverage",
     inspectionTime: "10 Seconds",
     tool: "Passive LED Link Tester",
     citations: ["IEEE 802.1X-2020", "NIST SP 800-53 PE-3"],
-    plainEnglish: "Exposed, unauthenticated physical network drops exhibit active Layer 1 link state without port isolation or 802.1X access control enforcement.",
-    mechanics: "Accessible wall drops in public or common areas provide active physical layer link signaling without administrative port shutdown or 802.1X authentication.",
-    passiveQA: "Insert zero-packet passive LED link tester into drop. If Layer 1 link LED illuminates continuously on an unmonitored drop, classify as Legacy / Soft.",
+    plainEnglish: "Tests unmonitored common area network drops for active Layer 1 carrier signaling to verify port shutdown and isolation.",
+    mechanics: "Evaluates whether exposed wall jacks in public or visitor zones maintain an active physical Layer 1 link state without administrative shutdown.",
+    passiveQA: "Insert zero-packet passive LED tester into drop. If Layer 1 PHY carrier illuminates on unmonitored drop, classify as Deficient / Condition Requires Validation.",
     mitigationId: "PHY-M1004",
-    mitigationTitle: "Port Shutdown & IEEE 802.1X NAC",
-    mitigation: "Administratively shut down unused switch ports at the patch panel and enforce 802.1X Network Access Control across all perimeter wall jacks.",
-    compliance: ["ISO 27001 A.7.4 & A.8.20", "PCI DSS Req 9.1.2"],
-    atomicDoc: {
-      prerequisites: [
-        "Passive RJ-45 LED Link Tester (zero packet transmission, purely electrical LED indication)",
-        "Target public/lobby wall jacks within audit scope",
-        "Zero network packet sniffing or injection"
-      ],
-      steps: [
-        "Identify accessible network RJ-45 jacks in unmonitored common areas.",
-        "Insert the passive LED link tester dongle into the jack.",
-        "Observe the hardware link pulse indicator LEDs for 5 seconds.",
-        "Log whether electrical Layer 1 PHY carrier signaling is active."
-      ],
-      passCriteria: "No link LED activity (port administratively shut down) OR port immediately rejects unauthenticated connection via 802.1X quarantine.",
-      failCriteria: "Link LED illuminates steady green/amber, indicating an active unauthenticated Layer 1/2 switch port in an unrestricted public area.",
-      warrantyRemediation: "Integrator/Network team must disable all unassigned patch panel drops and configure 802.1X Port-Based Network Access Control with dynamic VLAN assignment."
+    mitigationTitle: "Administrative Port Quarantine & 802.1X Enforcement",
+    mitigation: "Administratively shut down unused switch ports at the patch panel and enforce IEEE 802.1X port security.",
+    compliance: ["ISO 27001 A.8.20", "PCI DSS Req 9.1.2"],
+    limitations: {
+      canEstablish: ["Physical Layer 1 carrier signaling and administrative port shutdown state."],
+      cannotEstablish: ["IEEE 802.1X network access control enforcement, VLAN placement, or IP-layer reachability."]
     }
   }
 ];
@@ -167,13 +119,11 @@ document.addEventListener("DOMContentLoaded", () => {
   renderRepoGrid();
   renderExecutiveNotice();
 
-  // Set date in executive notice
   const dateEl = document.getElementById("memoCurrentDate");
   if (dateEl) {
     dateEl.textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   }
 
-  // Close modals on escape
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       closeTechniqueModal();
@@ -181,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   
-  // Close modals on overlay click
   const modalOverlay = document.getElementById("modalOverlay");
   if (modalOverlay) {
     modalOverlay.addEventListener("click", (e) => {
@@ -195,14 +144,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Attach input listeners for live updates
   ["input-notes-c1", "input-notes-c2", "input-notes-c3"].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener("input", renderExecutiveNotice);
   });
 });
 
-// --- 4. SigmaHQ-Style Rule Repository Engine ---
+// --- 4. Rule Repository Engine ---
 function handleRepoSearch(query) {
   workbenchState.repoSearchQuery = query.toLowerCase().trim();
   renderRepoGrid();
@@ -248,8 +196,7 @@ function renderRepoGrid() {
       <div class="card-top-row">
         <span class="card-tech-id">${tech.id}</span>
         <div class="card-meta-tags">
-          <span class="card-badge-severity ${tech.severity}">${tech.severity.toUpperCase()}</span>
-          ${tech.isMVP ? '<span class="chip-tag" style="font-size: 0.65rem;">MVP</span>' : ''}
+          <span class="chip-tag" style="font-size: 0.65rem;">Base Coverage</span>
         </div>
       </div>
       <div class="card-title">${tech.title}</div>
@@ -258,7 +205,7 @@ function renderRepoGrid() {
         <span style="display: inline-flex; align-items: center; gap: 4px;">
           ${SVG_ICONS.clock} ${tech.inspectionTime}
         </span>
-        <span style="color: var(--accent-sky); font-weight: 600;">Inspect Rule →</span>
+        <span style="color: var(--accent-sky); font-weight: 600;">View Specification →</span>
       </div>
     </div>
   `).join("");
@@ -267,6 +214,8 @@ function renderRepoGrid() {
 function openTechniqueModal(techId) {
   const tech = TECHNIQUES.find(t => t.id === techId);
   if (!tech) return;
+
+  const targetObject = tech.id === "PHY-T1001" ? "badge" : (tech.id === "PHY-T1002" ? "door" : (tech.id === "PHY-T1003" ? "sensor" : "port"));
 
   document.getElementById("modalTacticTag").textContent = `${tech.tacticId}: ${tech.tacticName}`;
   document.getElementById("modalTitle").textContent = `${tech.id} - ${tech.title}`;
@@ -292,6 +241,11 @@ function openTechniqueModal(techId) {
   const compWrap = document.getElementById("modalCompliance");
   compWrap.innerHTML = tech.compliance.map(c => `<span class="chip-tag">${c}</span>`).join(" ");
 
+  const testBtn = document.getElementById("modalTestInTriageBtn");
+  if (testBtn) {
+    testBtn.href = `tools/field-triage.html?object=${targetObject}`;
+  }
+
   const overlay = document.getElementById("modalOverlay");
   overlay.classList.add("open");
   document.body.style.overflow = "hidden";
@@ -303,9 +257,9 @@ function closeTechniqueModal() {
   document.body.style.overflow = "auto";
 }
 
-// --- 6. SOW Consent Modal ---
+// --- 5. SOW Consent Modal ---
 function openSowModal() {
-  const overlay = document.getElementById("sowModalOverlay");
+  const overlay = document.getElementById("sowModalOverlay") || document.getElementById("sowModal");
   if (overlay) {
     overlay.classList.add("open");
     document.body.style.overflow = "hidden";
@@ -313,7 +267,7 @@ function openSowModal() {
 }
 
 function closeSowModal() {
-  const overlay = document.getElementById("sowModalOverlay");
+  const overlay = document.getElementById("sowModalOverlay") || document.getElementById("sowModal");
   if (overlay) {
     overlay.classList.remove("open");
     document.body.style.overflow = "auto";
@@ -325,7 +279,7 @@ function copySowClauseAndClose() {
   closeSowModal();
 }
 
-// --- 7. Workbench State & Executive Notice Renderer ---
+// --- 6. Workbench State & Findings Summary Renderer ---
 function setWorkbenchState(controlKey, status) {
   workbenchState[controlKey] = status;
 
@@ -358,33 +312,33 @@ function renderExecutiveNotice() {
   if (workbenchState.c1 === "Soft") {
     softItems.push({
       id: "PHY-T1001",
-      observed: notes1,
+      observed: notes1 || "Unencrypted static UID broadcast observed",
       standard: "Encrypted High-Frequency Smartcards (AES-128 / DESFire EV3 / ISO 14443-4)",
-      remediation: "Supply compliant encrypted smartcards; configure cryptographic SAM profiles on readers."
+      remediation: "Deploy compliant encrypted smartcards; configure cryptographic SAM profiles on readers."
     });
   }
   if (workbenchState.c2 === "Soft") {
     softItems.push({
       id: "PHY-T1002/T1003",
-      observed: notes2,
-      standard: "Continuous Steel Astragal Latch Guard (Gap &le; 3.2mm) + Directional REX PIR Hood",
+      observed: notes2 || "Door strike gap > 3.2mm without protective astragal",
+      standard: "Continuous Steel Astragal Latch Guard (Gap <= 3.2mm) + Directional REX PIR Hood",
       remediation: "Install full-height interlocking steel astragals and UL-listed REX beam deflectors."
     });
   }
   if (workbenchState.c3 === "Soft") {
     softItems.push({
       id: "PHY-T1004",
-      observed: notes3,
+      observed: notes3 || "Active Layer 1 PHY carrier signaling illuminated",
       standard: "Administrative Port Shutdown / IEEE 802.1X Network Access Control",
-      remediation: "Patch out unmonitored drops and administratively disable unused switch ports."
+      remediation: "Administratively disable unassigned switch ports and verify 802.1X policy."
     });
   }
 
   if (softItems.length > 0) {
     stamp.className = "notice-badge-stamp hold";
-    stamp.textContent = `Retainage Hold (${softItems.length} Defect(s) Identified)`;
+    stamp.textContent = `Deficiencies Identified (${softItems.length} Finding(s))`;
     if (summaryText) {
-      summaryText.textContent = "An independent APCAF Quality Assurance inspection identified latent hardware installation deficiencies. In accordance with standard contractual warranty terms, final invoice retainage is placed on hold pending zero-cost vendor rectification.";
+      summaryText.textContent = "An independent APCAF Quality Assurance inspection identified physical security non-conformances requiring technical remediation.";
     }
     
     tableBody.innerHTML = softItems.map(item => `
@@ -397,16 +351,16 @@ function renderExecutiveNotice() {
     `).join("");
   } else {
     stamp.className = "notice-badge-stamp cleared";
-    stamp.textContent = "100% Spec Compliant - Retainage Approved";
+    stamp.textContent = "All Evaluated Controls Hardened";
     if (summaryText) {
-      summaryText.textContent = "An independent APCAF Quality Assurance inspection has verified that all physical security controls satisfy hardened engineering specifications. All installed credentials, portal barriers, and network interfaces are approved for final invoice sign-off.";
+      summaryText.textContent = "An independent APCAF Quality Assurance inspection verified that all evaluated physical security controls satisfy hardened engineering specifications.";
     }
     
     tableBody.innerHTML = `
       <tr>
         <td colspan="4" style="text-align: center; color: var(--text-pure); padding: 24px; font-size: 0.88rem;">
           <span style="display: inline-flex; align-items: center; gap: 6px;">
-            ${SVG_ICONS.check} All 3 physical access vectors verified as Hardened Spec. Zero installation warranty defects identified. Approved for final milestone retainage disbursement.
+            ${SVG_ICONS.check} All evaluated physical access controls verified as Hardened Spec. Zero physical deficiencies identified.
           </span>
         </td>
       </tr>
@@ -414,7 +368,7 @@ function renderExecutiveNotice() {
   }
 }
 
-// --- 8. Memo Copy Logic with Clearance Guard Clause ---
+// --- 7. Findings Summary Copy Logic ---
 function copyExecutiveMemoText() {
   const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   const softItems = [workbenchState.c1, workbenchState.c2, workbenchState.c3].filter(s => s === "Soft");
@@ -425,59 +379,53 @@ function copyExecutiveMemoText() {
   let memo = "";
 
   if (softItems.length === 0) {
-    memo = `EXECUTIVE MEMORANDUM: PHYSICAL SECURITY QA CLEARANCE
+    memo = `APCAF ASSESSMENT RECORD: PHYSICAL SECURITY VERIFICATION SUMMARY
 --------------------------------------------------------------------------------
-TO:       Physical Security Systems Integrator
-FROM:     Office of the CISO & Corporate Security Operations
-DATE:     ${dateStr}
 FACILITY: [Target Facility / Room 101]
-STATUS:   RETAINAGE APPROVED (100% Specification Compliant)
+DATE:     ${dateStr}
+RESULT:   ALL EVALUATED CONTROLS HARDENED (No Deficiencies Identified)
+STANDARD: APCAF Base Draft v0.1.0
 --------------------------------------------------------------------------------
 
-All audited physical access vectors (RF Credentials, Perimeter Barrier, and Network Drops) have met hardened specification standards. Final milestone retainage payment is cleared for disbursement.
+All evaluated physical controls (RF Credentials, Portal Hardware, and Network Interfaces) satisfy hardened specification criteria.
 
-Authorized by: Office of the Chief Information Security Officer`;
+Authorized by: Assessor / Physical Security Operations`;
   } else {
-    memo = `EXECUTIVE MEMORANDUM: PHYSICAL SECURITY INSTALLATION WARRANTY DEFECT NOTICE
+    memo = `APCAF ASSESSMENT FINDINGS & REMEDIATION PUNCH LIST
 --------------------------------------------------------------------------------
-TO:       Physical Security Systems Integrator
-FROM:     Office of the CISO & Corporate Security Operations
-DATE:     ${dateStr}
 FACILITY: [Target Facility / Room 101]
-STATUS:   RETAINAGE PAYMENT ON HOLD (${softItems.length} Specification Defect(s) Identified)
+DATE:     ${dateStr}
+RESULT:   DEFICIENCIES IDENTIFIED (${softItems.length} Finding(s))
+STANDARD: APCAF Base Draft v0.1.0
 --------------------------------------------------------------------------------
 
-1. EXECUTIVE NOTICE
-In accordance with contractual hardware specifications, an independent APCAF
-Quality Assurance inspection was performed. Final invoice retainage payment is
-placed on hold pending zero-cost vendor rectification of the following items:
+1. IDENTIFIED DEFICIENCIES
+${workbenchState.c1 === 'Soft' ? `* [PHY-T1001] CREDENTIAL TECHNOLOGY DEFICIENCY:
+  - Observed: ${notes1 || 'Unencrypted static UID broadcast'}
+  - Standard: Encrypted Smartcards (AES-128 / DESFire EV3 / ISO 14443-4).
+  - Remediation: Deploy compliant encrypted smartcards and apply encryption keys to readers.\n\n` : ''}${workbenchState.c2 === 'Soft' ? `* [PHY-T1002/T1003] PORTAL LATCH & SENSOR DEFICIENCY:
+  - Observed: ${notes2 || 'Frame strike gap > 3.2mm without protective astragal'}
+  - Standard: Continuous steel astragal latch guards & shielded REX PIR hoods.
+  - Remediation: Install full-height astragal plates and UL-listed REX beam deflectors.\n\n` : ''}${workbenchState.c3 === 'Soft' ? `* [PHY-T1004] EXPOSED NETWORK INTERFACE DEFICIENCY:
+  - Observed: ${notes3 || 'Active Layer 1 PHY carrier signaling illuminated'}
+  - Standard: Public drop isolation / Port Shutdown / 802.1X NAC.
+  - Remediation: Administratively disable unassigned switch ports and verify 802.1X policy.\n\n` : ''}
+2. REMEDIATION PROTOCOL
+- Submit technical rectification schedule.
+- Conduct APCAF re-inspection to verify 'Hardened' status upon completion.
 
-${workbenchState.c1 === 'Soft' ? `* [PHY-T1001] CREDENTIAL MODERNITY DEFECT:
-  - Observed: ${notes1}
-  - Contract Standard: Encrypted Smartcards (AES-128 / DESFire EV3 / ISO 14443-4).
-  - Required Warranty Action: Supply compliant smartcards and apply encryption keys to readers.\n\n` : ''}${workbenchState.c2 === 'Soft' ? `* [PHY-T1002/T1003] PERIMETER HARDENING DEFECT:
-  - Observed: ${notes2}
-  - Contract Standard: Continuous steel astragal latch guards & shielded REX PIR hoods.
-  - Required Warranty Action: Install full-height astragal plates and UL-listed REX beam deflectors.\n\n` : ''}${workbenchState.c3 === 'Soft' ? `* [PHY-T1004] EXPOSED INTERFACE DEFECT:
-  - Observed: ${notes3}
-  - Contract Standard: Public drop isolation / Port Shutdown / 802.1X NAC.
-  - Required Warranty Action: Patch out unused public drops and administratively disable switch interfaces.\n\n` : ''}
-2. RECTIFICATION PROTOCOL
-- Vendor must submit written remediation plan within 5 business days.
-- A 45-second APCAF QA re-inspection will verify 'Hardened' status prior to invoice release.
-
-Authorized by: Office of the Chief Information Security Officer`;
+Authorized by: Assessor / Physical Security Operations`;
   }
 
   navigator.clipboard.writeText(memo).then(() => {
-    showToast("Copied Executive Notice to clipboard");
+    showToast("Copied Assessment Record to clipboard");
   });
 }
 
 function copyConsentClause() {
   const clause = `Client explicitly authorizes the assessment team to perform non-invasive, passive radio frequency (RF) credential reads and non-intrusive passive physical network port link detection during the inspection to verify vendor hardware installation specifications.`;
   navigator.clipboard.writeText(clause).then(() => {
-    showToast("Copied SOW Consent Clause");
+    showToast("Copied Assessment Authorization Language");
   });
 }
 
@@ -517,7 +465,6 @@ function closeMobileMenu() {
   if (btn) btn.setAttribute("aria-expanded", "false");
 }
 
-// Global click outside to close menus
 document.addEventListener("click", (e) => {
   const mobileMenu = document.getElementById("mobileNavMenu");
   const mobileBtn = document.getElementById("mobileMenuToggleBtn");
@@ -527,4 +474,3 @@ document.addEventListener("click", (e) => {
     }
   }
 });
-

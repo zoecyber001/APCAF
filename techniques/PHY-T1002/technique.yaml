@@ -1,0 +1,60 @@
+id: "PHY-T1002"
+name: "Door & Latch Protection Assessment"
+status: "base_coverage"
+tactic_id: "PHY-TAC-03"
+tactic_name: "Portal & Architectural Barrier Protection"
+target_object: "DOOR"
+target_time_seconds: 15
+
+hypothesis: "Door and frame geometry may permit mechanical manipulation of the latch bolt assembly where protective physical shielding is absent and strike clearances exceed engineering tolerances."
+
+assessment_condition: "Does the outward-opening door assembly exhibit strike margin clearance exceeding 3.2mm (1/8 in.) with direct line-of-sight to the latch bolt and zero overlapping protective steel astragal guard?"
+
+assessment_procedure:
+  method: "visual_and_feeler_gauge"
+  tools_required:
+    - "Feeler gap gauge / caliper"
+    - "Flashlight"
+  steps:
+    - "Inspect door swing direction (inward vs. outward opening)."
+    - "Measure frame strike gap at latch level using feeler gauge."
+    - "Check for presence and full coverage of continuous stainless steel security astragal plate."
+
+evidence_requirements:
+  data_type: "measurement"
+  acceptable_formats:
+    - "Measured gap dimension in millimeters (mm)"
+    - "Photo of frame margin with gauge"
+  validation_criteria: "Measured gap compared against NFPA 80 maximum allowable 3.2mm perimeter margin."
+
+result_model:
+  hardened_criteria: "Outward door fitted with continuous full-height steel astragal overlapping jamb; latch bolt fully shielded from direct mechanical access."
+  deficient_criteria: "Exposed latch bolt with perimeter strike gap exceeding 3.2mm (1/8 in.) and no exterior astragal plate."
+  condition_requires_validation_criteria: "Perimeter gap measures between 2.8mm and 3.2mm with minor strike exposure; requires physical latch deadlocking verification."
+
+limitations:
+  can_establish:
+    - "Exact perimeter gap measurements against fire and building standards."
+    - "Presence and structural alignment of protective astragal shielding."
+  cannot_establish:
+    - "Internal lock cylinder integrity or mechanical deadbolt throw status without operational key/credential testing."
+
+mitigation_id: "PHY-M1002"
+mitigation_name: "Continuous Security Astragal Installation"
+mitigation_action: "Install full-height continuous stainless steel security astragal plate overlapping the door frame stop on the exterior approach side."
+
+technical_references:
+  - standard: "NFPA 80"
+    section: "§6.3.1.7.1"
+    title: "Standard for Fire Doors and Other Opening Protectives (Max 3.2mm Clearances)"
+  - standard: "ANSI/SDI A250.8"
+    section: "Section 2.1.8"
+    title: "Specifications for Standard Steel Doors and Frames"
+
+framework_mappings:
+  - framework: "ISO/IEC 27001:2022"
+    control_id: "A.7.1"
+    title: "Physical security perimeters"
+  - framework: "PCI DSS v4.0"
+    control_id: "Req 9.1.1"
+    title: "Physical access controls for sensitive areas"

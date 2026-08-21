@@ -8,7 +8,7 @@ case_type: "FIELD_OBSERVED"
 evidence_status: "PRIMARY_FIELD_EVIDENCE"
 validation_status: "unverified"
 timestamp: "2026-08-17T12:00:00Z"
-framework_standard: "APCAF-ATT&CK-PHYSICAL-v1"
+framework_standard: "APCAF-BASE-v0.1.0"
 assessor_id: "YOUR-ASSESSOR-CALLSIGN-OR-ID"
 authorization_ref: "SOW-ADDENDUM-PHYSICAL-QA-2026"
 
