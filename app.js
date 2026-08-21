@@ -10,8 +10,78 @@ const SVG_ICONS = {
   check: `<svg class="icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`,
   clock: `<svg class="icon-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>`,
   sparkle: `<svg class="icon-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`,
-  close: `<svg class="icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`
+  close: `<svg class="icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
+  moon: `<svg class="icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>`,
+  sun: `<svg class="icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>`,
+  system: `<svg class="icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>`
 };
+
+// --- Theme Management System (Dark / Light / System) ---
+const THEME_STORAGE_KEY = "apcaf-theme";
+
+function getStoredTheme() {
+  return localStorage.getItem(THEME_STORAGE_KEY) || "dark";
+}
+
+function applyTheme(theme) {
+  const root = document.documentElement;
+  let resolvedTheme = theme;
+  if (theme === "system") {
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    resolvedTheme = prefersDark ? "dark" : "light";
+    root.setAttribute("data-theme", resolvedTheme);
+  } else {
+    root.setAttribute("data-theme", theme);
+  }
+  root.style.colorScheme = resolvedTheme;
+  localStorage.setItem(THEME_STORAGE_KEY, theme);
+  updateThemeToggleButtons(theme);
+  window.dispatchEvent(new CustomEvent("apcaf:themeChanged", { detail: { theme, resolvedTheme } }));
+}
+
+function updateThemeToggleButtons(currentTheme) {
+  document.querySelectorAll(".btn-theme-toggle").forEach(btn => {
+    btn.setAttribute("data-current-theme", currentTheme);
+    btn.setAttribute("aria-label", `Current theme: ${currentTheme}. Click to change theme.`);
+    
+    let icon = SVG_ICONS.moon;
+    let label = "Dark";
+    if (currentTheme === "light") {
+      icon = SVG_ICONS.sun;
+      label = "Light";
+    } else if (currentTheme === "system") {
+      icon = SVG_ICONS.system;
+      label = "System";
+    }
+    btn.innerHTML = `${icon} <span>${label}</span>`;
+  });
+}
+
+function cycleTheme() {
+  const current = getStoredTheme();
+  const themeCycle = { "dark": "light", "light": "system", "system": "dark" };
+  const next = themeCycle[current] || "dark";
+  applyTheme(next);
+}
+
+// Watch system theme change if system is active
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+  if (getStoredTheme() === "system") {
+    applyTheme("system");
+  }
+});
+
+// Immediate Theme Application to prevent FOUC
+(function initImmediateTheme() {
+  const saved = getStoredTheme();
+  const root = document.documentElement;
+  if (saved === "system") {
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    root.setAttribute("data-theme", prefersDark ? "dark" : "light");
+  } else {
+    root.setAttribute("data-theme", saved);
+  }
+})();
 
 /// --- 1. APCAF Canonical Technique Store (Loaded from data/techniques.json) ---
 let TECHNIQUES = [];
@@ -78,6 +148,7 @@ const workbenchState = {
 
 // --- 3. Initialization ---
 document.addEventListener("DOMContentLoaded", () => {
+  applyTheme(getStoredTheme());
   loadTechniquesData();
   renderExecutiveNotice();
 

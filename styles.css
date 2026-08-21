@@ -1,56 +1,56 @@
 /* ==========================================================================
-   APCAF - High-Precision Executive Architectural Light Theme
-   Pristine White Surface, Seamless Floating 3D WebGL Shield,
-   High-End Glassmorphic Floating Island Navigation, Refined Monochromatic Palette
-   Typography: Strict Institutional Standards System: Inter (Human / UI / Headings / Body) & IBM Plex Mono (Technical / Data / Metrics)
+   APCAF - Institutional Design System & Theme Engine
+   Dark Mode (Default & Terminal/Field Ops) • Light Mode (Documentation & Reports)
+   Typography: Strict Standards System: Inter (UI / Headings / Body) & IBM Plex Mono (Technical / Data / Metrics)
    ========================================================================== */
 
-:root {
-  /* High-End Swiss & Enterprise Light Neutral Palette */
-  --bg-app: #fcfcfd;
-  --bg-subtle: #f4f5f8;
-  --bg-surface: #ffffff;
-  --bg-surface-elevated: #f8fafc;
-  --bg-surface-hover: #f1f5f9;
-  --bg-glass: rgba(255, 255, 255, 0.88);
-  --bg-glass-card: rgba(255, 255, 255, 0.94);
+:root,
+[data-theme="dark"] {
+  /* High-Precision Institutional Dark Palette (Default) */
+  --bg-app: #09090b;
+  --bg-subtle: #121215;
+  --bg-surface: #18181b;
+  --bg-surface-elevated: #222226;
+  --bg-surface-hover: #27272a;
+  --bg-glass: rgba(18, 18, 21, 0.85);
+  --bg-glass-card: rgba(24, 24, 27, 0.92);
 
   /* Hairline Precision Borders & Calipers */
-  --border-subtle: rgba(0, 0, 0, 0.06);
-  --border-card: rgba(0, 0, 0, 0.08);
-  --border-active: rgba(0, 0, 0, 0.22);
-  --border-dark: #09090b;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-card: rgba(255, 255, 255, 0.12);
+  --border-active: rgba(255, 255, 255, 0.30);
+  --border-dark: #38bdf8;
 
-  /* Obsidian & High-Legibility Slate Typography */
-  --text-pure: #09090b;
-  --text-head: #18181b;
-  --text-body: #52525b;
+  /* Typography */
+  --text-pure: #ffffff;
+  --text-head: #fafafa;
+  --text-body: #a1a1aa;
   --text-dim: #71717a;
-  --text-muted: #a1a1aa;
+  --text-muted: #52525b;
 
-  /* Executive Obsidian Primary Button Tokens */
-  --btn-primary-bg: #09090b;
-  --btn-primary-text: #ffffff;
-  --btn-primary-hover: #27272a;
+  /* Primary Action Buttons */
+  --btn-primary-bg: #fafafa;
+  --btn-primary-text: #09090b;
+  --btn-primary-hover: #ffffff;
 
-  /* Refined Architectural Status Tones (Monochrome & Precision Slate) */
-  --status-hardened: #09090b;
-  --status-hardened-bg: #f4f5f8;
-  --status-hardened-border: rgba(0, 0, 0, 0.12);
+  /* Status Colors */
+  --status-hardened: #22c55e;
+  --status-hardened-bg: rgba(34, 197, 94, 0.12);
+  --status-hardened-border: rgba(34, 197, 94, 0.28);
 
-  --status-defect: #09090b;
-  --status-defect-bg: #f4f5f8;
-  --status-defect-border: rgba(0, 0, 0, 0.12);
+  --status-defect: #ef4444;
+  --status-defect-bg: rgba(239, 68, 68, 0.12);
+  --status-defect-border: rgba(239, 68, 68, 0.28);
 
-  --status-warning: #18181b;
-  --status-warning-bg: #f4f5f8;
-  --status-warning-border: rgba(0, 0, 0, 0.12);
+  --status-warning: #f59e0b;
+  --status-warning-bg: rgba(245, 158, 11, 0.12);
+  --status-warning-border: rgba(245, 158, 11, 0.28);
 
-  --accent-sky: #09090b;
-  --accent-sky-bg: #f4f5f8;
-  --accent-blue-subtle: #0284c7;
+  --accent-sky: #38bdf8;
+  --accent-sky-bg: rgba(56, 189, 248, 0.12);
+  --accent-blue-subtle: #38bdf8;
 
-  /* Typography: Strict Institutional Standards System: Inter (Human) & IBM Plex Mono (Technical) */
+  /* Typography: Strict Institutional Standards System */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
@@ -66,6 +66,52 @@
   --radius-pill: 9999px;
 
   /* Ambient Soft Layered Shadows */
+  --shadow-card: 0 10px 30px -6px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --shadow-nav: 0 16px 36px -8px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  --shadow-modal: 0 32px 80px -16px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--border-card);
+}
+
+[data-theme="light"] {
+  /* High-End Swiss & Enterprise Light Neutral Palette */
+  --bg-app: #f8fafc;
+  --bg-subtle: #f1f5f9;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #f8fafc;
+  --bg-surface-hover: #e2e8f0;
+  --bg-glass: rgba(255, 255, 255, 0.90);
+  --bg-glass-card: rgba(255, 255, 255, 0.96);
+
+  --border-subtle: rgba(0, 0, 0, 0.07);
+  --border-card: rgba(0, 0, 0, 0.10);
+  --border-active: rgba(0, 0, 0, 0.24);
+  --border-dark: #09090b;
+
+  --text-pure: #09090b;
+  --text-head: #0f172a;
+  --text-body: #334155;
+  --text-dim: #64748b;
+  --text-muted: #94a3b8;
+
+  --btn-primary-bg: #0f172a;
+  --btn-primary-text: #ffffff;
+  --btn-primary-hover: #1e293b;
+
+  --status-hardened: #15803d;
+  --status-hardened-bg: #f0fdf4;
+  --status-hardened-border: #bbf7d0;
+
+  --status-defect: #b91c1c;
+  --status-defect-bg: #fef2f2;
+  --status-defect-border: #fecaca;
+
+  --status-warning: #b45309;
+  --status-warning-bg: #fffbeb;
+  --status-warning-border: #fde68a;
+
+  --accent-sky: #0284c7;
+  --accent-sky-bg: #f0f9ff;
+  --accent-blue-subtle: #0284c7;
+
   --shadow-card: 0 10px 30px -6px rgba(0, 0, 0, 0.04), 0 20px 40px -12px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 1);
   --shadow-nav: 0 16px 36px -8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.95);
   --shadow-modal: 0 32px 80px -16px rgba(0, 0, 0, 0.16), 0 0 0 1px var(--border-card);
@@ -80,8 +126,23 @@
 
 html {
   scroll-behavior: smooth;
-  color-scheme: light;
   -webkit-text-size-adjust: 100%;
+}
+
+/* Accessible Focus Indicators */
+:focus-visible {
+  outline: 2px solid var(--accent-blue-subtle);
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {
@@ -3146,5 +3207,146 @@ code, pre {
   display: block;
   animation: fadeIn 200ms var(--ease-spring);
 }
+
+/* ==========================================================================
+   Theme Toggle System Component
+   ========================================================================== */
+.btn-theme-toggle {
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  color: var(--text-head);
+  border: 1px solid var(--border-card);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 140ms var(--ease-out);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn-theme-toggle:hover {
+  color: var(--text-pure);
+  border-color: var(--border-active);
+  background: var(--bg-surface-hover);
+}
+
+.btn-theme-toggle:focus-visible {
+  outline: 2px solid var(--accent-blue-subtle);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Field Assessment Offline Indicator & Status
+   ========================================================================== */
+.field-offline-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-card);
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.field-offline-status .offline-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+  display: inline-block;
+}
+
+/* ==========================================================================
+   High-Fidelity Print & Assessment Report Mode
+   ========================================================================== */
+@media print {
+  *, *::before, *::after {
+    background: transparent !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+  }
+
+  .site-header,
+  .site-footer,
+  .btn-nav-primary,
+  .btn-nav-sow,
+  .btn-theme-toggle,
+  .btn-mobile-menu-toggle,
+  .mobile-nav-drawer,
+  .modal-sheet-backdrop,
+  .modal-overlay,
+  .hero-3d-stage,
+  .triage-mode-bar,
+  .triage-tabs,
+  .triage-meta-grid,
+  .triage-options-grid,
+  .triage-telemetry-input,
+  .triage-actions-row,
+  .resend-btn-cluster,
+  .tactic-tab-bar,
+  .repo-search-bar,
+  .toast-container {
+    display: none !important;
+  }
+
+  .triage-page-wrap {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .triage-output-panel,
+  .executive-notice-deck,
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+  }
+
+  pre#outputArea,
+  .output-code-box {
+    border: 1px solid #cccccc !important;
+    padding: 12px !important;
+    font-size: 9pt !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    page-break-inside: avoid;
+  }
+
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    page-break-inside: avoid;
+  }
+
+  th, td {
+    border: 1px solid #cccccc !important;
+    padding: 6px 8px !important;
+    font-size: 9pt !important;
+  }
+}
+
 
 

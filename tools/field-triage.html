@@ -286,15 +286,17 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 6px;
-      padding: 14px;
+      padding: 16px;
+      min-height: 54px;
       border-radius: var(--radius-sm);
-      background: var(--bg-app);
+      background: var(--bg-surface);
       border: 1px solid var(--border-card);
       color: var(--text-dim);
       cursor: pointer;
       text-align: left;
       font-family: inherit;
       transition: all 140ms ease;
+      user-select: none;
     }
 
     .triage-choice-btn:hover {
@@ -302,9 +304,14 @@
       border-color: var(--border-active);
     }
 
+    .triage-choice-btn:focus-visible {
+      outline: 2px solid var(--accent-blue-subtle);
+      outline-offset: 2px;
+    }
+
     .triage-choice-btn .choice-head {
       font-weight: 700;
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       color: var(--text-pure);
       display: flex;
       align-items: center;
@@ -312,41 +319,39 @@
     }
 
     .triage-choice-btn .choice-desc {
-      font-size: 0.76rem;
-      line-height: 1.4;
+      font-size: 0.78rem;
+      line-height: 1.45;
       color: var(--text-body);
     }
 
     .triage-choice-btn.selected-hardened {
-      background: #f0fdf4;
-      border-color: #16a34a;
-      color: #15803d;
+      background: var(--status-hardened-bg);
+      border-color: var(--status-hardened);
+      color: var(--status-hardened);
     }
 
     .triage-choice-btn.selected-hardened .choice-head {
-      color: #15803d;
+      color: var(--status-hardened);
     }
 
-    .triage-choice-btn.selected-soft,
     .triage-choice-btn.selected-deficient {
-      background: #fef2f2;
-      border-color: #dc2626;
-      color: #b91c1c;
+      background: var(--status-defect-bg);
+      border-color: var(--status-defect);
+      color: var(--status-defect);
     }
 
-    .triage-choice-btn.selected-soft .choice-head,
     .triage-choice-btn.selected-deficient .choice-head {
-      color: #b91c1c;
+      color: var(--status-defect);
     }
 
     .triage-choice-btn.selected-validation {
-      background: #fffbeb;
-      border-color: #d97706;
-      color: #b45309;
+      background: var(--status-warning-bg);
+      border-color: var(--status-warning);
+      color: var(--status-warning);
     }
 
     .triage-choice-btn.selected-validation .choice-head {
-      color: #b45309;
+      color: var(--status-warning);
     }
 
     .triage-telemetry-input {
@@ -355,11 +360,11 @@
 
     .triage-telemetry-input label {
       display: block;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-family: var(--font-mono);
       font-weight: 600;
       color: var(--text-dim);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       text-transform: uppercase;
     }
 
@@ -368,22 +373,24 @@
       background: var(--bg-app);
       border: 1px solid var(--border-card);
       border-radius: var(--radius-sm);
-      padding: 8px 12px;
+      padding: 10px 14px;
+      min-height: 44px;
       color: var(--text-pure);
       font-family: var(--font-mono);
-      font-size: 0.82rem;
+      font-size: 0.84rem;
     }
 
     .triage-rem-preview {
       margin-top: 10px;
-      padding: 8px 12px;
+      padding: 10px 14px;
       border-radius: var(--radius-sm);
-      background: #fef2f2;
-      border: 1px solid rgba(220, 38, 38, 0.25);
-      font-size: 0.76rem;
-      color: #991b1b;
+      background: var(--status-defect-bg);
+      border: 1px solid var(--status-defect-border);
+      font-size: 0.78rem;
+      color: var(--text-pure);
       font-family: var(--font-mono);
       display: none;
+      line-height: 1.45;
     }
 
     .triage-rem-preview.visible {
@@ -416,13 +423,13 @@
     }
 
     pre.triage-code-block {
-      background: #09090b;
-      border: 1px solid #27272a;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-card);
       border-radius: var(--radius-sm);
       padding: 16px;
-      color: #f4f4f5;
+      color: var(--text-pure);
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       overflow-x: auto;
       max-height: 460px;
       white-space: pre-wrap;
@@ -436,7 +443,7 @@
   <!-- Precision Ambient Light Beam -->
   <div class="hero-ambient-glow"></div>
 
-  <!-- High-End Glassmorphic Floating Island Navigation -->
+  <!-- High-End Navigation Bar -->
   <header class="site-header">
     <div class="nav-wrap">
       <a href="../index.html" class="brand-link" aria-label="APCAF Home">
@@ -462,6 +469,11 @@
       </nav>
 
       <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button type="button" class="btn-theme-toggle" onclick="cycleTheme()" aria-label="Cycle display theme (Dark, Light, System)">
+          <svg class="icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z"></path></svg>
+          <span>Dark</span>
+        </button>
         <button type="button" class="btn-nav-sow" onclick="openSowModal()">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -496,7 +508,13 @@
   <main class="container triage-page-wrap">
     
     <div class="triage-head-block">
-      <div class="chip-tag" style="margin-bottom: 8px;">Field Assessment Instrument • 45s Target Budget</div>
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+        <div class="chip-tag">Field Assessment Instrument • 45s Target Budget</div>
+        <div class="field-offline-status" id="fieldOfflineStatus" role="status" aria-live="polite">
+          <span class="offline-dot"></span>
+          <span id="fieldOfflineText">OFFLINE-READY • LOCAL STORAGE ONLY • NO NETWORK REQUIRED</span>
+        </div>
+      </div>
       <h1 style="font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin-bottom: 6px; font-weight: 800; color: var(--text-pure);">
         Field Triage &amp; Assessment Workbench
       </h1>
@@ -747,17 +765,27 @@
         </svg>
         Generate Remediation Notice
       </button>
+      <button type="button" class="resend-btn-ghost" onclick="window.print()" aria-label="Print or save PDF Assessment Report">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 6 2 18 2 18 9"></polyline>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+          <rect x="6" y="14" width="12" height="8"></rect>
+        </svg>
+        Print / PDF Report
+      </button>
     </div>
 
     <!-- Output Section -->
-    <div class="triage-output-card">
+    <div class="triage-output-card" role="region" aria-labelledby="outputTitle">
       <div class="triage-output-header">
         <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--text-pure);" id="outputTitle">Generated Output</h3>
-        <button type="button" class="resend-btn-ghost" style="padding: 5px 12px; font-size: 0.76rem; min-height: auto;" onclick="copyOutput()">
-          Copy Text
-        </button>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="resend-btn-ghost" style="padding: 5px 12px; font-size: 0.76rem; min-height: auto;" onclick="copyOutput()">
+            Copy Text
+          </button>
+        </div>
       </div>
-      <pre class="triage-code-block" id="outputArea">Select an inspection object above, choose your assessment classification, and enter observation telemetry to compile output.</pre>
+      <pre class="triage-code-block" id="outputArea" aria-live="polite" aria-atomic="true">Select an inspection object above, choose your assessment classification, and enter observation telemetry to compile output.</pre>
     </div>
 
   </main>
@@ -1123,12 +1151,30 @@ Verification Protocol: A follow-up APCAF QA re-inspection will verify full 'Hard
       const text = document.getElementById('outputArea').textContent;
       if (!text) return;
       navigator.clipboard.writeText(text).then(() => {
-        alert('Copied output to clipboard.');
+        if (typeof showToast === 'function') {
+          showToast('Copied Assessment Output to clipboard');
+        } else {
+          alert('Copied output to clipboard.');
+        }
       });
     }
 
-    // Parse URL query parameter (e.g. ?object=door)
+    function updateNetworkStatus() {
+      const textEl = document.getElementById('fieldOfflineText');
+      if (!textEl) return;
+      if (navigator.onLine) {
+        textEl.textContent = 'OFFLINE-READY • LOCAL STORAGE ONLY • NO NETWORK REQUIRED';
+      } else {
+        textEl.textContent = 'OFFLINE ACTIVE • 100% LOCAL OPERATION';
+      }
+    }
+
+    window.addEventListener('online', updateNetworkStatus);
+    window.addEventListener('offline', updateNetworkStatus);
+
+    // Parse URL query parameter (e.g. ?object=door) & init
     window.addEventListener('DOMContentLoaded', () => {
+      updateNetworkStatus();
       const params = new URLSearchParams(window.location.search);
       const objParam = params.get('object');
       if (objParam && ['door', 'badge', 'port', 'sensor'].includes(objParam.toLowerCase())) {
