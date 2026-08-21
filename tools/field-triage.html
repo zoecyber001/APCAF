@@ -946,12 +946,64 @@
       const outputArea = document.getElementById('outputArea');
       const outputTitle = document.getElementById('outputTitle');
 
-      // Filter only assessed controls
+      // Filter only assessed controls by pulling metadata from canonical TECHNIQUES_RAW
+      const tMap = {};
+      (window.TECHNIQUES_RAW || []).forEach(t => { tMap[t.id] = t; });
+
+      const t1001 = tMap['PHY-T1001'] || {};
+      const t1002 = tMap['PHY-T1002'] || {};
+      const t1003 = tMap['PHY-T1003'] || {};
+      const t1004 = tMap['PHY-T1004'] || {};
+
       const assessedList = [];
-      if (state['01'] !== null) assessedList.push({ id: '01', controlId: 'APCAF-01', tacticId: 'PHY-TAC-02', tid: 'PHY-T1001', name: 'Credential Technology Assessment', status: state['01'], notes: notes01, time: 5, mitigation: 'PHY-M1001', action: 'Replace credential stock with AES-128 crypto smartcards (DESFire EV3 / Seos) and activate SAM keys on readers.' });
-      if (state['02'] !== null) assessedList.push({ id: '02', controlId: 'APCAF-02', tacticId: 'PHY-TAC-03', tid: 'PHY-T1002', name: 'Door & Latch Protection Assessment', status: state['02'], notes: notes02, time: 15, mitigation: 'PHY-M1002', action: 'Install full-height continuous stainless steel security astragal plate on outward door assembly.' });
-      if (state['03'] !== null) assessedList.push({ id: '03', controlId: 'APCAF-02', tacticId: 'PHY-TAC-03', tid: 'PHY-T1003', name: 'REX Sensor Placement Assessment', status: state['03'], notes: notes03, time: 15, mitigation: 'PHY-M1003', action: 'Mount UL-listed directional deflector hood over interior PIR motion sensor.' });
-      if (state['04'] !== null) assessedList.push({ id: '04', controlId: 'APCAF-03', tacticId: 'PHY-TAC-05', tid: 'PHY-T1004', name: 'Exposed Physical Network Interface Assessment', status: state['04'], notes: notes04, time: 10, mitigation: 'PHY-M1004', action: 'Administratively shut down unmonitored switch ports at patch panel or configure 802.1X quarantine.' });
+      if (state['01'] !== null) assessedList.push({
+        id: '01',
+        controlId: 'APCAF-01',
+        tacticId: t1001.tactic_id || 'PHY-TAC-02',
+        tid: 'PHY-T1001',
+        name: t1001.name || 'Credential Technology Assessment',
+        status: state['01'],
+        notes: notes01,
+        time: t1001.target_time_seconds || 5,
+        mitigation: t1001.mitigation_id || 'PHY-M1001',
+        action: t1001.mitigation_action || 'Upgrade credential stock to ISO/IEC 14443-4 smartcards with AES-128 mutual authentication and activate SAM keys on access readers.'
+      });
+      if (state['02'] !== null) assessedList.push({
+        id: '02',
+        controlId: 'APCAF-02',
+        tacticId: t1002.tactic_id || 'PHY-TAC-03',
+        tid: 'PHY-T1002',
+        name: t1002.name || 'Door & Latch Protection Assessment',
+        status: state['02'],
+        notes: notes02,
+        time: t1002.target_time_seconds || 15,
+        mitigation: t1002.mitigation_id || 'PHY-M1002',
+        action: t1002.mitigation_action || 'Install full-height continuous stainless steel security astragal plate overlapping the door frame stop on the exterior approach side.'
+      });
+      if (state['03'] !== null) assessedList.push({
+        id: '03',
+        controlId: 'APCAF-02',
+        tacticId: t1003.tactic_id || 'PHY-TAC-03',
+        tid: 'PHY-T1003',
+        name: t1003.name || 'REX Sensor Placement Assessment',
+        status: state['03'],
+        notes: notes03,
+        time: t1003.target_time_seconds || 15,
+        mitigation: t1003.mitigation_id || 'PHY-M1003',
+        action: t1003.mitigation_action || 'Mount a directional metal deflector hood over the interior REX PIR sensor and install perimeter brush sweeps on door gaps.'
+      });
+      if (state['04'] !== null) assessedList.push({
+        id: '04',
+        controlId: 'APCAF-03',
+        tacticId: t1004.tactic_id || 'PHY-TAC-05',
+        tid: 'PHY-T1004',
+        name: t1004.name || 'Exposed Physical Network Interface Assessment',
+        status: state['04'],
+        notes: notes04,
+        time: t1004.target_time_seconds || 10,
+        mitigation: t1004.mitigation_id || 'PHY-M1004',
+        action: t1004.mitigation_action || 'Administratively disable unassigned switch ports (shutdown), physically patch down public drops to isolated guest VLANs, and enforce IEEE 802.1X port security.'
+      });
 
       if (assessedList.length === 0) {
         outputTitle.innerText = "Notice: No Controls Assessed";
@@ -999,10 +1051,7 @@ authorization_ref: "${authRef}"
 
 facility_metadata:
   facility_type: "${facilityType}"
-  regulatory_scope:
-    - "ISO_27001_A7"
-    - "PCI_DSS_v4_Req9"
-    - "SOC_2_CC6"
+  applicable_frameworks: []
   target_facility_hash: "${facilityRef}"
 
 findings:

@@ -109,15 +109,15 @@ Traditional compliance audits verify the nominal presence of physical controls. 
 ```
 
 * **HARDENED Criteria:** Jack is unpatched at cross-connect, switch port is administratively `shutdown`, or documented 802.1X quarantine is confirmed via independent authorized testing.
-* **LEGACY / SOFT Criteria:** Layer 1 PHY carrier link indicator LED illuminates continuously on unmonitored common-area drop.
+* **DEFICIENT Criteria:** Layer 1 PHY carrier link indicator LED illuminates continuously on unmonitored common-area drop with verified absence of network access controls.
 
 ---
 
 ## 3. Fast-Path Inspection Reference Table
 
-| Control ID | Vector | Inspection Method | Field Time | Hardened Standard | Legacy / Soft Indicator |
+| Control ID | Vector | Inspection Method | Field Time | Hardened Standard | Deficient Condition |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **APCAF-01** | Credential Modernity | Pocket RFID Interrogation | 5s | AES-128 / DESFire EV2/EV3 / Seos / PKI | 125 kHz Prox / EM4100 / MIFARE Classic |
+| **APCAF-01** | Credential Modernity | Pocket RFID Interrogation | 5s | AES-128 / DESFire EV2/EV3 / Seos / PKI | 125 kHz Prox / EM4100 / MIFARE Classic static UID |
 | **APCAF-02** | Perimeter Hardening | Visual & Gap Measurement | 30s | Continuous Astragal + Shrouded REX PIR | Exposed latch bolt (gap > 3.2mm) / Unshrouded REX |
 | **APCAF-03** | Exposed Port State | Passive LED Plug Test | 10s | Zero PHY Link / Port Disabled / 802.1X | Active L1 PHY link state on unmonitored drop |
 

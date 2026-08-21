@@ -14,7 +14,7 @@ authorization_ref: "SOW-ADDENDUM-PHYSICAL-QA-2026"
 
 facility_metadata:
   facility_type: "corporate_hq" # datacenter | corporate_hq | bank_branch | critical_infrastructure | warehouse | other
-  regulatory_scope:
+  applicable_frameworks: # Optional list of frameworks specified in assessment authorization scope
     - "ISO_27001_A7"
     - "SOC_2_CC6"
     - "PCI_DSS_v4_Req9"

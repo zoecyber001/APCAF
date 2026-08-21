@@ -13,8 +13,13 @@ const SVG_ICONS = {
   close: `<svg class="icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`
 };
 
-// --- 1. APCAF Canonical Technique Store (Loaded from data/techniques.json) ---
+/// --- 1. APCAF Canonical Technique Store (Loaded from data/techniques.json) ---
 let TECHNIQUES = [];
+let TECHNIQUES_RAW = [];
+
+function getCanonicalTechnique(id) {
+  return (TECHNIQUES_RAW || []).find(t => t.id === id) || null;
+}
 
 function transformTechniques(rawArray) {
   return rawArray.map(item => ({
@@ -49,12 +54,17 @@ async function loadTechniquesData() {
     const res = await fetch(jsonPath);
     if (res.ok) {
       const raw = await res.json();
+      TECHNIQUES_RAW = raw;
       TECHNIQUES = transformTechniques(raw);
+      window.TECHNIQUES_RAW = raw;
+      window.TECHNIQUES = TECHNIQUES;
+      window.dispatchEvent(new CustomEvent('apcaf:techniquesLoaded', { detail: raw }));
     }
   } catch (err) {
     console.info("APCAF: Loaded techniques in offline mode:", err.message);
   }
   renderRepoGrid();
+  renderExecutiveNotice();
 }
 
 // --- 2. Workbench State ---
@@ -163,50 +173,81 @@ function renderRepoGrid() {
   `).join("");
 }
 
-function openTechniqueModal(techId) {
-  const tech = TECHNIQUES.find(t => t.id === techId);
+// --- 5. Navigation & Modals ---
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobileNavMenu");
+  const btn = document.getElementById("mobileMenuToggleBtn");
+  if (menu) {
+    const isOpen = menu.classList.toggle("open");
+    if (btn) btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  }
+}
+
+function closeMobileMenu() {
+  const menu = document.getElementById("mobileNavMenu");
+  const btn = document.getElementById("mobileMenuToggleBtn");
+  if (menu) menu.classList.remove("open");
+  if (btn) btn.setAttribute("aria-expanded", "false");
+}
+
+function openTechniqueModal(techniqueId) {
+  const tech = TECHNIQUES.find(t => t.id === techniqueId);
   if (!tech) return;
 
-  const targetObject = tech.id === "PHY-T1001" ? "badge" : (tech.id === "PHY-T1002" ? "door" : (tech.id === "PHY-T1003" ? "sensor" : "port"));
+  const overlay = document.getElementById("modalOverlay");
+  if (!overlay) return;
 
   document.getElementById("modalTacticTag").textContent = `${tech.tacticId}: ${tech.tacticName}`;
   document.getElementById("modalTitle").textContent = `${tech.id} - ${tech.title}`;
-  
-  const plainEl = document.getElementById("modalPlainEnglish");
-  if (plainEl) plainEl.textContent = tech.plainEnglish || tech.mechanics;
+  document.getElementById("modalInspectionTime").textContent = tech.inspectionTime;
+  document.getElementById("modalTool").textContent = tech.tool;
+  document.getElementById("modalCitations").textContent = tech.citations.join(" • ") || "Institutional Standard";
 
   document.getElementById("modalMechanics").textContent = tech.mechanics;
-  
-  const citeEl = document.getElementById("modalCitations");
-  if (citeEl && tech.citations) {
-    citeEl.innerHTML = `<strong>Standards / Citations:</strong> ${tech.citations.join(" • ")}`;
-  } else if (citeEl) {
-    citeEl.innerHTML = "";
-  }
-
-  document.getElementById("modalTime").textContent = tech.inspectionTime;
+  document.getElementById("modalPlainEnglish").textContent = tech.plainEnglish;
   document.getElementById("modalPassiveQA").textContent = tech.passiveQA;
-  document.getElementById("modalTool").textContent = tech.tool;
-  document.getElementById("modalMitigationId").textContent = tech.mitigationId;
-  document.getElementById("modalMitigation").textContent = `${tech.mitigationTitle}: ${tech.mitigation}`;
-  
-  const compWrap = document.getElementById("modalCompliance");
-  compWrap.innerHTML = tech.compliance.map(c => `<span class="chip-tag">${c}</span>`).join(" ");
 
-  const testBtn = document.getElementById("modalTestInTriageBtn");
-  if (testBtn) {
-    testBtn.href = `tools/field-triage.html?object=${targetObject}`;
+  document.getElementById("modalMitigationId").textContent = tech.mitigationId;
+  document.getElementById("modalMitigationTitle").textContent = tech.mitigationTitle;
+  document.getElementById("modalMitigation").textContent = tech.mitigation;
+
+  document.getElementById("modalComplianceList").innerHTML = tech.compliance.map(c => `<li>${c}</li>`).join("");
+
+  const canList = document.getElementById("modalCanEstablishList");
+  if (canList) {
+    canList.innerHTML = (tech.limitations?.canEstablish || []).map(item => `<li>${item}</li>`).join("");
+  }
+  const cannotList = document.getElementById("modalCannotEstablishList");
+  if (cannotList) {
+    cannotList.innerHTML = (tech.limitations?.cannotEstablish || []).map(item => `<li>${item}</li>`).join("");
   }
 
-  const overlay = document.getElementById("modalOverlay");
+  const rawYaml = `id: "${tech.id}"
+name: "${tech.title}"
+tactic_id: "${tech.tacticId}"
+target_object: "${tech.targetObject}"
+status: "${tech.status}"
+mitigation_ref: "${tech.mitigationId}"`;
+
+  const yamlBox = document.getElementById("modalRawYaml");
+  if (yamlBox) yamlBox.textContent = rawYaml;
+
+  const triageLink = document.getElementById("modalTriageLink");
+  if (triageLink) {
+    const objParam = tech.targetObject ? tech.targetObject.toLowerCase() : 'all';
+    triageLink.href = `tools/field-triage.html?object=${objParam}`;
+  }
+
   overlay.classList.add("open");
   document.body.style.overflow = "hidden";
 }
 
 function closeTechniqueModal() {
   const overlay = document.getElementById("modalOverlay");
-  overlay.classList.remove("open");
-  document.body.style.overflow = "auto";
+  if (overlay) {
+    overlay.classList.remove("open");
+    document.body.style.overflow = "auto";
+  }
 }
 
 // --- 5. SOW Consent Modal ---
@@ -237,15 +278,12 @@ function setWorkbenchState(controlKey, status) {
 
   const ctrlNum = controlKey.replace('c', '');
   const hardBtn = document.getElementById(`btn-toggle-${ctrlNum}-hard`);
-  const defBtn = document.getElementById(`btn-toggle-${ctrlNum}-soft`) || document.getElementById(`btn-toggle-${ctrlNum}-def`);
+  const defBtn = document.getElementById(`btn-toggle-${ctrlNum}-def`) || document.getElementById(`btn-toggle-${ctrlNum}-soft`);
+  const valBtn = document.getElementById(`btn-toggle-${ctrlNum}-val`);
 
-  if (status === "Hardened") {
-    if (hardBtn) hardBtn.className = "switch-toggle-btn active-hardened";
-    if (defBtn) defBtn.className = "switch-toggle-btn";
-  } else {
-    if (hardBtn) hardBtn.className = "switch-toggle-btn";
-    if (defBtn) defBtn.className = "switch-toggle-btn active-deficient";
-  }
+  if (hardBtn) hardBtn.className = "switch-toggle-btn" + (status === "Hardened" ? " active-hardened" : "");
+  if (defBtn) defBtn.className = "switch-toggle-btn" + (status === "Deficient" ? " active-deficient" : "");
+  if (valBtn) valBtn.className = "switch-toggle-btn" + (status === "Condition_Requires_Validation" ? " active-validation" : "");
 
   renderExecutiveNotice();
 }
@@ -256,63 +294,74 @@ function renderExecutiveNotice() {
   const summaryText = document.getElementById("memoExecutiveSummaryText");
   if (!tableBody || !stamp) return;
 
-  const deficientItems = [];
+  const assessedFindings = [];
   const notes1 = document.getElementById("input-notes-c1")?.value || "";
   const notes2 = document.getElementById("input-notes-c2")?.value || "";
   const notes3 = document.getElementById("input-notes-c3")?.value || "";
 
-  if (workbenchState.c1 === "Deficient" || workbenchState.c1 === "Soft") {
-    deficientItems.push({
+  const t1001 = getCanonicalTechnique("PHY-T1001");
+  const t1002 = getCanonicalTechnique("PHY-T1002");
+  const t1004 = getCanonicalTechnique("PHY-T1004");
+
+  if (workbenchState.c1 && workbenchState.c1 !== "Hardened") {
+    assessedFindings.push({
       id: "PHY-T1001",
+      status: workbenchState.c1,
       observed: notes1 || "Unencrypted static UID broadcast observed",
-      standard: "Encrypted High-Frequency Smartcards (AES-128 / DESFire EV3 / ISO 14443-4)",
-      remediation: "Deploy compliant encrypted smartcards; configure cryptographic SAM profiles on readers."
+      standard: t1001?.result_model?.hardened_criteria || "Mutual Cryptographic Authentication (AES-128 / DESFire EV3 / ISO 14443-4)",
+      remediation: t1001?.mitigation_action || "Deploy compliant encrypted smartcards; configure cryptographic SAM profiles on readers."
     });
   }
-  if (workbenchState.c2 === "Deficient" || workbenchState.c2 === "Soft") {
-    deficientItems.push({
-      id: "PHY-T1002/T1003",
+  if (workbenchState.c2 && workbenchState.c2 !== "Hardened") {
+    assessedFindings.push({
+      id: "PHY-T1002",
+      status: workbenchState.c2,
       observed: notes2 || "Door strike gap > 3.2mm without protective astragal",
-      standard: "Continuous Steel Astragal Latch Guard (Gap <= 3.2mm) + Directional REX PIR Hood",
-      remediation: "Install full-height interlocking steel astragals and UL-listed REX beam deflectors."
+      standard: t1002?.result_model?.hardened_criteria || "Continuous Steel Astragal Latch Guard + Protected Operating Tolerances",
+      remediation: t1002?.mitigation_action || "Install full-height continuous stainless steel security astragal plate."
     });
   }
-  if (workbenchState.c3 === "Deficient" || workbenchState.c3 === "Soft") {
-    deficientItems.push({
+  if (workbenchState.c3 && workbenchState.c3 !== "Hardened") {
+    assessedFindings.push({
       id: "PHY-T1004",
+      status: workbenchState.c3,
       observed: notes3 || "Active Layer 1 PHY carrier signaling illuminated",
-      standard: "Administrative Port Shutdown / IEEE 802.1X Network Access Control",
-      remediation: "Administratively disable unassigned switch ports and verify 802.1X policy."
+      standard: t1004?.result_model?.hardened_criteria || "Administrative Port Shutdown / IEEE 802.1X Network Access Control",
+      remediation: t1004?.mitigation_action || "Administratively disable unassigned switch ports and verify 802.1X policy."
     });
   }
 
-  if (deficientItems.length > 0) {
-    stamp.className = "notice-badge-stamp hold";
-    stamp.textContent = `Deficiencies Identified (${deficientItems.length} Finding(s))`;
+  if (assessedFindings.length > 0) {
+    const hasDeficient = assessedFindings.some(f => f.status === "Deficient");
+    stamp.className = hasDeficient ? "notice-badge-stamp hold" : "notice-badge-stamp validation";
+    stamp.textContent = `${hasDeficient ? 'Deficiencies Flagged' : 'Validation Required'} (${assessedFindings.length} Item(s))`;
     if (summaryText) {
-      summaryText.textContent = "An independent APCAF Quality Assurance inspection identified physical security non-conformances requiring technical remediation.";
+      summaryText.textContent = "An independent APCAF Quality Assurance assessment recorded physical control conditions requiring technical remediation or administrative validation.";
     }
     
-    tableBody.innerHTML = deficientItems.map(item => `
+    tableBody.innerHTML = assessedFindings.map(item => `
       <tr>
-        <td><strong style="color: var(--text-pure); font-family: var(--font-mono); font-size: 0.78rem;">${item.id}</strong></td>
+        <td>
+          <strong style="color: var(--text-pure); font-family: var(--font-mono); font-size: 0.78rem;">${item.id}</strong>
+          <div style="font-size: 0.68rem; font-family: var(--font-mono); color: ${item.status === 'Deficient' ? '#dc2626' : '#d97706'}; font-weight: 700;">${item.status}</div>
+        </td>
         <td><span style="font-weight: 600; color: var(--text-pure);">${item.observed}</span></td>
-        <td style="color: var(--text-body);">${item.standard}</td>
-        <td><strong style="color: var(--text-pure);">${item.remediation}</strong></td>
+        <td style="color: var(--text-body); font-size: 0.78rem;">${item.standard}</td>
+        <td><strong style="color: var(--text-pure); font-size: 0.78rem;">${item.remediation}</strong></td>
       </tr>
     `).join("");
   } else {
     stamp.className = "notice-badge-stamp cleared";
     stamp.textContent = "All Evaluated Controls Hardened";
     if (summaryText) {
-      summaryText.textContent = "An independent APCAF Quality Assurance inspection verified that all evaluated physical security controls satisfy hardened engineering specifications.";
+      summaryText.textContent = "An independent APCAF Quality Assurance assessment verified that all evaluated physical security controls satisfy hardened engineering specifications.";
     }
     
     tableBody.innerHTML = `
       <tr>
         <td colspan="4" style="text-align: center; color: var(--text-pure); padding: 24px; font-size: 0.88rem;">
           <span style="display: inline-flex; align-items: center; gap: 6px;">
-            ${SVG_ICONS.check} All evaluated physical access controls verified as Hardened Spec. Zero physical deficiencies identified.
+            ${SVG_ICONS.check} All evaluated physical access controls verified Hardened. Zero physical deficiencies identified.
           </span>
         </td>
       </tr>
@@ -323,19 +372,20 @@ function renderExecutiveNotice() {
 // --- 7. Findings Summary Copy Logic ---
 function copyExecutiveMemoText() {
   const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  const defItems = [workbenchState.c1, workbenchState.c2, workbenchState.c3].filter(s => s === "Deficient" || s === "Soft");
-  const notes1 = document.getElementById("input-notes-c1")?.value || "";
-  const notes2 = document.getElementById("input-notes-c2")?.value || "";
-  const notes3 = document.getElementById("input-notes-c3")?.value || "";
+  const nonHardened = [
+    { id: 'PHY-T1001', state: workbenchState.c1, notes: document.getElementById("input-notes-c1")?.value || "Unencrypted static UID broadcast observed" },
+    { id: 'PHY-T1002', state: workbenchState.c2, notes: document.getElementById("input-notes-c2")?.value || "Door strike gap > 3.2mm without protective astragal" },
+    { id: 'PHY-T1004', state: workbenchState.c3, notes: document.getElementById("input-notes-c3")?.value || "Active Layer 1 PHY carrier signaling illuminated" }
+  ].filter(item => item.state && item.state !== "Hardened");
 
   let memo = "";
 
-  if (defItems.length === 0) {
+  if (nonHardened.length === 0) {
     memo = `APCAF ASSESSMENT RECORD: PHYSICAL SECURITY VERIFICATION SUMMARY
 --------------------------------------------------------------------------------
 FACILITY: [Target Facility / Room 101]
 DATE:     ${dateStr}
-RESULT:   ALL EVALUATED CONTROLS HARDENED (No Deficiencies Identified)
+RESULT:   ALL EVALUATED CONTROLS HARDENED (Zero Deficiencies Identified)
 STANDARD: APCAF Base Draft v0.1.0
 --------------------------------------------------------------------------------
 
@@ -343,25 +393,20 @@ All evaluated physical controls (RF Credentials, Portal Hardware, and Network In
 
 Authorized by: Assessor / Physical Security Operations`;
   } else {
+    const findingsBlock = nonHardened.map(item => `* [${item.id}] STATUS: ${item.state}
+  - Observed: ${item.notes}`).join("\n\n");
+
     memo = `APCAF ASSESSMENT FINDINGS & REMEDIATION SUMMARY
 --------------------------------------------------------------------------------
 FACILITY: [Target Facility / Room 101]
 DATE:     ${dateStr}
-RESULT:   DEFICIENCIES IDENTIFIED (${defItems.length} Finding(s))
+RESULT:   ACTION REQUIRED (${nonHardened.length} Finding(s) Flagged)
 STANDARD: APCAF Base Draft v0.1.0
 --------------------------------------------------------------------------------
 
-1. IDENTIFIED DEFICIENCIES
-${(workbenchState.c1 === 'Deficient' || workbenchState.c1 === 'Soft') ? `* [PHY-T1001] CREDENTIAL TECHNOLOGY DEFICIENCY:
-  - Observed: ${notes1 || 'Unencrypted static UID broadcast'}
-  - Standard: Encrypted Smartcards (AES-128 / DESFire EV3 / ISO 14443-4).
-  - Remediation: Deploy compliant encrypted smartcards and apply encryption keys to readers.\n\n` : ''}${(workbenchState.c2 === 'Deficient' || workbenchState.c2 === 'Soft') ? `* [PHY-T1002/T1003] PORTAL LATCH & SENSOR DEFICIENCY:
-  - Observed: ${notes2 || 'Frame strike gap > 3.2mm without protective astragal'}
-  - Standard: Continuous steel astragal latch guards & shielded REX PIR hoods.
-  - Remediation: Install full-height astragal plates and UL-listed REX beam deflectors.\n\n` : ''}${(workbenchState.c3 === 'Deficient' || workbenchState.c3 === 'Soft') ? `* [PHY-T1004] EXPOSED NETWORK INTERFACE DEFICIENCY:
-  - Observed: ${notes3 || 'Active Layer 1 PHY carrier signaling illuminated'}
-  - Standard: Public drop isolation / Port Shutdown / 802.1X NAC.
-  - Remediation: Administratively disable unassigned switch ports and verify 802.1X policy.\n\n` : ''}
+1. EVALUATION FINDINGS
+${findingsBlock}
+
 2. REMEDIATION PROTOCOL
 - Submit technical rectification schedule.
 - Conduct APCAF re-inspection to verify 'Hardened' status upon completion.

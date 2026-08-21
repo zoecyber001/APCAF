@@ -55,6 +55,11 @@
           "type": "string",
           "enum": ["datacenter", "corporate_hq", "bank_branch", "critical_infrastructure", "warehouse", "healthcare", "card_production", "other"]
         },
+        "applicable_frameworks": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Optional list of regulatory or compliance frameworks designated in assessment scope"
+        },
         "regulatory_scope": {
           "type": "array",
           "items": { "type": "string" }

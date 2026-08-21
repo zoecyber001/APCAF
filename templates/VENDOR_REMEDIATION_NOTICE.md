@@ -23,7 +23,7 @@ The inspection identified **[Number of Deficiencies]** critical hardware specifi
 
 ### 2. Itemized Warranty Punch List
 
-| Item | Control Vector | Subsystem Location | Observed Condition (Defective / Soft) | Required Contract Specification (Hardened) | Warranty Action Required |
+| Item | Control Vector | Subsystem Location | Observed Condition (Deficient) | Required Contract Specification (Hardened) | Warranty Action Required |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **01** | **RF Credential Modernity** | Main Lobby & Server Room Access Readers | Legacy 125 kHz unencrypted low-frequency badges (HID Prox / EM4100) or MIFARE Classic CSN deployed. | Encrypted High-Frequency Smartcards (AES-128 / MIFARE DESFire EV3 / HID Seos / ISO 14443-4). | Replace deployed credential inventory with contracted encrypted smartcards; reprogram readers for encrypted SAM profile. |
 | **02** | **Perimeter Latch & Sensor Hardening** | Server Room Doors [Door IDs: e.g., SR-101, SR-102] | Outward-opening door has exposed latch bolt (gap > 3.2mm) with no continuous astragal plate; Request-to-Exit (REX) PIR sensor unshielded. | Latch bolt completely guarded by continuous stainless steel astragal plate; REX PIR sensor fitted with directional detection hood/collar. | Supply and install full-length interlocking astragal latch guards; install UL-listed REX PIR directional hoods on all specified doors. |

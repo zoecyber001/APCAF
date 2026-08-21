@@ -17,14 +17,14 @@ assessment_procedure:
   steps:
     - "Hold sample authorized credential in proximity to the test reader."
     - "Identify operating carrier frequency (125 kHz Low Frequency vs. 13.56 MHz High Frequency)."
-    - "Determine whether transmission is static unencrypted UID/CSN or mutual cryptographic protocol (ISO/IEC 14443-4 / ISO/IEC 7816)."
+    - "Identify observable credential technology and determine whether the credential exposes a static identifier. Reader-side cryptographic enforcement requires configuration evidence or authorized administrative verification."
 
 evidence_requirements:
   data_type: "device_read"
   acceptable_formats:
     - "RFID reader frequency & protocol log"
     - "Credential model identifier"
-  validation_criteria: "Documented carrier frequency and whether credential protocol implements cryptographic challenge-response authentication."
+  validation_criteria: "Documented carrier frequency and whether credential protocol implements cryptographic challenge-response authentication. Reader-side SAM configuration verified via administrative evidence."
 
 result_model:
   hardened_criteria: "Credential implements mutual cryptographic authentication (AES-128 / DESFire EV2/EV3 / Seos / PIV smartcard)."
@@ -34,9 +34,9 @@ result_model:
 limitations:
   can_establish:
     - "Operating carrier frequency (LF 125 kHz vs. HF 13.56 MHz)."
-    - "Presence of unencrypted static identifier broadcast."
+    - "Exposure of static unencrypted credential identifiers on tested badge."
   cannot_establish:
-    - "Whether physical badge cloning equipment is locally available."
+    - "Reader-side cryptographic key enforcement or SAM validation without administrative configuration evidence."
     - "Whether secondary compensating factors (such as biometric verification or PACs duress monitoring) are enforced at readers."
 
 mitigation_id: "PHY-M1001"

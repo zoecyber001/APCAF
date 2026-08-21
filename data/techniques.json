@@ -17,7 +17,7 @@
       "steps": [
         "Hold sample authorized credential in proximity to the test reader.",
         "Identify operating carrier frequency (125 kHz Low Frequency vs. 13.56 MHz High Frequency).",
-        "Determine whether transmission is static unencrypted UID/CSN or mutual cryptographic protocol (ISO/IEC 14443-4 / ISO/IEC 7816)."
+        "Identify observable credential technology and determine whether the credential exposes a static identifier. Reader-side cryptographic enforcement requires configuration evidence or authorized administrative verification."
       ]
     },
     "evidence_requirements": {
@@ -26,7 +26,7 @@
         "RFID reader frequency & protocol log",
         "Credential model identifier"
       ],
-      "validation_criteria": "Documented carrier frequency and whether credential protocol implements cryptographic challenge-response authentication."
+      "validation_criteria": "Documented carrier frequency and whether credential protocol implements cryptographic challenge-response authentication. Reader-side SAM configuration verified via administrative evidence."
     },
     "result_model": {
       "hardened_criteria": "Credential implements mutual cryptographic authentication (AES-128 / DESFire EV2/EV3 / Seos / PIV smartcard).",
@@ -36,10 +36,10 @@
     "limitations": {
       "can_establish": [
         "Operating carrier frequency (LF 125 kHz vs. HF 13.56 MHz).",
-        "Presence of unencrypted static identifier broadcast."
+        "Exposure of static unencrypted credential identifiers on tested badge."
       ],
       "cannot_establish": [
-        "Whether physical badge cloning equipment is locally available.",
+        "Reader-side cryptographic key enforcement or SAM validation without administrative configuration evidence.",
         "Whether secondary compensating factors (such as biometric verification or PACs duress monitoring) are enforced at readers."
       ]
     },
@@ -90,6 +90,7 @@
       "steps": [
         "Inspect door swing direction (inward vs. outward opening).",
         "Measure frame strike gap at latch level using feeler gauge.",
+        "Where the assessed opening is within the applicable NFPA 80 or ANSI/SDI scope, compare measured strike clearance against applicable assembly requirements.",
         "Check for presence and full coverage of continuous stainless steel security astragal plate."
       ]
     },
@@ -99,7 +100,7 @@
         "Measured gap dimension in millimeters (mm)",
         "Photo of frame margin with gauge"
       ],
-      "validation_criteria": "Where the assessed opening falls within the applicable NFPA 80 or ANSI/SDI A250.8 scope, compare measured clearance against applicable assembly tolerances."
+      "validation_criteria": "Where the assessed opening is within the applicable NFPA 80 scope, compare measured clearance against the applicable edition and assembly requirements."
     },
     "result_model": {
       "hardened_criteria": "Outward door fitted with continuous full-height steel astragal overlapping jamb; latch bolt fully shielded from direct mechanical access.",
@@ -122,7 +123,7 @@
       {
         "standard": "NFPA 80",
         "section": "\u00a76.3.1.7.1",
-        "title": "Standard for Fire Doors and Other Opening Protectives (Max 3.2mm Clearances)"
+        "title": "Standard for Fire Doors and Other Opening Protectives"
       },
       {
         "standard": "ANSI/SDI A250.8",

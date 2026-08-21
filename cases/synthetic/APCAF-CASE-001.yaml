@@ -16,10 +16,7 @@ authorization_ref: "SYNTHETIC-DEMO-SOW-CLAUSE-01"
 
 facility_metadata:
   facility_type: "datacenter"
-  regulatory_scope:
-    - "ISO_27001"
-    - "SOC_2"
-    - "PCI_DSS_v4"
+  applicable_frameworks: []
   target_facility_hash: "synthetic-demo-datacenter-001"
 
 findings:

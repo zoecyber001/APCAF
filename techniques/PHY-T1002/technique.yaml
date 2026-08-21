@@ -18,6 +18,7 @@ assessment_procedure:
   steps:
     - "Inspect door swing direction (inward vs. outward opening)."
     - "Measure frame strike gap at latch level using feeler gauge."
+    - "Where the assessed opening is within the applicable NFPA 80 or ANSI/SDI scope, compare measured strike clearance against applicable assembly requirements."
     - "Check for presence and full coverage of continuous stainless steel security astragal plate."
 
 evidence_requirements:
@@ -25,7 +26,7 @@ evidence_requirements:
   acceptable_formats:
     - "Measured gap dimension in millimeters (mm)"
     - "Photo of frame margin with gauge"
-  validation_criteria: "Where the assessed opening falls within the applicable NFPA 80 or ANSI/SDI A250.8 scope, compare measured clearance against applicable assembly tolerances."
+  validation_criteria: "Where the assessed opening is within the applicable NFPA 80 scope, compare measured clearance against the applicable edition and assembly requirements."
 
 result_model:
   hardened_criteria: "Outward door fitted with continuous full-height steel astragal overlapping jamb; latch bolt fully shielded from direct mechanical access."
@@ -46,7 +47,7 @@ mitigation_action: "Install full-height continuous stainless steel security astr
 technical_references:
   - standard: "NFPA 80"
     section: "§6.3.1.7.1"
-    title: "Standard for Fire Doors and Other Opening Protectives (Max 3.2mm Clearances)"
+    title: "Standard for Fire Doors and Other Opening Protectives"
   - standard: "ANSI/SDI A250.8"
     section: "Section 2.1.8"
     title: "Specifications for Standard Steel Doors and Frames"

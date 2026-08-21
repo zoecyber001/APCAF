@@ -95,7 +95,7 @@ Below is the foundational technique mapping for the core baseline techniques:
 * **Sub-Techniques:**
   * `PHY-T1001.001`: Low-Frequency (125 kHz) ASK/FSK Proximity broadcast (HID Prox, EM4100, Indala).
   * `PHY-T1001.002`: High-Frequency (13.56 MHz) ISO 14443-A CSN-only read without mutual authentication (MIFARE Classic 1K/4K with static keys).
-* **Non-Invasive Inspection Procedure (5s):** Interrogate credential using a pocket dual-frequency reader. If the credential exposes a static non-cryptographic identifier without AES/crypto challenge-response, classify as **Deficient**.
+* **Non-Invasive Inspection Procedure (5s):** Interrogate credential using a pocket dual-frequency reader. Identify observable credential technology and determine whether the credential exposes a static identifier. Reader-side cryptographic enforcement requires configuration evidence or authorized administrative verification. If the credential relies on an unencrypted static identifier, classify as **Deficient**.
 * **Mitigation (`PHY-M1001`):** Mandate ISO/IEC 14443-4 or ISO/IEC 7816 credentials with AES-128/256 mutual authentication (MIFARE DESFire EV2/EV3, HID Seos, PIV smartcards) and activate Secure Access Module (SAM) keys on readers.
 * **Technical References:** ISO/IEC 14443-4, NIST SP 800-116 Rev 1.
 * **Framework Mappings:** ISO 27001:2022 `A.7.2`, PCI DSS v4 `Req 9.2.1`.
@@ -110,7 +110,7 @@ Below is the foundational technique mapping for the core baseline techniques:
 * **Sub-Techniques:**
   * `PHY-T1002.001`: Perimeter strike gap exceeding 3.2mm on outward-opening doors.
   * `PHY-T1002.002`: Absence or incomplete coverage of protective astragal guard.
-* **Non-Invasive Inspection Procedure (15s):** Visual inspection and feeler gap gauge measurement. Where the assessed opening falls within the applicable **NFPA 80 (2022) §6.3.1.7.1** or **ANSI/SDI A250.8 / SDI-122** scope, compare the measured clearance against applicable assembly tolerances (e.g. 1/8 in. / 3.2mm). If the opening exceeds applicable tolerances and lacks an overlapping continuous stainless steel astragal plate, classify as **Deficient**.
+* **Non-Invasive Inspection Procedure (15s):** Visual inspection and feeler gap gauge measurement. Where the assessed opening is within the applicable **NFPA 80** or **ANSI/SDI A250.8 / SDI-122** scope, compare measured clearance against the applicable edition and assembly requirements. If the opening exceeds applicable tolerances and lacks an overlapping continuous stainless steel astragal plate, classify as **Deficient**.
 * **Technical References:** NFPA 80 §6.3.1.7.1, ANSI/SDI A250.8, SDI-122.
 * **Mitigation (`PHY-M1002`):** Install full-height, continuous heavy-gauge stainless steel interlocking astragal latch guards and deadlocking latch bolts.
 * **Framework Mappings:** ISO 27001:2022 `A.7.1`, PCI DSS v4 `Req 9.1.1`.
