@@ -614,24 +614,70 @@
 
   <!-- Site Footer -->
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <div class="brand-icon-box" style="width: 24px; height: 24px;">
-          <svg width="14" height="14" viewBox="0 0 64 64" fill="none">
-            <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" />
-          </svg>
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="brand-icon-box" style="width: 28px; height: 28px;">
+              <svg width="16" height="16" viewBox="0 0 64 64" fill="none">
+                <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" />
+                <path d="M32 19 V35 M26 25 H38 M28 31 H36" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+                <circle cx="32" cy="42" r="2.5" fill="#ffffff" />
+              </svg>
+            </div>
+            <span class="brand-badge" style="font-size: 0.95rem;">APCAF</span>
+          </div>
+          <p>
+            An ATT&amp;CK-inspired open specification for assessing physical security controls against observable bypass conditions.
+          </p>
+          <div style="margin-top: 14px; font-size: 0.76rem; color: var(--text-dim);">
+            Specification: <strong>CC BY 4.0</strong> • Tooling: <strong>MIT</strong>
+          </div>
         </div>
-        <div style="font-size: 0.85rem; color: var(--text-dim);">
-          APCAF: Adversarial Physical Control Assessment Framework • Open Specification (CC BY 4.0)
+
+        <div>
+          <div class="footer-col-title">Framework &amp; Tools</div>
+          <ul class="footer-col-links">
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="repository.html">Knowledge Base</a></li>
+            <li><a href="risk.html">Risk Context Model</a></li>
+            <li><a href="tools/field-triage.html">Field Triage Workbench</a></li>
+            <li><a href="learn.html">Field Guide &amp; Simulator</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Standards &amp; Ecosystem</div>
+          <ul class="footer-col-links">
+            <li><a href="about.html">Ecosystem Alignment</a></li>
+            <li><a href="docs.html">Technical Documentation</a></li>
+            <li><a href="docs.html#risk-model">Risk Specification</a></li>
+            <li><a href="docs.html#crosswalk">Standards Cross-Walk</a></li>
+            <li><a href="templates/ENGAGEMENT_CONSENT_CLAUSE.md">SOW Consent Addendum</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Governance &amp; Open Source</div>
+          <ul class="footer-col-links">
+            <li><a href="about.html#governance">Technical Committee</a></li>
+            <li><a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener">GitHub Repository</a></li>
+            <li><a href="https://github.com/zoecyber001/APCAF/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribution Guidelines</a></li>
+            <li><a href="https://github.com/zoecyber001/APCAF/blob/main/SECURITY.md" target="_blank" rel="noopener">Security &amp; Disclosure</a></li>
+            <li><a href="https://github.com/zoecyber001/APCAF/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog &amp; Releases</a></li>
+          </ul>
         </div>
       </div>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="index.html" style="font-size: 0.82rem; color: var(--text-body);">Overview</a>
-        <a href="learn.html" style="font-size: 0.82rem; color: var(--text-body);">Learn APCAF</a>
-        <a href="repository.html" style="font-size: 0.82rem; color: var(--text-body);">Rule Repository</a>
-        <a href="docs.html" style="font-size: 0.82rem; color: var(--text-body);">Documentation</a>
-        <a href="tools/field-triage.html" style="font-size: 0.82rem; color: var(--text-body);">Field Triage</a>
-        <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener" style="font-size: 0.82rem; color: var(--text-body);">GitHub (v0.1.0)</a>
+
+      <div class="footer-bottom-bar">
+        <div>
+          APCAF Base Draft v0.1.0 • Open Community Specification
+        </div>
+        <div style="display: flex; gap: 18px;">
+          <a href="about.html">About</a>
+          <a href="docs.html#boundaries">Operational Boundaries</a>
+          <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener">GitHub</a>
+        </div>
       </div>
     </div>
   </footer>

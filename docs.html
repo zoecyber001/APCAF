@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>APCAF Documentation: Physical Security Assessment Specification</title>
-  <meta name="description" content="Technical documentation for APCAF. Standardized physical security assessment procedures, technique YAML schemas, prerequisites, and remediation specifications.">
+  <meta name="description" content="Technical documentation for APCAF: Physical security assessment methodology, canonical technique YAML specifications, deterministic risk scoring, and standards cross-walk.">
   
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
@@ -89,16 +89,23 @@
       <div>
         <div class="docs-sidebar-group-title">Getting Started</div>
         <ul class="docs-nav-list">
-          <li><a href="#learn-primer" class="docs-nav-link">Mental Model (6-Step Chain)</a></li>
-          <li><a href="#intro" class="docs-nav-link active">Specification &amp; Philosophy</a></li>
-          <li><a href="#boundaries" class="docs-nav-link">What APCAF Does Not Claim</a></li>
+          <li><a href="#intro" class="docs-nav-link active">Specification Overview</a></li>
+          <li><a href="#boundaries" class="docs-nav-link">Operational Boundaries</a></li>
+          <li><a href="#layers" class="docs-nav-link">5 Disciplinary Layers</a></li>
           <li><a href="#sow-clause" class="docs-nav-link">Assessment Authorization</a></li>
-          <li><a href="#execution-model" class="docs-nav-link">Benchmark Execution Model</a></li>
         </ul>
       </div>
 
       <div>
-        <div class="docs-sidebar-group-title">Base Assessment Techniques</div>
+        <div class="docs-sidebar-group-title">Taxonomy &amp; Tactics</div>
+        <ul class="docs-nav-list">
+          <li><a href="#tactics" class="docs-nav-link">6-Tactic Attack Surface</a></li>
+          <li><a href="#execution-model" class="docs-nav-link">Fast-Path Benchmarks</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="docs-sidebar-group-title">Base Techniques (YAML)</div>
         <ul class="docs-nav-list">
           <li><a href="#phy-t1001" class="docs-nav-link">PHY-T1001: RFID Credential</a></li>
           <li><a href="#phy-t1002" class="docs-nav-link">PHY-T1002: Latch &amp; Frame</a></li>
@@ -108,11 +115,20 @@
       </div>
 
       <div>
-        <div class="docs-sidebar-group-title">Profiles &amp; Governance</div>
+        <div class="docs-sidebar-group-title">Risk Model &amp; Treatment</div>
         <ul class="docs-nav-list">
-          <li><a href="#warranty-hold" class="docs-nav-link">Remediation Workflow (WF-01)</a></li>
-          <li><a href="#governance" class="docs-nav-link">Maintainership &amp; RFCs</a></li>
-          <li><a href="repository.html" class="docs-nav-link">Search Rule Catalog →</a></li>
+          <li><a href="#risk-model" class="docs-nav-link">3-Axis Risk Scoring</a></li>
+          <li><a href="#risk-treatment" class="docs-nav-link">4 Defensible Treatments</a></li>
+          <li><a href="#risk-scenarios" class="docs-nav-link">Ground-Truth Scenarios</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="docs-sidebar-group-title">Schemas &amp; Ecosystem</div>
+        <ul class="docs-nav-list">
+          <li><a href="#case-schema" class="docs-nav-link">Case Record Schema</a></li>
+          <li><a href="#crosswalk" class="docs-nav-link">Standards Cross-Walk</a></li>
+          <li><a href="#governance" class="docs-nav-link">Governance &amp; RFCs</a></li>
         </ul>
       </div>
     </aside>
@@ -140,166 +156,202 @@
           <span>Quick Index</span>
         </div>
         <div class="docs-mobile-toc-chips">
-          <a href="#learn-primer" class="chip-tag">Mental Model</a>
           <a href="#intro" class="chip-tag">Overview</a>
           <a href="#boundaries" class="chip-tag">Boundaries</a>
-          <a href="#sow-clause" class="chip-tag">Authorization</a>
-          <a href="#phy-t1001" class="chip-tag">PHY-T1001 (RFID)</a>
-          <a href="#phy-t1002" class="chip-tag">PHY-T1002 (Door)</a>
-          <a href="#phy-t1003" class="chip-tag">PHY-T1003 (REX)</a>
-          <a href="#phy-t1004" class="chip-tag">PHY-T1004 (Port)</a>
-          <a href="#warranty-hold" class="chip-tag">Remediation</a>
+          <a href="#layers" class="chip-tag">5 Layers</a>
+          <a href="#tactics" class="chip-tag">6 Tactics</a>
+          <a href="#phy-t1001" class="chip-tag">PHY-T1001</a>
+          <a href="#phy-t1002" class="chip-tag">PHY-T1002</a>
+          <a href="#risk-model" class="chip-tag">Risk Model</a>
+          <a href="#case-schema" class="chip-tag">Schema</a>
         </div>
       </div>
 
-      <!-- Primer: Mental Model -->
-      <article class="doc-article" id="learn-primer">
-        <div class="doc-article-head">
-          <span class="section-eyebrow">Mental Model</span>
-          <h2>The 6-Step APCAF Evaluation Chain</h2>
-        </div>
-
-        <div class="plain-english-card" style="margin-bottom: 20px;">
-          <div style="font-size: 1.05rem; font-weight: 700; color: var(--text-pure); margin-bottom: 4px;">
-            What is APCAF in Plain English?
-          </div>
-          <p class="plain-english-text">
-            APCAF is an open specification to check whether physical security controls resist known adversary bypasses. Instead of asking only <em>"Is there a lock?"</em>, APCAF asks <strong>"What physical condition would permit bypass, and does the installed hardware prevent that condition?"</strong>
-          </p>
-        </div>
-
-        <div class="mental-pipeline-grid">
-          <div class="pipeline-step">
-            <div class="pipeline-step-num">01. TACTIC</div>
-            <div class="pipeline-step-title">Security Objective</div>
-            <div class="pipeline-step-example"><strong>Portal Protection:</strong> Safeguard physical access portals against unauthenticated ingress.</div>
-          </div>
-          <div class="pipeline-step">
-            <div class="pipeline-step-num">02. HYPOTHESIS</div>
-            <div class="pipeline-step-title">Bypass Path</div>
-            <div class="pipeline-step-example"><strong>Latch Manipulation (PHY-T1002):</strong> Mechanical manipulation of latch bolt via exposed frame gap.</div>
-          </div>
-          <div class="pipeline-step">
-            <div class="pipeline-step-num">03. OBSERVATION</div>
-            <div class="pipeline-step-title">Physical Check</div>
-            <div class="pipeline-step-example"><strong>Feeler Gauge:</strong> Measure frame strike clearance against NFPA 80 (3.2mm).</div>
-          </div>
-          <div class="pipeline-step">
-            <div class="pipeline-step-num">04. EVIDENCE</div>
-            <div class="pipeline-step-title">Logged Record</div>
-            <div class="pipeline-step-example"><strong>Measured Gap:</strong> 4.5mm clearance with photo evidence and gauge serial.</div>
-          </div>
-          <div class="pipeline-step">
-            <div class="pipeline-step-num">05. ASSESSMENT</div>
-            <div class="pipeline-step-title">Disposition</div>
-            <div class="pipeline-step-example"><strong>Deficient:</strong> Frame margin exceeds allowable clearance without protective astragal.</div>
-          </div>
-          <div class="pipeline-step">
-            <div class="pipeline-step-num">06. REMEDIATION</div>
-            <div class="pipeline-step-title">Correction</div>
-            <div class="pipeline-step-example"><strong>PHY-M1002:</strong> Mount continuous steel astragal overlapping door stop.</div>
-          </div>
-        </div>
-      </article>
-
-      <!-- Section 1: Introduction -->
+      <!-- Section 1: Introduction & Philosophy -->
       <article class="doc-article" id="intro">
         <div class="doc-article-head">
           <span class="section-eyebrow">Architecture Overview</span>
           <h1>APCAF Specification &amp; Philosophy</h1>
         </div>
         <p>
-          The <strong>Adversarial Physical Control Assessment Framework (APCAF)</strong> is an open specification for standardized, non-invasive physical security control assessment. Drawing architectural inspiration from MITRE ATT&CK behavioral taxonomy principles, APCAF establishes objective evaluation criteria for physical and hardware-layer security.
+          The <strong>Adversarial Physical Control Assessment Framework (APCAF)</strong> provides a standardized method for assessing observable physical conditions associated with known adversarial bypass techniques through defined, repeatable, and non-destructive inspection procedures.
         </p>
         <p>
-          Traditional compliance audits verify nominal presence on paper (confirming a lock or badge reader exists). APCAF standardizes non-invasive inspection to evaluate whether installed hardware withstands known bypass mechanisms through repeatable, non-destructive field procedures.
+          Traditional compliance audits verify nominal control presence on paper (verifying that a badge reader or door lock exists). APCAF complements audits by testing whether the physical installation withstands known bypass conditions: <em>"What physical condition would permit bypass, and does the installed hardware prevent that condition?"</em>
         </p>
       </article>
 
-      <!-- Section 2: What APCAF Does Not Claim -->
+      <!-- Section 2: What APCAF Does and Does NOT Claim -->
       <article class="doc-article" id="boundaries">
         <div class="doc-article-head">
           <span class="section-eyebrow">Framework Governance</span>
-          <h2>What APCAF Does and Does NOT Claim</h2>
+          <h2>Operational Boundaries</h2>
         </div>
+        <p>To preserve scientific integrity and prevent misinterpretation, APCAF strictly bounds its operational scope:</p>
+        
         <div class="spec-sheet-block" style="border-left: 3px solid var(--border-dark);">
-          <div class="block-title">APCAF Does:</div>
-          <p style="font-size: 0.85rem; color: var(--text-body); line-height: 1.55;">
-            • Map adversarial techniques to observable physical hardware conditions.<br>
-            • Define standardized, repeatable non-invasive inspection procedures.<br>
-            • Document susceptibility findings and building code non-conformances.<br>
-            • Support remediation verification and quality assurance tracking.
+          <div class="block-title">What APCAF Does:</div>
+          <p style="font-size: 0.86rem; color: var(--text-body); line-height: 1.6;">
+            &bull; Maps known adversary bypass techniques to observable physical hardware conditions.<br>
+            &bull; Establishes repeatable, non-invasive inspection procedures and benchmark budgets.<br>
+            &bull; Documents observable hardware deficiencies against engineering specifications and building codes.<br>
+            &bull; Derives deterministic risk context based on Asset Criticality, Physical Exposure, and Consequence.<br>
+            &bull; Supports facility commissioning, vendor warranty verification, and quality assurance.
           </p>
         </div>
+
         <div class="spec-sheet-block" style="border-left: 3px solid #dc2626; margin-top: 12px;">
-          <div class="block-title" style="color: #dc2626;">APCAF Does NOT:</div>
-          <p style="font-size: 0.85rem; color: var(--text-body); line-height: 1.55;">
-            • Perform destructive penetration testing or lockpicking.<br>
-            • Prove successful exploitation or claim a demonstrated physical breach.<br>
-            • Certify regulatory compliance (PCI DSS, ISO 27001, SOC 2 belong to formal audits).<br>
-            • Guarantee that a physical control cannot be bypassed by other methods.<br>
-            • Determine contractual liability or replace legal counsel.
+          <div class="block-title" style="color: #dc2626;">What APCAF Does NOT Do:</div>
+          <p style="font-size: 0.86rem; color: var(--text-body); line-height: 1.6;">
+            &bull; Does NOT perform destructive penetration testing, lockpicking, or forced entry.<br>
+            &bull; Does NOT prove successful exploitation or claim a demonstrated physical breach.<br>
+            &bull; Does NOT certify regulatory compliance (PCI DSS, ISO 27001, SOC 2 belong to formal audits).<br>
+            &bull; Does NOT determine contractual or legal liability automatically.
           </p>
         </div>
       </article>
 
-      <!-- Section 3: Assessment Authorization -->
+      <!-- Section 3: The 5 Core Disciplinary Layers -->
+      <article class="doc-article" id="layers">
+        <div class="doc-article-head">
+          <span class="section-eyebrow">Separation of Concerns</span>
+          <h2>The 5 Disciplinary Layers of APCAF</h2>
+        </div>
+        <p>APCAF decouples threat intelligence from physical inspection, asset context, and executive treatment decisions:</p>
+
+        <div class="atomic-step-list">
+          <div class="atomic-step-item">
+            <span class="atomic-step-num">01. Technique</span>
+            <div><strong>What can an adversary potentially do?</strong> Catalogued across Tactics PHY-TAC-01 through PHY-TAC-06 in canonical YAML specifications.</div>
+          </div>
+          <div class="atomic-step-item">
+            <span class="atomic-step-num">02. Procedure</span>
+            <div><strong>What can we safely observe to test the condition?</strong> Standardized non-invasive inspection methods, tools, and read times.</div>
+          </div>
+          <div class="atomic-step-item">
+            <span class="atomic-step-num">03. Finding</span>
+            <div><strong>What did we actually observe?</strong> Empirical evidence, measurements, photos, and technical disposition (Hardened, Deficient, Condition Requires Validation).</div>
+          </div>
+          <div class="atomic-step-item">
+            <span class="atomic-step-num">04. Risk Context</span>
+            <div><strong>What does that mean in this specific asset environment?</strong> Deterministic calculation: Asset Criticality &times; Physical Exposure &times; Consequence.</div>
+          </div>
+          <div class="atomic-step-item">
+            <span class="atomic-step-num">05. Treatment</span>
+            <div><strong>What does the organization decide to do?</strong> Defensible action: Remediate, Compensate, Accept, or Avoid.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Section 4: Assessment Authorization Clause -->
       <article class="doc-article" id="sow-clause">
         <div class="doc-article-head">
           <span class="section-eyebrow">Operational Authorization</span>
-          <h2>Sample Assessment Authorization Language</h2>
+          <h2>Assessment Authorization Language</h2>
         </div>
         <p>
-          APCAF inspections require zero destructive tools, zero lockpicks, and zero tampering with life-safety hardware. To document authorization in service agreements or audit memos, organizations may adapt this sample language:
+          APCAF inspections require zero destructive tools and zero life-safety interference. Organizations may incorporate this standard clause into Statements of Work (SOW), master service agreements, or audit charters:
         </p>
 
         <div class="doc-code-block">
           <button class="doc-copy-btn" onclick="copyConsentClause()">Copy Language</button>
-<pre><code>"Client explicitly authorizes the assessment team to perform non-invasive,
-passive radio frequency (RF) credential reads and non-intrusive passive
-physical network port link detection during the inspection to verify vendor
-hardware installation specifications."</code></pre>
+<pre><code>"Client explicitly authorizes the assessment team to perform non-invasive physical security
+control evaluations, passive radio frequency (RF) credential reads, and non-intrusive physical
+network port link detection during the inspection to verify vendor hardware installation specifications."</code></pre>
         </div>
         <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 6px;">
-          <em>Notice: This is a sample operational template, not legal advice. Organizations should adapt it with qualified legal counsel.</em>
+          <em>Notice: This is an operational template, not legal advice. Organizations should adapt it with qualified legal counsel.</em>
         </p>
       </article>
 
-      <!-- Section 4: Fast-Path Benchmark Execution Model -->
+      <!-- Section 5: The 6 Physical Tactics -->
+      <article class="doc-article" id="tactics">
+        <div class="doc-article-head">
+          <span class="section-eyebrow">Attack Surface Matrix</span>
+          <h2>The 6 Physical Security Tactics</h2>
+        </div>
+        <p>Physical security controls protect facility spatial boundaries across six defined tactical objectives:</p>
+
+        <div class="spec-table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Tactic ID</th>
+                <th>Tactic Name</th>
+                <th>Tactical Objective</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>PHY-TAC-01</code></td>
+                <td><strong>Physical Reconnaissance</strong></td>
+                <td>Gathering spatial, optical, or RF intelligence prior to physical approach.</td>
+              </tr>
+              <tr>
+                <td><code>PHY-TAC-02</code></td>
+                <td><strong>Perimeter &amp; Ingress</strong></td>
+                <td>Breaching or bypassing external site boundaries, vehicle gates, or exterior pedestrian portals.</td>
+              </tr>
+              <tr>
+                <td><code>PHY-TAC-03</code></td>
+                <td><strong>Credential &amp; Access Bypass</strong></td>
+                <td>Circumventing electronic access-control authenticators, RFID readers, or key management.</td>
+              </tr>
+              <tr>
+                <td><code>PHY-TAC-04</code></td>
+                <td><strong>Interior Traversal &amp; Evasion</strong></td>
+                <td>Traversing interior secure zones and evading detection within facilities.</td>
+              </tr>
+              <tr>
+                <td><code>PHY-TAC-05</code></td>
+                <td><strong>Physical-to-Cyber Execution</strong></td>
+                <td>Gaining unauthorized logical or data access via exposed physical hardware interfaces.</td>
+              </tr>
+              <tr>
+                <td><code>PHY-TAC-06</code></td>
+                <td><strong>Egress &amp; Cleanup</strong></td>
+                <td>Exiting the facility and concealing physical evidence of unauthorized presence.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- Section 6: Fast-Path Benchmark Execution Model -->
       <article class="doc-article" id="execution-model">
         <div class="doc-article-head">
           <span class="section-eyebrow">Field Methodology</span>
-          <h2>The Fast-Path Benchmark Execution Model</h2>
+          <h2>Fast-Path Benchmark Budgets</h2>
         </div>
-        <p>
-          The APCAF Fast-Path Profile defines target inspection budgets for baseline checks during physical walks:
-        </p>
+        <p>The APCAF Fast-Path Profile defines targeted time budgets for baseline checks during physical walks:</p>
         
         <div class="atomic-step-list">
           <div class="atomic-step-item">
             <span class="atomic-step-num">5 Seconds</span>
-            <div><strong>RF Credential Read:</strong> Contactless pocket reader scan to verify AES-128 crypto handshake vs unencrypted static UID.</div>
+            <div><strong>PHY-T1001 (RF Credential):</strong> Contactless interrogation tool to verify cryptographic handshake vs unencrypted static UID.</div>
           </div>
           <div class="atomic-step-item">
             <span class="atomic-step-num">15 Seconds</span>
-            <div><strong>Door &amp; Latch Inspection:</strong> Feeler gauge check for frame strike clearance (&le; 3.2mm) and astragal guard presence.</div>
+            <div><strong>PHY-T1002 (Door &amp; Latch):</strong> Feeler gauge check for frame strike clearances and continuous astragal guard coverage.</div>
           </div>
           <div class="atomic-step-item">
             <span class="atomic-step-num">15 Seconds</span>
-            <div><strong>REX Sensor Placement:</strong> Optical line-of-sight check for interior REX PIR sensor detection field and deflector hood.</div>
+            <div><strong>PHY-T1003 (REX Sensor):</strong> Optical line-of-sight check for interior REX PIR sensor detection body and deflector hood.</div>
           </div>
           <div class="atomic-step-item">
             <span class="atomic-step-num">10 Seconds</span>
-            <div><strong>Exposed Port Signal Check:</strong> Passive zero-packet LED link-state test to verify administrative port shutdown or isolation.</div>
+            <div><strong>PHY-T1004 (Network Port):</strong> Passive LED link-state test to verify administrative port shutdown or isolation.</div>
           </div>
         </div>
       </article>
 
-      <!-- Section 5: PHY-T1001 Technique Documentation -->
+      <!-- Section 7: Base Assessment Techniques (YAML Specifications) -->
+      
+      <!-- PHY-T1001 -->
       <article class="doc-article" id="phy-t1001">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
           <div>
-            <span class="chip-tag">PHY-TAC-02: Credential Protection</span>
+            <span class="chip-tag">PHY-TAC-03: Credential &amp; Access Bypass</span>
             <h2 style="margin-top: 6px;">PHY-T1001: Credential Technology Assessment</h2>
           </div>
           <span class="chip-tag" style="background: #f1f5f9; color: #09090b;">Base Coverage</span>
@@ -308,53 +360,71 @@ hardware installation specifications."</code></pre>
         <div class="plain-english-card">
           <span class="layer-tag plain-english">Assessment Hypothesis</span>
           <p class="plain-english-text" style="margin-top: 6px;">
-            Static, unauthenticated credential identifiers may permit credential replay or cloning where the access-control architecture does not provide cryptographic mutual authentication.
+            Physical credentials broadcasting static, unauthenticated identifiers may permit harvest, replay, or cloning where the access-control architecture does not enforce cryptographic challenge-response mutual authentication.
           </p>
         </div>
 
-        <p>
-          The non-invasive check determines whether the credential operates on an unencrypted carrier (such as 125 kHz Low Frequency Prox) or broadcasts a static Card Serial Number (CSN) without cryptographic challenge-response authentication.
-        </p>
+        <div class="spec-table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Evaluation Dimension</th>
+                <th>Assessment Criteria</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Technology Identified</strong></td>
+                <td>Interrogate carrier frequency (125 kHz Low Frequency vs 13.56 MHz High Frequency) and chip protocol standard.</td>
+              </tr>
+              <tr>
+                <td><strong>Authentication Mechanism</strong></td>
+                <td>Determine whether credential broadcasts a static identifier (UID/CSN) without requiring a cryptographic handshake.</td>
+              </tr>
+              <tr>
+                <td><strong>Behavioral Assessment</strong></td>
+                <td>Distinguish static unauthenticated broadcast from dynamic session-based cryptographic challenge-response transactions.</td>
+              </tr>
+              <tr>
+                <td><strong>Verification Boundary</strong></td>
+                <td>Record whether reader-side cryptographic key enforcement (SAM configuration, AES mutual auth) requires administrative configuration audit.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <div>
-          <div class="block-title">APCAF Assessment Specification (YAML)</div>
+          <div class="block-title">Canonical Technique Specification (YAML)</div>
           <div class="doc-code-block">
-            <button class="doc-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('yaml1001').innerText); showToast('Copied Spec');">Copy Spec</button>
+            <button class="doc-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('yaml1001').innerText); showToast('Copied PHY-T1001');">Copy YAML</button>
 <pre id="yaml1001"><code>id: "PHY-T1001"
 name: "Credential Technology Assessment"
-tactic_id: "PHY-TAC-02"
+tactic_id: "PHY-TAC-03"
 target_object: "BADGE"
 target_time_seconds: 5
-hypothesis: "Static unauthenticated identifiers may permit replay where mutual crypto is absent."
+hypothesis: "Physical credentials broadcasting static, unauthenticated identifiers may permit harvest, replay, or cloning where the access-control architecture does not enforce cryptographic challenge-response mutual authentication."
 assessment_procedure:
   method: "passive_rf_interrogation"
-  tools_required: ["Pocket dual-frequency RFID reader"]
-  steps:
-    - "Hold credential near reader."
-    - "Identify carrier frequency (125 kHz vs 13.56 MHz)."
-    - "Verify if ISO/IEC 14443-4 AES-128 handshake is initiated."
+  tools_required: ["Pocket dual-frequency RFID/NFC interrogation tool"]
 result_model:
-  hardened_criteria: "Mutual AES-128 crypto smartcard (DESFire EV3 / Seos / PIV)."
-  deficient_criteria: "Unencrypted 125 kHz Prox or static unauthenticated CSN."
-limitations:
-  can_establish: ["Carrier frequency and static UID broadcast exposure."]
-  cannot_establish: ["Local cloning tool availability or secondary PIN/biometric policies."]</code></pre>
+  hardened_criteria: "Credential architecture implements mutual cryptographic challenge-response authentication with verified reader-side key enforcement."
+  deficient_criteria: "Credential relies on unencrypted static identifier broadcast (125 kHz Prox, EM4100, or unauthenticated 13.56 MHz CSN) susceptible to passive harvest and replay."
+  condition_requires_validation_criteria: "High-frequency smartcard observed; reader-side cryptographic challenge-response, SAM configuration, and anti-downgrade policies require administrative verification."
+mitigation_id: "PHY-M1001"
+technical_references:
+  - standard: "ISO/IEC 14443-4"
+    section: "Transmission Protocol"
+  - standard: "NIST SP 800-116 Rev 1"
+    section: "Section 4.1"</code></pre>
           </div>
-        </div>
-
-        <div class="spec-sheet-block">
-          <div class="block-title">Remediation Guidance (PHY-M1001)</div>
-          <p>
-            Upgrade credential stock to ISO/IEC 14443-4 smartcards with AES-128 mutual authentication (DESFire EV3 / Seos) and activate SAM cryptographic profiles on access readers.
-          </p>
         </div>
       </article>
 
-      <!-- Section 6: PHY-T1002 Technique Documentation -->
+      <!-- PHY-T1002 -->
       <article class="doc-article" id="phy-t1002">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
           <div>
-            <span class="chip-tag">PHY-TAC-03: Portal Protection</span>
+            <span class="chip-tag">PHY-TAC-02: Perimeter &amp; Ingress</span>
             <h2 style="margin-top: 6px;">PHY-T1002: Door &amp; Latch Protection Assessment</h2>
           </div>
           <span class="chip-tag" style="background: #f1f5f9; color: #09090b;">Base Coverage</span>
@@ -367,45 +437,37 @@ limitations:
           </p>
         </div>
 
-        <div class="spec-sheet-block">
-          <div class="block-title">Building &amp; Hardware Code Citations</div>
-          <p style="font-size: 0.85rem;">
-            • <strong>NFPA 80 §6.3.1.7.1:</strong> Clearances along top and vertical edges shall not exceed <strong>1/8 in. (3.18 mm / 3.2 mm)</strong> for steel fire doors.<br>
-            • <strong>ANSI/SDI A250.8 / SDI-122:</strong> Standard operating clearance of 1/8 in. (3.2 mm) for hollow metal door assemblies.
-          </p>
-        </div>
-
-        <div class="doc-code-block">
-          <button class="doc-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('yaml1002').innerText); showToast('Copied Spec');">Copy Spec</button>
+        <div>
+          <div class="block-title">Canonical Technique Specification (YAML)</div>
+          <div class="doc-code-block">
+            <button class="doc-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('yaml1002').innerText); showToast('Copied PHY-T1002');">Copy YAML</button>
 <pre id="yaml1002"><code>id: "PHY-T1002"
 name: "Door & Latch Protection Assessment"
-tactic_id: "PHY-TAC-03"
+tactic_id: "PHY-TAC-02"
 target_object: "DOOR"
 target_time_seconds: 15
+hypothesis: "Door and frame geometry may permit mechanical manipulation of the latch bolt assembly where protective physical shielding is absent and strike clearances exceed engineering tolerances."
 assessment_procedure:
   method: "visual_and_feeler_gauge"
-  tools_required: ["Feeler gap gauge", "Flashlight"]
+  tools_required: ["Feeler gap gauge / caliper", "Flashlight"]
 result_model:
-  hardened_criteria: "Continuous full-height steel astragal overlapping frame stop."
-  deficient_criteria: "Strike clearance > 3.2mm with exposed latch bolt and no astragal."
-limitations:
-  can_establish: ["Perimeter strike clearance and protective guard coverage."]
-  cannot_establish: ["Lock cylinder pin resistance or interior deadbolt status."]</code></pre>
-        </div>
-
-        <div class="spec-sheet-block">
-          <div class="block-title">Remediation Guidance (PHY-M1002)</div>
-          <p>
-            Mount continuous full-height stainless steel security astragal plates overlapping the door frame stop on the exterior approach side.
-          </p>
+  hardened_criteria: "Outward door fitted with continuous full-height steel astragal overlapping jamb; latch bolt fully shielded from direct mechanical access."
+  deficient_criteria: "Exposed latch bolt with perimeter strike clearance exceeding the applicable assembly tolerance and zero exterior protective astragal plate."
+mitigation_id: "PHY-M1002"
+technical_references:
+  - standard: "NFPA 80"
+    section: "Section 6.3.1.7.1"
+  - standard: "ANSI/SDI A250.8"
+    section: "Section 2.1.8"</code></pre>
+          </div>
         </div>
       </article>
 
-      <!-- Section 7: PHY-T1003 Technique Documentation -->
+      <!-- PHY-T1003 -->
       <article class="doc-article" id="phy-t1003">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
           <div>
-            <span class="chip-tag">PHY-TAC-03: Portal Protection</span>
+            <span class="chip-tag">PHY-TAC-02: Perimeter &amp; Ingress</span>
             <h2 style="margin-top: 6px;">PHY-T1003: REX Sensor Placement Assessment</h2>
           </div>
           <span class="chip-tag" style="background: #f1f5f9; color: #09090b;">Base Coverage</span>
@@ -414,23 +476,37 @@ limitations:
         <div class="plain-english-card">
           <span class="layer-tag plain-english">Assessment Hypothesis</span>
           <p class="plain-english-text" style="margin-top: 6px;">
-            Interior Request-to-Exit (REX) motion detectors whose detection cones extend to perimeter door margins may be susceptible to non-contact activation through door seams if directional shielding is absent.
+            Unshielded Request-to-Exit (REX) passive infrared sensors placed with direct line-of-sight to external portal margins may be triggered from the unsecure exterior side.
           </p>
         </div>
 
-        <div class="spec-sheet-block">
-          <div class="block-title">Remediation Guidance (PHY-M1003)</div>
-          <p>
-            Mount UL-listed directional deflector hoods over interior REX PIR detectors (NFPA 101 §7.2.1.6.2) and install perimeter brush sweeps.
-          </p>
+        <div>
+          <div class="block-title">Canonical Technique Specification (YAML)</div>
+          <div class="doc-code-block">
+            <button class="doc-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('yaml1003').innerText); showToast('Copied PHY-T1003');">Copy YAML</button>
+<pre id="yaml1003"><code>id: "PHY-T1003"
+name: "REX Sensor Placement Assessment"
+tactic_id: "PHY-TAC-02"
+target_object: "SENSOR"
+target_time_seconds: 15
+result_model:
+  hardened_criteria: "Directional deflector hood installed; PIR field-of-view restricted strictly to interior floor."
+  deficient_criteria: "Unshielded wide-angle PIR lens with direct optical line-of-sight through portal margins."
+mitigation_id: "PHY-M1003"
+technical_references:
+  - standard: "NFPA 101"
+    section: "Section 7.2.1.6.2"
+  - standard: "UL 294"
+    section: "Access Control System Units"</code></pre>
+          </div>
         </div>
       </article>
 
-      <!-- Section 8: PHY-T1004 Technique Documentation -->
+      <!-- PHY-T1004 -->
       <article class="doc-article" id="phy-t1004">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
           <div>
-            <span class="chip-tag">PHY-TAC-05: Interface Protection</span>
+            <span class="chip-tag">PHY-TAC-05: Physical-to-Cyber Execution</span>
             <h2 style="margin-top: 6px;">PHY-T1004: Exposed Physical Network Interface Assessment</h2>
           </div>
           <span class="chip-tag" style="background: #f1f5f9; color: #09090b;">Base Coverage</span>
@@ -439,77 +515,252 @@ limitations:
         <div class="plain-english-card">
           <span class="layer-tag plain-english">Assessment Hypothesis</span>
           <p class="plain-english-text" style="margin-top: 6px;">
-            Accessible network jacks that maintain an active physical link may provide unauthorized network connectivity if administrative port shutdown, 802.1X, or MAC-based quarantine is misconfigured.
+            Physical network ports located in unmonitored or public areas may permit unauthorized network attachment where ports are active and lack 802.1X port-security enforcement.
           </p>
         </div>
 
-        <div class="spec-sheet-block">
-          <div class="block-title">Observable Condition vs. Limitation</div>
-          <p style="font-size: 0.85rem;">
-            • <strong>Observable Condition:</strong> Publicly accessible RJ-45 drop exhibits active physical Layer 1 carrier signaling upon passive connection.<br>
-            • <strong>Limitations:</strong> Does not prove successful IEEE 802.1X authentication, IP reachability, or network penetration.
-          </p>
-        </div>
-
-        <div class="spec-sheet-block">
-          <div class="block-title">Remediation Guidance (PHY-M1004)</div>
-          <p>
-            Administratively disable unassigned switch ports (`shutdown`) at the patch panel and enforce IEEE 802.1X port-security controls.
-          </p>
+        <div>
+          <div class="block-title">Canonical Technique Specification (YAML)</div>
+          <div class="doc-code-block">
+            <button class="doc-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('yaml1004').innerText); showToast('Copied PHY-T1004');">Copy YAML</button>
+<pre id="yaml1004"><code>id: "PHY-T1004"
+name: "Exposed Physical Network Interface Assessment"
+tactic_id: "PHY-TAC-05"
+target_object: "PORT"
+target_time_seconds: 10
+result_model:
+  hardened_criteria: "Unassigned wall drop administratively shut down; active ports enforce IEEE 802.1X."
+  deficient_criteria: "Unmonitored wall drop broadcasts active Layer 1 carrier signaling without 802.1X isolation."
+mitigation_id: "PHY-M1004"
+technical_references:
+  - standard: "IEEE 802.1X-2020"
+  - standard: "NIST SP 800-53 Rev 5"
+    section: "PE-3, AC-17, CA-3"</code></pre>
+          </div>
         </div>
       </article>
 
-      <!-- Section 9: Optional Profile APCAF-WF-01 -->
-      <article class="doc-article" id="warranty-hold">
+      <!-- Section 8: Deterministic Risk Model & Treatment Specification -->
+      <article class="doc-article" id="risk-model">
         <div class="doc-article-head">
-          <span class="section-eyebrow">Optional Profile</span>
-          <h2>Vendor Remediation &amp; Warranty Workflow (APCAF-WF-01)</h2>
+          <span class="section-eyebrow">Mathematical Specification</span>
+          <h2>Deterministic Risk Scoring Engine</h2>
         </div>
         <p>
-          APCAF-WF-01 is an optional commercial workflow extension for facility commissioning and contractor warranty punch list management:
+          APCAF strictly rejects rigid universal checklist mandates. Risk is derived deterministically from three orthogonal physical parameters:
         </p>
-        <div class="atomic-step-list">
-          <div class="atomic-step-item">
-            <span class="atomic-step-num">Phase 1</span>
-            <div><strong>Scope Authorization:</strong> Incorporate sample authorization language into engagement agreements.</div>
-          </div>
-          <div class="atomic-step-item">
-            <span class="atomic-step-num">Phase 2</span>
-            <div><strong>Site Inspection:</strong> Evaluate credential cryptography, door clearances, and port carrier states.</div>
-          </div>
-          <div class="atomic-step-item">
-            <span class="atomic-step-num">Phase 3</span>
-            <div><strong>Notice Delivery:</strong> Generate formal remediation punch list for general contractor review under applicable contract terms.</div>
-          </div>
-          <div class="atomic-step-item">
-            <span class="atomic-step-num">Phase 4</span>
-            <div><strong>Verification Re-Test:</strong> Conduct verification walk to validate hardened remediation.</div>
-          </div>
+
+        <div class="doc-code-block" style="text-align: center; padding: 18px; font-size: 1.1rem; color: #38bdf8;">
+          Risk Score = Asset Criticality (AC: 1..4) &times; Physical Exposure (PE: 1..4) &times; Consequence (C: 1..4)
         </div>
-        <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 10px;">
-          <em>Notice: This material is an optional workflow profile and does not constitute legal advice.</em>
-        </p>
+
+        <div class="spec-table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Score Range</th>
+                <th>Calculated Risk Level</th>
+                <th>Governance Action &amp; Eligibility</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>1 - 8</code></td>
+                <td><strong style="color: var(--status-hardened);">LOW</strong></td>
+                <td>Eligible for standard operational risk acceptance with documented rationale.</td>
+              </tr>
+              <tr>
+                <td><code>9 - 23</code></td>
+                <td><strong style="color: var(--status-warning);">MEDIUM</strong></td>
+                <td>Requires formal review. Eligible for validated compensating controls or scheduled remediation.</td>
+              </tr>
+              <tr>
+                <td><code>24 - 47</code></td>
+                <td><strong style="color: var(--status-defect);">HIGH</strong></td>
+                <td>Mandates prioritized remediation or high-assurance compensating detection with SLA.</td>
+              </tr>
+              <tr>
+                <td><code>48 - 64</code></td>
+                <td><strong style="color: #dc2626;">CRITICAL</strong></td>
+                <td>Immediate executive escalation, active physical guard post, and remediation hold.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </article>
 
-      <!-- Section 10: Governance & Contribution -->
+      <!-- Section 9: Risk Treatment Options -->
+      <article class="doc-article" id="risk-treatment">
+        <div class="doc-article-head">
+          <span class="section-eyebrow">Decision Governance</span>
+          <h2>The 4 Risk Treatment Options</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px;">
+          <div class="risk-axis-card">
+            <h3 style="color: var(--status-defect);">1. REMEDIATE</h3>
+            <p>Direct physical hardware modification satisfying the canonical mitigation specification (`PHY-MXXXX`).</p>
+          </div>
+          <div class="risk-axis-card">
+            <h3 style="color: var(--status-warning);">2. COMPENSATE</h3>
+            <p>Deploy a secondary physical barrier or immediate tamper sensor when primary remediation is structurally constrained.</p>
+          </div>
+          <div class="risk-axis-card">
+            <h3 style="color: var(--status-hardened);">3. ACCEPT</h3>
+            <p>Named business risk owner accepts residual risk within documented organizational appetite with an annual expiration date.</p>
+          </div>
+          <div class="risk-axis-card">
+            <h3 style="color: var(--text-pure);">4. AVOID / REMOVE</h3>
+            <p>Eliminate the physical threat surface entirely by decommissioning unneeded ports or walling off redundant openings.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Section 10: Canonical Ground-Truth Scenarios -->
+      <article class="doc-article" id="risk-scenarios">
+        <div class="doc-article-head">
+          <span class="section-eyebrow">Ground-Truth Proof</span>
+          <h2>Three Canonical Reference Cases</h2>
+        </div>
+        <p>Demonstrating how identical physical observations yield three distinct, defensible outcomes based on context:</p>
+
+        <div class="spec-table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Scenario</th>
+                <th>Observation</th>
+                <th>3-Axis Calculation</th>
+                <th>Appetite</th>
+                <th>Defensible Decision</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>A. Mop Closet</strong></td>
+                <td>5.2 mm gap, latch exposed, zero astragal</td>
+                <td>AC-1 &times; PE-3 &times; C-1 = <strong>3 (LOW)</strong></td>
+                <td>MEDIUM (Pass)</td>
+                <td><strong style="color: var(--status-hardened);">ACCEPT RISK</strong></td>
+              </tr>
+              <tr>
+                <td><strong>B. HR Records</strong></td>
+                <td>4.8 mm gap, historic glass frame</td>
+                <td>AC-3 &times; PE-2 &times; C-3 = <strong>18 (MEDIUM)</strong></td>
+                <td>LOW (Breach)</td>
+                <td><strong style="color: var(--status-warning);">COMPENSATE</strong> (BMS + Beam)</td>
+              </tr>
+              <tr>
+                <td><strong>C. Core Datacenter</strong></td>
+                <td>5.2 mm gap, server suite double door</td>
+                <td>AC-4 &times; PE-2 &times; C-4 = <strong>32 (HIGH)</strong></td>
+                <td>LOW (Breach)</td>
+                <td><strong style="color: var(--status-defect);">REMEDIATE</strong> (WF-01 Warranty Hold)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- Section 11: Case Record Schema -->
+      <article class="doc-article" id="case-schema">
+        <div class="doc-article-head">
+          <span class="section-eyebrow">Data Architecture</span>
+          <h2>Case Record Schema (JSON / YAML)</h2>
+        </div>
+        <p>Field triage results and risk calculations are compiled into machine-readable case records matching <code>schemas/case.schema.json</code>:</p>
+
+        <div class="doc-code-block">
+          <button class="doc-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('yamlCase').innerText); showToast('Copied Case YAML');">Copy Case YAML</button>
+<pre id="yamlCase"><code>schema_version: "0.1.0"
+case_id: "APCAF-CASE-2026-001"
+target:
+  facility_name: "Apex Tower HQ"
+  zone: "Floor 04 - Core Server Suite"
+findings:
+  - technique_id: "PHY-T1002"
+    disposition: "Deficient"
+    evidence:
+      strike_clearance_mm: 5.2
+      astragal_present: false
+    risk_context:
+      asset_criticality: 4
+      physical_exposure: 2
+      consequence: 4
+      calculated_risk_score: 32
+      calculated_risk_level: "HIGH"
+    risk_appetite:
+      organizational_appetite: "LOW"
+      exceeds_appetite: true
+    risk_treatment:
+      decision: "REMEDIATE"
+      rationale: "Immediate heavy-gauge stainless steel astragal plate installation mandated."</code></pre>
+        </div>
+      </article>
+
+      <!-- Section 12: Standards Cross-Walk -->
+      <article class="doc-article" id="crosswalk">
+        <div class="doc-article-head">
+          <span class="section-eyebrow">Interoperability</span>
+          <h2>Standards &amp; Framework Cross-Walk</h2>
+        </div>
+        <div class="spec-table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>APCAF Technique</th>
+                <th>Technical Benchmark</th>
+                <th>Building &amp; Physical Standards</th>
+                <th>Enterprise Cyber Controls</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>PHY-T1001</code></td>
+                <td>Mutual Cryptographic Smartcard</td>
+                <td>ISO/IEC 14443-4, NIST SP 800-116</td>
+                <td>ISO 27001 A.7.2, PCI DSS Req 9.2.1</td>
+              </tr>
+              <tr>
+                <td><code>PHY-T1002</code></td>
+                <td>Operating Clearances &amp; Astragal Shield</td>
+                <td>NFPA 80 Section 6.3.1.7.1, ANSI/SDI A250.8</td>
+                <td>ISO 27001 A.7.1, PCI DSS Req 9.1.1</td>
+              </tr>
+              <tr>
+                <td><code>PHY-T1003</code></td>
+                <td>Directional Deflector Shroud</td>
+                <td>NFPA 101 Section 7.2.1.6.2, UL 294</td>
+                <td>ISO 27001 A.7.1, SOC 2 CC6.4</td>
+              </tr>
+              <tr>
+                <td><code>PHY-T1004</code></td>
+                <td>Port Administrative Shutdown / 802.1X</td>
+                <td>IEEE 802.1X-2020, NIST SP 800-53 PE-3</td>
+                <td>ISO 27001 A.8.20, PCI DSS Req 9.1.2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- Section 13: Governance & Contribution -->
       <article class="doc-article" id="governance">
         <div class="doc-article-head">
           <span class="section-eyebrow">Open Specification</span>
           <h2>Governance &amp; Contribution Process</h2>
         </div>
         <p>
-          APCAF is maintained by the <strong>APCAF Maintainers</strong> under an open RFC process:
+          APCAF is governed by the <strong>APCAF Maintainers</strong> under an open Request for Comments (RFC) model. Community proposals for new tactics, techniques, or schema profiles must satisfy three mandatory criteria:
         </p>
         <div class="spec-sheet-block">
-          <div class="block-title">Technique Submission Requirements</div>
-          <p style="font-size: 0.86rem; color: var(--text-head); line-height: 1.55;">
-            1. <strong>Non-invasive procedure:</strong> Defined non-destructive physical measurement.<br>
-            2. <strong>Zero life-safety interference:</strong> No tampering with emergency egress or fire alarms.<br>
-            3. <strong>Building/fire code citations:</strong> Verifiable industry standards (NFPA, ANSI/SDI, ISO/IEC).
+          <p style="font-size: 0.86rem; color: var(--text-head); line-height: 1.6;">
+            1. <strong>Strictly Non-Invasive:</strong> Must define repeatable non-destructive observation procedures.<br>
+            2. <strong>Zero Life-Safety Interference:</strong> Must never manipulate emergency egress, panic hardware, or fire alarms.<br>
+            3. <strong>Defensible Citations:</strong> Grounded in authoritative architectural, fire, or electrical engineering standards.
           </p>
-          <div style="margin-top: 12px;">
-            <a href="https://github.com/zoecyber001/APCAF/blob/main/CONTRIBUTING.md" class="btn-nav-primary" target="_blank" rel="noopener" style="font-size: 0.78rem;">
-              Review CONTRIBUTING.md on GitHub →
+          <div style="margin-top: 14px;">
+            <a href="https://github.com/zoecyber001/APCAF/blob/main/CONTRIBUTING.md" class="btn-nav-primary" target="_blank" rel="noopener">
+              Read Contribution Guidelines on GitHub →
             </a>
           </div>
         </div>
@@ -520,20 +771,70 @@ limitations:
 
   <!-- Site Footer -->
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>
-        <strong style="color: var(--text-pure);">APCAF Base Draft v0.1.0</strong>
-        <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 2px;">
-          Open Specification under CC BY 4.0 • Tooling under MIT
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-col">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="brand-icon-box" style="width: 28px; height: 28px;">
+              <svg width="16" height="16" viewBox="0 0 64 64" fill="none">
+                <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" />
+                <path d="M32 19 V35 M26 25 H38 M28 31 H36" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+                <circle cx="32" cy="42" r="2.5" fill="#ffffff" />
+              </svg>
+            </div>
+            <span class="brand-badge" style="font-size: 0.95rem;">APCAF</span>
+          </div>
+          <p>
+            An ATT&amp;CK-inspired open specification for assessing physical security controls against observable bypass conditions.
+          </p>
+          <div style="margin-top: 14px; font-size: 0.76rem; color: var(--text-dim);">
+            Specification: <strong>CC BY 4.0</strong> • Tooling: <strong>MIT</strong>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Framework &amp; Tools</div>
+          <ul class="footer-col-links">
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="repository.html">Knowledge Base</a></li>
+            <li><a href="risk.html">Risk Context Model</a></li>
+            <li><a href="tools/field-triage.html">Field Triage Workbench</a></li>
+            <li><a href="learn.html">Field Guide &amp; Simulator</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Standards &amp; Ecosystem</div>
+          <ul class="footer-col-links">
+            <li><a href="about.html">Ecosystem Alignment</a></li>
+            <li><a href="docs.html">Technical Documentation</a></li>
+            <li><a href="docs.html#risk-model">Risk Specification</a></li>
+            <li><a href="docs.html#crosswalk">Standards Cross-Walk</a></li>
+            <li><a href="templates/ENGAGEMENT_CONSENT_CLAUSE.md">SOW Consent Addendum</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Governance &amp; Open Source</div>
+          <ul class="footer-col-links">
+            <li><a href="about.html#governance">Technical Committee</a></li>
+            <li><a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener">GitHub Repository</a></li>
+            <li><a href="https://github.com/zoecyber001/APCAF/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribution Guidelines</a></li>
+            <li><a href="https://github.com/zoecyber001/APCAF/blob/main/SECURITY.md" target="_blank" rel="noopener">Security &amp; Disclosure</a></li>
+            <li><a href="https://github.com/zoecyber001/APCAF/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog &amp; Releases</a></li>
+          </ul>
         </div>
       </div>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="index.html" style="font-size: 0.82rem; color: var(--text-body);">Overview</a>
-        <a href="learn.html" style="font-size: 0.82rem; color: var(--text-body);">Learn APCAF</a>
-        <a href="repository.html" style="font-size: 0.82rem; color: var(--text-body);">Rule Repository</a>
-        <a href="docs.html" style="font-size: 0.82rem; color: var(--text-body);">Documentation</a>
-        <a href="tools/field-triage.html" style="font-size: 0.82rem; color: var(--text-body);">Field Triage</a>
-        <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener" style="font-size: 0.82rem; color: var(--text-body);">GitHub (v0.1.0)</a>
+
+      <div class="footer-bottom-bar">
+        <div>
+          APCAF Base Draft v0.1.0 • Open Community Specification
+        </div>
+        <div style="display: flex; gap: 18px;">
+          <a href="about.html">About</a>
+          <a href="docs.html#boundaries">Operational Boundaries</a>
+          <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener">GitHub</a>
+        </div>
       </div>
     </div>
   </footer>
@@ -557,16 +858,16 @@ limitations:
         <div class="spec-sheet-block">
           <div class="block-title">Single-Sentence Fast-Path Clause</div>
           <p id="sowClauseText" style="font-size: 0.9rem; color: var(--text-head); font-style: italic;">
-            "Client explicitly authorizes the assessment team to perform non-invasive, passive radio frequency (RF) credential reads and non-intrusive passive physical network port link detection during the inspection to verify vendor hardware installation specifications."
+            "Client explicitly authorizes the assessment team to perform non-invasive physical security control evaluations, passive radio frequency (RF) credential reads, and non-intrusive physical network port link detection during the inspection to verify vendor hardware installation specifications."
           </p>
         </div>
 
         <div class="spec-sheet-block">
           <div class="block-title">Scope &amp; Life-Safety Protection Guarantees</div>
           <p style="font-size: 0.82rem; color: var(--text-body); line-height: 1.5;">
-            • <strong>Zero Operational Impact:</strong> Strictly non-intrusive reads only. No packet injection or sniffing.<br>
-            • <strong>Life-Safety Non-Interference:</strong> Zero manipulation of fire alarm, emergency egress, or crash bar hardware.<br>
-            • <strong>Contractual Purpose:</strong> Generates a quality assurance scorecard to assist client in validating contractor deliverables.
+            &bull; <strong>Zero Operational Impact:</strong> Strictly non-intrusive reads only. No packet injection or sniffing.<br>
+            &bull; <strong>Life-Safety Non-Interference:</strong> Zero manipulation of fire alarm, emergency egress, or crash bar hardware.<br>
+            &bull; <strong>Contractual Purpose:</strong> Generates a quality assurance scorecard to assist client in validating contractor deliverables.
           </p>
         </div>
 
