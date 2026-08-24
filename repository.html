@@ -38,11 +38,12 @@
       <nav>
         <ul class="nav-menu">
           <li><a href="index.html">Overview</a></li>
+          <li><a href="repository.html" class="active">Knowledge Base</a></li>
+          <li><a href="risk.html">Risk Model</a></li>
           <li><a href="learn.html">Learn</a></li>
-          <li><a href="repository.html" class="active">Repository</a></li>
-          <li><a href="docs.html">Docs</a></li>
           <li><a href="tools/field-triage.html">Field Triage</a></li>
-          <li><a href="docs.html#warranty-hold">Playbook</a></li>
+          <li><a href="docs.html">Docs</a></li>
+          <li><a href="about.html">About</a></li>
         </ul>
       </nav>
 
@@ -60,7 +61,7 @@
           SOW Clause
         </button>
         <a href="tools/field-triage.html" class="btn-nav-primary">
-          Field Triage
+          Run 45s QA
         </a>
         <!-- Mobile Menu Toggle Button -->
         <button type="button" class="btn-mobile-menu-toggle" id="mobileMenuToggleBtn" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
@@ -75,11 +76,12 @@
       <!-- Mobile Navigation Drawer -->
       <div class="mobile-nav-drawer" id="mobileNavMenu">
         <a href="index.html" onclick="closeMobileMenu()">Overview</a>
+        <a href="repository.html" class="active" onclick="closeMobileMenu()">Knowledge Base (Rules)</a>
+        <a href="risk.html" onclick="closeMobileMenu()">Risk Model</a>
         <a href="learn.html" onclick="closeMobileMenu()">Learn APCAF (Field Guide)</a>
-        <a href="repository.html" class="active" onclick="closeMobileMenu()">Rule Repository</a>
+        <a href="tools/field-triage.html" onclick="closeMobileMenu()">45s Field Triage</a>
         <a href="docs.html" onclick="closeMobileMenu()">Technical Documentation</a>
-        <a href="tools/field-triage.html" onclick="closeMobileMenu()">Field Triage</a>
-        <a href="docs.html#warranty-hold" onclick="closeMobileMenu()">Remediation Workflow</a>
+        <a href="about.html" onclick="closeMobileMenu()">About &amp; Governance</a>
       </div>
     </div>
   </header>

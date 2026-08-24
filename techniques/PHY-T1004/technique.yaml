@@ -2,7 +2,7 @@ id: "PHY-T1004"
 name: "Exposed Physical Network Interface Assessment"
 status: "base_coverage"
 tactic_id: "PHY-TAC-05"
-tactic_name: "Physical Interface & Hardware Layer Protection"
+tactic_name: "Physical-to-Cyber Execution"
 target_object: "PORT"
 target_time_seconds: 10
 

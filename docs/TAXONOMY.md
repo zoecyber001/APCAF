@@ -22,11 +22,12 @@ APCAF adapts the MITRE ATT&CK structural hierarchy to physical security assessme
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
 │                               APCAF PHYSICAL TAXONOMY HIERARCHY                         │
 ├────────────────────────────────────────────────────────────────────────────────────────┤
-│ 1. TACTICS (PHY-TAC-XX)    --> The Physical Security Objective (The "Why")              │
+│ 1. TACTICS (TA01–TA06)     --> The Physical Security Objective (The "Why")              │
 │ 2. TECHNIQUES (PHY-TXXXX)  --> The Bypass Hypothesis & Inspection Procedure (The "How") │
 │ 3. PASSIVE ASSESSMENT SPEC --> Non-Invasive Inspection Benchmark Standard (Passive QA)  │
-│ 4. MITIGATIONS (PHY-MXXXX) --> Hardened Engineering Remediation Specification           │
-│ 5. STANDARDS CROSS-WALK    --> Mapped to ISO 27001, PCI DSS v4, NFPA 80, ANSI/SDI       │
+│ 4. RISK CONTEXT ENGINE     --> Deterministic Asset Criticality × Exposure × Consequence │
+│ 5. MITIGATIONS (PHY-MXXXX) --> Hardened Engineering Remediation Specification           │
+│ 6. STANDARDS CROSS-WALK    --> Mapped to ISO 27001, PCI DSS v4, NFPA 80, ANSI/SDI       │
 └────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -51,30 +52,31 @@ To maintain scientific rigor and prevent unverified assumptions from being prese
 
 ---
 
-## 3. The 5 Core Physical Tactics (Spatial Defense Layers)
+## 3. The 6 Core Physical Tactics (Adversarial Physical Attack Surface)
 
-Physical security infrastructure protects spatial boundaries through layered physical defense barriers:
+Physical security controls protect spatial boundaries against adversary actions across six defined tactics:
 
-| Tactic ID | Tactic Name | Objective |
-| :--- | :--- | :--- |
-| **PHY-TAC-01** | **Perimeter & Boundary Protection** | Protecting the outermost property line, fences, vehicle gates, and loading docks. |
-| **PHY-TAC-02** | **Credential & Identity Protection** | Safeguarding electronic tokens, badges, and contactless smartcard authenticators. |
-| **PHY-TAC-03** | **Portal & Architectural Barrier Protection** | Protecting pedestrian doors, turnstiles, latch assemblies, and egress sensor mechanisms. |
-| **PHY-TAC-04** | **Enclave & Asset Containment Protection** | Protecting server racks, vaults, data center suites, and demarcation partitions. |
-| **PHY-TAC-05** | **Physical Interface & Hardware Layer Protection** | Securing network drops, PoE lines, console ports, and physical interface jacks. |
+| Tactic ID | Tactic Name | Objective | Representative Techniques / Vectors |
+| :--- | :--- | :--- | :--- |
+| **PHY-TAC-01 (TA01)** | **Physical Reconnaissance** | Gathering spatial, optical, and operational intelligence prior to physical approach. | Camera blind spot mapping, guard patrol pattern observation, badge-reader technology identification, facility layout discovery. |
+| **PHY-TAC-02 (TA02)** | **Perimeter & Ingress** | Breaching or bypassing the external boundary, gates, or exterior pedestrian portals. | Tailgating, mechanical latch slip (`PHY-T1002`), door gap feeler exploitation, barrier bypass, unsecured emergency access. |
+| **PHY-TAC-03 (TA03)** | **Credential & Access Bypass** | Circumventing electronic access-control authenticators and readers. | Low-frequency RFID harvesting (`PHY-T1001`), static CSN replay, reader wiring exposure, Wiegand / OSDP controller communication sniffing. |
+| **PHY-TAC-04 (TA04)** | **Interior Traversal & Evasion** | Moving across interior zones and evading detection within secured facilities. | Mantrap anti-passback bypass, CCTV coverage gaps, REX sensor blind activation (`PHY-T1003`), partition-wall transit. |
+| **PHY-TAC-05 (TA05)** | **Physical-to-Cyber Execution** | Gaining unauthorized logical or data access via physical hardware interfaces. | Exposed active network drops (`PHY-T1004`), unprotected console/USB interfaces, rogue hardware drop implant placement. |
+| **PHY-TAC-06 (TA06)** | **Egress & Cleanup** | Exiting the facility and concealing physical evidence of unauthorized presence. | Emergency egress hardware manipulation, badge departure logging evasion, evidence tampering. |
 
 ---
 
-## 4. Base Assessment Coverage Matrix
+## 4. Base Assessment Coverage Matrix (v0.1.0 MVP)
 
-Below is the foundational technique mapping for the core baseline techniques:
+Below is the foundational technique mapping for the core baseline techniques vetted in APCAF Base v0.1.0:
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                APCAF BASE ASSESSMENT COVERAGE                                    │
 ├──────────────────────┬──────────────────────┬──────────────────────┬─────────────────────────────┤
-│ PHY-TAC-02:          │ PHY-TAC-03:          │ PHY-TAC-03:          │ PHY-TAC-05:                 │
-│ Credential Protection│ Portal Protection    │ Portal Protection    │ Physical Interface Protect. │
+│ PHY-TAC-03 (TA03):   │ PHY-TAC-02 (TA02):   │ PHY-TAC-04 (TA04):   │ PHY-TAC-05 (TA05):          │
+│ Credential Bypass    │ Perimeter & Ingress  │ Interior Traversal   │ Physical-to-Cyber Execution │
 ├──────────────────────┼──────────────────────┼──────────────────────┼─────────────────────────────┤
 │ PHY-T1001            │ PHY-T1002            │ PHY-T1003            │ PHY-T1004                   │
 │ Credential Technology│ Door & Latch         │ REX Sensor Placement │ Exposed Physical Network    │

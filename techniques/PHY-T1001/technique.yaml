@@ -1,8 +1,8 @@
 id: "PHY-T1001"
 name: "Credential Technology Assessment"
 status: "base_coverage"
-tactic_id: "PHY-TAC-02"
-tactic_name: "Credential & Identity Protection"
+tactic_id: "PHY-TAC-03"
+tactic_name: "Credential & Access Bypass"
 target_object: "BADGE"
 target_time_seconds: 5
 

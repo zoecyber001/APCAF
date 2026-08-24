@@ -29,12 +29,27 @@ findings:
     technique_id: "PHY-T1001"
     technique_name: "Credential Technology Assessment"
     classification: "Deficient" # Hardened | Deficient | Condition_Requires_Validation
-    evidence_type: "observation" # observation | measurement | photo_redacted
+    evidence_type: "observation" # observation | measurement | photo | device_read
     observed_spec: "HID 125kHz H10301 Prox credential read; static facility code without AES encryption"
     inspection_time_seconds: 5
     mitigation_ref: "PHY-M1001"
     remediation_action: "Upgrade badge inventory to MIFARE DESFire EV3 / Seos with active SAM encryption."
     vendor_warranty_applicable: true
+    risk_context:
+      asset_criticality: "AC-3" # AC-1 (Low), AC-2 (Moderate), AC-3 (High), AC-4 (Critical)
+      physical_exposure: "PE-3" # PE-1 (Controlled), PE-2 (Restricted), PE-3 (Accessible), PE-4 (Public)
+      consequence: "C-3" # C-1 (Negligible), C-2 (Operational), C-3 (Security/Financial), C-4 (Critical)
+      calculated_score: 27 # 3 * 3 * 3 = 27
+      risk_level: "HIGH" # LOW (1-8), MEDIUM (9-23), HIGH (24-47), CRITICAL (48-64)
+    risk_appetite:
+      maximum_accepted_level: "LOW"
+      exceeds_appetite: true
+    risk_treatment:
+      decision: "REMEDIATE" # REMEDIATE | COMPENSATE | ACCEPT | AVOID
+      rationale: "Corporate badge stock upgrade prioritized to mitigate credential replay across HQ."
+      residual_risk: "LOW"
+      risk_owner: "Head of Physical Security"
+      target_remediation_date: "2026-10-31"
 
   # ---------------------------------------------------------------------------
   # 2. DOOR LATCH INSPECTION (PHY-T1002)
@@ -50,6 +65,23 @@ findings:
     mitigation_ref: "PHY-M1002"
     remediation_action: "Install continuous stainless steel security astragal latch guard plate."
     vendor_warranty_applicable: true
+    risk_context:
+      asset_criticality: "AC-3"
+      physical_exposure: "PE-2"
+      consequence: "C-3"
+      calculated_score: 18 # 3 * 2 * 3 = 18
+      risk_level: "MEDIUM"
+    risk_appetite:
+      maximum_accepted_level: "LOW"
+      exceeds_appetite: true
+    risk_treatment:
+      decision: "COMPENSATE"
+      rationale: "Door frame cannot accommodate astragal plate due to glass storefront design; deployed balanced magnetic contact switch + overhead beam sensor."
+      compensating_control_ref: "BMS-TAMPER-SENSOR-01"
+      compensating_control_validated: true
+      residual_risk: "LOW"
+      risk_owner: "Facilities Director"
+      review_date: "2027-08-17"
 
   # ---------------------------------------------------------------------------
   # 3. SENSOR REX INSPECTION (PHY-T1003)
@@ -65,6 +97,20 @@ findings:
     mitigation_ref: "PHY-M1003"
     remediation_action: "None required. Deflector hood verified."
     vendor_warranty_applicable: false
+    risk_context:
+      asset_criticality: "AC-2"
+      physical_exposure: "PE-2"
+      consequence: "C-2"
+      calculated_score: 8
+      risk_level: "LOW"
+    risk_appetite:
+      maximum_accepted_level: "LOW"
+      exceeds_appetite: false
+    risk_treatment:
+      decision: "ACCEPT"
+      rationale: "Hardware verified Hardened against direct exterior optical line-of-sight activation."
+      residual_risk: "LOW"
+      risk_owner: "Physical Security Specialist"
 
   # ---------------------------------------------------------------------------
   # 4. NETWORK PORT INSPECTION (PHY-T1004)
@@ -80,6 +126,20 @@ findings:
     mitigation_ref: "PHY-M1004"
     remediation_action: "None required. Administrative port shutdown verified."
     vendor_warranty_applicable: false
+    risk_context:
+      asset_criticality: "AC-1"
+      physical_exposure: "PE-3"
+      consequence: "C-1"
+      calculated_score: 3
+      risk_level: "LOW"
+    risk_appetite:
+      maximum_accepted_level: "LOW"
+      exceeds_appetite: false
+    risk_treatment:
+      decision: "ACCEPT"
+      rationale: "Port verified unpatched / shut down at core switch."
+      residual_risk: "LOW"
+      risk_owner: "Network Infrastructure Lead"
 
 remediation_status:
   status: "OPEN"

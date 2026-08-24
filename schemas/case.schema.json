@@ -136,6 +136,38 @@
           },
           "vendor_warranty_applicable": {
             "type": "boolean"
+          },
+          "risk_context": {
+            "type": "object",
+            "required": ["asset_criticality", "physical_exposure", "consequence", "calculated_score", "risk_level"],
+            "properties": {
+              "asset_criticality": { "type": "string", "enum": ["AC-1", "AC-2", "AC-3", "AC-4"] },
+              "physical_exposure": { "type": "string", "enum": ["PE-1", "PE-2", "PE-3", "PE-4"] },
+              "consequence": { "type": "string", "enum": ["C-1", "C-2", "C-3", "C-4"] },
+              "calculated_score": { "type": "integer", "minimum": 1, "maximum": 64 },
+              "risk_level": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"] }
+            }
+          },
+          "risk_appetite": {
+            "type": "object",
+            "properties": {
+              "maximum_accepted_level": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"] },
+              "exceeds_appetite": { "type": "boolean" }
+            }
+          },
+          "risk_treatment": {
+            "type": "object",
+            "required": ["decision"],
+            "properties": {
+              "decision": { "type": "string", "enum": ["REMEDIATE", "COMPENSATE", "ACCEPT", "AVOID"] },
+              "rationale": { "type": "string" },
+              "compensating_control_ref": { "type": "string" },
+              "compensating_control_validated": { "type": "boolean" },
+              "residual_risk": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"] },
+              "risk_owner": { "type": "string" },
+              "review_date": { "type": "string" },
+              "target_remediation_date": { "type": "string" }
+            }
           }
         }
       }

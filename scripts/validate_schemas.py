@@ -18,17 +18,32 @@ import jsonschema
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 TECH_SCHEMA_PATH = os.path.join(REPO_ROOT, "schemas", "technique.schema.json")
 CASE_SCHEMA_PATH = os.path.join(REPO_ROOT, "schemas", "case.schema.json")
+RISK_SCHEMA_PATH = os.path.join(REPO_ROOT, "schemas", "risk_context.schema.json")
 
 def load_json_schema(path):
     with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
+        schema = json.load(f)
+        # Validate that schema itself is valid Draft-07 JSON Schema
+        jsonschema.Draft7Validator.check_schema(schema)
+        return schema
 
 def validate_all():
     errors = 0
     
-    # 1. Validate Techniques
-    print("--- Validating Technique Specifications ---")
-    tech_schema = load_json_schema(TECH_SCHEMA_PATH)
+    # 1. Validate Schemas
+    print("--- Validating Meta-Schemas ---")
+    try:
+        tech_schema = load_json_schema(TECH_SCHEMA_PATH)
+        case_schema = load_json_schema(CASE_SCHEMA_PATH)
+        risk_schema = load_json_schema(RISK_SCHEMA_PATH)
+        print("[OK] technique.schema.json, case.schema.json, and risk_context.schema.json are valid Draft-07 schemas.")
+    except Exception as e:
+        print(f"[FAIL] Schema compilation error: {e}")
+        errors += 1
+        return 1
+
+    # 2. Validate Techniques
+    print("\n--- Validating Technique Specifications ---")
     tech_files = glob.glob(os.path.join(REPO_ROOT, "techniques", "*", "technique.yaml"))
     
     seen_tech_ids = set()

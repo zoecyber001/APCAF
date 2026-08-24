@@ -32,6 +32,21 @@ findings:
     mitigation_ref: "PHY-M1001"
     remediation_action: "Replace credential stock with MIFARE DESFire EV3 (AES-128) and update reader firmware keys."
     vendor_warranty_applicable: true
+    risk_context:
+      asset_criticality: "AC-4"
+      physical_exposure: "PE-3"
+      consequence: "C-3"
+      calculated_score: 36
+      risk_level: "HIGH"
+    risk_appetite:
+      maximum_accepted_level: "LOW"
+      exceeds_appetite: true
+    risk_treatment:
+      decision: "REMEDIATE"
+      rationale: "Datacenter perimeter badge readers protect Tier-3 compute facilities; unencrypted legacy Prox violates corporate zero-trust standard."
+      residual_risk: "LOW"
+      risk_owner: "Director of Physical Security Infrastructure"
+      target_remediation_date: "2026-09-30"
 
   - control_id: "APCAF-02"
     tactic_id: "PHY-TAC-03"
@@ -45,6 +60,21 @@ findings:
     mitigation_ref: "PHY-M1002"
     remediation_action: "Install full-length continuous interlocking astragal plate."
     vendor_warranty_applicable: true
+    risk_context:
+      asset_criticality: "AC-4"
+      physical_exposure: "PE-2"
+      consequence: "C-4"
+      calculated_score: 32
+      risk_level: "HIGH"
+    risk_appetite:
+      maximum_accepted_level: "LOW"
+      exceeds_appetite: true
+    risk_treatment:
+      decision: "REMEDIATE"
+      rationale: "Critical server suite access door requires physical latch shielding; invoice hold applied under warranty profile APCAF-WF-01."
+      residual_risk: "LOW"
+      risk_owner: "VP of Enterprise Infrastructure"
+      target_remediation_date: "2026-09-15"
 
   - control_id: "APCAF-03"
     tactic_id: "PHY-TAC-05"
@@ -58,6 +88,20 @@ findings:
     mitigation_ref: "PHY-M1004"
     remediation_action: "No action required. Port shutdown verified at patch panel."
     vendor_warranty_applicable: false
+    risk_context:
+      asset_criticality: "AC-1"
+      physical_exposure: "PE-3"
+      consequence: "C-1"
+      calculated_score: 3
+      risk_level: "LOW"
+    risk_appetite:
+      maximum_accepted_level: "LOW"
+      exceeds_appetite: false
+    risk_treatment:
+      decision: "ACCEPT"
+      rationale: "Port verified administratively shutdown at switch panel with zero Layer 1 signaling. Residual risk verified LOW."
+      residual_risk: "LOW"
+      risk_owner: "Network Operations Lead"
 
 remediation_status:
   status: "OPEN"

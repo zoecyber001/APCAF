@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About APCAF • Open Physical Security Standard &amp; Governance</title>
+  <meta name="description" content="Why APCAF exists, who it is for, framework boundaries, governance model, and how it aligns with MITRE ATT&CK, ISO 27001, and CIS Benchmarks.">
+  
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Typography System: Inter & IBM Plex Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Precision Ambient Light Beam -->
+  <div class="hero-ambient-glow"></div>
+
+  <!-- High-End Navigation Bar -->
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a href="index.html" class="brand-link" aria-label="APCAF Home">
+        <div class="brand-icon-box">
+          <svg width="18" height="18" viewBox="0 0 64 64" fill="none">
+            <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" />
+            <path d="M32 19 V35 M26 25 H38 M28 31 H36" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+            <circle cx="32" cy="42" r="2.5" fill="#ffffff" />
+          </svg>
+        </div>
+        <span class="brand-badge">APCAF</span>
+      </a>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="repository.html">Knowledge Base</a></li>
+          <li><a href="risk.html">Risk Model</a></li>
+          <li><a href="learn.html">Learn</a></li>
+          <li><a href="tools/field-triage.html">Field Triage</a></li>
+          <li><a href="docs.html">Docs</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button type="button" class="btn-theme-toggle" onclick="cycleTheme()" aria-label="Cycle display theme (Dark, Light, System)">
+          <svg class="icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+          <span>Dark</span>
+        </button>
+        <button type="button" class="btn-nav-sow" onclick="openSowModal()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          SOW Clause
+        </button>
+        <a href="tools/field-triage.html" class="btn-nav-primary">
+          Run 45s QA
+        </a>
+        <button type="button" class="btn-mobile-menu-toggle" id="mobileMenuToggleBtn" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation Drawer -->
+      <div class="mobile-nav-drawer" id="mobileNavMenu">
+        <a href="index.html" onclick="closeMobileMenu()">Overview</a>
+        <a href="repository.html" onclick="closeMobileMenu()">Knowledge Base (Rules)</a>
+        <a href="risk.html" onclick="closeMobileMenu()">Risk Model</a>
+        <a href="learn.html" onclick="closeMobileMenu()">Learn APCAF (Field Guide)</a>
+        <a href="tools/field-triage.html" onclick="closeMobileMenu()">45s Field Triage</a>
+        <a href="docs.html" onclick="closeMobileMenu()">Technical Documentation</a>
+        <a href="about.html" class="active" onclick="closeMobileMenu()">About &amp; Governance</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container risk-page-wrap">
+    
+    <!-- Hero Block -->
+    <div class="risk-head-block">
+      <div class="spec-tagline">
+        <span class="spec-tagline-kicker">APCAF STANDARDS BODY</span>
+        <span class="spec-tagline-title">OPEN SPECIFICATION &amp; GOVERNANCE</span>
+      </div>
+      <h1 style="font-size: clamp(2rem, 4.2vw, 3.2rem); font-weight: 800; color: var(--text-pure); margin-bottom: 12px; line-height: 1.1;">
+        About the Framework
+      </h1>
+      <p style="font-size: 1.05rem; color: var(--text-body); line-height: 1.6; max-width: 780px;">
+        APCAF (Adversarial Physical Control Assessment Framework) is an open specification for systematically assessing physical security controls against known adversarial bypass techniques — using observable evidence, structured evaluations, and organization-defined risk appetite.
+      </p>
+    </div>
+
+    <!-- Section 1: Strategic Alignment Matrix -->
+    <section style="margin-bottom: 50px;">
+      <div class="section-head">
+        <span class="section-eyebrow">Ecosystem Positioning</span>
+        <h2>How APCAF Relates to Existing Standards</h2>
+        <p>APCAF does not replace existing cyber or compliance frameworks. It provides the missing physical-layer behavioral assessment standard.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
+        
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Cyber Threat Intelligence</div>
+          <h3>MITRE ATT&amp;CK&reg;</h3>
+          <p>Catalogues observable adversary tactics and techniques in enterprise computing environments.</p>
+          <div style="margin-top: auto; padding: 12px; background: var(--bg-app); border: 1px solid var(--border-card); border-radius: var(--radius-xs); font-size: 0.8rem; color: var(--text-head); line-height: 1.45;">
+            <strong>APCAF Parallel:</strong> Applies the same de-abstracted behavioral taxonomy principles to physical barriers, credential authenticators, sensors, and hardware ports.
+          </div>
+        </div>
+
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Information Security Governance</div>
+          <h3>ISO/IEC 27001</h3>
+          <p>Provides an Information Security Management System (ISMS) governing organizational policies and controls (Clause A.7).</p>
+          <div style="margin-top: auto; padding: 12px; background: var(--bg-app); border: 1px solid var(--border-card); border-radius: var(--radius-xs); font-size: 0.8rem; color: var(--text-head); line-height: 1.45;">
+            <strong>APCAF Parallel:</strong> Provides the empirical technical assessment procedures to verify whether nominal physical perimeters (A.7.1) and entry controls (A.7.2) withstand bypass.
+          </div>
+        </div>
+
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Hardware &amp; System Hardening</div>
+          <h3>CIS Benchmarks&trade;</h3>
+          <p>Provides prescriptive, consensus-based hardening guidance for operating systems and network devices.</p>
+          <div style="margin-top: auto; padding: 12px; background: var(--bg-app); border: 1px solid var(--border-card); border-radius: var(--radius-xs); font-size: 0.8rem; color: var(--text-head); line-height: 1.45;">
+            <strong>APCAF Parallel:</strong> Defines non-invasive physical hardware tolerances, sensor shielding standards, and credential cryptography baselines.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 2: Core Purpose & Audience -->
+    <section style="margin-bottom: 50px;">
+      <div class="section-head">
+        <span class="section-eyebrow">Foundational Purpose</span>
+        <h2>Why Physical Security Deserves More Than a Checklist</h2>
+        <p>Traditional audits confirm nominal presence. APCAF assesses hardware-layer resilience against known bypass mechanisms.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        
+        <div class="risk-axis-card">
+          <h3>Who APCAF Is For</h3>
+          <ul style="font-size: 0.84rem; color: var(--text-body); line-height: 1.6; padding-left: 18px; margin-top: 10px;">
+            <li><strong>Security Executives &amp; CISOs:</strong> To establish verifiable physical defense baselines and link physical vulnerabilities to organizational risk appetite.</li>
+            <li><strong>Physical Security Assessors &amp; Red Teams:</strong> To conduct fast, 45-second standardized non-invasive audits with structured telemetry and photo evidence.</li>
+            <li><strong>Facilities &amp; Commissioning Teams:</strong> To validate vendor installations against engineering tolerances (e.g. NFPA 80 gap limits) before signing off on milestone invoices.</li>
+            <li><strong>Compliance Auditors (PCI, SOC 2, ISO):</strong> To replace subjective checklist answers with reproducible technical evidence.</li>
+          </ul>
+        </div>
+
+        <div class="risk-axis-card">
+          <h3>What APCAF Base Explicitly Does NOT Do</h3>
+          <ul style="font-size: 0.84rem; color: var(--text-body); line-height: 1.6; padding-left: 18px; margin-top: 10px;">
+            <li><strong>No Destructive Testing:</strong> APCAF never forces door assemblies, picks lock cylinders, or damages physical hardware.</li>
+            <li><strong>No Network Packet Injection:</strong> Layer 1 network port testing is strictly passive LED detection; zero packet sniffing or network probing.</li>
+            <li><strong>No Life-Safety Manipulation:</strong> Zero interference with emergency crash bars, fire alarm release relays, or emergency egress pathways.</li>
+            <li><strong>No Legal / Certification Guarantee:</strong> APCAF produces technical quality assurance findings, not regulatory certifications or legal indemnity.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 3: Open Governance Model -->
+    <section style="margin-bottom: 50px;">
+      <div class="section-head">
+        <span class="section-eyebrow">Open Governance</span>
+        <h2>Specification Governance &amp; Contribution Process</h2>
+        <p>APCAF is an open specification maintained through public research, technical review, and community Request for Comments (RFC).</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+        
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Governance Pillar 01</div>
+          <h3>Technical Review Committee</h3>
+          <p>Community maintainers and physical security engineers who review proposed techniques, schemas, and mitigation standards.</p>
+        </div>
+
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Governance Pillar 02</div>
+          <h3>RFC Technique Proposal</h3>
+          <p>New physical bypass techniques undergo public Request for Comments (RFC) before inclusion in APCAF Base.</p>
+        </div>
+
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Governance Pillar 03</div>
+          <h3>Strict Semantic Versioning</h3>
+          <p>APCAF adheres to SemVer 2.0 (MAJOR.MINOR.PATCH). Technique identifiers, result models, and schema contracts remain immutable per major release.</p>
+        </div>
+
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Governance Pillar 04</div>
+          <h3>Open Licensing</h3>
+          <p>The APCAF specification and taxonomy are licensed under <strong>Creative Commons Attribution 4.0 (CC BY 4.0)</strong>; tooling and schemas are under <strong>MIT</strong>.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Bottom CTA Bar -->
+    <div style="background: var(--bg-surface); border: 1px solid var(--border-card); border-radius: var(--radius-md); padding: 30px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+      <div>
+        <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-pure); margin-bottom: 6px;">Contribute to the APCAF Specification</h3>
+        <p style="font-size: 0.88rem; color: var(--text-body); max-width: 600px;">Review our contribution guidelines, propose new techniques, or integrate the open JSON dataset into your tooling.</p>
+      </div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="https://github.com/zoecyber001/APCAF/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="resend-btn-main">
+          Contribution Guide →
+        </a>
+        <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener" class="resend-btn-ghost">
+          GitHub Repository
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="brand-icon-box" style="width: 24px; height: 24px;">
+          <svg width="14" height="14" viewBox="0 0 64 64" fill="none">
+            <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-dim);">
+          APCAF Base Draft v0.1.0 • Open Specification under CC BY 4.0
+        </div>
+      </div>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="index.html" style="font-size: 0.82rem; color: var(--text-body);">Overview</a>
+        <a href="repository.html" style="font-size: 0.82rem; color: var(--text-body);">Knowledge Base</a>
+        <a href="risk.html" style="font-size: 0.82rem; color: var(--text-body);">Risk Model</a>
+        <a href="learn.html" style="font-size: 0.82rem; color: var(--text-body);">Learn APCAF</a>
+        <a href="docs.html" style="font-size: 0.82rem; color: var(--text-body);">Documentation</a>
+        <a href="about.html" style="font-size: 0.82rem; color: var(--text-body);">About &amp; Governance</a>
+        <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener" style="font-size: 0.82rem; color: var(--text-body);">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SOW Consent Clause Modal Sheet -->
+  <div class="modal-overlay modal-sheet-backdrop" id="sowModal">
+    <div class="modal-sheet modal-sheet-card">
+      <div class="modal-sheet-head modal-sheet-header">
+        <div>
+          <span class="chip-tag">Engagement Addendum</span>
+          <h3 style="margin-top: 6px; font-size: 1.15rem;">Audit Scope &amp; Consent Clause</h3>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeSowModal()" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-sheet-body">
+        <p style="font-size: 0.86rem; color: var(--text-body); margin-bottom: 14px;">
+          Standard single-sentence addendum for Master Services Agreements (MSA), Statements of Work (SOW), and vendor commissioning contracts:
+        </p>
+        <div class="sow-clause-box" id="sowClauseText">"Client explicitly authorizes the assessment team to perform non-invasive physical security control evaluations, passive radio frequency (RF) credential reads, and non-intrusive physical network port link detection during the inspection to verify vendor hardware installation specifications."</div>
+        <div style="margin-top: 14px; font-size: 0.8rem; color: var(--text-dim);">
+          &bull; <strong>Strictly Non-Invasive:</strong> Zero packet transmission, zero destructive bypass tools, zero life-safety interference.<br>
+          &bull; <strong>Defensible Quality Assurance:</strong> Yields structured observations and deterministic risk context.
+        </div>
+      </div>
+      <div class="modal-sheet-actions">
+        <button type="button" class="resend-btn-main" style="width: 100%;" onclick="copySowClause()">
+          Copy SOW Clause to Clipboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

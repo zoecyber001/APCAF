@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>APCAF: Adversarial Physical Control Assessment Framework</title>
-  <meta name="description" content="An ATT&CK-inspired open framework for adversarial physical-control assessment. Verify whether physical security controls resist known bypass techniques.">
+  <title>APCAF • Adversarial Physical Control Assessment Framework</title>
+  <meta name="description" content="An ATT&CK-inspired open specification for systematically assessing physical security controls against adversarial bypass techniques using observable evidence and deterministic risk context.">
   
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
-  <!-- Typography: Inter & IBM Plex Mono -->
+  <!-- Typography System: Inter & IBM Plex Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -21,7 +20,7 @@
   <!-- Precision Ambient Light Beam -->
   <div class="hero-ambient-glow"></div>
 
-  <!-- High-End Glassmorphic Floating Island Navigation -->
+  <!-- High-End Navigation Bar -->
   <header class="site-header">
     <div class="nav-wrap">
       <a href="index.html" class="brand-link" aria-label="APCAF Home">
@@ -38,11 +37,12 @@
       <nav>
         <ul class="nav-menu">
           <li><a href="index.html" class="active">Overview</a></li>
+          <li><a href="repository.html">Knowledge Base</a></li>
+          <li><a href="risk.html">Risk Model</a></li>
           <li><a href="learn.html">Learn</a></li>
-          <li><a href="repository.html">Repository</a></li>
-          <li><a href="docs.html">Docs</a></li>
           <li><a href="tools/field-triage.html">Field Triage</a></li>
-          <li><a href="docs.html#warranty-hold">Playbook</a></li>
+          <li><a href="docs.html">Docs</a></li>
+          <li><a href="about.html">About</a></li>
         </ul>
       </nav>
 
@@ -52,7 +52,6 @@
           <svg class="icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
           <span>Dark</span>
         </button>
-        <!-- SOW button opens modal -->
         <button type="button" class="btn-nav-sow" onclick="openSowModal()">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -63,7 +62,6 @@
         <a href="tools/field-triage.html" class="btn-nav-primary">
           Run 45s QA
         </a>
-        <!-- Mobile Menu Toggle Button -->
         <button type="button" class="btn-mobile-menu-toggle" id="mobileMenuToggleBtn" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -76,16 +74,17 @@
       <!-- Mobile Navigation Drawer -->
       <div class="mobile-nav-drawer" id="mobileNavMenu">
         <a href="index.html" class="active" onclick="closeMobileMenu()">Overview</a>
+        <a href="repository.html" onclick="closeMobileMenu()">Knowledge Base (Rules)</a>
+        <a href="risk.html" onclick="closeMobileMenu()">Risk Model</a>
         <a href="learn.html" onclick="closeMobileMenu()">Learn APCAF (Field Guide)</a>
-        <a href="repository.html" onclick="closeMobileMenu()">Rule Repository</a>
-        <a href="docs.html" onclick="closeMobileMenu()">Technical Documentation</a>
         <a href="tools/field-triage.html" onclick="closeMobileMenu()">45s Field Triage</a>
-        <a href="docs.html#warranty-hold" onclick="closeMobileMenu()">CISO Warranty Playbook</a>
+        <a href="docs.html" onclick="closeMobileMenu()">Technical Documentation</a>
+        <a href="about.html" onclick="closeMobileMenu()">About &amp; Governance</a>
       </div>
     </div>
   </header>
 
-  <!-- 1. Hero Section: Locked Positioning -->
+  <!-- 1. Hero Section: Standards Body Authority -->
   <section class="hero-section">
     <div class="container">
       <div class="hero-grid">
@@ -94,39 +93,42 @@
         <div class="hero-left">
           <div class="spec-tagline">
             <span class="spec-tagline-kicker">APCAF BASE v0.1.0</span>
-            <span class="spec-tagline-title">NON-INVASIVE ASSESSMENT FRAMEWORK</span>
+            <span class="spec-tagline-title">OPEN PHYSICAL SECURITY SPECIFICATION</span>
           </div>
           
           <h1 class="resend-hero-title">
-            Physical Security Control Assessment
+            Physical security deserves more than a checklist.
           </h1>
 
           <p class="resend-hero-subtitle">
-            A passive, standardised framework for assessing whether installed physical controls resist known bypass techniques.
+            APCAF is an open specification for systematically assessing physical security controls against adversarial bypass techniques — using observable evidence, structured evaluations, and organization-defined risk appetite.
           </p>
 
           <div class="resend-btn-cluster">
-            <a href="tools/field-triage.html" class="resend-btn-main">
-              Launch 45s Triage →
+            <a href="repository.html" class="resend-btn-main">
+              Explore Knowledge Base →
             </a>
-            <a href="learn.html" class="resend-btn-ghost">
-              Learn APCAF
+            <a href="tools/field-triage.html" class="resend-btn-ghost">
+              Open Field Workbench
+            </a>
+            <a href="risk.html" class="resend-btn-ghost">
+              Risk Model
             </a>
           </div>
 
           <!-- Hero Metrics Bar -->
           <div class="hero-stats-row">
             <div class="hero-stat-item">
-              <span class="hero-stat-val">45s</span>
-              <span class="hero-stat-lbl">Target Walk Budget</span>
+              <span class="hero-stat-val">6 Tactics</span>
+              <span class="hero-stat-lbl">Physical Attack Surface</span>
             </div>
             <div class="hero-stat-item">
-              <span class="hero-stat-val">4 Objects</span>
-              <span class="hero-stat-lbl">Baseline Physical Scope</span>
+              <span class="hero-stat-val">3-Axis</span>
+              <span class="hero-stat-lbl">Deterministic Risk Engine</span>
             </div>
             <div class="hero-stat-item">
-              <span class="hero-stat-val">Passive</span>
-              <span class="hero-stat-lbl">Base Profile Scope</span>
+              <span class="hero-stat-val">Non-Invasive</span>
+              <span class="hero-stat-lbl">Zero Operational Impact</span>
             </div>
           </div>
         </div>
@@ -140,283 +142,278 @@
     </div>
   </section>
 
-  <!-- 2. Object-First Selector: "What are you inspecting right now?" -->
-  <section class="section" id="inspect" style="padding-top: 20px;">
+  <!-- 2. Four Structural Pillars -->
+  <section class="section" style="padding-top: 10px; padding-bottom: 40px;">
     <div class="container">
-      <div class="section-head">
-        <span class="section-eyebrow">Direct Field Entry</span>
-        <h2>What are you inspecting right now?</h2>
-        <p>Select a physical asset to immediately open its defined inspection procedure in the field triage workbench.</p>
-      </div>
-
-      <div class="object-select-grid">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
         
-        <!-- 1. DOOR -->
-        <a href="tools/field-triage.html?object=door" class="object-card">
-          <div class="object-card-header">
-            <span class="object-pill">DOOR</span>
-            <span class="object-tid">PHY-T1002 / PHY-T1003</span>
-          </div>
-          <div class="object-card-title">Latch, Frame &amp; Portal Conditions</div>
-          <div class="object-card-desc">
-            Measure frame strike clearance against the 3.2mm (1/8 in.) threshold and check for continuous protective steel astragals.
-          </div>
-          <div class="object-card-footer">
-            <span>15s Feeler Gauge Check</span>
-            <span class="object-cta">Inspect Door →</span>
-          </div>
-        </a>
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Pillar 01</div>
+          <h3>Open Specification</h3>
+          <p>Public techniques, structured schemas, and taxonomy published under CC BY 4.0 and MIT.</p>
+        </div>
 
-        <!-- 2. BADGE -->
-        <a href="tools/field-triage.html?object=badge" class="object-card">
-          <div class="object-card-header">
-            <span class="object-pill">BADGE</span>
-            <span class="object-tid">PHY-T1001</span>
-          </div>
-          <div class="object-card-title">Credential Technology &amp; Passive Exposure</div>
-          <div class="object-card-desc">
-            Interrogate badge carrier frequency to establish whether credentials broadcast unencrypted static UIDs without crypto mutual auth.
-          </div>
-          <div class="object-card-footer">
-            <span>5s Pocket Reader Check</span>
-            <span class="object-cta">Inspect Badge →</span>
-          </div>
-        </a>
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Pillar 02</div>
+          <h3>Evidence-Based</h3>
+          <p>Structured physical observations, millimeters, and carrier signals instead of subjective checklist answers.</p>
+        </div>
 
-        <!-- 3. PORT -->
-        <a href="tools/field-triage.html?object=port" class="object-card">
-          <div class="object-card-header">
-            <span class="object-pill">PORT</span>
-            <span class="object-tid">PHY-T1004</span>
-          </div>
-          <div class="object-card-title">Physical Network-Interface Exposure</div>
-          <div class="object-card-desc">
-            Plug a passive zero-packet LED tester into common area RJ-45 wall drops to check for administrative port shutdown or isolation.
-          </div>
-          <div class="object-card-footer">
-            <span>10s Passive LED Check</span>
-            <span class="object-cta">Inspect Port →</span>
-          </div>
-        </a>
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Pillar 03</div>
+          <h3>Risk-Aware Decisions</h3>
+          <p>Findings evaluated deterministically against Asset Criticality, Physical Exposure, and Consequence.</p>
+        </div>
 
-        <!-- 4. SENSOR -->
-        <a href="tools/field-triage.html?object=sensor" class="object-card">
-          <div class="object-card-header">
-            <span class="object-pill">SENSOR</span>
-            <span class="object-tid">PHY-T1003</span>
-          </div>
-          <div class="object-card-title">REX Sensor Exposure &amp; Activation</div>
-          <div class="object-card-desc">
-            Inspect perimeter transom margins for optical line-of-sight to the interior Request-to-Exit sensor and verify directional deflector hoods.
-          </div>
-          <div class="object-card-footer">
-            <span>15s Line-of-Sight Check</span>
-            <span class="object-cta">Inspect Sensor →</span>
-          </div>
-        </a>
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Pillar 04</div>
+          <h3>Built for Facilities</h3>
+          <p>Designed for CISOs, security engineers, auditors, facilities teams, and commissioning oversight.</p>
+        </div>
 
       </div>
     </div>
   </section>
 
-  <!-- 3. How APCAF Works: The 5-Step Evaluation Model -->
-  <section class="section" id="model" style="padding-top: 30px;">
+  <!-- 3. The 6-Stage APCAF Assessment Chain -->
+  <section class="section" id="model" style="padding-top: 20px;">
     <div class="container">
       <div class="section-head">
-        <span class="section-eyebrow">Methodology</span>
-        <h2>How APCAF Works: The 5-Step Model</h2>
-        <p>A standardised evaluation chain linking threat goals to verified technical remediation.</p>
+        <span class="section-eyebrow">Methodology Chain</span>
+        <h2>From Physical Observation to Defensible Action</h2>
+        <p>A rigorous 6-stage lifecycle linking adversary hypotheses to organizational risk treatment.</p>
       </div>
 
-      <div class="chain-model-grid">
+      <div class="chain-model-grid" style="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));">
         <div class="chain-step-card">
-          <span class="chain-step-num">Step 1</span>
-          <div class="chain-step-title">Tactic</div>
-          <div class="chain-step-desc">What the adversarial intruder wants to achieve (e.g., Portal Ingress).</div>
-        </div>
-        <div class="chain-step-card">
-          <span class="chain-step-num">Step 2</span>
+          <span class="chain-step-num">01</span>
           <div class="chain-step-title">Technique</div>
-          <div class="chain-step-desc">How they may achieve it through physical hardware bypasses (e.g., Latch Slip).</div>
+          <div class="chain-step-desc">What can an adversary attempt? (e.g. Latch Slip).</div>
         </div>
         <div class="chain-step-card">
-          <span class="chain-step-num">Step 3</span>
+          <span class="chain-step-num">02</span>
           <div class="chain-step-title">Observation</div>
-          <div class="chain-step-desc">What the assessor can directly establish with non-invasive tools (e.g., 4.5mm strike gap).</div>
+          <div class="chain-step-desc">What does the assessor directly measure? (e.g. 5.2mm gap).</div>
         </div>
         <div class="chain-step-card">
-          <span class="chain-step-num">Step 4</span>
-          <div class="chain-step-title">Classification</div>
-          <div class="chain-step-desc">What APCAF determines from that observation (Hardened vs Deficient).</div>
+          <span class="chain-step-num">03</span>
+          <div class="chain-step-title">Evidence</div>
+          <div class="chain-step-desc">What objective data proves the condition? (e.g. photo/gauge).</div>
         </div>
         <div class="chain-step-card">
-          <span class="chain-step-num">Step 5</span>
-          <div class="chain-step-title">Remediation</div>
-          <div class="chain-step-desc">What hardware or configuration correction is required (e.g., Full-height astragal).</div>
+          <span class="chain-step-num">04</span>
+          <div class="chain-step-title">Disposition</div>
+          <div class="chain-step-desc">Hardened, Deficient, or Requires Validation.</div>
+        </div>
+        <div class="chain-step-card">
+          <span class="chain-step-num">05</span>
+          <div class="chain-step-title">Risk Context</div>
+          <div class="chain-step-desc">Deterministic score: Asset Criticality &times; Exposure &times; Impact.</div>
+        </div>
+        <div class="chain-step-card">
+          <span class="chain-step-num">06</span>
+          <div class="chain-step-title">Treatment</div>
+          <div class="chain-step-desc">Remediate, Compensate, Accept, or Avoid.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 4. Four Core MVP Techniques -->
-  <section class="section" id="techniques" style="padding-top: 30px;">
+  <!-- 4. Interactive 6-Tactic Knowledge Base Matrix -->
+  <section class="section" id="tactics-matrix" style="padding-top: 30px;">
     <div class="container">
       <div class="section-head">
-        <span class="section-eyebrow">Baseline Scope</span>
-        <h2>The 4 Core MVP Techniques</h2>
-        <p>Defined non-invasive inspection procedures tested during physical site walks.</p>
+        <span class="section-eyebrow">Knowledge Base</span>
+        <h2>The 6 Physical Assessment Tactics</h2>
+        <p>A comprehensive classification of the physical attack surface inspired by behavioral threat modeling.</p>
       </div>
 
-      <div class="tech-visual-grid">
+      <div class="tech-visual-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
         
+        <!-- TA01 -->
         <div class="tech-visual-card">
           <div class="tech-visual-badge">
-            <span class="tech-id-chip">PHY-T1001</span>
-            <span class="tech-tactic-name">Credential</span>
+            <span class="tech-id-chip">TA01</span>
+            <span class="tech-tactic-name">Reconnaissance</span>
           </div>
-          <div class="tech-visual-title">Unencrypted RFID Harvesting</div>
+          <div class="tech-visual-title">Physical Reconnaissance</div>
           <div class="tech-visual-check">
-            Checks if credentials broadcast static unencrypted UIDs without cryptographic challenge-response authentication.
+            Camera blind spot mapping, guard patrol pattern observation, badge-reader identification, and facility layout discovery.
           </div>
-          <a href="tools/field-triage.html?object=badge" class="tech-visual-link">Test in Triage →</a>
+          <div style="font-size: 0.76rem; color: var(--text-dim); margin-top: 10px;">Status: Candidate Catalog</div>
         </div>
 
+        <!-- TA02 -->
         <div class="tech-visual-card">
           <div class="tech-visual-badge">
-            <span class="tech-id-chip">PHY-T1002</span>
-            <span class="tech-tactic-name">Portal Ingress</span>
+            <span class="tech-id-chip">TA02 • PHY-T1002</span>
+            <span class="tech-tactic-name">Perimeter &amp; Ingress</span>
           </div>
-          <div class="tech-visual-title">Mechanical Latch Slip</div>
+          <div class="tech-visual-title">Perimeter &amp; Portal Ingress</div>
           <div class="tech-visual-check">
-            Checks if outward door operating clearance exceeds 3.2mm without continuous protective steel astragal shielding.
+            Door &amp; Latch Protection (PHY-T1002), tailgating assessment, door gap feeler exploitation, and barrier bypass.
           </div>
-          <a href="tools/field-triage.html?object=door" class="tech-visual-link">Test in Triage →</a>
+          <a href="tools/field-triage.html?object=door" class="tech-visual-link">Assess in Triage (PHY-T1002) →</a>
         </div>
 
+        <!-- TA03 -->
         <div class="tech-visual-card">
           <div class="tech-visual-badge">
-            <span class="tech-id-chip">PHY-T1003</span>
-            <span class="tech-tactic-name">Portal Ingress</span>
+            <span class="tech-id-chip">TA03 • PHY-T1001</span>
+            <span class="tech-tactic-name">Credential Bypass</span>
           </div>
-          <div class="tech-visual-title">REX Sensor Blind Activation</div>
+          <div class="tech-visual-title">Credential &amp; Access Bypass</div>
           <div class="tech-visual-check">
-            Checks if the interior Request-to-Exit motion sensor optical field is unhooded and visible through door margins.
+            Credential Technology Assessment (PHY-T1001), low-frequency 125 kHz RFID harvesting, static CSN replay, reader wiring exposure.
           </div>
-          <a href="tools/field-triage.html?object=sensor" class="tech-visual-link">Test in Triage →</a>
+          <a href="tools/field-triage.html?object=badge" class="tech-visual-link">Assess in Triage (PHY-T1001) →</a>
         </div>
 
+        <!-- TA04 -->
         <div class="tech-visual-card">
           <div class="tech-visual-badge">
-            <span class="tech-id-chip">PHY-T1004</span>
-            <span class="tech-tactic-name">Interface</span>
+            <span class="tech-id-chip">TA04 • PHY-T1003</span>
+            <span class="tech-tactic-name">Interior Traversal</span>
           </div>
-          <div class="tech-visual-title">Exposed Active Network Drop</div>
+          <div class="tech-visual-title">Interior Traversal &amp; Evasion</div>
           <div class="tech-visual-check">
-            Checks if unmonitored common area Ethernet wall jacks broadcast an active Layer 1 carrier without port shutdown.
+            REX Sensor Blind Activation (PHY-T1003), mantrap anti-passback bypass, CCTV blind spot transit, partition wall penetration.
           </div>
-          <a href="tools/field-triage.html?object=port" class="tech-visual-link">Test in Triage →</a>
+          <a href="tools/field-triage.html?object=sensor" class="tech-visual-link">Assess in Triage (PHY-T1003) →</a>
+        </div>
+
+        <!-- TA05 -->
+        <div class="tech-visual-card">
+          <div class="tech-visual-badge">
+            <span class="tech-id-chip">TA05 • PHY-T1004</span>
+            <span class="tech-tactic-name">Physical-to-Cyber</span>
+          </div>
+          <div class="tech-visual-title">Physical-to-Cyber Execution</div>
+          <div class="tech-visual-check">
+            Exposed Network Interfaces (PHY-T1004), unprotected USB/console access, rogue hardware drop implant opportunities.
+          </div>
+          <a href="tools/field-triage.html?object=port" class="tech-visual-link">Assess in Triage (PHY-T1004) →</a>
+        </div>
+
+        <!-- TA06 -->
+        <div class="tech-visual-card">
+          <div class="tech-visual-badge">
+            <span class="tech-id-chip">TA06</span>
+            <span class="tech-tactic-name">Egress &amp; Cleanup</span>
+          </div>
+          <div class="tech-visual-title">Egress &amp; Cleanup</div>
+          <div class="tech-visual-check">
+            Emergency egress hardware manipulation, departure access logging evasion, physical evidence and badge recovery weaknesses.
+          </div>
+          <div style="font-size: 0.76rem; color: var(--text-dim); margin-top: 10px;">Status: Candidate Catalog</div>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- 5. Clearly Labelled Synthetic Demonstration Fixture -->
-  <section class="section" id="synthetic-demo" style="padding-top: 30px;">
+  <!-- 5. Risk Model Spotlight: The Three Ground-Truth Scenarios -->
+  <section class="section" id="risk-preview" style="padding-top: 30px;">
     <div class="container">
       <div class="section-head">
-        <span class="section-eyebrow">Schema Validation Fixture</span>
-        <h2>Synthetic Demonstration Walkthrough</h2>
-        <p>A simulated case fixture illustrating how field observations map to YAML records and CISO warranty punch lists.</p>
+        <span class="section-eyebrow">Risk Context Model</span>
+        <h2>Same Hardware Weakness. Three Different Decisions.</h2>
+        <p>How APCAF avoids rigid checklists by evaluating physical findings against asset criticality and consequence.</p>
       </div>
 
-      <div class="case-highlight-deck">
-        <div class="case-highlight-header">
-          <div>
-            <span class="chip-tag" style="margin-bottom: 6px;">Schema Fixture: APCAF-CASE-001</span>
-            <div class="case-highlight-title">Simulated Datacenter Suite Inspection</div>
+      <div class="ground-truth-grid">
+        
+        <div class="ground-truth-card scenario-accept">
+          <div class="scenario-tag">Scenario A • Mop Closet</div>
+          <div class="scenario-title">Low-Value Storage</div>
+          <div class="scenario-body">
+            5.2mm latch gap. AC-1 &times; PE-3 &times; C-1 = <strong>Score 3 (LOW)</strong>. Falls within organizational appetite.
           </div>
-          <span class="chip-tag" style="background: #fef3c7; color: #92400e; border-color: #fde68a;">
-            SYNTHETIC: NO REAL FACILITY ASSESSED
-          </span>
-        </div>
-
-        <div class="case-stats-grid">
-          <div class="case-stat-box">
-            <span class="case-stat-val">45s</span>
-            <span class="case-stat-lbl">Target Inspection Budget</span>
-          </div>
-          <div class="case-stat-box">
-            <span class="case-stat-val">3 Controls</span>
-            <span class="case-stat-lbl">Simulated Scope</span>
-          </div>
-          <div class="case-stat-box">
-            <span class="case-stat-val">2 Deficient / 1 Hard</span>
-            <span class="case-stat-lbl">Simulated Findings</span>
-          </div>
-          <div class="case-stat-box">
-            <span class="case-stat-val">YAML Case</span>
-            <span class="case-stat-lbl">Schema Validation</span>
+          <div class="scenario-decision-box">
+            <div class="scenario-decision-label">Defensible Decision</div>
+            <div class="scenario-decision-val" style="color: var(--status-hardened);">ACCEPT RISK</div>
           </div>
         </div>
 
-        <div class="case-highlight-footer">
-          <span style="font-size: 0.82rem; color: var(--text-dim);">
-            Validation status: <code>synthetic_fixture</code> • Real field evidence will be catalogued during upcoming authorized audits.
-          </span>
-          <a href="tools/field-triage.html" class="resend-btn-ghost" style="padding: 6px 14px; font-size: 0.78rem; min-height: auto;">
-            Load Synthetic Demo in Triage →
-          </a>
+        <div class="ground-truth-card scenario-compensate">
+          <div class="scenario-tag">Scenario B • HR Records</div>
+          <div class="scenario-title">Restricted Office</div>
+          <div class="scenario-body">
+            4.8mm gap on glass portal. AC-3 &times; PE-2 &times; C-3 = <strong>Score 18 (MEDIUM)</strong>. Exceeds Low appetite.
+          </div>
+          <div class="scenario-decision-box">
+            <div class="scenario-decision-label">Defensible Decision</div>
+            <div class="scenario-decision-val" style="color: var(--status-warning);">COMPENSATE (BMS Sensor)</div>
+          </div>
         </div>
+
+        <div class="ground-truth-card scenario-remediate">
+          <div class="scenario-tag">Scenario C • Core Datacenter</div>
+          <div class="scenario-title">Server Suite East</div>
+          <div class="scenario-body">
+            5.2mm gap on production door. AC-4 &times; PE-2 &times; C-4 = <strong>Score 32 (HIGH)</strong>. Exceeds Low appetite.
+          </div>
+          <div class="scenario-decision-box">
+            <div class="scenario-decision-label">Defensible Decision</div>
+            <div class="scenario-decision-val" style="color: var(--status-defect);">REMEDIATE (Astragal)</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align: center; margin-top: 10px;">
+        <a href="risk.html" class="resend-btn-main">
+          Explore the Full Interactive Risk Engine →
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- 6. Choose Your Pathway (4 Core Pillars) -->
-  <section class="section" id="pathways">
+  <!-- 6. Choose Your Pathway -->
+  <section class="section" id="pathways" style="padding-top: 30px;">
     <div class="container">
       <div class="section-head">
-        <span class="section-eyebrow">Explore the Standard</span>
+        <span class="section-eyebrow">Navigation</span>
         <h2>Choose Your Pathway</h2>
-        <p>Everything you need to evaluate, learn, or contribute to physical security engineering.</p>
+        <p>Everything you need to evaluate, learn, or build with the APCAF standard.</p>
       </div>
 
       <div class="path-grid">
         
-        <a href="learn.html" class="path-card">
-          <span class="path-tag">1. Learn it • 15 Min</span>
-          <div class="path-title">I'm new to APCAF</div>
+        <a href="repository.html" class="path-card">
+          <span class="path-tag">1. Explore it</span>
+          <div class="path-title">Knowledge Base</div>
           <div class="path-desc">
-            Master the 5-step evaluation chain (Tactic → Technique → Observation → Classification → Remediation) and run the interactive simulator.
+            Browse the searchable catalog of physical assessment techniques, tolerances, building codes, and mitigation specs.
           </div>
-          <span class="path-cta">Start Field Guide →</span>
+          <span class="path-cta">Search Knowledge Base →</span>
         </a>
 
         <a href="tools/field-triage.html" class="path-card">
-          <span class="path-tag">2. Use it • 45s Walk</span>
-          <div class="path-title">I'm assessing a facility</div>
+          <span class="path-tag">2. Run it</span>
+          <div class="path-title">Field Workbench</div>
           <div class="path-desc">
-            Run the standardised 45-second physical triage workbench. Test credentials, tolerances, and port states to compile instant warranty notices.
+            Conduct standardized non-invasive assessments, capture evidence, calculate risk scores, and compile YAML records.
           </div>
-          <span class="path-cta">Launch 45s Field Triage →</span>
+          <span class="path-cta">Launch 45s Workbench →</span>
         </a>
 
-        <a href="repository.html" class="path-card">
-          <span class="path-tag">3. Browse it • Open Matrix</span>
-          <div class="path-title">I want the technique catalog</div>
+        <a href="risk.html" class="path-card">
+          <span class="path-tag">3. Score it</span>
+          <div class="path-title">Risk Model</div>
           <div class="path-desc">
-            Browse active techniques, observable telemetry thresholds, building code citations, and structured YAML case fixtures.
+            Test the deterministic scoring engine across Asset Criticality (AC), Exposure (PE), Consequence (C), and Appetite.
           </div>
-          <span class="path-cta">Browse Rule Repository →</span>
+          <span class="path-cta">Open Risk Calculator →</span>
         </a>
 
-        <a href="docs.html" class="path-card">
-          <span class="path-tag">4. Study it • Standards &amp; Code</span>
-          <div class="path-title">I want the specification</div>
+        <a href="about.html" class="path-card">
+          <span class="path-tag">4. Govern it</span>
+          <div class="path-title">About &amp; Governance</div>
           <div class="path-desc">
-            Explore technical taxonomy mappings, building and fire code citations (NFPA 80 / ANSI SDI / ISO 14443), and YAML specifications.
+            Learn why APCAF exists, how it aligns with MITRE ATT&amp;CK, ISO 27001, and CIS Benchmarks, and how to propose RFCs.
           </div>
-          <span class="path-cta">Read Technical Specification →</span>
+          <span class="path-cta">Read Governance Model →</span>
         </a>
 
       </div>
@@ -448,16 +445,17 @@
           </svg>
         </div>
         <div style="font-size: 0.85rem; color: var(--text-dim);">
-          APCAF: Adversarial Physical Control Assessment Framework • Open Specification (CC BY 4.0)
+          APCAF: Adversarial Physical Control Assessment Framework • Open Specification under CC BY 4.0
         </div>
       </div>
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
         <a href="index.html" style="font-size: 0.82rem; color: var(--text-body);">Overview</a>
+        <a href="repository.html" style="font-size: 0.82rem; color: var(--text-body);">Knowledge Base</a>
+        <a href="risk.html" style="font-size: 0.82rem; color: var(--text-body);">Risk Model</a>
         <a href="learn.html" style="font-size: 0.82rem; color: var(--text-body);">Learn APCAF</a>
-        <a href="repository.html" style="font-size: 0.82rem; color: var(--text-body);">Rule Repository</a>
         <a href="docs.html" style="font-size: 0.82rem; color: var(--text-body);">Documentation</a>
-        <a href="tools/field-triage.html" style="font-size: 0.82rem; color: var(--text-body);">Field Triage</a>
-        <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener" style="font-size: 0.82rem; color: var(--text-body);">GitHub (v0.1.0)</a>
+        <a href="about.html" style="font-size: 0.82rem; color: var(--text-body);">About &amp; Governance</a>
+        <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener" style="font-size: 0.82rem; color: var(--text-body);">GitHub</a>
       </div>
     </div>
   </footer>

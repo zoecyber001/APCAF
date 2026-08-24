@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>APCAF Field Triage &amp; Assessment Workbench</title>
-  <meta name="description" content="Offline-first tool for recording APCAF observations, evidence, and assessment results in the field.">
+  <title>APCAF Field Triage &amp; Risk Assessment Workbench</title>
+  <meta name="description" content="Standardised non-invasive physical security assessment workbench with real-time deterministic risk calculation, appetite evaluation, and schema-compliant YAML case export.">
   
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 
@@ -16,10 +16,10 @@
   <link rel="stylesheet" href="../styles.css">
 
   <style>
-    /* Dedicated Field Workbench Styling Inheriting the Design System */
     .triage-page-wrap {
       padding-top: 100px;
-      padding-bottom: 60px;
+      padding-bottom: 80px;
+      max-width: 1040px;
     }
 
     .triage-head-block {
@@ -89,31 +89,22 @@
       border-color: var(--btn-primary-bg);
     }
 
-    /* Mode selector bar */
     .triage-mode-bar {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       background: var(--bg-surface);
       border: 1px solid var(--border-card);
       border-radius: var(--radius-md);
-      padding: 10px 16px;
+      padding: 12px 18px;
       margin-bottom: 20px;
       flex-wrap: wrap;
       gap: 12px;
     }
 
     .triage-mode-label {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--text-dim);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .triage-mode-label strong {
-      color: var(--text-pure);
+      font-size: 0.85rem;
+      color: var(--text-head);
     }
 
     .triage-mode-btns {
@@ -123,83 +114,78 @@
 
     .triage-mode-btn {
       font-family: var(--font-mono);
-      font-size: 0.74rem;
+      font-size: 0.75rem;
       font-weight: 600;
       padding: 6px 12px;
       border-radius: var(--radius-pill);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-card);
+      background: var(--bg-app);
+      border: 1px solid var(--border-subtle);
       color: var(--text-body);
       cursor: pointer;
-      transition: all 120ms ease;
-    }
-
-    .triage-mode-btn:hover {
-      border-color: var(--border-active);
-      color: var(--text-pure);
+      transition: all 140ms ease;
     }
 
     .triage-mode-btn.active {
-      background: var(--bg-subtle);
-      border-color: var(--border-dark);
+      background: var(--bg-surface-elevated);
       color: var(--text-pure);
+      border-color: var(--border-active);
       font-weight: 700;
     }
 
-    /* Metadata Form Grid */
     .triage-meta-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
       background: var(--bg-surface);
       border: 1px solid var(--border-card);
       border-radius: var(--radius-md);
-      padding: 16px;
+      padding: 18px;
       margin-bottom: 24px;
-      box-shadow: var(--shadow-card);
     }
 
     .triage-input-field label {
       display: block;
       font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: 600;
+      font-size: 0.72rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       color: var(--text-dim);
       margin-bottom: 6px;
     }
 
-    .triage-input-field input, .triage-input-field select {
+    .triage-input-field input,
+    .triage-input-field select {
       width: 100%;
       background: var(--bg-app);
       border: 1px solid var(--border-card);
       border-radius: var(--radius-sm);
-      padding: 8px 12px;
       color: var(--text-pure);
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+      padding: 8px 12px;
+      min-height: 40px;
+      outline: none;
       transition: border-color 140ms ease;
     }
 
-    .triage-input-field input:focus, .triage-input-field select:focus {
-      outline: none;
-      border-color: var(--border-dark);
+    .triage-input-field input:focus,
+    .triage-input-field select:focus {
+      border-color: var(--accent-sky);
     }
 
-    /* Assessment Control Cards */
     .triage-cards-list {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      margin-bottom: 24px;
+      gap: 24px;
+      margin-bottom: 30px;
     }
 
     .triage-control-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-card);
       border-radius: var(--radius-md);
-      padding: 20px;
+      padding: 22px;
       box-shadow: var(--shadow-card);
       transition: border-color 140ms ease;
     }
@@ -214,122 +200,97 @@
       align-items: flex-start;
       margin-bottom: 12px;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
     }
 
     .triage-card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-size: 1.05rem;
       font-weight: 700;
       color: var(--text-pure);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
     }
 
     .tag-object-badge {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: var(--radius-pill);
-      background: #09090b;
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: #0284c7;
       color: #ffffff;
+      padding: 2px 8px;
+      border-radius: 2px;
     }
 
     .tag-tid-badge {
       font-family: var(--font-mono);
+      font-size: 0.72rem;
       font-weight: 700;
-      color: var(--text-pure);
-      font-size: 0.8rem;
-      background: var(--bg-subtle);
-      border: 1px solid var(--border-card);
+      background: var(--bg-app);
+      border: 1px solid var(--border-subtle);
+      color: var(--accent-sky);
       padding: 2px 6px;
-      border-radius: 4px;
+      border-radius: 2px;
     }
 
     .tag-time-badge {
       font-family: var(--font-mono);
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: var(--text-dim);
-      font-weight: 600;
     }
 
     .triage-check-desc {
-      background: var(--bg-subtle);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
-      padding: 10px 14px;
-      margin-bottom: 14px;
-      font-size: 0.84rem;
+      font-size: 0.86rem;
       color: var(--text-body);
-      line-height: 1.45;
-    }
-
-    .triage-check-desc strong {
-      color: var(--text-pure);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .triage-options-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    @media (max-width: 700px) {
-      .triage-options-grid { grid-template-columns: 1fr; }
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
     }
 
     .triage-choice-btn {
+      background: var(--bg-app);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 140ms ease;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
-      padding: 16px;
-      min-height: 54px;
-      border-radius: var(--radius-sm);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-card);
-      color: var(--text-dim);
-      cursor: pointer;
-      text-align: left;
-      font-family: inherit;
-      transition: all 140ms ease;
-      user-select: none;
+      gap: 4px;
     }
 
     .triage-choice-btn:hover {
-      background: var(--bg-surface-hover);
       border-color: var(--border-active);
-    }
-
-    .triage-choice-btn:focus-visible {
-      outline: 2px solid var(--accent-blue-subtle);
-      outline-offset: 2px;
+      background: var(--bg-surface-elevated);
     }
 
     .triage-choice-btn .choice-head {
-      font-weight: 700;
-      font-size: 0.92rem;
-      color: var(--text-pure);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--text-head);
     }
 
     .triage-choice-btn .choice-desc {
-      font-size: 0.78rem;
-      line-height: 1.45;
-      color: var(--text-body);
+      font-size: 0.76rem;
+      color: var(--text-dim);
+      line-height: 1.4;
     }
 
     .triage-choice-btn.selected-hardened {
       background: var(--status-hardened-bg);
       border-color: var(--status-hardened);
-      color: var(--status-hardened);
     }
-
     .triage-choice-btn.selected-hardened .choice-head {
       color: var(--status-hardened);
     }
@@ -337,9 +298,7 @@
     .triage-choice-btn.selected-deficient {
       background: var(--status-defect-bg);
       border-color: var(--status-defect);
-      color: var(--status-defect);
     }
-
     .triage-choice-btn.selected-deficient .choice-head {
       color: var(--status-defect);
     }
@@ -347,25 +306,23 @@
     .triage-choice-btn.selected-validation {
       background: var(--status-warning-bg);
       border-color: var(--status-warning);
-      color: var(--status-warning);
     }
-
     .triage-choice-btn.selected-validation .choice-head {
       color: var(--status-warning);
     }
 
     .triage-telemetry-input {
-      margin-top: 14px;
+      margin-bottom: 16px;
     }
 
     .triage-telemetry-input label {
       display: block;
-      font-size: 0.72rem;
       font-family: var(--font-mono);
-      font-weight: 600;
+      font-size: 0.72rem;
+      font-weight: 700;
       color: var(--text-dim);
-      margin-bottom: 6px;
       text-transform: uppercase;
+      margin-bottom: 6px;
     }
 
     .triage-telemetry-input input {
@@ -373,47 +330,23 @@
       background: var(--bg-app);
       border: 1px solid var(--border-card);
       border-radius: var(--radius-sm);
-      padding: 10px 14px;
-      min-height: 44px;
       color: var(--text-pure);
-      font-family: var(--font-mono);
       font-size: 0.84rem;
+      padding: 8px 12px;
+      min-height: 40px;
+      outline: none;
     }
 
-    .triage-rem-preview {
-      margin-top: 10px;
-      padding: 10px 14px;
+    /* Risk Context & Treatment Box in Card */
+    .triage-risk-panel {
+      background: var(--bg-app);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
-      background: var(--status-defect-bg);
-      border: 1px solid var(--status-defect-border);
-      font-size: 0.78rem;
-      color: var(--text-pure);
-      font-family: var(--font-mono);
-      display: none;
-      line-height: 1.45;
+      padding: 16px;
+      margin-bottom: 14px;
     }
 
-    .triage-rem-preview.visible {
-      display: block;
-    }
-
-    .triage-actions-row {
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-
-    .triage-output-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-card);
-      border-radius: var(--radius-md);
-      padding: 20px;
-      box-shadow: var(--shadow-card);
-    }
-
-    .triage-output-header {
+    .triage-risk-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -422,19 +355,98 @@
       gap: 8px;
     }
 
-    pre.triage-code-block {
-      background: var(--bg-subtle);
+    .triage-risk-title {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-head);
+    }
+
+    .triage-risk-score-pill {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 2px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      color: var(--text-pure);
+    }
+
+    .triage-risk-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .triage-risk-field label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .triage-risk-select {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      border-radius: 2px;
+      color: var(--text-pure);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      padding: 6px 8px;
+      min-height: 36px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .triage-rem-preview {
+      display: none;
+      background: var(--bg-app);
+      border-left: 3px solid var(--status-defect);
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text-head);
+      border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+    }
+
+    .triage-rem-preview.visible {
+      display: block;
+    }
+
+    .triage-actions-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .triage-output-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .output-code-box {
+      background: var(--bg-app);
       border: 1px solid var(--border-card);
       border-radius: var(--radius-sm);
       padding: 16px;
-      color: var(--text-pure);
       font-family: var(--font-mono);
-      font-size: 0.82rem;
-      overflow-x: auto;
-      max-height: 460px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--text-pure);
       white-space: pre-wrap;
       word-break: break-word;
-      line-height: 1.5;
+      max-height: 480px;
+      overflow-y: auto;
     }
   </style>
 </head>
@@ -460,18 +472,19 @@
       <nav>
         <ul class="nav-menu">
           <li><a href="../index.html">Overview</a></li>
+          <li><a href="../repository.html">Knowledge Base</a></li>
+          <li><a href="../risk.html">Risk Model</a></li>
           <li><a href="../learn.html">Learn</a></li>
-          <li><a href="../repository.html">Repository</a></li>
-          <li><a href="../docs.html">Docs</a></li>
           <li><a href="field-triage.html" class="active">Field Triage</a></li>
-          <li><a href="../docs.html#warranty-hold">Playbook</a></li>
+          <li><a href="../docs.html">Docs</a></li>
+          <li><a href="../about.html">About</a></li>
         </ul>
       </nav>
 
       <div class="nav-actions">
         <!-- Theme Toggle -->
         <button type="button" class="btn-theme-toggle" onclick="cycleTheme()" aria-label="Cycle display theme (Dark, Light, System)">
-          <svg class="icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z"></path></svg>
+          <svg class="icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
           <span>Dark</span>
         </button>
         <button type="button" class="btn-nav-sow" onclick="openSowModal()">
@@ -496,11 +509,12 @@
       <!-- Mobile Navigation Drawer -->
       <div class="mobile-nav-drawer" id="mobileNavMenu">
         <a href="../index.html" onclick="closeMobileMenu()">Overview</a>
+        <a href="../repository.html" onclick="closeMobileMenu()">Knowledge Base (Rules)</a>
+        <a href="../risk.html" onclick="closeMobileMenu()">Risk Model</a>
         <a href="../learn.html" onclick="closeMobileMenu()">Learn APCAF (Field Guide)</a>
-        <a href="../repository.html" onclick="closeMobileMenu()">Rule Repository</a>
-        <a href="../docs.html" onclick="closeMobileMenu()">Technical Documentation</a>
         <a href="field-triage.html" class="active" onclick="closeMobileMenu()">45s Field Triage</a>
-        <a href="../docs.html#warranty-hold" onclick="closeMobileMenu()">CISO Warranty Playbook</a>
+        <a href="../docs.html" onclick="closeMobileMenu()">Technical Documentation</a>
+        <a href="../about.html" onclick="closeMobileMenu()">About &amp; Governance</a>
       </div>
     </div>
   </header>
@@ -510,8 +524,8 @@
     <div class="triage-head-block">
       <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
         <div class="spec-tagline" style="margin-bottom: 0;">
-          <span class="spec-tagline-kicker">FIELD TOOL</span>
-          <span class="spec-tagline-title">45s Assessment Instrument</span>
+          <span class="spec-tagline-kicker">FIELD INSTRUMENT</span>
+          <span class="spec-tagline-title">45s Assessment &amp; Risk Workbench</span>
         </div>
         <div class="field-offline-status" id="fieldOfflineStatus" role="status" aria-live="polite">
           <span class="offline-badge-tag">[ LOCAL ENGINE ]</span>
@@ -519,10 +533,10 @@
         </div>
       </div>
       <h1 style="font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin-bottom: 6px; font-weight: 800; color: var(--text-pure);">
-        Field Triage &amp; Assessment Workbench
+        Field Triage &amp; Risk Workbench
       </h1>
       <p style="color: var(--text-body); font-size: 0.95rem; max-width: 800px;">
-        Perform standardised non-invasive physical security evaluations, log empirical telemetry, and compile instant YAML case records and CISO warranty punch lists.
+        Perform standardized non-invasive physical security audits, capture empirical telemetry, calculate deterministic risk context, and compile schema-compliant YAML case records.
       </p>
     </div>
 
@@ -616,7 +630,7 @@
         </div>
         
         <div class="triage-check-desc">
-          <strong>Step 2: What are you checking?</strong> Contactless passive carrier frequency. Does this credential rely on an exposed static UID without cryptographic mutual authentication?
+          <strong>Step 2: What are you checking?</strong> Contactless passive carrier frequency. Does this credential broadcast a static unencrypted identifier without cryptographic mutual authentication?
         </div>
 
         <div class="triage-options-grid">
@@ -632,7 +646,62 @@
 
         <div class="triage-telemetry-input">
           <label for="notes-01">Step 3: What did you observe? (Evidence &amp; Spec)</label>
-          <input type="text" id="notes-01" placeholder="e.g., Badge carrier frequency observed (125 kHz Prox vs 13.56 MHz DESFire EV3), chip profile" />
+          <input type="text" id="notes-01" placeholder="e.g., HID 125kHz H10301 (26-bit unencrypted Prox)" />
+        </div>
+
+        <!-- Risk Context & Treatment Panel -->
+        <div class="triage-risk-panel">
+          <div class="triage-risk-header">
+            <span class="triage-risk-title">Step 4: Risk Context &amp; Treatment</span>
+            <span class="triage-risk-score-pill" id="risk-score-badge-01">Score: 36 (HIGH)</span>
+          </div>
+          <div class="triage-risk-grid">
+            <div class="triage-risk-field">
+              <label for="ac-01">Asset Criticality</label>
+              <select id="ac-01" class="triage-risk-select" onchange="updateCardRisk('01')">
+                <option value="1">AC-1 (Low)</option>
+                <option value="2">AC-2 (Moderate)</option>
+                <option value="3">AC-3 (High)</option>
+                <option value="4" selected>AC-4 (Critical)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="pe-01">Physical Exposure</label>
+              <select id="pe-01" class="triage-risk-select" onchange="updateCardRisk('01')">
+                <option value="1">PE-1 (Controlled)</option>
+                <option value="2">PE-2 (Restricted)</option>
+                <option value="3" selected>PE-3 (Accessible)</option>
+                <option value="4">PE-4 (Public)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="c-01">Consequence</label>
+              <select id="c-01" class="triage-risk-select" onchange="updateCardRisk('01')">
+                <option value="1">C-1 (Negligible)</option>
+                <option value="2">C-2 (Operational)</option>
+                <option value="3" selected>C-3 (Security/Financial)</option>
+                <option value="4">C-4 (Catastrophic)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="appetite-01">Risk Appetite</label>
+              <select id="appetite-01" class="triage-risk-select" onchange="updateCardRisk('01')">
+                <option value="LOW" selected>LOW Appetite (&le;8)</option>
+                <option value="MEDIUM">MEDIUM (&le;23)</option>
+                <option value="HIGH">HIGH (&le;47)</option>
+                <option value="CRITICAL">CRITICAL (&le;64)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="treatment-01">Treatment Decision</label>
+              <select id="treatment-01" class="triage-risk-select">
+                <option value="REMEDIATE" selected>REMEDIATE</option>
+                <option value="COMPENSATE">COMPENSATE</option>
+                <option value="ACCEPT">ACCEPT</option>
+                <option value="AVOID">AVOID</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <div class="triage-rem-preview" id="rem-01">
@@ -652,7 +721,7 @@
         </div>
         
         <div class="triage-check-desc">
-          <strong>Step 2: What are you checking?</strong> Latch bolt exposure and clearance margin. Does the strike margin exceed 3.2mm (1/8 in.) with direct line-of-sight to the latch bolt and no overlapping steel astragal guard?
+          <strong>Step 2: What are you checking?</strong> Latch bolt exposure and clearance margin. Does the strike margin exceed 3.2mm (1/8 in.) with direct line-of-sight to the latch bolt and zero overlapping steel astragal guard?
         </div>
 
         <div class="triage-options-grid">
@@ -668,7 +737,62 @@
 
         <div class="triage-telemetry-input">
           <label for="notes-02">Step 3: What did you observe? (Evidence &amp; Spec)</label>
-          <input type="text" id="notes-02" placeholder="e.g., Strike margin feeler gauge measurement in mm, astragal plate presence" />
+          <input type="text" id="notes-02" placeholder="e.g., Server Suite A double door outward swing, 4.5mm gap, no astragal plate" />
+        </div>
+
+        <!-- Risk Context & Treatment Panel -->
+        <div class="triage-risk-panel">
+          <div class="triage-risk-header">
+            <span class="triage-risk-title">Step 4: Risk Context &amp; Treatment</span>
+            <span class="triage-risk-score-pill" id="risk-score-badge-02">Score: 32 (HIGH)</span>
+          </div>
+          <div class="triage-risk-grid">
+            <div class="triage-risk-field">
+              <label for="ac-02">Asset Criticality</label>
+              <select id="ac-02" class="triage-risk-select" onchange="updateCardRisk('02')">
+                <option value="1">AC-1 (Low)</option>
+                <option value="2">AC-2 (Moderate)</option>
+                <option value="3">AC-3 (High)</option>
+                <option value="4" selected>AC-4 (Critical)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="pe-02">Physical Exposure</label>
+              <select id="pe-02" class="triage-risk-select" onchange="updateCardRisk('02')">
+                <option value="1">PE-1 (Controlled)</option>
+                <option value="2" selected>PE-2 (Restricted)</option>
+                <option value="3">PE-3 (Accessible)</option>
+                <option value="4">PE-4 (Public)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="c-02">Consequence</label>
+              <select id="c-02" class="triage-risk-select" onchange="updateCardRisk('02')">
+                <option value="1">C-1 (Negligible)</option>
+                <option value="2">C-2 (Operational)</option>
+                <option value="3">C-3 (Security/Financial)</option>
+                <option value="4" selected>C-4 (Catastrophic)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="appetite-02">Risk Appetite</label>
+              <select id="appetite-02" class="triage-risk-select" onchange="updateCardRisk('02')">
+                <option value="LOW" selected>LOW Appetite (&le;8)</option>
+                <option value="MEDIUM">MEDIUM (&le;23)</option>
+                <option value="HIGH">HIGH (&le;47)</option>
+                <option value="CRITICAL">CRITICAL (&le;64)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="treatment-02">Treatment Decision</label>
+              <select id="treatment-02" class="triage-risk-select">
+                <option value="REMEDIATE" selected>REMEDIATE</option>
+                <option value="COMPENSATE">COMPENSATE</option>
+                <option value="ACCEPT">ACCEPT</option>
+                <option value="AVOID">AVOID</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <div class="triage-rem-preview" id="rem-02">
@@ -694,7 +818,7 @@
         <div class="triage-options-grid">
           <button type="button" class="triage-choice-btn" id="btn-03-hard" onclick="setStatus('03', 'Hardened')">
             <span class="choice-head">Hardened</span>
-            <span class="choice-desc">UL-listed directional deflector hood restricts PIR field strictly to interior exit path; perimeter brush sweep installed.</span>
+            <span class="choice-desc">Directional deflector hood restricts PIR field strictly to interior exit path; perimeter brush sweep installed.</span>
           </button>
           <button type="button" class="triage-choice-btn" id="btn-03-val" onclick="setStatus('03', 'Condition_Requires_Validation')">
             <span class="choice-head">Condition Requires Validation</span>
@@ -704,7 +828,62 @@
 
         <div class="triage-telemetry-input">
           <label for="notes-03">Step 3: What did you observe? (Evidence &amp; Spec)</label>
-          <input type="text" id="notes-03" placeholder="e.g., Interior REX sensor model, optical line-of-sight status, deflector hood presence" />
+          <input type="text" id="notes-03" placeholder="e.g., Unshielded Bosch DS160 REX sensor PIR lens visible through top transom margin" />
+        </div>
+
+        <!-- Risk Context & Treatment Panel -->
+        <div class="triage-risk-panel">
+          <div class="triage-risk-header">
+            <span class="triage-risk-title">Step 4: Risk Context &amp; Treatment</span>
+            <span class="triage-risk-score-pill" id="risk-score-badge-03">Score: 12 (MEDIUM)</span>
+          </div>
+          <div class="triage-risk-grid">
+            <div class="triage-risk-field">
+              <label for="ac-03">Asset Criticality</label>
+              <select id="ac-03" class="triage-risk-select" onchange="updateCardRisk('03')">
+                <option value="1">AC-1 (Low)</option>
+                <option value="2">AC-2 (Moderate)</option>
+                <option value="3" selected>AC-3 (High)</option>
+                <option value="4">AC-4 (Critical)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="pe-03">Physical Exposure</label>
+              <select id="pe-03" class="triage-risk-select" onchange="updateCardRisk('03')">
+                <option value="1">PE-1 (Controlled)</option>
+                <option value="2" selected>PE-2 (Restricted)</option>
+                <option value="3">PE-3 (Accessible)</option>
+                <option value="4">PE-4 (Public)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="c-03">Consequence</label>
+              <select id="c-03" class="triage-risk-select" onchange="updateCardRisk('03')">
+                <option value="1">C-1 (Negligible)</option>
+                <option value="2" selected>C-2 (Operational)</option>
+                <option value="3">C-3 (Security/Financial)</option>
+                <option value="4">C-4 (Catastrophic)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="appetite-03">Risk Appetite</label>
+              <select id="appetite-03" class="triage-risk-select" onchange="updateCardRisk('03')">
+                <option value="LOW" selected>LOW Appetite (&le;8)</option>
+                <option value="MEDIUM">MEDIUM (&le;23)</option>
+                <option value="HIGH">HIGH (&le;47)</option>
+                <option value="CRITICAL">CRITICAL (&le;64)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="treatment-03">Treatment Decision</label>
+              <select id="treatment-03" class="triage-risk-select">
+                <option value="REMEDIATE">REMEDIATE</option>
+                <option value="COMPENSATE" selected>COMPENSATE</option>
+                <option value="ACCEPT">ACCEPT</option>
+                <option value="AVOID">AVOID</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <div class="triage-rem-preview" id="rem-03">
@@ -740,7 +919,62 @@
 
         <div class="triage-telemetry-input">
           <label for="notes-04">Step 3: What did you observe? (Evidence &amp; Spec)</label>
-          <input type="text" id="notes-04" placeholder="e.g., Wall jack label, passive LED link pulse status, switch port isolation notes" />
+          <input type="text" id="notes-04" placeholder="e.g., Reception lobby wall RJ-45 drops show zero Layer 1 link pulse" />
+        </div>
+
+        <!-- Risk Context & Treatment Panel -->
+        <div class="triage-risk-panel">
+          <div class="triage-risk-header">
+            <span class="triage-risk-title">Step 4: Risk Context &amp; Treatment</span>
+            <span class="triage-risk-score-pill" id="risk-score-badge-04">Score: 3 (LOW)</span>
+          </div>
+          <div class="triage-risk-grid">
+            <div class="triage-risk-field">
+              <label for="ac-04">Asset Criticality</label>
+              <select id="ac-04" class="triage-risk-select" onchange="updateCardRisk('04')">
+                <option value="1" selected>AC-1 (Low)</option>
+                <option value="2">AC-2 (Moderate)</option>
+                <option value="3">AC-3 (High)</option>
+                <option value="4">AC-4 (Critical)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="pe-04">Physical Exposure</label>
+              <select id="pe-04" class="triage-risk-select" onchange="updateCardRisk('04')">
+                <option value="1">PE-1 (Controlled)</option>
+                <option value="2">PE-2 (Restricted)</option>
+                <option value="3" selected>PE-3 (Accessible)</option>
+                <option value="4">PE-4 (Public)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="c-04">Consequence</label>
+              <select id="c-04" class="triage-risk-select" onchange="updateCardRisk('04')">
+                <option value="1" selected>C-1 (Negligible)</option>
+                <option value="2">C-2 (Operational)</option>
+                <option value="3">C-3 (Security/Financial)</option>
+                <option value="4">C-4 (Catastrophic)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="appetite-04">Risk Appetite</label>
+              <select id="appetite-04" class="triage-risk-select" onchange="updateCardRisk('04')">
+                <option value="LOW" selected>LOW Appetite (&le;8)</option>
+                <option value="MEDIUM">MEDIUM (&le;23)</option>
+                <option value="HIGH">HIGH (&le;47)</option>
+                <option value="CRITICAL">CRITICAL (&le;64)</option>
+              </select>
+            </div>
+            <div class="triage-risk-field">
+              <label for="treatment-04">Treatment Decision</label>
+              <select id="treatment-04" class="triage-risk-select">
+                <option value="REMEDIATE">REMEDIATE</option>
+                <option value="COMPENSATE">COMPENSATE</option>
+                <option value="ACCEPT" selected>ACCEPT</option>
+                <option value="AVOID">AVOID</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <div class="triage-rem-preview" id="rem-04">
@@ -759,36 +993,33 @@
         </svg>
         Export YAML Case Record
       </button>
-      <button type="button" class="resend-btn-ghost" onclick="generateOutput('punchlist')">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <line x1="16" y1="13" x2="8" y2="13"></line>
-          <line x1="16" y1="17" x2="8" y2="17"></line>
-        </svg>
-        Generate Remediation Notice
+      <button type="button" class="resend-btn-ghost" onclick="generateOutput('text')">
+        Generate Vendor Notice / Punch List
       </button>
-      <button type="button" class="resend-btn-ghost" onclick="window.print()" aria-label="Print or save PDF Assessment Report">
+      <button type="button" class="resend-btn-ghost" onclick="window.print()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="6 9 6 2 18 2 18 9"></polyline>
           <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
           <rect x="6" y="14" width="12" height="8"></rect>
         </svg>
-        Print / PDF Report
+        Print / PDF
+      </button>
+      <button type="button" class="resend-btn-ghost" onclick="copyOutput()">
+        Copy Output
       </button>
     </div>
 
-    <!-- Output Section -->
-    <div class="triage-output-card" role="region" aria-labelledby="outputTitle">
-      <div class="triage-output-header">
-        <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--text-pure);" id="outputTitle">Generated Output</h3>
-        <div style="display: flex; gap: 8px;">
-          <button type="button" class="resend-btn-ghost" style="padding: 5px 12px; font-size: 0.76rem; min-height: auto;" onclick="copyOutput()">
-            Copy Text
-          </button>
-        </div>
+    <!-- Output Panel -->
+    <div class="triage-output-panel">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 id="outputTitle" style="font-size: 1.05rem; font-weight: 700; color: var(--text-pure);">
+          Generated Output
+        </h3>
+        <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim);">
+          Schema: <code>case.schema.json</code>
+        </span>
       </div>
-      <pre class="triage-code-block" id="outputArea" aria-live="polite" aria-atomic="true">Select an inspection object above, choose your assessment classification, and enter observation telemetry to compile output.</pre>
+      <pre class="output-code-box" id="outputArea">Select an inspection object above, choose your assessment classification, and enter observation telemetry to compile output.</pre>
     </div>
 
   </main>
@@ -803,16 +1034,17 @@
           </svg>
         </div>
         <div style="font-size: 0.85rem; color: var(--text-dim);">
-          APCAF Base Draft v0.1.0 • Open Specification (CC BY 4.0)
+          APCAF Base Draft v0.1.0 • Open Specification under CC BY 4.0
         </div>
       </div>
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
         <a href="../index.html" style="font-size: 0.82rem; color: var(--text-body);">Overview</a>
+        <a href="../repository.html" style="font-size: 0.82rem; color: var(--text-body);">Knowledge Base</a>
+        <a href="../risk.html" style="font-size: 0.82rem; color: var(--text-body);">Risk Model</a>
         <a href="../learn.html" style="font-size: 0.82rem; color: var(--text-body);">Learn APCAF</a>
-        <a href="../repository.html" style="font-size: 0.82rem; color: var(--text-body);">Rule Repository</a>
         <a href="../docs.html" style="font-size: 0.82rem; color: var(--text-body);">Documentation</a>
-        <a href="field-triage.html" style="font-size: 0.82rem; color: var(--text-body);">Field Triage</a>
-        <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener" style="font-size: 0.82rem; color: var(--text-body);">GitHub (v0.1.0)</a>
+        <a href="../about.html" style="font-size: 0.82rem; color: var(--text-body);">About &amp; Governance</a>
+        <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener" style="font-size: 0.82rem; color: var(--text-body);">GitHub</a>
       </div>
     </div>
   </footer>
@@ -833,23 +1065,17 @@
         </button>
       </div>
       <div class="modal-sheet-main modal-sheet-body">
-        <div class="spec-sheet-block" style="border-left: 3px solid var(--border-dark);">
-          <div class="block-title" style="color: var(--text-pure);">Single-Sentence Fast-Path Clause</div>
-          <p id="sowClauseText" style="font-size: 0.9rem; color: var(--text-head); font-style: italic;">
-            "Client explicitly authorizes the assessment team to perform non-invasive, passive radio frequency (RF) credential reads and non-intrusive passive physical network port link detection during the inspection to verify vendor hardware installation specifications."
-          </p>
+        <p style="font-size: 0.86rem; color: var(--text-body); margin-bottom: 14px;">
+          Standard single-sentence addendum for Master Services Agreements (MSA), Statements of Work (SOW), and vendor commissioning contracts:
+        </p>
+        <div class="sow-clause-box" id="sowClauseText">"Client explicitly authorizes the assessment team to perform non-invasive physical security control evaluations, passive radio frequency (RF) credential reads, and non-intrusive physical network port link detection during the inspection to verify vendor hardware installation specifications."</div>
+        <div style="margin-top: 14px; font-size: 0.8rem; color: var(--text-dim);">
+          &bull; <strong>Strictly Non-Invasive:</strong> Zero packet transmission, zero destructive bypass tools, zero life-safety interference.<br>
+          &bull; <strong>Defensible Quality Assurance:</strong> Yields structured observations and deterministic risk context.
         </div>
-
-        <div class="spec-sheet-block">
-          <div class="block-title">Scope &amp; Life-Safety Protection Guarantees</div>
-          <p style="font-size: 0.82rem; color: var(--text-body); line-height: 1.5;">
-            • <strong>Zero Operational Impact:</strong> Strictly non-intrusive reads only. No packet injection or sniffing.<br>
-            • <strong>Life-Safety Non-Interference:</strong> Zero manipulation of fire alarm, emergency egress, or crash bar hardware.<br>
-            • <strong>Contractual Purpose:</strong> Generates a quality assurance scorecard to assist client in validating contractor warranty deliverables.
-          </p>
-        </div>
-
-        <button type="button" class="btn-nav-primary" style="width: 100%; justify-content: center; padding: 12px; border-radius: var(--radius-pill);" onclick="copySowClauseAndClose()">
+      </div>
+      <div class="modal-sheet-actions">
+        <button type="button" class="resend-btn-main" style="width: 100%;" onclick="copySowClause()">
           Copy SOW Clause to Clipboard
         </button>
       </div>
@@ -865,6 +1091,48 @@
       '03': null,
       '04': null
     };
+
+    function calculateRiskForCard(id) {
+      const ac = parseInt(document.getElementById(`ac-${id}`).value, 10);
+      const pe = parseInt(document.getElementById(`pe-${id}`).value, 10);
+      const c = parseInt(document.getElementById(`c-${id}`).value, 10);
+      const appetite = document.getElementById(`appetite-${id}`).value;
+
+      const score = ac * pe * c;
+      let level = "LOW";
+      if (score >= 48) level = "CRITICAL";
+      else if (score >= 24) level = "HIGH";
+      else if (score >= 9) level = "MEDIUM";
+
+      const appetiteMap = { "LOW": 8, "MEDIUM": 23, "HIGH": 47, "CRITICAL": 64 };
+      const maxAllowed = appetiteMap[appetite] || 8;
+      const exceeds = score > maxAllowed;
+
+      return {
+        ac: `AC-${ac}`,
+        pe: `PE-${pe}`,
+        c: `C-${c}`,
+        score: score,
+        level: level,
+        appetite: appetite,
+        exceeds: exceeds
+      };
+    }
+
+    function updateCardRisk(id) {
+      const r = calculateRiskForCard(id);
+      const pill = document.getElementById(`risk-score-badge-${id}`);
+      if (pill) {
+        pill.textContent = `Score: ${r.score} (${r.level}) ${r.exceeds ? '• EXCEEDS APPETITE' : '• WITHIN APPETITE'}`;
+        if (r.level === 'CRITICAL' || r.level === 'HIGH') {
+          pill.style.color = 'var(--status-defect)';
+        } else if (r.level === 'MEDIUM') {
+          pill.style.color = 'var(--status-warning)';
+        } else {
+          pill.style.color = 'var(--status-hardened)';
+        }
+      }
+    }
 
     // Object filter handler
     function filterObject(objName) {
@@ -905,6 +1173,8 @@
           remBox.classList.remove('visible');
         }
       }
+
+      updateCardRisk(controlId);
     }
 
     function setToolMode(mode) {
@@ -928,7 +1198,10 @@
         document.getElementById('notes-03').value = '';
         document.getElementById('notes-04').value = '';
 
-        ['01', '02', '03', '04'].forEach(id => setStatus(id, null));
+        ['01', '02', '03', '04'].forEach(id => {
+          setStatus(id, null);
+          updateCardRisk(id);
+        });
         document.getElementById('outputArea').textContent = "Select an inspection object above, choose your assessment classification, and enter observation telemetry to compile output.";
         document.getElementById('outputTitle').innerText = "Generated Output";
       } else {
@@ -937,23 +1210,47 @@
         statusLabel.innerHTML = 'Assessment Mode: <strong style="color: #d97706;">Synthetic Demonstration Fixture (Simulated)</strong>';
         
         // Populate synthetic example
-        document.getElementById('caseId').value = 'APCAF-DEMO-001';
+        document.getElementById('caseId').value = 'APCAF-CASE-001';
         document.getElementById('assessorId').value = 'APCAF-SYNTHETIC-DEMO-RUNNER';
         document.getElementById('facilityType').value = 'datacenter';
         document.getElementById('facilityRef').value = 'synthetic-demo-datacenter-001';
         document.getElementById('authRef').value = 'SYNTHETIC-DEMO-SOW-CLAUSE-01';
 
         setStatus('01', 'Deficient');
-        document.getElementById('notes-01').value = 'HID 125kHz H10301 (26-bit unencrypted Prox credentials active)';
+        document.getElementById('notes-01').value = 'HID 125kHz H10301 (26-bit unencrypted Prox)';
+        document.getElementById('ac-01').value = '4';
+        document.getElementById('pe-01').value = '3';
+        document.getElementById('c-01').value = '3';
+        document.getElementById('appetite-01').value = 'LOW';
+        document.getElementById('treatment-01').value = 'REMEDIATE';
+        updateCardRisk('01');
 
         setStatus('02', 'Deficient');
-        document.getElementById('notes-02').value = 'Server Suite outward door gap (4.5mm) exceeding specification; no astragal latch guard';
+        document.getElementById('notes-02').value = 'Server Suite A double door outward swing, 4.5mm perimeter gap, no astragal latch guard.';
+        document.getElementById('ac-02').value = '4';
+        document.getElementById('pe-02').value = '2';
+        document.getElementById('c-02').value = '4';
+        document.getElementById('appetite-02').value = 'LOW';
+        document.getElementById('treatment-02').value = 'REMEDIATE';
+        updateCardRisk('02');
 
-        setStatus('03', 'Condition_Requires_Validation');
-        document.getElementById('notes-03').value = 'Unshielded Bosch DS160 REX sensor PIR lens visible through top transom margin';
+        setStatus('03', 'Hardened');
+        document.getElementById('notes-03').value = 'Reception lobby wall RJ-45 drops show zero Layer 1 link pulse (passive LED unilluminated).';
+        document.getElementById('ac-03').value = '1';
+        document.getElementById('pe-03').value = '3';
+        document.getElementById('c-03').value = '1';
+        document.getElementById('appetite-03').value = 'LOW';
+        document.getElementById('treatment-03').value = 'ACCEPT';
+        updateCardRisk('03');
 
         setStatus('04', 'Hardened');
-        document.getElementById('notes-04').value = 'Public reception lobby wall RJ-45 drops show zero Layer 1 link pulse (port shutdown verified)';
+        document.getElementById('notes-04').value = 'Port shutdown verified at switch panel.';
+        document.getElementById('ac-04').value = '1';
+        document.getElementById('pe-04').value = '3';
+        document.getElementById('c-04').value = '1';
+        document.getElementById('appetite-04').value = 'LOW';
+        document.getElementById('treatment-04').value = 'ACCEPT';
+        updateCardRisk('04');
 
         generateOutput('yaml');
       }
@@ -961,7 +1258,7 @@
 
     function generateOutput(mode) {
       const rawCaseId = document.getElementById('caseId').value.trim();
-      const caseId = rawCaseId || (currentMode === 'demo' ? 'APCAF-DEMO-001' : 'APCAF-CASE-UNSPECIFIED');
+      const caseId = rawCaseId || (currentMode === 'demo' ? 'APCAF-CASE-001' : 'APCAF-CASE-UNSPECIFIED');
       const rawAssessorId = document.getElementById('assessorId').value.trim();
       const assessorId = currentMode === 'demo' ? 'APCAF-SYNTHETIC-DEMO-RUNNER' : (rawAssessorId ? `"${rawAssessorId}"` : 'null');
       
@@ -990,42 +1287,48 @@
       if (state['01'] !== null) assessedList.push({
         id: '01',
         controlId: 'APCAF-01',
-        tacticId: t1001.tactic_id || 'PHY-TAC-02',
+        tacticId: t1001.tactic_id || 'PHY-TAC-03',
         tid: 'PHY-T1001',
         name: t1001.name || 'Credential Technology Assessment',
         status: state['01'],
         notes: notes01,
         time: t1001.target_time_seconds || 5,
         mitigation: t1001.mitigation_id || 'PHY-M1001',
-        action: t1001.mitigation_action || 'Upgrade credential stock to ISO/IEC 14443-4 smartcards with AES-128 mutual authentication and activate SAM keys on access readers.'
+        action: t1001.mitigation_action || 'Replace credential stock with MIFARE DESFire EV3 (AES-128) and update reader firmware keys.',
+        risk: calculateRiskForCard('01'),
+        treatment: document.getElementById('treatment-01').value
       });
       if (state['02'] !== null) assessedList.push({
         id: '02',
         controlId: 'APCAF-02',
-        tacticId: t1002.tactic_id || 'PHY-TAC-03',
+        tacticId: t1002.tactic_id || 'PHY-TAC-02',
         tid: 'PHY-T1002',
         name: t1002.name || 'Door & Latch Protection Assessment',
         status: state['02'],
         notes: notes02,
         time: t1002.target_time_seconds || 15,
         mitigation: t1002.mitigation_id || 'PHY-M1002',
-        action: t1002.mitigation_action || 'Install full-height continuous stainless steel security astragal plate overlapping the door frame stop on the exterior approach side.'
+        action: t1002.mitigation_action || 'Install full-height continuous stainless steel security astragal plate.',
+        risk: calculateRiskForCard('02'),
+        treatment: document.getElementById('treatment-02').value
       });
       if (state['03'] !== null) assessedList.push({
         id: '03',
-        controlId: 'APCAF-02',
-        tacticId: t1003.tactic_id || 'PHY-TAC-03',
+        controlId: 'APCAF-03',
+        tacticId: t1003.tactic_id || 'PHY-TAC-04',
         tid: 'PHY-T1003',
         name: t1003.name || 'REX Sensor Placement Assessment',
         status: state['03'],
         notes: notes03,
         time: t1003.target_time_seconds || 15,
         mitigation: t1003.mitigation_id || 'PHY-M1003',
-        action: t1003.mitigation_action || 'Mount a directional metal deflector hood over the interior REX PIR sensor and install perimeter brush sweeps on door gaps.'
+        action: t1003.mitigation_action || 'Mount directional metal deflector hood over interior REX PIR sensor.',
+        risk: calculateRiskForCard('03'),
+        treatment: document.getElementById('treatment-03').value
       });
       if (state['04'] !== null) assessedList.push({
         id: '04',
-        controlId: 'APCAF-03',
+        controlId: 'APCAF-04',
         tacticId: t1004.tactic_id || 'PHY-TAC-05',
         tid: 'PHY-T1004',
         name: t1004.name || 'Exposed Physical Network Interface Assessment',
@@ -1033,7 +1336,9 @@
         notes: notes04,
         time: t1004.target_time_seconds || 10,
         mitigation: t1004.mitigation_id || 'PHY-M1004',
-        action: t1004.mitigation_action || 'Administratively disable unassigned switch ports (shutdown), physically patch down public drops to isolated guest VLANs, and enforce IEEE 802.1X port security.'
+        action: t1004.mitigation_action || 'Administratively shut down unused common area switch ports at patch panel.',
+        risk: calculateRiskForCard('04'),
+        treatment: document.getElementById('treatment-04').value
       });
 
       if (assessedList.length === 0) {
@@ -1062,7 +1367,20 @@
     observed_spec: "${item.notes}"
     inspection_time_seconds: ${item.time}
     mitigation_ref: "${item.mitigation}"
-    remediation_action: "${item.action}"`).join('\n\n');
+    remediation_action: "${item.action}"
+    risk_context:
+      asset_criticality: "${item.risk.ac}"
+      physical_exposure: "${item.risk.pe}"
+      consequence: "${item.risk.c}"
+      calculated_score: ${item.risk.score}
+      risk_level: "${item.risk.level}"
+    risk_appetite:
+      maximum_accepted_level: "${item.risk.appetite}"
+      exceeds_appetite: ${item.risk.exceeds}
+    risk_treatment:
+      decision: "${item.treatment}"
+      rationale: "${item.status === 'Hardened' ? 'Hardware verified Hardened against direct bypass.' : 'Assessment finding processed under organizational risk treatment policy.'}"
+      residual_risk: "LOW"`).join('\n\n');
 
         const yaml = `# -----------------------------------------------------------------------------
 # APCAF CASE ASSESSMENT RECORD
@@ -1096,7 +1414,7 @@ remediation_status:
       } else {
         if (allHardened) {
           outputTitle.innerText = "QA Physical Verification Pass Summary";
-          const passItems = assessedList.map(item => `* [HARDENED] ${item.controlId} / ${item.tid} (${item.name}): Verified Hardened (${item.notes}).`).join('\n');
+          const passItems = assessedList.map(item => `* [HARDENED] ${item.controlId} / ${item.tid} (${item.name}): Verified Hardened (${item.notes}). Calculated Risk: ${item.risk.score} (${item.risk.level}).`).join('\n');
           const passDoc = `# APCAF QUALITY ASSURANCE VERIFICATION SUMMARY
 ## Status: All Evaluated Physical Controls Verified Hardened
 
@@ -1121,6 +1439,9 @@ CONCLUSION: Zero non-conformance defects identified among evaluated controls. Ph
           const defectsList = assessedList.filter(item => item.status !== 'Hardened');
           const defectItems = defectsList.map(item => `* [${item.controlId} / ${item.tid}] ${item.name} (${item.status}):
   - Observed Condition: ${item.notes}
+  - Risk Context: ${item.risk.ac} &times; ${item.risk.pe} &times; ${item.risk.c} = Score ${item.risk.score} (${item.risk.level})
+  - Appetite Status: ${item.risk.exceeds ? 'EXCEEDS APPETITE (' + item.risk.appetite + ')' : 'WITHIN APPETITE'}
+  - Treatment Decision: ${item.treatment}
   - Mitigation Standard: ${item.mitigation}
   - Remediation Action: ${item.action}`).join('\n\n');
 
@@ -1178,10 +1499,11 @@ Verification Protocol: A follow-up APCAF QA re-inspection will verify full 'Hard
     // Parse URL query parameter (e.g. ?object=door) & init
     window.addEventListener('DOMContentLoaded', () => {
       updateNetworkStatus();
-      const params = new URLSearchParams(window.location.search);
-      const objParam = params.get('object');
-      if (objParam && ['door', 'badge', 'port', 'sensor'].includes(objParam.toLowerCase())) {
-        filterObject(objParam.toLowerCase());
+      ['01', '02', '03', '04'].forEach(id => updateCardRisk(id));
+      const urlParams = new URLSearchParams(window.location.search);
+      const obj = urlParams.get('object');
+      if (obj) {
+        filterObject(obj.toLowerCase());
       }
     });
   </script>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APCAF Physical Risk Context &amp; Treatment Specification</title>
+  <meta name="description" content="Deterministic 3-axis physical security risk model evaluating Asset Criticality, Physical Exposure, and Consequence to derive defensible risk treatment decisions.">
+  
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Typography System: Inter & IBM Plex Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Precision Ambient Light Beam -->
+  <div class="hero-ambient-glow"></div>
+
+  <!-- High-End Navigation Bar -->
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a href="index.html" class="brand-link" aria-label="APCAF Home">
+        <div class="brand-icon-box">
+          <svg width="18" height="18" viewBox="0 0 64 64" fill="none">
+            <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" />
+            <path d="M32 19 V35 M26 25 H38 M28 31 H36" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+            <circle cx="32" cy="42" r="2.5" fill="#ffffff" />
+          </svg>
+        </div>
+        <span class="brand-badge">APCAF</span>
+      </a>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="repository.html">Knowledge Base</a></li>
+          <li><a href="risk.html" class="active">Risk Model</a></li>
+          <li><a href="learn.html">Learn</a></li>
+          <li><a href="tools/field-triage.html">Field Triage</a></li>
+          <li><a href="docs.html">Docs</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button type="button" class="btn-theme-toggle" onclick="cycleTheme()" aria-label="Cycle display theme (Dark, Light, System)">
+          <svg class="icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+          <span>Dark</span>
+        </button>
+        <button type="button" class="btn-nav-sow" onclick="openSowModal()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          SOW Clause
+        </button>
+        <a href="tools/field-triage.html" class="btn-nav-primary">
+          Run 45s QA
+        </a>
+        <button type="button" class="btn-mobile-menu-toggle" id="mobileMenuToggleBtn" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation Drawer -->
+      <div class="mobile-nav-drawer" id="mobileNavMenu">
+        <a href="index.html" onclick="closeMobileMenu()">Overview</a>
+        <a href="repository.html" onclick="closeMobileMenu()">Knowledge Base (Rules)</a>
+        <a href="risk.html" class="active" onclick="closeMobileMenu()">Risk Model</a>
+        <a href="learn.html" onclick="closeMobileMenu()">Learn APCAF (Field Guide)</a>
+        <a href="tools/field-triage.html" onclick="closeMobileMenu()">45s Field Triage</a>
+        <a href="docs.html" onclick="closeMobileMenu()">Technical Documentation</a>
+        <a href="about.html" onclick="closeMobileMenu()">About &amp; Governance</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container risk-page-wrap">
+    
+    <!-- Hero Block -->
+    <div class="risk-head-block">
+      <div class="spec-tagline">
+        <span class="spec-tagline-kicker">APCAF SPECIFICATION</span>
+        <span class="spec-tagline-title">PHYSICAL RISK CONTEXT &amp; TREATMENT</span>
+      </div>
+      <h1 style="font-size: clamp(2rem, 4.2vw, 3.2rem); font-weight: 800; color: var(--text-pure); margin-bottom: 12px; line-height: 1.1;">
+        Physical Risk Needs Context
+      </h1>
+      <p style="font-size: 1.05rem; color: var(--text-body); line-height: 1.6; max-width: 780px;">
+        A physical control weakness does not have the same significance everywhere. APCAF evaluates findings against <strong>Asset Criticality</strong>, <strong>Physical Exposure</strong>, and <strong>Consequence</strong> — enabling deterministic risk scoring and defensible treatment decisions without rigid checklist mandates.
+      </p>
+    </div>
+
+    <!-- Section 1: The 3-Axis Model -->
+    <section style="margin-bottom: 40px;">
+      <div class="section-head">
+        <span class="section-eyebrow">The 3-Axis Model</span>
+        <h2>Evaluating Physical Exposure &amp; Impact</h2>
+        <p>Three independent, observable physical parameters derive the calculated risk priority.</p>
+      </div>
+
+      <div class="risk-axes-grid">
+        
+        <!-- Axis 1: Asset Criticality -->
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Axis 01</div>
+          <h3>Asset Criticality (AC)</h3>
+          <p>The operational, financial, or data value of the protected zone.</p>
+          <div class="risk-level-list">
+            <div class="risk-level-item">
+              <span class="risk-level-code">AC-1</span>
+              <div class="risk-level-detail"><strong>Low:</strong> General office space, break rooms, non-sensitive storage.</div>
+            </div>
+            <div class="risk-level-item">
+              <span class="risk-level-code">AC-2</span>
+              <div class="risk-level-detail"><strong>Moderate:</strong> Staff-only areas, routine administrative workspaces.</div>
+            </div>
+            <div class="risk-level-item">
+              <span class="risk-level-code">AC-3</span>
+              <div class="risk-level-detail"><strong>High:</strong> Sensitive business ops, HR records, executive suites.</div>
+            </div>
+            <div class="risk-level-item">
+              <span class="risk-level-code">AC-4</span>
+              <div class="risk-level-detail"><strong>Critical:</strong> Server rooms, datacenters, payment enclaves (CDE), SCADA.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Axis 2: Physical Exposure -->
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Axis 02</div>
+          <h3>Physical Exposure (PE)</h3>
+          <p>The accessibility and boundary layers surrounding the control.</p>
+          <div class="risk-level-list">
+            <div class="risk-level-item">
+              <span class="risk-level-code">PE-1</span>
+              <div class="risk-level-detail"><strong>Controlled:</strong> Deep interior zone with 24/7 monitored access.</div>
+            </div>
+            <div class="risk-level-item">
+              <span class="risk-level-code">PE-2</span>
+              <div class="risk-level-detail"><strong>Restricted:</strong> Secondary interior zone behind badge barrier.</div>
+            </div>
+            <div class="risk-level-item">
+              <span class="risk-level-code">PE-3</span>
+              <div class="risk-level-detail"><strong>Accessible:</strong> Multi-tenant lobbies, elevator vestibules, corridors.</div>
+            </div>
+            <div class="risk-level-item">
+              <span class="risk-level-code">PE-4</span>
+              <div class="risk-level-detail"><strong>Public:</strong> Exterior perimeter, public street entrances, fence lines.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Axis 3: Consequence -->
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Axis 03</div>
+          <h3>Consequence (C)</h3>
+          <p>The direct impact if the physical control is successfully defeated.</p>
+          <div class="risk-level-list">
+            <div class="risk-level-item">
+              <span class="risk-level-code">C-1</span>
+              <div class="risk-level-detail"><strong>Negligible:</strong> Zero data loss or operational disruption.</div>
+            </div>
+            <div class="risk-level-item">
+              <span class="risk-level-code">C-2</span>
+              <div class="risk-level-detail"><strong>Operational:</strong> Localized delay; minor non-confidential damage.</div>
+            </div>
+            <div class="risk-level-item">
+              <span class="risk-level-code">C-3</span>
+              <div class="risk-level-detail"><strong>Security/Financial:</strong> Lateral access to sensitive records or funds.</div>
+            </div>
+            <div class="risk-level-item">
+              <span class="risk-level-code">C-4</span>
+              <div class="risk-level-detail"><strong>Catastrophic:</strong> Core infrastructure outage or life-safety breach.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 2: Interactive Deterministic Calculator -->
+    <section style="margin-bottom: 50px;">
+      <div class="section-head">
+        <span class="section-eyebrow">Interactive Engine</span>
+        <h2>Deterministic Risk Scoring Calculator</h2>
+        <p>Test combinations of Asset Criticality, Physical Exposure, Consequence, and Organizational Risk Appetite.</p>
+      </div>
+
+      <div class="risk-calc-card">
+        <div class="risk-calc-grid">
+          
+          <div class="risk-calc-field">
+            <label for="calcAC">1. Asset Criticality</label>
+            <select id="calcAC" class="risk-calc-select" onchange="recalculateRiskDemo()">
+              <option value="1">AC-1 — Low (General Office)</option>
+              <option value="2">AC-2 — Moderate (Staff Zone)</option>
+              <option value="3">AC-3 — High (Confidential / HR)</option>
+              <option value="4" selected>AC-4 — Critical (Datacenter / Core)</option>
+            </select>
+          </div>
+
+          <div class="risk-calc-field">
+            <label for="calcPE">2. Physical Exposure</label>
+            <select id="calcPE" class="risk-calc-select" onchange="recalculateRiskDemo()">
+              <option value="1">PE-1 — Controlled (Deep Enclave)</option>
+              <option value="2" selected>PE-2 — Restricted (Interior Floor)</option>
+              <option value="3">PE-3 — Accessible (Common Lobby)</option>
+              <option value="4">PE-4 — Public (Exterior Perimeter)</option>
+            </select>
+          </div>
+
+          <div class="risk-calc-field">
+            <label for="calcC">3. Consequence</label>
+            <select id="calcC" class="risk-calc-select" onchange="recalculateRiskDemo()">
+              <option value="1">C-1 — Negligible Impact</option>
+              <option value="2">C-2 — Minor Operational Impact</option>
+              <option value="3">C-3 — Security / Financial Breach</option>
+              <option value="4" selected>C-4 — Critical / Catastrophic</option>
+            </select>
+          </div>
+
+          <div class="risk-calc-field">
+            <label for="calcAppetite">4. Risk Appetite</label>
+            <select id="calcAppetite" class="risk-calc-select" onchange="recalculateRiskDemo()">
+              <option value="LOW" selected>LOW (Tolerate Score &le; 8)</option>
+              <option value="MEDIUM">MEDIUM (Tolerate Score &le; 23)</option>
+              <option value="HIGH">HIGH (Tolerate Score &le; 47)</option>
+              <option value="CRITICAL">CRITICAL (Special Testing)</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- Result Box -->
+        <div class="risk-calc-result-panel">
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 6px;">
+              Deterministic Calculation Output:
+            </div>
+            <div class="risk-score-display">
+              <div class="risk-score-number" id="calcScoreNum">32</div>
+              <div class="risk-badge risk-badge-high" id="calcRiskBadge">HIGH RISK</div>
+              <div class="appetite-alert-badge appetite-alert-exceeded" id="calcAppetiteAlert">EXCEEDS APPETITE</div>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-body); margin-top: 8px;" id="calcFormulaText">
+              Formula: 4 (AC-4) &times; 2 (PE-2) &times; 4 (C-4) = 32 (Score Domain: 1..64)
+            </div>
+          </div>
+
+          <div style="border-left: 1px solid var(--border-subtle); padding-left: 20px;">
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px;">
+              Recommended Treatment:
+            </div>
+            <div style="font-size: 1.1rem; font-weight: 800; color: var(--text-pure);" id="calcTreatmentName">
+              REMEDIATE (Priority)
+            </div>
+            <p style="font-size: 0.78rem; color: var(--text-body); margin-top: 4px; line-height: 1.45;" id="calcTreatmentRationale">
+              Calculated risk exceeds organizational appetite. Mandatory physical hardware correction required.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Three Ground-Truth Reference Scenarios -->
+    <section style="margin-bottom: 50px;">
+      <div class="section-head">
+        <span class="section-eyebrow">Defensible Benchmarks</span>
+        <h2>Three Canonical Ground-Truth Scenarios</h2>
+        <p>Identical physical hardware observation ($5\text{mm}$ frame gap on PHY-T1002) producing three distinct, defensible outcomes based on asset context.</p>
+      </div>
+
+      <div class="ground-truth-grid">
+        
+        <!-- Scenario A: Mop Closet -->
+        <div class="ground-truth-card scenario-accept">
+          <div class="scenario-tag">Scenario A • Low Impact</div>
+          <div class="scenario-title">Janitorial Mop Closet</div>
+          <div class="scenario-meta-row">
+            <span class="scenario-calc-pill">AC-1 (Low)</span>
+            <span class="scenario-calc-pill">PE-3 (Accessible)</span>
+            <span class="scenario-calc-pill">C-1 (Negligible)</span>
+          </div>
+          <div class="scenario-body">
+            <strong>Observed:</strong> 5.2mm strike clearance on outward door; latch bolt exposed; no astragal plate.<br><br>
+            <strong>Calculation:</strong> $1 \times 3 \times 1 = \mathbf{3}$ (LOW).<br>
+            <strong>Appetite:</strong> Organization tolerates Medium. Exceeds appetite: <code>false</code>.
+          </div>
+          <div class="scenario-decision-box">
+            <div class="scenario-decision-label">Defensible Decision</div>
+            <div class="scenario-decision-val" style="color: var(--status-hardened);">ACCEPT RISK</div>
+            <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 4px;">Routine replacement at standard lifecycle end.</div>
+          </div>
+        </div>
+
+        <!-- Scenario B: HR Records Room -->
+        <div class="ground-truth-card scenario-compensate">
+          <div class="scenario-tag">Scenario B • Moderate Impact</div>
+          <div class="scenario-title">HR Confidential Records</div>
+          <div class="scenario-meta-row">
+            <span class="scenario-calc-pill">AC-3 (High)</span>
+            <span class="scenario-calc-pill">PE-2 (Restricted)</span>
+            <span class="scenario-calc-pill">C-3 (Security)</span>
+          </div>
+          <div class="scenario-body">
+            <strong>Observed:</strong> 4.8mm clearance; architectural glass frame cannot receive external steel astragal.<br><br>
+            <strong>Calculation:</strong> $3 \times 2 \times 3 = \mathbf{18}$ (MEDIUM).<br>
+            <strong>Appetite:</strong> Organization specifies Low. Exceeds appetite: <code>true</code>.
+          </div>
+          <div class="scenario-decision-box">
+            <div class="scenario-decision-label">Defensible Decision</div>
+            <div class="scenario-decision-val" style="color: var(--status-warning);">COMPENSATE</div>
+            <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 4px;">Deploy validated balanced magnetic switch (BMS) + optical beam sensor.</div>
+          </div>
+        </div>
+
+        <!-- Scenario C: Primary Datacenter -->
+        <div class="ground-truth-card scenario-remediate">
+          <div class="scenario-tag">Scenario C • Critical Impact</div>
+          <div class="scenario-title">Primary Datacenter Suite</div>
+          <div class="scenario-meta-row">
+            <span class="scenario-calc-pill">AC-4 (Critical)</span>
+            <span class="scenario-calc-pill">PE-2 (Restricted)</span>
+            <span class="scenario-calc-pill">C-4 (Catastrophic)</span>
+          </div>
+          <div class="scenario-body">
+            <strong>Observed:</strong> 5.2mm strike gap on double door; unshielded latch protecting production servers.<br><br>
+            <strong>Calculation:</strong> $4 \times 2 \times 4 = \mathbf{32}$ (HIGH).<br>
+            <strong>Appetite:</strong> Organization specifies Low. Exceeds appetite: <code>true</code>.
+          </div>
+          <div class="scenario-decision-box">
+            <div class="scenario-decision-label">Defensible Decision</div>
+            <div class="scenario-decision-val" style="color: var(--status-defect);">REMEDIATE</div>
+            <div style="font-size: 0.74rem; color: var(--text-dim); margin-top: 4px;">Install full-height interlocking steel astragal. Issue warranty hold (WF-01).</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 4: The 4 Treatment Options & Validation Rules -->
+    <section style="margin-bottom: 50px;">
+      <div class="section-head">
+        <span class="section-eyebrow">Governance &amp; Treatment</span>
+        <h2>The 4 Risk Treatment Options</h2>
+        <p>Formalized paths for risk disposition, accountability, and compensating control validation.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+        
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Option 01</div>
+          <h3 style="color: var(--status-defect);">REMEDIATE</h3>
+          <p>Direct physical hardware correction to satisfy the APCAF mitigation specification (`PHY-MXXXX`).</p>
+          <ul style="font-size: 0.78rem; color: var(--text-body); padding-left: 18px; line-height: 1.5;">
+            <li>Primary path for high/critical findings exceeding risk appetite.</li>
+            <li>Expected residual risk: <strong>LOW</strong>.</li>
+            <li>Integrates with APCAF-WF-01 vendor warranty punch lists.</li>
+          </ul>
+        </div>
+
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Option 02</div>
+          <h3 style="color: var(--status-warning);">COMPENSATE</h3>
+          <p>Deploy a validated secondary control when primary physical remediation is structurally impossible.</p>
+          <ul style="font-size: 0.78rem; color: var(--text-body); padding-left: 18px; line-height: 1.5;">
+            <li><strong>Anti-Checklist Rule:</strong> CCTV does not magically compensate for a latch gap.</li>
+            <li>Must provide direct, verified barrier or immediate tamper detection.</li>
+            <li>Requires documented effectiveness validation.</li>
+          </ul>
+        </div>
+
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Option 03</div>
+          <h3 style="color: var(--status-hardened);">ACCEPT</h3>
+          <p>Designated business risk owner accepts the residual risk within documented organizational appetite.</p>
+          <ul style="font-size: 0.78rem; color: var(--text-body); padding-left: 18px; line-height: 1.5;">
+            <li>APCAF records the decision; the <strong>organization</strong> owns the acceptance.</li>
+            <li>Mandatory named Risk Owner and technical rationale.</li>
+            <li>Mandatory annual review / expiration date (&le; 365 days).</li>
+          </ul>
+        </div>
+
+        <div class="risk-axis-card">
+          <div class="scenario-tag">Option 04</div>
+          <h3 style="color: var(--text-pure);">AVOID / REMOVE</h3>
+          <p>Eliminate the physical threat surface entirely by decommissioning or re-architecting the asset.</p>
+          <ul style="font-size: 0.78rem; color: var(--text-body); padding-left: 18px; line-height: 1.5;">
+            <li>Decommission unassigned network wall drops.</li>
+            <li>Relocate sensitive servers to higher-security enclaves.</li>
+            <li>Permanently wall off redundant external pedestrian portals.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Bottom CTA Bar -->
+    <div style="background: var(--bg-surface); border: 1px solid var(--border-card); border-radius: var(--radius-md); padding: 30px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+      <div>
+        <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-pure); margin-bottom: 6px;">Ready to run a field assessment with risk context?</h3>
+        <p style="font-size: 0.88rem; color: var(--text-body); max-width: 600px;">The APCAF Field Workbench includes the live deterministic risk engine, telemetry logging, and YAML export.</p>
+      </div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="tools/field-triage.html" class="resend-btn-main">
+          Open Field Workbench →
+        </a>
+        <a href="docs/RISK_MODEL.md" class="resend-btn-ghost" target="_blank">
+          Read Full Specification (Markdown)
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="brand-icon-box" style="width: 24px; height: 24px;">
+          <svg width="14" height="14" viewBox="0 0 64 64" fill="none">
+            <path d="M32 10 L48 17 C48 31 39.5 45 32 52 C24.5 45 16 31 16 17 Z" fill="#0284c7" stroke="#38bdf8" stroke-width="3" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-dim);">
+          APCAF Base Draft v0.1.0 • Open Specification under CC BY 4.0
+        </div>
+      </div>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="index.html" style="font-size: 0.82rem; color: var(--text-body);">Overview</a>
+        <a href="repository.html" style="font-size: 0.82rem; color: var(--text-body);">Knowledge Base</a>
+        <a href="risk.html" style="font-size: 0.82rem; color: var(--text-body);">Risk Model</a>
+        <a href="learn.html" style="font-size: 0.82rem; color: var(--text-body);">Learn APCAF</a>
+        <a href="docs.html" style="font-size: 0.82rem; color: var(--text-body);">Documentation</a>
+        <a href="about.html" style="font-size: 0.82rem; color: var(--text-body);">About &amp; Governance</a>
+        <a href="https://github.com/zoecyber001/APCAF" target="_blank" rel="noopener" style="font-size: 0.82rem; color: var(--text-body);">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SOW Consent Clause Modal Sheet -->
+  <div class="modal-overlay modal-sheet-backdrop" id="sowModal">
+    <div class="modal-sheet modal-sheet-card">
+      <div class="modal-sheet-head modal-sheet-header">
+        <div>
+          <span class="chip-tag">Engagement Addendum</span>
+          <h3 style="margin-top: 6px; font-size: 1.15rem;">Audit Scope &amp; Consent Clause</h3>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closeSowModal()" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-sheet-body">
+        <p style="font-size: 0.86rem; color: var(--text-body); margin-bottom: 14px;">
+          Standard single-sentence addendum for Master Services Agreements (MSA), Statements of Work (SOW), and vendor commissioning contracts:
+        </p>
+        <div class="sow-clause-box" id="sowClauseText">"Client explicitly authorizes the assessment team to perform non-invasive physical security control evaluations, passive radio frequency (RF) credential reads, and non-intrusive physical network port link detection during the inspection to verify vendor hardware installation specifications."</div>
+        <div style="margin-top: 14px; font-size: 0.8rem; color: var(--text-dim);">
+          &bull; <strong>Strictly Non-Invasive:</strong> Zero packet transmission, zero destructive bypass tools, zero life-safety interference.<br>
+          &bull; <strong>Defensible Quality Assurance:</strong> Yields structured observations and deterministic risk context.
+        </div>
+      </div>
+      <div class="modal-sheet-actions">
+        <button type="button" class="resend-btn-main" style="width: 100%;" onclick="copySowClause()">
+          Copy SOW Clause to Clipboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    function recalculateRiskDemo() {
+      const ac = parseInt(document.getElementById('calcAC').value, 10);
+      const pe = parseInt(document.getElementById('calcPE').value, 10);
+      const c = parseInt(document.getElementById('calcC').value, 10);
+      const appetite = document.getElementById('calcAppetite').value;
+
+      const score = ac * pe * c;
+      document.getElementById('calcScoreNum').textContent = score;
+
+      let level = "LOW";
+      let badgeClass = "risk-badge-low";
+      if (score >= 48) {
+        level = "CRITICAL";
+        badgeClass = "risk-badge-critical";
+      } else if (score >= 24) {
+        level = "HIGH";
+        badgeClass = "risk-badge-high";
+      } else if (score >= 9) {
+        level = "MEDIUM";
+        badgeClass = "risk-badge-medium";
+      }
+
+      const riskBadge = document.getElementById('calcRiskBadge');
+      riskBadge.textContent = level + " RISK";
+      riskBadge.className = "risk-badge " + badgeClass;
+
+      const appetiteMap = { "LOW": 8, "MEDIUM": 23, "HIGH": 47, "CRITICAL": 64 };
+      const maxAllowed = appetiteMap[appetite] || 8;
+      const exceeds = score > maxAllowed;
+
+      const appetiteAlert = document.getElementById('calcAppetiteAlert');
+      if (exceeds) {
+        appetiteAlert.textContent = "EXCEEDS APPETITE";
+        appetiteAlert.className = "appetite-alert-badge appetite-alert-exceeded";
+      } else {
+        appetiteAlert.textContent = "WITHIN APPETITE";
+        appetiteAlert.className = "appetite-alert-badge appetite-alert-compliant";
+      }
+
+      document.getElementById('calcFormulaText').innerHTML = 
+        `Formula: ${ac} (AC-${ac}) &times; ${pe} (PE-${pe}) &times; ${c} (C-${c}) = <strong>${score}</strong> (Domain: 1..64)`;
+
+      const treatmentName = document.getElementById('calcTreatmentName');
+      const treatmentRationale = document.getElementById('calcTreatmentRationale');
+
+      if (level === "CRITICAL") {
+        treatmentName.textContent = "EMERGENCY REMEDIATE / ESCALATE";
+        treatmentName.style.color = "var(--status-defect)";
+        treatmentRationale.textContent = "Catastrophic exposure threatening critical operations. Mandatory emergency escalation, physical security hold, and executive risk sign-off.";
+      } else if (level === "HIGH") {
+        treatmentName.textContent = "REMEDIATE (Priority)";
+        treatmentName.style.color = "var(--status-defect)";
+        treatmentRationale.textContent = "Significant exposure exceeding standard tolerance. Correct physical hardware under APCAF-WF-01 vendor warranty punch list.";
+      } else if (level === "MEDIUM") {
+        if (exceeds) {
+          treatmentName.textContent = "COMPENSATE / REMEDIATE";
+          treatmentName.style.color = "var(--status-warning)";
+          treatmentRationale.textContent = "Calculated risk exceeds configured Low appetite. Deploy validated secondary control (e.g. BMS sensor) or remediate at scheduled maintenance.";
+        } else {
+          treatmentName.textContent = "COMPENSATE OR SCHEDULED REPAIR";
+          treatmentName.style.color = "var(--status-warning)";
+          treatmentRationale.textContent = "Within organizational tolerance for moderate risk. Schedule hardware adjustment or apply validated compensating factor.";
+        }
+      } else {
+        treatmentName.textContent = "ACCEPT RISK / ROUTINE MAINTENANCE";
+        treatmentName.style.color = "var(--status-hardened)";
+        treatmentRationale.textContent = "Low risk score falls squarely within organizational appetite. Document risk acceptance and review at standard annual cycle.";
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      recalculateRiskDemo();
+    });
+  </script>
+</body>
+</html>

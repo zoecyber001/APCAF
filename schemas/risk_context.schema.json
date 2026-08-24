@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "APCAF_Risk_Context_Specification",
+  "description": "Canonical schema for deterministic physical risk context, organizational risk appetite evaluation, and defensible risk treatment recording.",
+  "type": "object",
+  "required": [
+    "asset_criticality",
+    "physical_exposure",
+    "consequence",
+    "calculated_score",
+    "risk_level"
+  ],
+  "properties": {
+    "asset_criticality": {
+      "type": "string",
+      "enum": ["AC-1", "AC-2", "AC-3", "AC-4"],
+      "description": "AC-1 (Low), AC-2 (Moderate), AC-3 (High), AC-4 (Critical)"
+    },
+    "physical_exposure": {
+      "type": "string",
+      "enum": ["PE-1", "PE-2", "PE-3", "PE-4"],
+      "description": "PE-1 (Controlled), PE-2 (Restricted), PE-3 (Accessible), PE-4 (Publicly Exposed)"
+    },
+    "consequence": {
+      "type": "string",
+      "enum": ["C-1", "C-2", "C-3", "C-4"],
+      "description": "C-1 (Negligible), C-2 (Operational), C-3 (Security/Financial), C-4 (Critical/Catastrophic)"
+    },
+    "calculated_score": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 64,
+      "description": "Deterministic product: AC (1..4) * PE (1..4) * C (1..4)"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"],
+      "description": "LOW (1-8), MEDIUM (9-23), HIGH (24-47), CRITICAL (48-64)"
+    },
+    "risk_appetite": {
+      "type": "object",
+      "properties": {
+        "maximum_accepted_level": {
+          "type": "string",
+          "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+        },
+        "exceeds_appetite": {
+          "type": "boolean"
+        }
+      }
+    },
+    "risk_treatment": {
+      "type": "object",
+      "required": ["decision"],
+      "properties": {
+        "decision": {
+          "type": "string",
+          "enum": ["REMEDIATE", "COMPENSATE", "ACCEPT", "AVOID"]
+        },
+        "rationale": {
+          "type": "string"
+        },
+        "compensating_control_ref": {
+          "type": "string"
+        },
+        "compensating_control_validated": {
+          "type": "boolean"
+        },
+        "residual_risk": {
+          "type": "string",
+          "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+        },
+        "risk_owner": {
+          "type": "string"
+        },
+        "review_date": {
+          "type": "string"
+        },
+        "target_remediation_date": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

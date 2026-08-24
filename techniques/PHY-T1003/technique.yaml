@@ -1,8 +1,8 @@
 id: "PHY-T1003"
 name: "REX Sensor Placement Assessment"
 status: "base_coverage"
-tactic_id: "PHY-TAC-03"
-tactic_name: "Portal & Architectural Barrier Protection"
+tactic_id: "PHY-TAC-04"
+tactic_name: "Interior Traversal & Evasion"
 target_object: "SENSOR"
 target_time_seconds: 15
 

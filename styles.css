@@ -3324,8 +3324,344 @@ code, pre {
 }
 
 /* ==========================================================================
-   High-Fidelity Print & Assessment Report Mode
+   APCAF Risk Model, Interactive Scoring Engine & Ground-Truth Scenarios
    ========================================================================== */
+.risk-page-wrap {
+  padding-top: 110px;
+  padding-bottom: 70px;
+}
+
+.risk-head-block {
+  max-width: 840px;
+  margin-bottom: 36px;
+}
+
+.risk-axes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+@media (max-width: 900px) {
+  .risk-axes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.risk-axis-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.risk-axis-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-pure);
+}
+
+.risk-axis-card p {
+  font-size: 0.84rem;
+  color: var(--text-body);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.risk-level-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.risk-level-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--bg-app);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
+  padding: 10px 12px;
+  font-size: 0.78rem;
+}
+
+.risk-level-code {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.76rem;
+  color: var(--accent-sky);
+  white-space: nowrap;
+  background: var(--bg-surface-elevated);
+  padding: 2px 6px;
+  border-radius: 2px;
+  border: 1px solid var(--border-card);
+}
+
+.risk-level-detail {
+  color: var(--text-head);
+  line-height: 1.4;
+}
+
+/* Interactive Deterministic Risk Calculator */
+.risk-calc-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-md);
+  padding: 26px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 44px;
+}
+
+.risk-calc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+@media (max-width: 960px) {
+  .risk-calc-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .risk-calc-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.risk-calc-field label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+.risk-calc-select {
+  width: 100%;
+  background: var(--bg-app);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-sm);
+  color: var(--text-pure);
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  padding: 10px 12px;
+  min-height: 44px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 140ms ease;
+}
+
+.risk-calc-select:focus {
+  border-color: var(--accent-sky);
+}
+
+.risk-calc-result-panel {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 20px;
+  background: var(--bg-app);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .risk-calc-result-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+.risk-score-display {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.risk-score-number {
+  font-family: var(--font-mono);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text-pure);
+  line-height: 1;
+}
+
+.risk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+.risk-badge-low {
+  background: var(--status-hardened-bg);
+  border: 1px solid var(--status-hardened);
+  color: var(--status-hardened);
+}
+
+.risk-badge-medium {
+  background: var(--status-warning-bg);
+  border: 1px solid var(--status-warning);
+  color: var(--status-warning);
+}
+
+.risk-badge-high,
+.risk-badge-critical {
+  background: var(--status-defect-bg);
+  border: 1px solid var(--status-defect);
+  color: var(--status-defect);
+}
+
+.appetite-alert-badge {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+.appetite-alert-exceeded {
+  background: #fef2f2;
+  border: 1px solid #dc2626;
+  color: #b91c1c;
+}
+
+[data-theme="dark"] .appetite-alert-exceeded {
+  background: rgba(239, 68, 68, 0.16);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #f87171;
+}
+
+.appetite-alert-compliant {
+  background: #f0fdf4;
+  border: 1px solid #16a34a;
+  color: #15803d;
+}
+
+[data-theme="dark"] .appetite-alert-compliant {
+  background: rgba(34, 197, 94, 0.16);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #4ade80;
+}
+
+/* Ground-Truth Scenarios Deck */
+.ground-truth-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 960px) {
+  .ground-truth-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ground-truth-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.ground-truth-card.scenario-accept {
+  border-top: 3px solid var(--status-hardened);
+}
+
+.ground-truth-card.scenario-compensate {
+  border-top: 3px solid var(--status-warning);
+}
+
+.ground-truth-card.scenario-remediate {
+  border-top: 3px solid var(--status-defect);
+}
+
+.scenario-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.scenario-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-pure);
+  margin-bottom: 8px;
+}
+
+.scenario-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.scenario-calc-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  background: var(--bg-app);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 6px;
+  border-radius: 2px;
+  color: var(--text-head);
+}
+
+.scenario-body {
+  font-size: 0.84rem;
+  color: var(--text-body);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.scenario-decision-box {
+  margin-top: auto;
+  padding: 12px;
+  background: var(--bg-app);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-xs);
+}
+
+.scenario-decision-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.scenario-decision-val {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-pure);
+}
 @media print {
   *, *::before, *::after {
     background: transparent !important;

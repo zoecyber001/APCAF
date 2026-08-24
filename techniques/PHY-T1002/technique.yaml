@@ -1,8 +1,8 @@
 id: "PHY-T1002"
 name: "Door & Latch Protection Assessment"
 status: "base_coverage"
-tactic_id: "PHY-TAC-03"
-tactic_name: "Portal & Architectural Barrier Protection"
+tactic_id: "PHY-TAC-02"
+tactic_name: "Perimeter & Ingress"
 target_object: "DOOR"
 target_time_seconds: 15
 
