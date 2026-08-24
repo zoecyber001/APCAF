@@ -188,13 +188,13 @@ To demonstrate the deterministic, defensible nature of the APCAF Risk Model, thr
 ---
 
 ### Scenario A: Janitorial Mop Closet Door Weakness
-* **Observation:** Outward door operating clearance measured at $5.2\text{mm}$ (exceeds $3.2\text{mm}$ tolerance); latch bolt visible; zero astragal guard.
+* **Observation:** Outward door operating clearance measured at $5.2\text{mm}$ (exceeds standard assembly tolerance); latch bolt visible; zero astragal guard.
 * **Technique:** `PHY-T1002` (Door & Latch Protection Assessment)
 * **Technical Disposition:** `Deficient`
 * **Risk Context:**
-  * **Asset Criticality:** `AC-1` (Low — contains routine cleaning supplies)
-  * **Physical Exposure:** `PE-3` (Accessible — located in shared office floor corridor)
-  * **Consequence:** `C-1` (Negligible — zero sensitive data or operational impact)
+  * **Asset Criticality:** `AC-1` (Low: contains routine cleaning supplies)
+  * **Physical Exposure:** `PE-3` (Accessible: located in shared office floor corridor)
+  * **Consequence:** `C-1` (Negligible: zero sensitive data or operational impact)
 * **Deterministic Calculation:**
   $$\text{Score} = 1 \times 3 \times 1 = 3 \implies \mathbf{LOW}$$
 * **Organizational Risk Appetite:** `MEDIUM`
@@ -209,9 +209,9 @@ To demonstrate the deterministic, defensible nature of the APCAF Risk Model, thr
 * **Technique:** `PHY-T1002` (Door & Latch Protection Assessment)
 * **Technical Disposition:** `Deficient`
 * **Risk Context:**
-  * **Asset Criticality:** `AC-3` (High — physical employee records and confidential PII files)
-  * **Physical Exposure:** `PE-2` (Restricted — interior staff-only corridor)
-  * **Consequence:** `C-3` (Security / Financial — regulatory PII exposure breach)
+  * **Asset Criticality:** `AC-3` (High: physical employee records and confidential PII files)
+  * **Physical Exposure:** `PE-2` (Restricted: interior staff-only corridor)
+  * **Consequence:** `C-3` (Security / Financial: regulatory PII exposure breach)
 * **Deterministic Calculation:**
   $$\text{Score} = 3 \times 2 \times 3 = 18 \implies \mathbf{MEDIUM}$$
 * **Organizational Risk Appetite:** `LOW`
@@ -227,9 +227,9 @@ To demonstrate the deterministic, defensible nature of the APCAF Risk Model, thr
 * **Technique:** `PHY-T1002` (Door & Latch Protection Assessment)
 * **Technical Disposition:** `Deficient`
 * **Risk Context:**
-  * **Asset Criticality:** `AC-4` (Critical — primary core datacenter, hosting client production servers and HSMs)
-  * **Physical Exposure:** `PE-2` (Restricted — second-floor colocation corridor)
-  * **Consequence:** `C-4` (Critical / Catastrophic — direct physical access to unencrypted storage and core hypervisors)
+  * **Asset Criticality:** `AC-4` (Critical: primary core datacenter, hosting client production servers and HSMs)
+  * **Physical Exposure:** `PE-2` (Restricted: second-floor colocation corridor)
+  * **Consequence:** `C-4` (Critical / Catastrophic: direct physical access to unencrypted storage and core hypervisors)
 * **Deterministic Calculation:**
   $$\text{Score} = 4 \times 2 \times 4 = 32 \implies \mathbf{HIGH}$$
 * **Organizational Risk Appetite:** `LOW`

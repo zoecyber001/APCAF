@@ -7,31 +7,32 @@
     "tactic_name": "Credential & Access Bypass",
     "target_object": "BADGE",
     "target_time_seconds": 5,
-    "hypothesis": "Static, unauthenticated credential identifiers may permit credential replay or cloning where the access-control architecture does not provide cryptographic mutual authentication.",
-    "assessment_condition": "Does the electronic credential broadcast a static unencrypted identifier (such as 125 kHz Prox or unauthenticated CSN) without cryptographic challenge-response validation?",
+    "hypothesis": "Physical credentials broadcasting static, unauthenticated identifiers may permit harvest, replay, or cloning where the access-control architecture does not enforce cryptographic challenge-response mutual authentication.",
+    "assessment_condition": "Does the electronic credential broadcast a static, unencrypted identifier upon interrogation, and does the access-control architecture enforce cryptographic mutual authentication to prevent credential replay?",
     "assessment_procedure": {
       "method": "passive_rf_interrogation",
       "tools_required": [
-        "Pocket dual-frequency RFID/NFC reader"
+        "Pocket dual-frequency RFID/NFC interrogation tool"
       ],
       "steps": [
-        "Hold sample authorized credential in proximity to the test reader.",
-        "Identify operating carrier frequency (125 kHz Low Frequency vs. 13.56 MHz High Frequency).",
-        "Identify observable credential technology and determine whether the credential exposes a static identifier. Reader-side cryptographic enforcement requires configuration evidence or authorized administrative verification."
+        "Step 1 (Technology Identification): Interrogate sample credential to identify operating carrier frequency (125 kHz Low Frequency vs. 13.56 MHz High Frequency) and chip protocol standard.",
+        "Step 2 (Authentication Mechanism): Determine whether the credential broadcasts a static identifier (UID/CSN) without requiring a cryptographic handshake.",
+        "Step 3 (Behavioral Assessment): Distinguish static identifier broadcast from dynamic session-based cryptographic challenge-response protocols.",
+        "Step 4 (Verification Boundary): Record whether reader-side cryptographic key enforcement (SAM configuration, AES mutual auth) requires administrative configuration audit."
       ]
     },
     "evidence_requirements": {
       "data_type": "device_read",
       "acceptable_formats": [
-        "RFID reader frequency & protocol log",
-        "Credential model identifier"
+        "RFID carrier frequency & protocol capture log",
+        "Credential chip protocol and identifier broadcast profile"
       ],
-      "validation_criteria": "Documented carrier frequency and whether credential protocol implements cryptographic challenge-response authentication. Reader-side SAM configuration verified via administrative evidence."
+      "validation_criteria": "Documented carrier frequency, protocol standard, static broadcast status, and confirmation of whether reader-side cryptographic challenge-response is enforced."
     },
     "result_model": {
-      "hardened_criteria": "Credential implements mutual cryptographic authentication (AES-128 / DESFire EV2/EV3 / Seos / PIV smartcard).",
-      "deficient_criteria": "Credential relies on unencrypted 125 kHz Prox (HID Prox, EM4100) or static 13.56 MHz CSN without mutual authentication.",
-      "condition_requires_validation_criteria": "High-frequency smartcard observed; reader-side SAM cryptographic validation requires administrative policy audit."
+      "hardened_criteria": "Credential architecture implements mutual cryptographic challenge-response authentication with verified reader-side key enforcement.",
+      "deficient_criteria": "Credential relies on unencrypted static identifier broadcast (125 kHz Prox, EM4100, or unauthenticated 13.56 MHz CSN) susceptible to passive harvest and replay.",
+      "condition_requires_validation_criteria": "High-frequency smartcard observed; reader-side cryptographic challenge-response, SAM configuration, and anti-downgrade policies require administrative verification."
     },
     "limitations": {
       "can_establish": [
@@ -80,7 +81,7 @@
     "target_object": "DOOR",
     "target_time_seconds": 15,
     "hypothesis": "Door and frame geometry may permit mechanical manipulation of the latch bolt assembly where protective physical shielding is absent and strike clearances exceed engineering tolerances.",
-    "assessment_condition": "Does the outward-opening door assembly exhibit strike margin clearance exceeding 3.2mm (1/8 in.) with direct line-of-sight to the latch bolt and zero overlapping protective steel astragal guard, where applicable standards or specifications mandate tight margins or shielding?",
+    "assessment_condition": "Does the outward-opening door assembly exhibit strike margin clearance exceeding the applicable assembly requirement (or engineering tolerance) with direct line-of-sight to the latch bolt and zero overlapping protective steel astragal guard?",
     "assessment_procedure": {
       "method": "visual_and_feeler_gauge",
       "tools_required": [
@@ -90,7 +91,7 @@
       "steps": [
         "Inspect door swing direction (inward vs. outward opening).",
         "Measure frame strike gap at latch level using feeler gauge.",
-        "Where the assessed opening is within the applicable NFPA 80 or ANSI/SDI scope, compare measured strike clearance against applicable assembly requirements.",
+        "Compare measured strike clearance against applicable architectural assembly specifications or edition-specific standards (e.g., NFPA 80 / ANSI SDI where applicable).",
         "Check for presence and full coverage of continuous stainless steel security astragal plate."
       ]
     },
@@ -100,12 +101,12 @@
         "Measured gap dimension in millimeters (mm)",
         "Photo of frame margin with gauge"
       ],
-      "validation_criteria": "Where the assessed opening is within the applicable NFPA 80 scope, compare measured clearance against the applicable edition and assembly requirements."
+      "validation_criteria": "Documented strike clearance dimension compared against the governing architectural or fire-rated assembly specification."
     },
     "result_model": {
       "hardened_criteria": "Outward door fitted with continuous full-height steel astragal overlapping jamb; latch bolt fully shielded from direct mechanical access.",
-      "deficient_criteria": "Exposed latch bolt with perimeter strike gap exceeding applicable specification (e.g. 3.2mm / 1/8 in.) and no exterior astragal plate.",
-      "condition_requires_validation_criteria": "Perimeter gap exceeds 3.2mm on non-rated assembly where deadlocking auxiliary latch engagement requires physical verification."
+      "deficient_criteria": "Exposed latch bolt with perimeter strike clearance exceeding the applicable assembly tolerance and zero exterior protective astragal plate.",
+      "condition_requires_validation_criteria": "Perimeter gap exceeds standard tolerance on non-rated assembly where deadlocking auxiliary latch engagement requires physical verification."
     },
     "limitations": {
       "can_establish": [

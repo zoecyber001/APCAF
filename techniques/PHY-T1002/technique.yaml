@@ -8,7 +8,7 @@ target_time_seconds: 15
 
 hypothesis: "Door and frame geometry may permit mechanical manipulation of the latch bolt assembly where protective physical shielding is absent and strike clearances exceed engineering tolerances."
 
-assessment_condition: "Does the outward-opening door assembly exhibit strike margin clearance exceeding 3.2mm (1/8 in.) with direct line-of-sight to the latch bolt and zero overlapping protective steel astragal guard, where applicable standards or specifications mandate tight margins or shielding?"
+assessment_condition: "Does the outward-opening door assembly exhibit strike margin clearance exceeding the applicable assembly requirement (or engineering tolerance) with direct line-of-sight to the latch bolt and zero overlapping protective steel astragal guard?"
 
 assessment_procedure:
   method: "visual_and_feeler_gauge"
@@ -18,7 +18,7 @@ assessment_procedure:
   steps:
     - "Inspect door swing direction (inward vs. outward opening)."
     - "Measure frame strike gap at latch level using feeler gauge."
-    - "Where the assessed opening is within the applicable NFPA 80 or ANSI/SDI scope, compare measured strike clearance against applicable assembly requirements."
+    - "Compare measured strike clearance against applicable architectural assembly specifications or edition-specific standards (e.g., NFPA 80 / ANSI SDI where applicable)."
     - "Check for presence and full coverage of continuous stainless steel security astragal plate."
 
 evidence_requirements:
@@ -26,12 +26,12 @@ evidence_requirements:
   acceptable_formats:
     - "Measured gap dimension in millimeters (mm)"
     - "Photo of frame margin with gauge"
-  validation_criteria: "Where the assessed opening is within the applicable NFPA 80 scope, compare measured clearance against the applicable edition and assembly requirements."
+  validation_criteria: "Documented strike clearance dimension compared against the governing architectural or fire-rated assembly specification."
 
 result_model:
   hardened_criteria: "Outward door fitted with continuous full-height steel astragal overlapping jamb; latch bolt fully shielded from direct mechanical access."
-  deficient_criteria: "Exposed latch bolt with perimeter strike gap exceeding applicable specification (e.g. 3.2mm / 1/8 in.) and no exterior astragal plate."
-  condition_requires_validation_criteria: "Perimeter gap exceeds 3.2mm on non-rated assembly where deadlocking auxiliary latch engagement requires physical verification."
+  deficient_criteria: "Exposed latch bolt with perimeter strike clearance exceeding the applicable assembly tolerance and zero exterior protective astragal plate."
+  condition_requires_validation_criteria: "Perimeter gap exceeds standard tolerance on non-rated assembly where deadlocking auxiliary latch engagement requires physical verification."
 
 limitations:
   can_establish:

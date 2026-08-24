@@ -96,7 +96,7 @@
         Physical Risk Needs Context
       </h1>
       <p style="font-size: 1.05rem; color: var(--text-body); line-height: 1.6; max-width: 780px;">
-        A physical control weakness does not have the same significance everywhere. APCAF evaluates findings against <strong>Asset Criticality</strong>, <strong>Physical Exposure</strong>, and <strong>Consequence</strong> — enabling deterministic risk scoring and defensible treatment decisions without rigid checklist mandates.
+        A physical control weakness does not have the same significance everywhere. APCAF evaluates findings against <strong>Asset Criticality</strong>, <strong>Physical Exposure</strong>, and <strong>Consequence</strong>, enabling deterministic risk scoring and defensible treatment decisions without rigid checklist mandates.
       </p>
     </div>
 
@@ -202,30 +202,30 @@
           <div class="risk-calc-field">
             <label for="calcAC">1. Asset Criticality</label>
             <select id="calcAC" class="risk-calc-select" onchange="recalculateRiskDemo()">
-              <option value="1">AC-1 — Low (General Office)</option>
-              <option value="2">AC-2 — Moderate (Staff Zone)</option>
-              <option value="3">AC-3 — High (Confidential / HR)</option>
-              <option value="4" selected>AC-4 — Critical (Datacenter / Core)</option>
+              <option value="1">AC-1: Low (General Office)</option>
+              <option value="2">AC-2: Moderate (Staff Zone)</option>
+              <option value="3">AC-3: High (Confidential / HR)</option>
+              <option value="4" selected>AC-4: Critical (Datacenter / Core)</option>
             </select>
           </div>
 
           <div class="risk-calc-field">
             <label for="calcPE">2. Physical Exposure</label>
             <select id="calcPE" class="risk-calc-select" onchange="recalculateRiskDemo()">
-              <option value="1">PE-1 — Controlled (Deep Enclave)</option>
-              <option value="2" selected>PE-2 — Restricted (Interior Floor)</option>
-              <option value="3">PE-3 — Accessible (Common Lobby)</option>
-              <option value="4">PE-4 — Public (Exterior Perimeter)</option>
+              <option value="1">PE-1: Controlled (Deep Enclave)</option>
+              <option value="2" selected>PE-2: Restricted (Interior Floor)</option>
+              <option value="3">PE-3: Accessible (Common Lobby)</option>
+              <option value="4">PE-4: Public (Exterior Perimeter)</option>
             </select>
           </div>
 
           <div class="risk-calc-field">
             <label for="calcC">3. Consequence</label>
             <select id="calcC" class="risk-calc-select" onchange="recalculateRiskDemo()">
-              <option value="1">C-1 — Negligible Impact</option>
-              <option value="2">C-2 — Minor Operational Impact</option>
-              <option value="3">C-3 — Security / Financial Breach</option>
-              <option value="4" selected>C-4 — Critical / Catastrophic</option>
+              <option value="1">C-1: Negligible Impact</option>
+              <option value="2">C-2: Minor Operational Impact</option>
+              <option value="3">C-3: Security / Financial Breach</option>
+              <option value="4" selected>C-4: Critical / Catastrophic</option>
             </select>
           </div>
 
